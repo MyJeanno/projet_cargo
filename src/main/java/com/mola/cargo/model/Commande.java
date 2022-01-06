@@ -31,11 +31,6 @@ public class Commande {
     private Long paiementid;
 
     @ManyToOne
-    @JoinColumn(name = "colisid", insertable = false, updatable = false)
-    private Colis colis;
-    private Long colisid;
-
-    @ManyToOne
     @JoinColumn(name = "emetteurid", insertable = false, updatable = false)
     private Emetteur emetteur;
     private Long emetteurid;

@@ -25,6 +25,7 @@ public class Personne {
     private String contactPersonne;
     @Column(name = "email_personne")
     private String emailPersonne;
+    private String situation;
 
 
 }

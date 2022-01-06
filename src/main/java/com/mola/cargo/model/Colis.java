@@ -24,4 +24,9 @@ public class Colis {
     private CargoType cargoType;
     private Long cargotypeid;
 
+    @ManyToOne
+    @JoinColumn(name = "commandeid", insertable = false, updatable = false)
+    private Commande commande;
+    private Long commandeid;
+
 }
