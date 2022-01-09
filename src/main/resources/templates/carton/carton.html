@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Paramétrage des prix selon le type de carton et la région</small></h3>
+            <h3><small>Liste des cartons en vente</small></h3>
         </div>
         <div class="title_right">
             <div class="col-md-2 col-sm-2 pull-right">
@@ -46,21 +46,23 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Type carton</th>
-                                    <th>Pays de réception</th>
-                                    <th>Prix du transport</th>
+                                    <th>Type de carton</th>
+                                    <th>Mesure</th>
+                                    <th>Prix</th>
+                                    <th>Poids</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="cargoType:${cargoTypes}">
-                                    <td th:text="${cargoType.id}"></td>
-                                    <td th:text="${cargoType.typeCarton}"></td>
-                                    <td th:text="${cargoType.region}"></td>
-                                    <td th:text="${cargoType.prix}"></td>
+                                <tr th:each="carton:${cartons}">
+                                    <td th:text="${carton.id}"></td>
+                                    <td th:text="${carton.libelleCarton}"></td>
+                                    <td th:text="${carton.mesure}"></td>
+                                    <td th:text="${carton.prixCarton}"></td>
+                                    <td th:text="${carton.poidAutorise}"></td>
                                     <td>
-                                        <a class="btn btn-round btn-sm btn-info" th:href="@{cargoType/formUpdate/{id}(id=${cargoType.id})}"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{cargoType/delete/(id=${cargoType.id})}"><i class="fa fa-trash"></i></a>
+                                        <a class="btn btn-round btn-sm btn-info" th:href="@{carton/formUpdate/{id}(id=${carton.id})}"><i class="fa fa-edit"></i></a>
+                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{carton/delete/(id=${carton.id})}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -78,27 +80,33 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Nouveau paramétrage</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Nouveau carton</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{cargoType/nouveau}" method="post" class="forms-sample">
+                    <form th:action="@{carton/nouveau}" method="post" class="forms-sample">
                         <div class="form-group row">
-                            <label for="typeC" class="col-sm-3 col-form-label">Type de carton</label>
+                            <label for="lib" class="col-sm-3 col-form-label">Type de carton</label>
                             <div class="col-sm-9">
-                                <input type="text" name="typeCarton" class="form-control border-info" id="typeC">
+                                <input type="text" name="libelle" class="form-control border-info" id="lib">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="pays" class="col-sm-3 col-form-label">Pays</label>
+                            <label for="mes" class="col-sm-3 col-form-label">Mesure</label>
                             <div class="col-sm-9">
-                                <input type="text" name="pays" class="form-control border-info" id="pays">
+                                <input type="text" name="mesure" class="form-control border-info" id="mes">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="prix" class="col-sm-3 col-form-label">Prix</label>
+                            <label for="p" class="col-sm-3 col-form-label">Prix du carton</label>
                             <div class="col-sm-9">
-                                <input type="text" name="prix" class="form-control border-info" id="prix">
+                                <input type="text" name="prix" class="form-control border-info" id="p">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="poid" class="col-sm-3 col-form-label">Poids autorisé</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="poids" class="form-control border-info" id="poid">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mr-2 pull-right">Enregistrer</button>

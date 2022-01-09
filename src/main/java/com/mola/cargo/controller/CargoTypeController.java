@@ -22,12 +22,12 @@ public class CargoTypeController {
     }
 
     @PostMapping("cargoType/nouveau")
-    public String enregistrerCargoType(@RequestParam String pays,
-                                       @RequestParam String typeCarton,
+    public String enregistrerCargoType(@RequestParam String typeCarton,
+                                       @RequestParam String pays,
                                        @RequestParam double prix){
         CargoType cargoType = new CargoType();
+        cargoType.setTypeCarton(typeCarton);
         cargoType.setRegion(pays);
-        cargoType.setLibelleType(typeCarton);
         cargoType.setPrix(prix);
         cargoTypeService.saveCargoType(cargoType);
         return "redirect:/cargoTypes";

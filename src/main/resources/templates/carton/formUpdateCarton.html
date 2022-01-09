@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Mise à jour du paramétrage des prix</small></h3>
+            <h3><small>Mise à jour d'un carton</small></h3>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -33,7 +33,7 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/cargoType/update}" method="POST" th:object="${unCargo}" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/carton/update}" method="POST" th:object="${unCarton}" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 ">
                             <input type="hidden" th:field="*{id}" required="required" class="form-control ">
@@ -43,26 +43,33 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Type de carton <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{typeCarton}" required="required" class="form-control ">
+                            <input type="text" th:field="*{libelleCarton}" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Pays <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Mesure <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{region}" required="required" class="form-control ">
+                            <input type="text" th:field="*{mesure}" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Prix <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Prix du carton <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{prix}" required="required" class="form-control ">
+                            <input type="text" th:field="*{prixCarton}" required="required" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Poids autorisé <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" th:field="*{poidAutorise}" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a th:href="@{/cargoTypes}" class="btn btn-secondary" type="button">Retour</a>
+                            <a th:href="@{/cartons}" class="btn btn-secondary" type="button">Retour</a>
                             <button type="submit" class="btn btn-success">Modifier</button>
                         </div>
                     </div>

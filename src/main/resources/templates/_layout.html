@@ -64,15 +64,16 @@
                     <ul class="nav child_menu">
                       <li><a th:href="@{/pieces}">Ajouter une pièce</a></li>
                       <li><a th:href="@{/paiements}">Ajouter un mode de paiement</a></li>
-                      <li><a th:href="@{/cargoTypes}">Type de cargo</a></li>
-                      <li><a href="contacts.html">Contacts</a></li>
-                      <li><a href="profile.html">Profile</a></li>
+                      <li><a th:href="@{/cargoTypes}">Paramétrage du prix</a></li>
+                      <li><a th:href="@{/cartons}">Ajouter un carton</a></li>
+                      <li><a th:href="@{/pays}">Enregistrer un pays</a></li>
+                      <li><a th:href="@{/augmentations}">Paramétrer une augmentation</a></li>
                     </ul>
                   </li>
 
                   <li><a><i class="fa fa-send"></i>Gestion des envois de colis <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">Enregistrer un envoi</a></li>
+                      <li><a th:href="@{emetteur/formEmetteur}">Enregistrer un envoi</a></li>
                       <li><a href="projects.html">Projects</a></li>
                       <li><a href="project_detail.html">Project Detail</a></li>
                       <li><a href="contacts.html">Contacts</a></li>

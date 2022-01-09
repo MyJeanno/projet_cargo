@@ -10,13 +10,12 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CargoType {
+public class Pays {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "type_carton")
-    private String typeCarton;
-    private String region;
-    private double prix;
+    @Column(name = "libelle_pays")
+    private String libellePays;
+    private String livraison;
 }
