@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -16,5 +15,11 @@ public class Recepteur extends Personne{
     private String rue;
     @Column(name = "code_postal")
     private int codePostal;
-    private String paysRecepteur;
+    @Transient
+    private final String SITUATION_RECEPTEUR="En cours";
+
+    @ManyToOne
+    @JoinColumn(name = "paysid", insertable = false, updatable = false)
+    private Pays pays;
+    private Long paysid;
 }

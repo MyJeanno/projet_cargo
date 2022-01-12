@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Enregistrer les informations sur le destinataire du colis</small></h3>
+            <h3><small>Ajouter des colis à une commande</small></h3>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -33,30 +33,49 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/recepteur/nouveau}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{colis/nouveau}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Nom <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Code PIN de la commande concerné <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="nomPersonne" required="required" class="form-control ">
+                            <input type="text" name="commandeid" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Prénoms <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Libellé colis<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="prenomPersonne" required="required" class="form-control ">
+                            <input type="text" name="libelleColis" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Ville <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Poids du colis<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="villePersonne" required="required" class="form-control ">
+                            <input type="text" name="poids" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="ccol-form-label col-md-3 col-sm-3 label-align">Pays de résidence</label>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Quantité<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" name="libelleColis" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="ccol-form-label col-md-3 col-sm-3 label-align">Type de carton</label>
+                        <div class="col-md-6 col-sm-6">
+                            <select name="cartonid" class="form-control border-info">
+                                <option>--Choisir un carton--</option>
+                                <option th:each="carton:${cartons}"
+                                        th:value="${carton.id}"
+                                        th:text="${carton.libelleCarton}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="ccol-form-label col-md-3 col-sm-3 label-align">Pays de destination</label>
                         <div class="col-md-6 col-sm-6">
                             <select name="paysid" class="form-control border-info">
                                 <option>--Choisir un pays--</option>
@@ -68,36 +87,16 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Rue <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Prix du colis<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="rue" required="required" class="form-control ">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Code postal <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="codePostal" required="required" class="form-control ">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Contact <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="contactPersonne" required="required" class="form-control ">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Email <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="emailPersonne" required="required" class="form-control ">
+                            <input type="text" name="prixColis" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
                             <button type="submit" class="btn btn-success">Enregistrer</button>
+                            <a href="" class="btn btn-info">Générer facture</a>
                         </div>
                     </div>
                 </form>

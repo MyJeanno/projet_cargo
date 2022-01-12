@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 @Data
@@ -13,5 +14,7 @@ import javax.persistence.Entity;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Emetteur extends Personne {
     private String adresseEmetteur;
+    @Transient
+    private final String SITUATION_EMETTEUR="En cours";
 
 }

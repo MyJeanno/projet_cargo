@@ -17,16 +17,25 @@ public class Colis {
     private Long id;
     @Column(name = "libelle_collis")
     private String libelleColis;
+    @Column(nullable = true)
     private int quantite;
-
-    @ManyToOne
-    @JoinColumn(name = "cargotypeid", insertable = false, updatable = false)
-    private CargoType cargoType;
-    private Long cargotypeid;
+    @Column(name = "prix_colis")
+    private double prixColis;
+    private double poids;
 
     @ManyToOne
     @JoinColumn(name = "commandeid", insertable = false, updatable = false)
     private Commande commande;
     private Long commandeid;
+
+    @ManyToOne
+    @JoinColumn(name = "paysid", insertable = false, updatable = false)
+    private Pays pays;
+    private Long paysid;
+
+    @ManyToOne
+    @JoinColumn(name = "cartonid", insertable = false, updatable = false)
+    private Carton carton;
+    private Long cartonid;
 
 }
