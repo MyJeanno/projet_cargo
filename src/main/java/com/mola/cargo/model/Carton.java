@@ -21,4 +21,6 @@ public class Carton {
     private double prixCarton;
     @Column(name = "poid_autorise")
     private double poidAutorise;
+    @Column(name = "qte_stock")
+    private int qteStock;
 }

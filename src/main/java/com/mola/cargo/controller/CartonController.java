@@ -30,6 +30,7 @@ public class CartonController {
         carton.setMesure(mesure);
         carton.setPrixCarton(prix);
         carton.setPoidAutorise(poids);
+        carton.setQteStock(0);
         cartonService.saveCarton(carton);
         return "redirect:/cartons";
     }
