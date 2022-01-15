@@ -21,8 +21,6 @@ public class Commande {
     @Column(name = "date_envoi")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateEnvoi;
-    @Column(name = "nb_colis")
-    private int nbColis;
 
     @ManyToOne
     @JoinColumn(name = "pieceid", insertable = false, updatable = false)
