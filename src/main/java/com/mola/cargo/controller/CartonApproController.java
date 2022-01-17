@@ -1,5 +1,6 @@
 package com.mola.cargo.controller;
 
+import com.mola.cargo.model.Carton;
 import com.mola.cargo.model.CartonAppro;
 import com.mola.cargo.service.CartonApproService;
 import com.mola.cargo.service.CartonService;
@@ -38,25 +39,37 @@ public class CartonApproController {
         cartonAppro.setDateAppro(d);
         cartonAppro.setQteAppro(qte);
         cartonApproService.saveCartonAppro(cartonAppro);
-        cartonService.updateStockCarton(cartonid, qte);
+        cartonService.updateAddStockCarton(cartonid, qte);
        return "redirect:/cartonAppros";
     }
 
     @GetMapping("/cartonAppro/update/{id}")
     public String showFormUpdate(@PathVariable("id") Long id, Model model){
         model.addAttribute("unAppro", cartonApproService.findOneCartonAppro(id));
+        model.addAttribute("cartons", cartonService.showCarton());
         return "carton/formUpdateAppro";
     }
 
     @PostMapping("/cartonAppro/update")
-    public String updateCartonAppro(@ModelAttribute("cartonAppro") CartonAppro cartonAppro) {
+    public String updateCartonAppro(@ModelAttribute("cartonAppro") CartonAppro cartonAppro,
+                                    @RequestParam String qtebdd,
+                                    @RequestParam String cartonidbdd
+                                    ) {
+        int qteDiff = cartonAppro.getQteAppro()-Integer.parseInt(qtebdd);
         cartonApproService.saveCartonAppro(cartonAppro);
+        if (cartonAppro.getCartonid()==Long.parseLong(cartonidbdd)){
+            cartonService.updateAddStockCarton(cartonAppro.getCartonid(),qteDiff);
+        }else{
+            cartonService.updateMoinsStockCarton(Long.parseLong(cartonidbdd),Integer.parseInt(qtebdd));
+            cartonService.updateAddStockCarton(cartonAppro.getCartonid(),cartonAppro.getQteAppro());
+        }
         return "redirect:/cartonAppros";
     }
 
     @GetMapping("cartonAppro/delete")
-    public String supprimerCartonAppro(Long id){
+    public String supprimerCartonAppro(Long id, Long idca, int qte){
         cartonApproService.deleteCartonAppro(id);
+        cartonService.updateMoinsStockCarton(idca, qte);
         return "redirect:/cartonAppros";
     }
 }

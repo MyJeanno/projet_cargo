@@ -19,8 +19,12 @@ public class CartonService {
         return cartonRepository.findAll();
     }
 
-    public void updateStockCarton(Long id, int qte){
-        cartonRepository.updateCartonSetQteStockForId(id, qte);
+    public void updateAddStockCarton(Long id, int qte){
+        cartonRepository.updateCartonAddQteStock(id, qte);
+    }
+
+    public void updateMoinsStockCarton(Long id, int qte){
+        cartonRepository.updateCartonRemoveQteStock(id, qte);
     }
 
     public void saveCarton(Carton carton){

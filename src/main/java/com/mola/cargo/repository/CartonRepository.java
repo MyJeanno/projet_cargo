@@ -15,5 +15,11 @@ public interface CartonRepository extends JpaRepository<Carton, Long> {
     @Modifying
     //@Query(value = "update carton set qte_stock=qte_stock + (:qte) WHERE id = :idCa", nativeQuery = true)
     @Query("update Carton c SET c.qteStock = c.qteStock + :qte WHERE c.id = :id")
-    void updateCartonSetQteStockForId(@Param("id") Long id, @Param("qte") int qteStock);
+    void updateCartonAddQteStock(@Param("id") Long id, @Param("qte") int qteStock);
+
+    @Transactional
+    @Modifying
+    @Query("update Carton c SET c.qteStock = c.qteStock - :qte WHERE c.id = :id")
+    void updateCartonRemoveQteStock(@Param("id") Long id, @Param("qte") int qteStock);
+
 }

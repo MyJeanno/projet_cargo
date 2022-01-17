@@ -40,10 +40,25 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Type de carton <span class="required">*</span>
-                        </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{cartonid}" required="required" class="form-control ">
+                            <input type="hidden" name="qtebdd" th:value="${unAppro.qteAppro}" required="required" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="hidden" name="cartonidbdd" th:value="${unAppro.cartonid}" required="required" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Type de carton</label>
+                        <div class="col-md-6 col-sm-6">
+                            <select th:field="*{cartonid}" class="form-control border-info">
+                                <option value="">--Choisir un carton--</option>
+                                <option th:each="carton:${cartons}"
+                                        th:value="${carton.id}"
+                                        th:utext="${carton.libelleCarton}">
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="item form-group">
@@ -60,7 +75,6 @@
                             <input type="number" th:field="*{qteAppro}" required="required" class="form-control ">
                         </div>
                     </div>
-
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
                             <a th:href="@{/cartonAppros}" class="btn btn-secondary" type="button">Retour</a>

@@ -60,7 +60,7 @@
                                     <td th:text="${cartonAppro.qteAppro}"></td>
                                     <td>
                                         <a class="btn btn-round btn-sm btn-info" th:href="@{cartonAppro/update/{id}(id=${cartonAppro.id})}"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{cartonAppro/delete/(id=${cartonAppro.id})}"><i class="fa fa-trash"></i></a>
+                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{cartonAppro/delete/(id=${cartonAppro.id},idca=${cartonAppro.cartonid},qte=${cartonAppro.qteAppro})}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
