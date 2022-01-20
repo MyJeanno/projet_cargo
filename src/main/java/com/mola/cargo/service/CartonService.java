@@ -27,6 +27,10 @@ public class CartonService {
         cartonRepository.updateCartonRemoveQteStock(id, qte);
     }
 
+    public Carton findCartonById(Long id){
+        return cartonRepository.findQteStockById(id);
+    }
+
     public void saveCarton(Carton carton){
         cartonRepository.save(carton);
     }

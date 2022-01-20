@@ -22,4 +22,7 @@ public interface CartonRepository extends JpaRepository<Carton, Long> {
     @Query("update Carton c SET c.qteStock = c.qteStock - :qte WHERE c.id = :id")
     void updateCartonRemoveQteStock(@Param("id") Long id, @Param("qte") int qteStock);
 
+    @Query("select c from Carton c WHERE c.id = ?1")
+    Carton findQteStockById(Long id);
+
 }
