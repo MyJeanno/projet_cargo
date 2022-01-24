@@ -5,21 +5,23 @@
 </head>
 <body>
 <div layout:fragment="content">
-
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Liste des types de pièces autorisées</small></h3>
+            <h3><small>Liste des codes postaux de l'Allemagne</small></h3>
         </div>
         <div class="title_right">
-            <div class="col-md-2 col-sm-2 pull-right">
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#staticBackdrop">
-                    <i class="fa fa-plus"></i> Ajout
-                </button>
-            </div>
+            <form th:action="@{/codepostal/nouveau}" method="post">
+                <div class="col-md-2 col-sm-2 pull-right">
+                    <button type="submit" class="btn btn-info" >
+                        <i class="fa fa-plus"></i> Ajout
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
     <!-- table -->
+    <div class="row">
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
@@ -45,18 +47,20 @@
                             <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Libellé pièce</th>
+                                    <th>Id</th>
+                                    <th>Code postal</th>
+                                    <th>Etat</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="piece:${pieces}">
-                                    <td th:text="${piece.id}"></td>
-                                    <td th:text="${piece.libellePiece}"></td>
+                                <tr th:each="codepostal:${codepostals}">
+                                    <td th:text="${codepostal.id}"></td>
+                                    <td th:text="${codepostal.libelleCode}"></td>
+                                    <td th:text="${codepostal.etat.libelleEtat}"></td>
                                     <td>
-                                        <a class="btn btn-round btn-sm btn-info" th:href="@{piece/formUpdate/{id}(id=${piece.id})}"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{piece/delete/(id=${piece.id})}"><i class="fa fa-trash"></i></a>
+                                        <a class="btn btn-round btn-sm btn-info" th:href="@{codepostal/formUpdate/{id}(id=${codepostal.id})}"><i class="fa fa-edit"></i></a>
+                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{codepostal/delete/(id=${codepostal.id})}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -67,35 +71,9 @@
             </div>
         </div>
     </div>
+    </div>
     <div class="clearfix"></div>
     <!-- End table -->
-
-    <!-- Modal add -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Nouvelle pièce</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form th:action="@{piece/nouveau}" method="post" class="forms-sample">
-                        <div class="form-group row">
-                            <label for="libPiece" class="col-sm-3 col-form-label">Libellé pièce</label>
-                            <div class="col-sm-9">
-                                <input type="text" name="lib" class="form-control border-info" id="libPiece">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-success mr-2 pull-right">Enregistrer</button>
-                        <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Fermer</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Modal add-->
 
     <!-- Modal delete -->
     <div class="modal fade" id="deleteform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

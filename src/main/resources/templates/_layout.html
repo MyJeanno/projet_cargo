@@ -68,6 +68,7 @@
                       <li><a th:href="@{/tarifs}">Paramétrage du tarif</a></li>
                       <li><a th:href="@{/pays}">Enregistrer un pays</a></li>
                       <li><a th:href="@{/etats}">Enregistrer un Etat</a></li>
+                      <li><a th:href="@{/codepostals}">Les codes postaux</a></li>
                       <li><a th:href="@{/augmentations}">Paramétrer une augmentation</a></li>
                     </ul>
                   </li>
@@ -210,8 +211,9 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+          <div class="">
           <div layout:fragment="content"></div>
-
+          </div>
         </div>
         <!-- /page content -->
 
@@ -259,6 +261,5 @@
     <script src="/vendors/jszip/dist/jszip.min.js"></script>
     <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
-
   </body>
 </html>
