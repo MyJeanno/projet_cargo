@@ -16,6 +16,10 @@ public class RecepteurService {
     @Autowired
     private RecepteurRepository recepteurRepository;
 
+    public String numeroClient(Recepteur recepteur, String chaine){
+        return recepteur.getINITIAL_ENTREPRISE()+""+chaine.substring(0,3)+recepteurRepository.count();
+    }
+
     public void saveRecepteur(Recepteur recepteur){
         recepteurRepository.save(recepteur);
     }

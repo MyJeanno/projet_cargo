@@ -1,6 +1,7 @@
 package com.mola.cargo.service;
 
 import com.mola.cargo.model.Emetteur;
+import com.mola.cargo.model.Personne;
 import com.mola.cargo.model.Piece;
 import com.mola.cargo.repository.EmetteurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,10 @@ public class EmetteurService {
 
     @Autowired
     private EmetteurRepository emetteurRepository;
+
+    public String numeroClient(Emetteur emetteur, String chaine){
+        return emetteur.getINITIAL_ENTREPRISE()+""+chaine.substring(0,3)+emetteurRepository.count();
+    }
 
     public void saveEmetteur(Emetteur emetteur){
         emetteurRepository.save(emetteur);

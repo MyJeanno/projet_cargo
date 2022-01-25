@@ -21,6 +21,11 @@ public class CommandeController {
     @Autowired
     private PaysService paysService;
 
+    @GetMapping("/mode/envoi")
+    public String choisirModeEnvoi(){
+        return "commande/choix";
+    }
+
     @GetMapping("commande/new")
     public String afficherFormCommande(){
         return "commande/formCommande";

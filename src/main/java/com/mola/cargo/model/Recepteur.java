@@ -19,6 +19,11 @@ public class Recepteur extends Personne{
     private final String SITUATION_RECEPTEUR="En cours";
 
     @ManyToOne
+    @JoinColumn(name = "etatid", insertable = false, updatable = false)
+    private Etat etat;
+    private Long etatid;
+
+    @ManyToOne
     @JoinColumn(name = "paysid", insertable = false, updatable = false)
     private Pays pays;
     private Long paysid;

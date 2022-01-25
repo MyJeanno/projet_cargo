@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Enregistrer les informations sur l'expéditeur du colis</small></h3>
+            <h3><small>Enregistrer un nouveau client destinataire du colis</small></h3>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -33,7 +33,7 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/emetteur/nouveau}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/recepteur/nouveau}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Nom <span class="required">*</span>
                         </label>
@@ -49,6 +49,30 @@
                         </div>
                     </div>
                     <div class="item form-group">
+                        <label class="ccol-form-label col-md-3 col-sm-3 label-align">Pays de résidence</label>
+                        <div class="col-md-6 col-sm-6">
+                            <select name="paysid" class="form-control border-info">
+                                <option>--Choisir un pays--</option>
+                                <option th:each="pays:${pays}"
+                                        th:value="${pays.id}"
+                                        th:text="${pays.libellePays}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="ccol-form-label col-md-3 col-sm-3 label-align">Etat de résidence</label>
+                        <div class="col-md-6 col-sm-6">
+                            <select name="etatid" class="form-control border-info">
+                                <option>--Choisir un Etat--</option>
+                                <option th:each="etat:${etats}"
+                                        th:value="${etat.code}"
+                                        th:text="${etat.libelleEtat}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Ville <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
@@ -56,10 +80,17 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Adresse <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Rue <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="adresseEmetteur" required="required" class="form-control ">
+                            <input type="text" name="rue" required="required" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Code postal <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="number" name="codePostal" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
@@ -70,14 +101,14 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Email <span class="required">*</span>
-                        </label>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Email</label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" name="emailPersonne" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
+                            <a th:href="@{/recepteurs}" class="btn btn-secondary" type="button">Retour</a>
                             <button type="submit" class="btn btn-success">Enregistrer</button>
                         </div>
                     </div>
