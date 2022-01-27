@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class CommandeController {
 
@@ -31,18 +34,16 @@ public class CommandeController {
         return "commande/formCommande";
     }
 
-    //Renvoie le formulaire de saisie des colis
-    @GetMapping("/colis/formColis")
-    public String showFormColis(Model model){
-        model.addAttribute("cartons", cartonService.showCarton());
-        model.addAttribute("pays", paysService.showPays());
-        model.addAttribute("commande", commandeService.showCommande());
-        return "colis/formAddColis";
-    }
-
     @PostMapping("/commande/nouveau")
     public String enregistrerCommande(Commande commande){
+        List<Commande> listeCommande = new ArrayList<>();
+        String pin = commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+        listeCommande = commandeService.showCommande();
+        while(commandeService.testerAppartenance(listeCommande, pin)==true){
+            pin = commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+        }
+        commande.setPin(pin);
         commandeService.saveCommande(commande);
-        return "redirect:/colis/formColis";
+        return "redirect:/mode/envoi";
     }
 }

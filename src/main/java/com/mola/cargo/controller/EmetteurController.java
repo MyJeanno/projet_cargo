@@ -26,6 +26,13 @@ public class EmetteurController {
         return "personne/emetteur";
     }
 
+    //Renvoie la liste des clients expéditeurs pour un envoi de colis
+    @GetMapping("/emetteur/envoi")
+    public String showEmetteurEnvoi(Model model){
+        model.addAttribute("emetteurs", emetteurService.showEmetteur());
+        return "personne/emetteurEnvoi";
+    }
+
     //Renvoie le formulaire de l'expéditeur
     @GetMapping("/emetteur/formEmetteur")
     public String showFormEmetteur(){

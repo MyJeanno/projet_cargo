@@ -8,12 +8,15 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Ajouter des colis à une commande</small></h3>
+            <h3><small>Ajouter des colis à la commande de code PIN : <b th:text="${lastCommande.pin}"></b></small></h3>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
+                <h2><u>Expéditeur</u>:<small><i><b th:text="${lastCommande.emetteur.nomPersonne+' '+lastCommande.emetteur.prenomPersonne}"></b></i></small></h2>
+                <h2><small>&emsp;&emsp;&emsp;</small></h2>
+                <h2><u>Destinataire</u>:<small><i><b th:text="${lastCommande.recepteur.nomPersonne+' '+lastCommande.recepteur.prenomPersonne}"></b></i></small></h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -33,31 +36,14 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{colis/nouveau}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/colis/nouveau}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Code PIN de la commande concerné <span class="required">*</span>
-                        </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="commandeid" required="required" class="form-control ">
+                            <input type="hidden" name="commandeid" th:value="${lastCommande.id}" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Libellé colis<span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="libelleColis" required="required" class="form-control ">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Poids du colis<span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="poids" required="required" class="form-control ">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Quantité<span class="required"></span>
-                        </label>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Libellé colis</label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" name="libelleColis" class="form-control ">
                         </div>
@@ -65,7 +51,7 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Type de carton</label>
                         <div class="col-md-6 col-sm-6">
-                            <select name="cartonid" class="form-control border-info">
+                            <select name="cartonid" id="typeCarton" class="form-control border-info">
                                 <option>--Choisir un carton--</option>
                                 <option th:each="carton:${cartons}"
                                         th:value="${carton.id}"
@@ -75,22 +61,22 @@
                         </div>
                     </div>
                     <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Poids du colis en kg<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" name="poids" required="required" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="item form-group">
                         <label class="ccol-form-label col-md-3 col-sm-3 label-align">Pays de destination</label>
                         <div class="col-md-6 col-sm-6">
-                            <select name="paysid" class="form-control border-info">
+                            <select name="paysid" id="pays" class="form-control border-info">
                                 <option>--Choisir un pays--</option>
                                 <option th:each="pays:${pays}"
                                         th:value="${pays.id}"
                                         th:text="${pays.libellePays}">
                                 </option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Prix du colis<span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="prixColis" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">

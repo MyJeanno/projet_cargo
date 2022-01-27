@@ -17,8 +17,6 @@ public class Colis {
     private Long id;
     @Column(name = "libelle_collis")
     private String libelleColis;
-    @Column(nullable = true)
-    private int quantite;
     @Column(name = "prix_colis")
     private double prixColis;
     private double poids;
@@ -28,9 +26,11 @@ public class Colis {
     private Commande commande;
     private Long commandeid;
 
+    @Transient
     @ManyToOne
     @JoinColumn(name = "paysid", insertable = false, updatable = false)
     private Pays pays;
+    @Transient
     private Long paysid;
 
     @ManyToOne

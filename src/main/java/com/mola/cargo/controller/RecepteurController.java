@@ -33,6 +33,14 @@ public class RecepteurController {
         return "personne/recepteur";
     }
 
+    //Renvoie la liste des clients recepteurs pour l'envoi
+    @GetMapping("/recepteur/liste/{id}")
+    public String showRecepteurListe(@PathVariable("id") Long id, Model model){
+        model.addAttribute("UnEmetteur", emetteurService.showOneEmetteur(id));
+        model.addAttribute("recepteurs", recepteurService.showRecepteur());
+        return "personne/recepteurEnvoi";
+    }
+
     //Renvoie le formulaire du destinataire
     @GetMapping("/recepteur/formRecepteur")
     public String showFormRecepteur(Model model){
@@ -67,6 +75,16 @@ public class RecepteurController {
     }
 
     //Renvoie le formulaire de la nouvelle commande
+    @GetMapping("/commande/formCommande")
+    public String showNouvelleCommande(Long idE, Long idR, Model model){
+        model.addAttribute("unEmetteur", emetteurService.showOneEmetteur(idE));
+        model.addAttribute("unRecepteur", recepteurService.showOneRecepteur(idR));
+        model.addAttribute("pieces", pieceService.showPiece());
+        model.addAttribute("modePaiments", paiementService.showPaiement());
+        return "commande/formNewCommande";
+    }
+
+    /*Renvoie le formulaire de la nouvelle commande
     @GetMapping("commande/formCommande")
     public String showNouvelleCommande(Model model){
         model.addAttribute("emetteurs", emetteurService.showEmetteur());
@@ -74,6 +92,6 @@ public class RecepteurController {
         model.addAttribute("pieces", pieceService.showPiece());
         model.addAttribute("modePaiments", paiementService.showPaiement());
         return "commande/formNewCommande";
-    }
+    }*/
 
 }

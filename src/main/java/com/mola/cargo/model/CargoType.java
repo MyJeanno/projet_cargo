@@ -15,8 +15,17 @@ public class CargoType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "type_carton")
-    private String typeCarton;
-    private String region;
+    @ManyToOne
+    @JoinColumn(name = "cartonid", insertable = false, updatable = false)
+    private Carton carton;
+    private Long cartonid;
+
+    @ManyToOne
+    @JoinColumn(name = "paysid", insertable = false, updatable = false)
+    private Pays pays;
+    private Long paysid;
+
     private double prix;
+
+
 }

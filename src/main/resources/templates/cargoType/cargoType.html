@@ -55,8 +55,8 @@
                                 <tbody>
                                 <tr th:each="cargoType:${cargoTypes}">
                                     <td th:text="${cargoType.id}"></td>
-                                    <td th:text="${cargoType.typeCarton}"></td>
-                                    <td th:text="${cargoType.region}"></td>
+                                    <td th:text="${cargoType.carton.libelleCarton}"></td>
+                                    <td th:text="${cargoType.pays.libellePays}"></td>
                                     <td th:text="${cargoType.prix}"></td>
                                     <td>
                                         <a class="btn btn-round btn-sm btn-info" th:href="@{cargoType/formUpdate/{id}(id=${cargoType.id})}"><i class="fa fa-edit"></i></a>
@@ -87,15 +87,27 @@
                 <div class="modal-body">
                     <form th:action="@{cargoType/nouveau}" method="post" class="forms-sample">
                         <div class="form-group row">
-                            <label for="typeC" class="col-sm-3 col-form-label">Type de carton</label>
+                            <label class="col-sm-3 col-form-label">Type de carton</label>
                             <div class="col-sm-9">
-                                <input type="text" name="typeCarton" class="form-control border-info" id="typeC">
+                                <select name="cartonid" id="typeCarton" class="form-control border-info">
+                                    <option>--Choisir un carton--</option>
+                                    <option th:each="carton:${cartons}"
+                                            th:value="${carton.id}"
+                                            th:text="${carton.libelleCarton}">
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="pays" class="col-sm-3 col-form-label">Pays</label>
+                            <label class="col-sm-3 col-form-label">Pays de destination</label>
                             <div class="col-sm-9">
-                                <input type="text" name="pays" class="form-control border-info" id="pays">
+                                <select name="paysid" id="pays" class="form-control border-info">
+                                    <option>--Choisir un pays--</option>
+                                    <option th:each="pays:${pays}"
+                                            th:value="${pays.id}"
+                                            th:text="${pays.libellePays}">
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">

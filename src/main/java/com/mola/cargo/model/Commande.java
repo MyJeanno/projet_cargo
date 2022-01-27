@@ -17,7 +17,7 @@ public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int pin;
+    private String pin;
     @Column(name = "date_envoi")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateEnvoi;
@@ -42,5 +42,9 @@ public class Commande {
     private Recepteur recepteur;
     private Long recepteurid;
 
+    @Transient
+    private final int NBRE_INITIAL = 10000;
+    @Transient
+    private final int NBRE_FINAL = 99999;
 
 }

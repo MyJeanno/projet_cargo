@@ -40,17 +40,27 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Type de carton <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{typeCarton}" required="required" class="form-control ">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Type de carton</label>
+                        <div class="col-md-6 col-sm-6">
+                            <select th:field="*{cartonid}" class="form-control border-info">
+                                <option value="">--Choisir un Etat--</option>
+                                <option th:each="carton:${cartons}"
+                                        th:value="${carton.id}"
+                                        th:utext="${carton.libelleCarton}">
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Pays <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{region}" required="required" class="form-control ">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Pays</label>
+                        <div class="col-md-6 col-sm-6">
+                            <select th:field="*{paysid}" class="form-control border-info">
+                                <option value="">--Choisir un pays--</option>
+                                <option th:each="pays:${pays}"
+                                        th:value="${pays.id}"
+                                        th:utext="${pays.libellePays}">
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="item form-group">
