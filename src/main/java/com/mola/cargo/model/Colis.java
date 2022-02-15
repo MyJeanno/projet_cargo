@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@MappedSuperclass
 public class Colis {
 
     @Id
@@ -25,17 +25,5 @@ public class Colis {
     @JoinColumn(name = "commandeid", insertable = false, updatable = false)
     private Commande commande;
     private Long commandeid;
-
-    @Transient
-    @ManyToOne
-    @JoinColumn(name = "paysid", insertable = false, updatable = false)
-    private Pays pays;
-    @Transient
-    private Long paysid;
-
-    @ManyToOne
-    @JoinColumn(name = "cartonid", insertable = false, updatable = false)
-    private Carton carton;
-    private Long cartonid;
 
 }

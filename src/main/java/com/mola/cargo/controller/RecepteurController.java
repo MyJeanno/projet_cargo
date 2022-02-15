@@ -54,6 +54,9 @@ public class RecepteurController {
     public String enregistrerRecepteur(Recepteur recepteur){
         recepteur.setSituation(recepteur.getSITUATION_RECEPTEUR());
         recepteur.setNumeroPersonne(recepteurService.numeroClient(recepteur, recepteur.getNomPersonne()));
+        if(recepteur.getEtatid()==null){
+            recepteur.setEtatid(17L);
+        }
         recepteurService.saveRecepteur(recepteur);
         return "redirect:/recepteurs";
     }

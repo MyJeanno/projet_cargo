@@ -17,5 +17,4 @@ public class Pays {
     private Long id;
     @Column(name = "libelle_pays")
     private String libellePays;
-    private String livraison;
 }

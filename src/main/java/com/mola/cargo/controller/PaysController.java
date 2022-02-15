@@ -20,10 +20,9 @@ public class PaysController {
     }
 
     @PostMapping("pays/nouveau")
-    public String enregistrerPays(@RequestParam String libelle, @RequestParam String livraison){
+    public String enregistrerPays(@RequestParam String libelle){
         Pays pays = new Pays();
         pays.setLibellePays(libelle);
-        pays.setLivraison(livraison);
         paysService.savePays(pays);
         return "redirect:/pays";
     }

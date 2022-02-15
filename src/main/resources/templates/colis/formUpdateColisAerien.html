@@ -8,8 +8,9 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Mise à jour d'un tarif</small></h3>
+            <h3><small>Mise à jour d'un colis par envoi aérien</small></h3>
         </div>
+        <div class="clearfix"></div>
     </div>
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
@@ -33,44 +34,49 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/tarif/update}" method="POST" th:object="${unTarif}" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/colis/update/aerien}" method="POST" th:object="${unColis}" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 ">
                             <input type="hidden" th:field="*{id}" required="required" class="form-control ">
+                            <input type="hidden" th:field="*{commandeid}" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Libellé tarif <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{libelleTarif}" required="required" class="form-control ">
-                        </div>
-                    </div>
-
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Prix par kilo <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{prixkilo}" required="required" class="form-control ">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Catégorie de produits</label>
+                        <div class="col-md-6 col-sm-6">
+                            <select th:field="*{tarifid}" class="form-control border-info">
+                                <option value="">--Choisir une catégorie--</option>
+                                <option th:each="tarif:${tarifs}"
+                                        th:value="${tarif.id}"
+                                        th:utext="${tarif.libelleTarif}">
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Taxe <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Autres précisions sur le colis</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" th:field="*{libelleColis}" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Poids du colis en kg<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{taxe}" required="required" class="form-control ">
+                            <input type="number" th:field="*{poids}" placeholder="Ex : 2.5" step="0.01" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a th:href="@{/tarifs}" class="btn btn-secondary" type="button">Retour</a>
-                            <button type="submit" class="btn btn-success">Modifier</button>
+                            <a th:href="@{/colis/listes/aerien}" class="btn btn-secondary">Retour</a>
+                            <button type="submit" class="btn btn-success">Mettre à jour colis</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
 </div>
 </body>
 </html>

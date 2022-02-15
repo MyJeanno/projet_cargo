@@ -19,4 +19,5 @@ public class Tarif {
     private String libelleTarif;
     @Column(name = "prix_kilo")
     private double prixkilo;
+    private double taxe;
 }

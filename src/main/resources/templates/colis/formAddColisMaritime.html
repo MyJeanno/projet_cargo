@@ -7,16 +7,19 @@
 <div layout:fragment="content">
 
     <div class="page-title">
+        <div>
+            <button class="btn btn-info">Formulaire d'ajout de colis</button>
+            <button class="btn btn-warning">Type d'envoi : Maritime</button>
+            <button class="btn btn-secondary">Commande N° : <b th:text="${lastCommande.pin}"></b></button>
+        </div>
         <div class="title_left">
-            <h3><small>Ajouter des colis à la commande de code PIN : <b th:text="${lastCommande.pin}"></b></small></h3>
+            <button class="btn btn-default">Expéditeur</button> : <small><i><b th:text="${lastCommande.emetteur.nomPersonne+' '+lastCommande.emetteur.prenomPersonne}"></b></i></small>
+            <button class="btn btn-default">Destinataire</button> : <small><i><b th:text="${lastCommande.recepteur.nomPersonne+' '+lastCommande.recepteur.prenomPersonne}"></b></i></small>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-                <h2><u>Expéditeur</u>:<small><i><b th:text="${lastCommande.emetteur.nomPersonne+' '+lastCommande.emetteur.prenomPersonne}"></b></i></small></h2>
-                <h2><small>&emsp;&emsp;&emsp;</small></h2>
-                <h2><u>Destinataire</u>:<small><i><b th:text="${lastCommande.recepteur.nomPersonne+' '+lastCommande.recepteur.prenomPersonne}"></b></i></small></h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -43,7 +46,7 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Libellé colis</label>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Contenu du colis</label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" name="libelleColis" class="form-control ">
                         </div>
@@ -61,13 +64,6 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Poids du colis en kg<span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="poids" required="required" class="form-control ">
-                        </div>
-                    </div>
-                    <div class="item form-group">
                         <label class="ccol-form-label col-md-3 col-sm-3 label-align">Pays de destination</label>
                         <div class="col-md-6 col-sm-6">
                             <select name="paysid" id="pays" class="form-control border-info">
@@ -80,9 +76,17 @@
                         </div>
                     </div>
                     <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Poids du colis en kg<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" name="poids" required="required" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
+                            <a th:href="@{/mode/envoi}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Retour au choix</a>
+                            <a th:href="@{/colisMaritime/listes}" class="btn btn-info"><i class="fa fa-arrow-right"></i> Retour à la liste</a>
                             <button type="submit" class="btn btn-success">Enregistrer</button>
-                            <a href="" class="btn btn-info">Générer facture</a>
                         </div>
                     </div>
                 </form>
