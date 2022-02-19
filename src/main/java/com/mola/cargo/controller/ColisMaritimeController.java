@@ -41,6 +41,7 @@ public class ColisMaritimeController {
     @Autowired
     private PaysService paysService;
 
+    /*
     //Liste des colis par voie maritime
     @GetMapping("/colisMaritime/listes")
     public String afficherListeColis(Model model){
@@ -141,6 +142,6 @@ public class ColisMaritimeController {
                 commandeService.showMaLastCommande().getRecepteur().getContactPersonne()
         );
     }
-
+*/
 
 }

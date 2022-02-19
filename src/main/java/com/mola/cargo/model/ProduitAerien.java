@@ -14,13 +14,20 @@ import javax.persistence.ManyToOne;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class ColisAerien extends Colis {
+public class ProduitAerien extends Produit{
 
-    @Column(name = "numero_colis")
-    private String numeroColis;
+    private double poids;
+    @Column(name = "prix_produit")
+    private double prixProduit;
 
     @ManyToOne
-    @JoinColumn(name = "emballageid", insertable = false, updatable = false)
-    private Emballage emballage;
-    private Long emballageid;
+    @JoinColumn(name = "tarifid", insertable = false, updatable = false)
+    private Tarif tarif;
+    private Long tarifid;
+
+    @ManyToOne
+    @JoinColumn(name = "colisAerienid", insertable = false, updatable = false)
+    private ColisAerien colisAerien;
+    private Long colisAerienid;
+
 }

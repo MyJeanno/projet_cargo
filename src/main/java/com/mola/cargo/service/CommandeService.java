@@ -14,9 +14,9 @@ public class CommandeService {
     @Autowired
     private CommandeRepository commandeRepository;
 
-    public String genererNbre(int borneInf, int borneSup){
+    public int genererNbre(int borneInf, int borneSup){
         Random random = new Random();
-        return "MF"+(borneInf+random.nextInt(borneSup-borneInf));
+        return (borneInf+random.nextInt(borneSup-borneInf));
     }
 
     public boolean testerAppartenance(List<Commande> liste, String pin){

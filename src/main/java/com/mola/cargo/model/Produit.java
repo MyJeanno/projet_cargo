@@ -10,15 +10,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
-public class Colis {
+public class Produit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "commandeid", insertable = false, updatable = false)
-    private Commande commande;
-    private Long commandeid;
-
+    private String designation;
+    private int quantite;
 }

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 public class ColisController {
-
+/*
     @Autowired
     private ColisService colisService;
     @Autowired
@@ -46,6 +46,6 @@ public class ColisController {
         model.addAttribute("pays", paysService.showPays());
         model.addAttribute("lastCommande", commandeService.showMaLastCommande());
         return "colis/formAddColis";
-    }
+    }*/
 
 }

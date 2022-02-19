@@ -37,10 +37,10 @@ public class CommandeController {
     @PostMapping("/commande/nouveau")
     public String enregistrerCommande(Commande commande){
         List<Commande> listeCommande = new ArrayList<>();
-        String pin = commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+        String pin = commande.getPREFIX_COMMANDE()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
         listeCommande = commandeService.showCommande();
         while(commandeService.testerAppartenance(listeCommande, pin)==true){
-            pin = commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+            pin = commande.getPREFIX_COMMANDE()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
         }
         commande.setPin(pin);
         commandeService.saveCommande(commande);

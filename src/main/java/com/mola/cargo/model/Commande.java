@@ -46,5 +46,9 @@ public class Commande {
     private final int NBRE_INITIAL = 10000;
     @Transient
     private final int NBRE_FINAL = 99999;
+    @Transient
+    private final String  PREFIX_COMMANDE = "MF";
+    @Transient
+    private final String  PREFIX_COLIS = "MFCA";
 
 }

@@ -72,7 +72,7 @@
                     <div class="item form-group">
                         <label class="ccol-form-label col-md-3 col-sm-3 label-align">Pays de résidence</label>
                         <div class="col-md-6 col-sm-6">
-                            <select name="paysid" onChange="afficherAutre()" class="form-control border-info">
+                            <select name="paysid" onChange="afficherAutre()" required="required" class="form-control border-info">
                                 <option>--Choisir un pays--</option>
                                 <option th:each="pays:${pays}"
                                         th:value="${pays.id}"
@@ -84,7 +84,7 @@
                     <div class="item form-group">
                         <label id="labelEtat" class="ccol-form-label col-md-3 col-sm-3 label-align">Etat de résidence</label>
                         <div class="col-md-6 col-sm-6">
-                            <select id="etat" name="etatid" class="form-control border-info">
+                            <select id="etat" name="etatid" required="required" class="form-control border-info">
                                 <option value="">--Choisir un Etat--</option>
                                 <option th:each="etat:${etats}"
                                         th:value="${etat.code}"

@@ -2,9 +2,11 @@ package com.mola.cargo.controller;
 
 import com.mola.cargo.model.Colis;
 import com.mola.cargo.model.ColisAerien;
+import com.mola.cargo.model.Commande;
 import com.mola.cargo.model.Tarif;
 import com.mola.cargo.service.ColisAerienService;
 import com.mola.cargo.service.CommandeService;
+import com.mola.cargo.service.EmballageService;
 import com.mola.cargo.service.TarifService;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -36,7 +38,32 @@ public class ColisAerienController {
     private CommandeService commandeService;
     @Autowired
     private TarifService tarifService;
+    @Autowired
+    private EmballageService emballageService;
 
+    @GetMapping("/colisAerien/new")
+    public String afficherFormColisAerien(Model model){
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
+        model.addAttribute("emballages", emballageService.showEmballages());
+        return "colis/formColisAerien";
+    }
+
+    @PostMapping("/colisAerien/nouveau")
+    public String creerColis(ColisAerien colisAerien){
+        List<ColisAerien> listeAerienne = new ArrayList<>();
+        Commande commande = new Commande();
+        listeAerienne = colisAerienService.showColisAerien();
+        String numero = commande.getPREFIX_COLIS()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+        while(colisAerienService.testerAppartenance(listeAerienne, numero)){
+            numero = commande.getPREFIX_COLIS()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+        }
+        colisAerien.setNumeroColis(numero);
+        colisAerien.setCommandeid(commandeService.showMaLastCommande().getId());
+        colisAerienService.saveColisAerien(colisAerien);
+        return "redirect:/colisAerien/produits";
+    }
+
+    /*
     //Liste des colis par voie aérienne
     @GetMapping("/colisAerien/listes")
     public String afficherListeColisAerien(Model model){
@@ -119,6 +146,6 @@ public class ColisAerienController {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
-    }
+    }*/
 
 }

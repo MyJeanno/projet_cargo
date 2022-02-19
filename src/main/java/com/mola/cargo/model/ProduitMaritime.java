@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,13 +13,10 @@ import javax.persistence.ManyToOne;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class ColisAerien extends Colis {
-
-    @Column(name = "numero_colis")
-    private String numeroColis;
+public class ProduitMaritime extends Produit{
 
     @ManyToOne
-    @JoinColumn(name = "emballageid", insertable = false, updatable = false)
-    private Emballage emballage;
-    private Long emballageid;
+    @JoinColumn(name = "colisMaritimeid", insertable = false, updatable = false)
+    private ColisMaritime colisMaritime;
+    private Long colisMaritimeid;
 }

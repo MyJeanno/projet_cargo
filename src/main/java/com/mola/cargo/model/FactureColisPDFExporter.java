@@ -23,7 +23,7 @@ public class FactureColisPDFExporter {
     public FactureColisPDFExporter(List<ColisMaritime> listeColis) {
         this.listeColis = listeColis;
     }
-
+/*
     private double calculerTotalPrix(){
         double prix = 0;
         for (Colis c : listeColis){
@@ -259,5 +259,5 @@ public class FactureColisPDFExporter {
         document.add(tablefooter);
 
         document.close();
-    }
+    }*/
 }

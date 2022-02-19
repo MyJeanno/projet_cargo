@@ -3,6 +3,7 @@ package com.mola.cargo.service;
 import com.mola.cargo.model.Colis;
 import com.mola.cargo.model.ColisAerien;
 import com.mola.cargo.model.ColisMaritime;
+import com.mola.cargo.model.Commande;
 import com.mola.cargo.repository.ColisAerienRepository;
 import com.mola.cargo.repository.ColisMaritimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,28 @@ public class ColisAerienService {
         colisAerienRepository.save(colisAerien);
     }
 
-    public List<ColisAerien> showColis(){
+    public List<ColisAerien> showColisAerien(){
         return colisAerienRepository.findAll();
     }
 
     public List<ColisAerien> showColisAerienCommande(Long id){
         return colisAerienRepository.findColisAerienCommande(id);
+    }
+
+    public ColisAerien showMaLastColisAerien(){
+        return colisAerienRepository.showMaLastColisAerien();
+    }
+
+    public boolean testerAppartenance(List<ColisAerien> liste, String num){
+        boolean appartient = false;
+        for (ColisAerien c:liste){
+            if (c.getNumeroColis().equals(num)){
+                appartient = true;
+            }else{
+                appartient = false;
+            }
+        }
+        return appartient;
     }
 
     public Colis showOneColisAerien(Long id){
