@@ -41,7 +41,7 @@ public class ColisAerienController {
     @Autowired
     private EmballageService emballageService;
 
-    @GetMapping("/colisAerien/new")
+    @GetMapping("/colisAerien/form")
     public String afficherFormColisAerien(Model model){
         model.addAttribute("lastCommande", commandeService.showMaLastCommande());
         model.addAttribute("emballages", emballageService.showEmballages());
@@ -63,89 +63,33 @@ public class ColisAerienController {
         return "redirect:/colisAerien/produits";
     }
 
-    /*
     //Liste des colis par voie aérienne
     @GetMapping("/colisAerien/listes")
     public String afficherListeColisAerien(Model model){
-        model.addAttribute("colis", colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId()));
+        model.addAttribute("colisAerien", colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId()));
         model.addAttribute("lastCommande", commandeService.showMaLastCommande());
         return "colis/listeColisAerien";
     }
 
     //Renvoie le formulaire de saisie des colis par voie aérienne
-    @GetMapping("/colis/formColisAerien")
-    public String showFormColisAerien(Model model){
-        model.addAttribute("tarifs", tarifService.showTarifs());
-        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
-        return "colis/formAddColisAerien";
-    }
-
-    private boolean estentier(double n){
-        if(n==(int)n)
-            return true;
-        return false;
-    }
-
-    @PostMapping("/colis/nouveau/aerien")
-    public String enregistrerColisAerien(ColisAerien colisAerien){
-        List<Tarif> listPrix = new ArrayList<>();
-        listPrix = tarifService.showTarifs();
-        for(Tarif t : listPrix){
-            if(colisAerien.getTarifid() == t.getId()){
-                if(estentier(colisAerien.getPoids())){
-                    colisAerien.setPrixColis(t.getPrixkilo()*colisAerien.getPoids());
-                }else{
-                    colisAerien.setPrixColis(t.getPrixkilo()*((int)colisAerien.getPoids()+1));
-                }
-            }
-        }
-        colisAerienService.saveColisAerien(colisAerien);
-        return "redirect:/colisAerien/listes";
-    }
-
-    //Formulaire de mise à jour d'un colis par voie aérienne
-    @GetMapping("/colis/formUpdate/{id}")
-    public String showFormUpdateColis(@PathVariable("id") Long id, Model model){
-        model.addAttribute("unColis",colisAerienService.showOneColisAerien(id));
-        model.addAttribute("tarifs", tarifService.showTarifs());
+    @GetMapping("/colisAerien/formUpdate/{id}")
+    public String showFormUpdateColisAerien(@PathVariable("id") Long id, Model model){
+        model.addAttribute("unColisAerien", colisAerienService.showOneColisAerien(id));
+        model.addAttribute("emballages", emballageService.showEmballages());
         return "colis/formUpdateColisAerien";
     }
 
-    //Mise à jour d'un colis par voie aérienne
-    @PostMapping("/colis/update/aerien")
-    public String updateColisAerien(@ModelAttribute("colis") ColisAerien colisAerien){
-        List<Tarif> listPrix = new ArrayList<>();
-        listPrix = tarifService.showTarifs();
-        for(Tarif t : listPrix){
-            if(colisAerien.getTarifid() == t.getId()){
-                colisAerien.setPrixColis(t.getPrixkilo());
-            }
-        }
+    @PostMapping("/colisAerien/update")
+    public String updateColisAerien(@ModelAttribute("colisAerien") ColisAerien colisAerien){
         colisAerienService.saveColisAerien(colisAerien);
         return "redirect:/colisAerien/listes";
     }
 
     //Suppression d'un colis par voie aérienne
-    @GetMapping("/colis/delete/aerien")
+    @GetMapping("/colisAerien/delete")
     public String supprimerColis(Long id){
         colisAerienService.deleteColisAerien(id);
         return "redirect:/colisAerien/listes";
     }
-
-    //Fonction pour générer la facture aerienne
-    @GetMapping("/colis/facture/aerien")
-    public ResponseEntity<byte[]> factureAerienne() throws FileNotFoundException, JRException {
-        List<ColisAerien> listeColis = colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId());
-        File file = ResourceUtils.getFile("classpath:factureAerienne.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeColis);
-        Map<String, Object> parameter = new HashMap<>();
-        parameter.put("Données colis", "Première source");
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
-        byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
-        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
-    }*/
 
 }

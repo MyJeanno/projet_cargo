@@ -8,7 +8,7 @@
 
   <div class="page-title">
     <div class="title_left">
-      <h3><small>Mise à jour d'un colis par envoi maritime</small></h3>
+      <h4><small>Mise à jour d'un colis par envoi maritime</small></h4>
     </div>
     <div class="clearfix"></div>
   </div>
@@ -34,11 +34,12 @@
       </div>
       <div class="x_content">
         <br />
-        <form th:action="@{/colis/update/maritime}" method="POST" th:object="${unColis}" data-parsley-validate class="form-horizontal form-label-left">
+        <form th:action="@{/colisMaritime/update}" method="POST" th:object="${unColisMaritime}" data-parsley-validate class="form-horizontal form-label-left">
           <div class="item form-group">
             <div class="col-md-6 col-sm-6 ">
               <input type="hidden" th:field="*{id}" required="required" class="form-control ">
               <input type="hidden" th:field="*{commandeid}" required="required" class="form-control ">
+              <input type="hidden" th:field="*{numeroColis}" required="required" class="form-control ">
             </div>
           </div>
           <div class="item form-group">
@@ -66,21 +67,8 @@
             </div>
           </div>
           <div class="item form-group">
-            <label class="col-form-label col-md-3 col-sm-3 label-align">Contenu du colis</label>
-            <div class="col-md-6 col-sm-6 ">
-              <input type="text" th:field="*{libelleColis}" class="form-control" required="required">
-            </div>
-          </div>
-          <div class="item form-group">
-            <label class="col-form-label col-md-3 col-sm-3 label-align">Poids du colis en kg<span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 ">
-              <input type="number" th:field="*{poids}" placeholder="Ex : 2.5" step="0.01" required="required" class="form-control ">
-            </div>
-          </div>
-          <div class="item form-group">
             <div class="col-md-6 col-sm-6 offset-md-3">
-              <a th:href="@{/colis/listes}" class="btn btn-secondary">Retour</a>
+              <a th:href="@{/colisMaritime/listes}" class="btn btn-secondary">Retour</a>
               <button type="submit" class="btn btn-success">Mettre à jour colis</button>
             </div>
           </div>

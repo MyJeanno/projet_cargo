@@ -16,9 +16,6 @@ import javax.persistence.ManyToOne;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ColisAerien extends Colis {
 
-    @Column(name = "numero_colis")
-    private String numeroColis;
-
     @ManyToOne
     @JoinColumn(name = "emballageid", insertable = false, updatable = false)
     private Emballage emballage;

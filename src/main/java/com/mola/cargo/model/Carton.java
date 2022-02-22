@@ -25,4 +25,5 @@ public class Carton {
     private double poidAutorise;
     @Column(name = "qte_stock")
     private int qteStock;
+    private String code;
 }

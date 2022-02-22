@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Créer une nouvelle commande pour cet envoi</small></h3>
+            <h4><small>Créer une nouvelle commande pour cet envoi</small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -66,7 +66,7 @@
                     <div class="item form-group">
                         <label class="ccol-form-label col-md-3 col-sm-3 label-align">Type de pièce</label>
                         <div class="col-md-6 col-sm-6">
-                            <select name="pieceid" class="form-control border-info">
+                            <select name="pieceid" required="required" class="form-control border-info">
                                 <option>--Choisir une pièce--</option>
                                 <option th:each="piece:${pieces}"
                                         th:value="${piece.id}"
@@ -76,14 +76,12 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="ccol-form-label col-md-3 col-sm-3 label-align">Mode de paiement</label>
+                        <label class="ccol-form-label col-md-3 col-sm-3 label-align">Lieu de paiement</label>
                         <div class="col-md-6 col-sm-6">
-                            <select name="paiementid" class="form-control border-info">
-                                <option>--Choisir un mode de paiement--</option>
-                                <option th:each="mode:${modePaiments}"
-                                        th:value="${mode.id}"
-                                        th:text="${mode.modePaiement}">
-                                </option>
+                            <select name="lieuPaiement" required="required" class="form-control border-info">
+                                <option>--Choisir un lieu de paiement--</option>
+                                <option>Togo</option>
+                                <option>Allemagne</option>
                             </select>
                         </div>
                     </div>

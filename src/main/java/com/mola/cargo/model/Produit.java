@@ -17,4 +17,10 @@ public class Produit {
     private Long id;
     private String designation;
     private int quantite;
+    private double poids;
+
+    @ManyToOne
+    @JoinColumn(name = "tarifid", insertable = false, updatable = false)
+    private Tarif tarif;
+    private Long tarifid;
 }

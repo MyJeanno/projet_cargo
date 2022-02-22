@@ -15,6 +15,8 @@ public class Colis {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "numero_colis")
+    private String numeroColis;
 
     @ManyToOne
     @JoinColumn(name = "commandeid", insertable = false, updatable = false)

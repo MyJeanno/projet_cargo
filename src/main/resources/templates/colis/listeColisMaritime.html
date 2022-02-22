@@ -7,14 +7,7 @@
 <div layout:fragment="content">
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Liste des colis de la commande N° : <b th:text="${lastCommande.pin}"></b> </small></h3>
-        </div>
-        <div class="title_right">
-            <div class="col-md-8 col-sm-8 pull-right">
-                <button href="" class="btn btn-danger">Envoi maritime</button>
-                <a th:href="@{/colis/facture}" class="btn btn-success"><i class="fa fa-print"></i> Générer facture</a>
-                <a th:href="@{/colis/formColis}" class="btn btn-info"><i class="fa fa-plus"></i> Ajouter</a>
-            </div>
+            <h4><small>Liste des colis de la commande N° : <b th:text="${lastCommande.pin}"></b> </small></h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -63,21 +56,19 @@
                                     <thead>
                                     <tr>
                                         <th>Type de carton</th>
-                                        <th>Contenu</th>
-                                        <th>Poids</th>
                                         <th>Prix</th>
+                                        <th>Numéro du colis</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="colis:${colis}">
-                                        <td th:text="${colis.carton.libelleCarton}"></td>
-                                        <td th:text="${colis.libelleColis}"></td>
-                                        <td th:text="${colis.poids}"></td>
-                                        <td th:text="${colis.prixColis}"></td>
+                                    <tr th:each="colisMaritime:${colisMaritime}">
+                                        <td th:text="${colisMaritime.carton.libelleCarton}"></td>
+                                        <td th:text="${colisMaritime.prixColis}"></td>
+                                        <td th:text="${colisMaritime.numeroColis}"></td>
                                         <td>
-                                            <a class="btn btn-round btn-sm btn-info" th:href="@{/colis/formUpdate/maritime{id}(id=${colis.id})}"><i class="fa fa-edit"></i></a>
-                                            <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{/colis/delete/maritime(id=${colis.id})}"><i class="fa fa-trash"></i></a>
+                                            <a class="btn btn-round btn-sm btn-info" th:href="@{/colisMaritime/formUpdate/{id}(id=${colisMaritime.id})}"><i class="fa fa-edit"></i></a>
+                                            <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{/colisMaritime/delete/(id=${colisMaritime.id})}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     </tbody>

@@ -10,9 +10,10 @@
             <h4><small>Liste des produits contenus dans le colis N° : <b th:text="${lastColisAerien.numeroColis}"></b></small></h4>
         </div>
         <div class="title_right">
-            <div class="col-md-9 col-sm-9 pull-right">
+            <div class="col-md-12 col-sm-12 pull-right">
+                <button class="btn btn-warning">Envoi aérien</button>
                 <a th:href="@{/colisAerien/facture}" class="btn btn-success"><i class="fa fa-print"></i> Générer facture</a>
-                <a th:href="@{/colisAerien/new}" class="btn btn-info"><i class="fa fa-plus"></i> créer un nouveau colis</a>
+                <a th:href="@{/colisAerien/form}" class="btn btn-info"><i class="fa fa-plus"></i> créer un nouveau colis</a>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
                     <i class="fa fa-plus"></i> Ajouter
                 </button>
@@ -46,6 +47,7 @@
                             <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
+                                    <th>N° colis</th>
                                     <th>Désignation</th>
                                     <th>Quantité</th>
                                     <th>Poids</th>
@@ -55,6 +57,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="produitAerien:${produitsAerien}">
+                                    <td th:text="${produitAerien.colisAerien.numeroColis}"></td>
                                     <td th:text="${produitAerien.designation}"></td>
                                     <td th:text="${produitAerien.quantite}"></td>
                                     <td th:text="${produitAerien.poids}"></td>

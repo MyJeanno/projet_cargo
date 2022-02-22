@@ -1,9 +1,6 @@
 package com.mola.cargo.controller;
 
-import com.mola.cargo.model.CargoType;
-import com.mola.cargo.model.Colis;
-import com.mola.cargo.model.ColisMaritime;
-import com.mola.cargo.model.FactureColisPDFExporter;
+import com.mola.cargo.model.*;
 import com.mola.cargo.service.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -41,27 +38,59 @@ public class ColisMaritimeController {
     @Autowired
     private PaysService paysService;
 
-    /*
+    //Formulaire colis maritime
+    @GetMapping("/colisMaritime/form")
+    public String afficherFormColisMaritime(Model model){
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
+        model.addAttribute("cartons", cartonService.showCarton());
+        model.addAttribute("pays", paysService.showPays());
+        return "colis/formColisMaritime";
+    }
+
+    //Fonction pour enregistrer un colis maritime
+    @PostMapping("/colisMaritime/nouveau")
+    public String enregistrerColisMaritime(ColisMaritime colisMaritime){
+        List<ColisMaritime> listeMaritime = new ArrayList<>();
+        Commande commande = new Commande();
+        listeMaritime = colisMaritimeService.showColisMaritime();
+        String numero = commande.getPREFIX_COLIS_MARITIME()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+        while(colisMaritimeService.testerAppartenance(listeMaritime, numero)){
+            numero = commande.getPREFIX_COLIS_MARITIME()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+        }
+        colisMaritime.setNumeroColis(numero);
+        colisMaritime.setCommandeid(commandeService.showMaLastCommande().getId());
+
+        List<CargoType> listPrix = new ArrayList<>();
+        listPrix = cargoTypeService.showCargoType();
+        for (CargoType c : listPrix){
+            if(colisMaritime.getCartonid() == c.getCartonid() && colisMaritime.getPaysid() == c.getPaysid()){
+                colisMaritime.setPrixColis(c.getPrix());
+            }
+        }
+        colisMaritimeService.saveColisMaritime(colisMaritime);
+        return "redirect:/colisMaritime/produits";
+    }
+
     //Liste des colis par voie maritime
     @GetMapping("/colisMaritime/listes")
     public String afficherListeColis(Model model){
-        model.addAttribute("colis", colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande().getId()));
+        model.addAttribute("colisMaritime", colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande().getId()));
         model.addAttribute("lastCommande", commandeService.showMaLastCommande());
         return "colis/listeColisMaritime";
     }
 
-    //Renvoie le formulaire de saisie des colis par voie maritime
-    @GetMapping("/colis/formColis")
-    public String showFormColisMaritime(Model model){
+    //Formulaire de mise à jour d'un colis par voie maritime
+    @GetMapping("/colisMaritime/formUpdate/{id}")
+    public String showFormUpdateColisMaritime(@PathVariable("id") Long id, Model model){
+        model.addAttribute("unColisMaritime",colisMaritimeService.showOneColisMaritime(id));
         model.addAttribute("cartons", cartonService.showCarton());
         model.addAttribute("pays", paysService.showPays());
-        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
-        return "colis/formAddColisMaritime";
+        return "colis/formUpdateColisMaritime";
     }
 
-    //Enregistrement d'un colis maritime
-    @PostMapping("/colis/nouveau")
-    public String enregistrerColisMaritime(ColisMaritime colisMaritime){
+    //Mise à jour d'un colis par voie maritime
+    @PostMapping("/colisMaritime/update")
+    public String updateColisMaritime(@ModelAttribute("colisMaritime") ColisMaritime colisMaritime){
         List<CargoType> listPrix = new ArrayList<>();
         listPrix = cargoTypeService.showCargoType();
         for (CargoType c : listPrix){
@@ -73,37 +102,14 @@ public class ColisMaritimeController {
         return "redirect:/colisMaritime/listes";
     }
 
-    //Formulaire de mise à jour d'un colis par voie maritime
-    @GetMapping("/colis/formUpdate/maritime{id}")
-    public String showFormUpdateColisMaritime(@PathVariable("id") Long id, Model model){
-        model.addAttribute("unColis",colisMaritimeService.showOneColisMaritime(id));
-        model.addAttribute("cartons", cartonService.showCarton());
-        model.addAttribute("pays", paysService.showPays());
-        return "colis/formUpdateColisMaritime";
-    }
-
-    //Mise à jour d'un colis par voie maritime
-    @PostMapping("/colis/update/maritime")
-    public String updateColisMaritime(@ModelAttribute("colis") ColisMaritime colisMaritime){
-        List<CargoType> listPrix = new ArrayList<>();
-        listPrix = cargoTypeService.showCargoType();
-        for (CargoType c : listPrix){
-            if(colisMaritime.getCartonid() == c.getCartonid() && colisMaritime.getPaysid() == c.getPaysid()){
-                colisMaritime.setPrixColis(c.getPrix());
-            }
-        }
-        colisMaritimeService.saveColisMaritime(colisMaritime);
-        return "redirect:/colis/listes";
-    }
-
-    //Suppression d'un colis par voie maritime
-    @GetMapping("colis/delete/maritime")
+   //Suppression d'un colis par voie maritime
+    @GetMapping("/colisMaritime/delete")
     public String supprimerColisMaritime(Long id){
         colisMaritimeService.deleteColisMaritime(id);
-        return "redirect:/colis/listes";
+        return "redirect:/colisMaritime/listes";
     }
 
-    //Fonction pour générer la facture maritime
+    /*//Fonction pour générer la facture maritime
     @GetMapping("/colis/facture")
     public ResponseEntity<byte[]> factureMaritime() throws FileNotFoundException, JRException {
         List<ColisMaritime> listeColisMaritime = colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande().getId());

@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h4><small>Créer un colis pour cette commande</small></h4>
+            <h4><small>Créer un colis pour cette commande : <mark>envoi aérien</mark></small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -54,8 +54,9 @@
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a th:href="@{/colisAerien/produits}" class="btn btn-info"><i class="fa fa-arrow-right"></i> Retour à la liste</a>
+                            <a th:href="@{/mode/envoi}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Retour au choix</a>
                             <button type="submit" class="btn btn-success">Enregistrer</button>
+                            <a th:href="@{/colisAerien/produits}" class="btn btn-info"><i class="fa fa-arrow-right"></i> Retour à la liste</a>
                         </div>
                     </div>
                 </form>

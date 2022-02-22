@@ -16,14 +16,8 @@ import javax.persistence.ManyToOne;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ProduitAerien extends Produit{
 
-    private double poids;
     @Column(name = "prix_produit")
     private double prixProduit;
-
-    @ManyToOne
-    @JoinColumn(name = "tarifid", insertable = false, updatable = false)
-    private Tarif tarif;
-    private Long tarifid;
 
     @ManyToOne
     @JoinColumn(name = "colisAerienid", insertable = false, updatable = false)

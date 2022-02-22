@@ -1,7 +1,9 @@
 package com.mola.cargo.service;
 
 import com.mola.cargo.model.Colis;
+import com.mola.cargo.model.ColisAerien;
 import com.mola.cargo.model.ColisMaritime;
+import com.mola.cargo.model.ProduitMaritime;
 import com.mola.cargo.repository.ColisMaritimeRepository;
 import com.mola.cargo.repository.ColisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +43,33 @@ public class ColisMaritimeService {
 
     public void deleteColisMaritime(Long id){
         colisMaritimeRepository.deleteById(id);
+    }
+
+    public boolean testerAppartenance(List<ColisMaritime> liste, String num){
+        boolean appartient = false;
+        for (ColisMaritime c:liste){
+            if (c.getNumeroColis().equals(num)){
+                appartient = true;
+            }else{
+                appartient = false;
+            }
+        }
+        return appartient;
+    }
+
+    public ColisMaritime showMaLastColisMaritime(){
+        return colisMaritimeRepository.showMaLastColisMaritime();
+    }
+
+    public int nbreColisMaritime(Long id){
+        return colisMaritimeRepository.nbreColisMaritime(id);
+    }
+
+    public double montantPrixCarton(Long id, String code){
+        return colisMaritimeRepository.montantPrixCarton(id, code);
+    }
+
+    public int nbreSelonCarton(Long id, String code){
+        return colisMaritimeRepository.nbreCarton(id,code);
     }
 }

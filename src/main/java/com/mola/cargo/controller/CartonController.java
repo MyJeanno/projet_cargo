@@ -22,11 +22,13 @@ public class CartonController {
 
     @PostMapping("carton/nouveau")
     public String enregistrerCarton(@RequestParam String libelle,
+                                    @RequestParam String code,
                                     @RequestParam String mesure,
                                     @RequestParam double prix,
                                     @RequestParam double poids){
         Carton carton = new Carton();
         carton.setLibelleCarton(libelle);
+        carton.setCode(code);
         carton.setMesure(mesure);
         carton.setPrixCarton(prix);
         carton.setPoidAutorise(poids);

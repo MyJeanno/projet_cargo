@@ -1,6 +1,7 @@
 package com.mola.cargo.controller;
 
 import com.mola.cargo.model.ProduitAerien;
+import com.mola.cargo.model.ProduitMaritime;
 import com.mola.cargo.model.Tarif;
 import com.mola.cargo.service.ColisAerienService;
 import com.mola.cargo.service.CommandeService;
@@ -15,9 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,13 +38,14 @@ public class ProduitAerienController {
     private CommandeService commandeService;
 
     @GetMapping("/colisAerien/produits")
-    public String afficherProduit(Model model){
-        model.addAttribute("produitsAerien", produitAerienService.findProduitColisAerien(colisAerienService.showMaLastColisAerien().getId()));
+    public String afficherProduitAerien(Model model){
+        model.addAttribute("produitsAerien", produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
         model.addAttribute("tarifs", tarifService.showTarifs());
         model.addAttribute("lastColisAerien", colisAerienService.showMaLastColisAerien());
         return "produit/produitAerien";
     }
 
+    //Pour enregistrer un nouveau produit
     @PostMapping("/produitAerien/nouveau")
     public String enregistrerPAerien(@RequestParam Long colisAerienid,
                                      @RequestParam Long tarifid,
@@ -70,6 +70,36 @@ public class ProduitAerienController {
             }
         }
         produitAerienService.saveProduitAerien(produitAerien);
+        return "redirect:/colisAerien/produits";
+    }
+
+    @GetMapping("/produitAerien/formUpdate/{id}")
+    public String showFormUpdateColisAerien(@PathVariable("id") Long id, Model model){
+        model.addAttribute("unProduit",produitAerienService.showOneProduitAerien(id));
+        model.addAttribute("tarifs", tarifService.showTarifs());
+        return "produit/formUpdateProduitAerien";
+    }
+
+    @PostMapping("/produitAerien/update")
+    public String updateProduitAerien(@ModelAttribute("produitAerien") ProduitAerien produitAerien){
+        List<Tarif> listPrix = new ArrayList<>();
+        listPrix = tarifService.showTarifs();
+        for(Tarif t : listPrix){
+            if(produitAerien.getTarifid() == t.getId()){
+                if(produitAerienService.estentier(produitAerien.getPoids())){
+                    produitAerien.setPrixProduit(t.getPrixkilo()*produitAerien.getPoids());
+                }else{
+                    produitAerien.setPrixProduit(t.getPrixkilo()*((int)produitAerien.getPoids()+1));
+                }
+            }
+        }
+        produitAerienService.saveProduitAerien(produitAerien);
+        return "redirect:/colisAerien/produits";
+    }
+
+    @GetMapping("/produitAerien/delete")
+    public String supprimerProduitAerien(Long id){
+        produitAerienService.deleteProduitAerien(id);
         return "redirect:/colisAerien/produits";
     }
 

@@ -56,8 +56,8 @@ public class ProduitAerienService {
     public double taxe(List<ProduitAerien> listeAerien) {
         double taxe = 0;
         for (ProduitAerien p : listeAerien) {
-            if (p.getTarif().getTaxe() != 0) {
-                taxe = p.getTarif().getTaxe();
+            if (p.getTarif().getTaxeAerienne() != 0) {
+                taxe = p.getTarif().getTaxeAerienne();
                 break;
             }
         }

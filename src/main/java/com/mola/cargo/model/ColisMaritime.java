@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -16,6 +13,8 @@ import javax.persistence.Transient;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ColisMaritime extends Colis {
 
+    @Column(name = "prix_colis")
+    private double prixColis;
     @ManyToOne
     @JoinColumn(name = "cartonid", insertable = false, updatable = false)
     private Carton carton;

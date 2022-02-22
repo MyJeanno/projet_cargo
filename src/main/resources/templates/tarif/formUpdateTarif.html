@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Mise à jour d'un tarif</small></h3>
+            <h4><small>Mise à jour d'un tarif</small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -55,10 +55,17 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Taxe <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Taxe aérienne<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{taxe}" required="required" class="form-control ">
+                            <input type="text" th:field="*{taxeAerienne}" required="required" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Taxe maritime<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" th:field="*{taxeMaritime}" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">

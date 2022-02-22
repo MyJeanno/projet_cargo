@@ -21,16 +21,13 @@ public class Commande {
     @Column(name = "date_envoi")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateEnvoi;
+    @Column(name = "lieu_paiement")
+    private String lieuPaiement;
 
     @ManyToOne
     @JoinColumn(name = "pieceid", insertable = false, updatable = false)
     private Piece piece;
     private Long pieceid;
-
-    @ManyToOne
-    @JoinColumn(name = "paiementid", insertable = false, updatable = false)
-    private Paiement paiement;
-    private Long paiementid;
 
     @ManyToOne
     @JoinColumn(name = "emetteurid", insertable = false, updatable = false)
@@ -50,5 +47,7 @@ public class Commande {
     private final String  PREFIX_COMMANDE = "MF";
     @Transient
     private final String  PREFIX_COLIS = "MFCA";
+    @Transient
+    private final String  PREFIX_COLIS_MARITIME = "MFCM";
 
 }
