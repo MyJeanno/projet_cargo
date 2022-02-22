@@ -11,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -107,6 +104,21 @@ public class ColisMaritimeController {
     public String supprimerColisMaritime(Long id){
         colisMaritimeService.deleteColisMaritime(id);
         return "redirect:/colisMaritime/listes";
+    }
+
+    //Formulaire de choix d'une commande
+    @GetMapping("/choixMaritime/commande")
+    public String showFormChoixCommande(){
+        return "colis/choixCommandeMaritime";
+    }
+
+    @GetMapping("/colisMaritime/commande")
+    public String showColisMaritimeCommande(@RequestParam String numCom, Model model){
+        Long id = commandeService.showCommandePin(numCom).getId();
+        //System.out.println("L'id de la commande est : "+id);
+        model.addAttribute("colisMaritime", colisMaritimeService.showColisMaritimeCommande(id));
+        model.addAttribute("lastCommande", commandeService.showCommandePin(numCom));
+        return "colis/listeColisMaritime";
     }
 
     /*//Fonction pour générer la facture maritime

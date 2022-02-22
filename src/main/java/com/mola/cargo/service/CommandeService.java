@@ -19,6 +19,10 @@ public class CommandeService {
         return (borneInf+random.nextInt(borneSup-borneInf));
     }
 
+    public Commande showCommandePin(String pin){
+        return commandeRepository.findCommandeByPin(pin);
+    }
+
     public boolean testerAppartenance(List<Commande> liste, String pin){
         boolean appartient = false;
         for (Commande c:liste){

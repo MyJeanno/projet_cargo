@@ -10,4 +10,6 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
 
     @Query(value = "select * from commande ORDER BY id DESC LIMIT 1", nativeQuery = true)
     public Commande showMaLastCommande();
+
+    Commande findCommandeByPin(String pin);
 }
