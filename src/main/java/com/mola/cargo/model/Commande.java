@@ -46,8 +46,8 @@ public class Commande {
     @Transient
     private final String  PREFIX_COMMANDE = "MF";
     @Transient
-    private final String  PREFIX_COLIS = "MFCA";
+    private final String  PREFIX_COLIS = "MFA";
     @Transient
-    private final String  PREFIX_COLIS_MARITIME = "MFCM";
+    private final String  PREFIX_COLIS_MARITIME = "MFM";
 
 }

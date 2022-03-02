@@ -35,6 +35,10 @@ public class CommandeService {
         return appartient;
     }
 
+    public int totalCommande(){
+      return commandeRepository.findAll().size();
+    }
+
     public Commande showMaLastCommande(){
         return commandeRepository.showMaLastCommande();
     }

@@ -34,6 +34,10 @@ public class ColisAerienService {
         return colisAerienRepository.showMaLastColisAerien();
     }
 
+    public int nombreColisAerien(){
+        return colisAerienRepository.nbreCommandeAerien();
+    }
+
     public boolean testerAppartenance(List<ColisAerien> liste, String num){
         boolean appartient = false;
         for (ColisAerien c:liste){

@@ -28,6 +28,10 @@ public class EmetteurService {
         return emetteurRepository.findAll();
     }
 
+    public int nbreEmetteur(){
+        return emetteurRepository.findAll().size();
+    }
+
     public Emetteur showOneEmetteur(Long id){
         Optional<Emetteur> optional = emetteurRepository.findById(id);
         Emetteur emetteur = null;

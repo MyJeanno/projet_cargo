@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head></head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+                <div class="count" th:text="${nbClient}"></div>
+                <h3>Client</h3>
+                <p>Nombre total de client</p>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-comments-o"></i></div>
+                <div class="count" th:text="${totalCommande}"></div>
+                <h3>Commande</h3>
+                <p>Nombre totale de commande</p>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
+                <div class="count" th:text="${nbCommandeMaritime}"></div>
+                <h3>Maritime</h3>
+                <p>Total envoi maritime</p>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-check-square-o"></i></div>
+                <div class="count" th:text="${nbCommandeAerien}"></div>
+                <h3>Aérien</h3>
+                <p>Total envoi aérien</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

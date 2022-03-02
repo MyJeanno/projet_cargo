@@ -27,4 +27,7 @@ public interface ColisMaritimeRepository extends JpaRepository<ColisMaritime, Lo
     @Query("select COUNT(cm) FROM ColisMaritime cm where cm.commandeid = ?1 and cm.carton.code = ?2")
     int nbreCarton(Long id, String code);
 
+    @Query(value = "SELECT count(DISTINCT commandeid) FROM colis_maritime", nativeQuery = true)
+    int nbreCommandeMaritime();
+
 }

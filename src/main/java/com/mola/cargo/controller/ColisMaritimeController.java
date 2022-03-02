@@ -125,7 +125,7 @@ public class ColisMaritimeController {
     @GetMapping("/colis/facture")
     public ResponseEntity<byte[]> factureMaritime() throws FileNotFoundException, JRException {
         List<ColisMaritime> listeColisMaritime = colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande().getId());
-        File file = ResourceUtils.getFile("classpath:factureMaritime.jrxml");
+        File file = ResourceUtils.getFile("classpath:factureMaritimePaye.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeColisMaritime);
         Map<String, Object> parameter = new HashMap<>();

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -103,15 +105,48 @@ public class ProduitAerienController {
         return "redirect:/colisAerien/produits";
     }
 
+    private String getPrincipal() {
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
+    }
+
     //Fonction pour générer la facture aerienne
     @GetMapping("/colisAerien/facture")
     public ResponseEntity<byte[]> factureAerienne() throws FileNotFoundException, JRException {
         List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId());
-        File file = ResourceUtils.getFile("classpath:factureAerienne.jrxml");
+        File file = ResourceUtils.getFile("classpath:factureAeriennePaye.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdAerien);
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
+        parameter.put("user", getPrincipal());
+        parameter.put("nbre_colis", produitAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
+        parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
+        parameter.put("frais_emballage", produitAerienService.fraisEmballage(colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId())));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
+        byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
+    }
+
+    //Fonction pour générer la facture aerienne non payée
+    @GetMapping("/colisAerien/facture_non_paye")
+    public ResponseEntity<byte[]> factureAerienneNonPaye() throws FileNotFoundException, JRException {
+        List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId());
+        File file = ResourceUtils.getFile("classpath:factureAerienneNonPaye.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdAerien);
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("Données colis", "Première source");
+        parameter.put("user", getPrincipal());
         parameter.put("nbre_colis", produitAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
         parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
         parameter.put("frais_emballage", produitAerienService.fraisEmballage(colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId())));

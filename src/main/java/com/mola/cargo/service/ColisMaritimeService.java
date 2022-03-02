@@ -30,6 +30,10 @@ public class ColisMaritimeService {
         return colisMaritimeRepository.findColisMaritimeCommande(id);
     }
 
+    public int nombreCommandeMaritime(){
+        return colisMaritimeRepository.nbreCommandeMaritime();
+    }
+
     public Colis showOneColisMaritime(Long id){
         Optional<ColisMaritime> optional = colisMaritimeRepository.findById(id);
         ColisMaritime colisMaritime = null;

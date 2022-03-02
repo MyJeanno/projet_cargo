@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,17 +84,63 @@ public class ProduitMaritimeController {
         return "redirect:/colisMaritime/produits";
     }
 
-    //Fonction pour générer la facture maritime
+    private String getPrincipal() {
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
+    }
+
+    //Fonction pour générer la facture maritime payé
     @GetMapping("/colisMaritime/facture")
     public ResponseEntity<byte[]> factureMaritime() throws FileNotFoundException, JRException {
         List<ProduitMaritime> listeProdMaritime = produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId());
-        File file = ResourceUtils.getFile("classpath:factureMaritime.jrxml");
+        File file = ResourceUtils.getFile("classpath:factureMaritimePaye.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdMaritime);
         int petit = colisMaritimeService.nbreSelonCarton(commandeService.showMaLastCommande().getId(), "PC");
         int grand = colisMaritimeService.nbreSelonCarton(commandeService.showMaLastCommande().getId(), "GC");
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
+        parameter.put("user", getPrincipal());
+        parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
+        parameter.put("taxe_maritime", produitMaritimeService.taxe(listeProdMaritime));
+        parameter.put("nb_petit_carton", petit);
+        parameter.put("nb_grand_carton", grand);
+        if(petit!=0){
+            parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(),"PC"));
+        }else{
+            parameter.put("montant_petit_carton", 0);
+        }
+        if(grand!=0){
+            parameter.put("montant_grand_carton", (int)colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(),"GC"));
+        }else {
+            parameter.put("montant_grand_carton", 0);
+        }
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
+        byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
+    }
+
+    //Fonction pour générer la facture maritime non payé
+    @GetMapping("/colisMaritime/facture_non_paye")
+    public ResponseEntity<byte[]> factureMaritimeNonPaye() throws FileNotFoundException, JRException {
+        List<ProduitMaritime> listeProdMaritime = produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId());
+        File file = ResourceUtils.getFile("classpath:factureMaritimeNonPaye.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdMaritime);
+        int petit = colisMaritimeService.nbreSelonCarton(commandeService.showMaLastCommande().getId(), "PC");
+        int grand = colisMaritimeService.nbreSelonCarton(commandeService.showMaLastCommande().getId(), "GC");
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("Données colis", "Première source");
+        parameter.put("user", getPrincipal());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
         parameter.put("taxe_maritime", produitMaritimeService.taxe(listeProdMaritime));
         parameter.put("nb_petit_carton", petit);

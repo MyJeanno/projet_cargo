@@ -10,9 +10,10 @@
             <h4><small>Liste des produits contenus dans le colis N° : <b th:text="${lastColisMaritime.numeroColis}"></b></small></h4>
         </div>
         <div class="title_right">
-            <div class="col-md-12 col-sm-12 pull-right">
+            <div class="col-md-12 col-sm-12 pull-right" th:switch="${lastColisMaritime.commande.lieuPaiement}">
                 <button class="btn btn-warning">Envoi maritime</button>
-                <a th:href="@{/colisMaritime/facture}" class="btn btn-success"><i class="fa fa-print"></i> Générer facture</a>
+                <a th:case="Togo" th:href="@{/colisMaritime/facture}" class="btn btn-success"><i class="fa fa-download"></i> Générer facture</a>
+                <a th:case="*" th:href="@{/colisMaritime/facture_non_paye}" class="btn btn-success"><i class="fa fa-download"></i> Générer facture</a>
                 <a th:href="@{/colisMaritime/form}" class="btn btn-info"><i class="fa fa-plus"></i> créer un nouveau colis</a>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
                     <i class="fa fa-plus"></i> Ajouter

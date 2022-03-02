@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h4><small>Paramétrage des prix selon le type de carton et la région</small></h4>
+            <h4><small>Liste des utilisateurs du système</small></h4>
         </div>
         <div class="title_right">
             <div class="col-md-2 col-sm-2 pull-right">
@@ -46,21 +46,23 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Type carton</th>
-                                    <th>Pays de réception</th>
-                                    <th>Prix du transport</th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Email</th>
+                                    <th>Mot de passe</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="cargoType:${cargoTypes}">
-                                    <td th:text="${cargoType.id}"></td>
-                                    <td th:text="${cargoType.carton.libelleCarton}"></td>
-                                    <td th:text="${cargoType.pays.libellePays}"></td>
-                                    <td th:text="${cargoType.prix}"></td>
+                                <tr th:each="user:${users}">
+                                    <td th:text="${user.id}"></td>
+                                    <td th:text="${user.nom}"></td>
+                                    <td th:text="${user.prenom}"></td>
+                                    <td th:text="${user.username}"></td>
+                                    <td th:text="${user.password}"></td>
                                     <td>
-                                        <a class="btn btn-round btn-sm btn-info" th:href="@{cargoType/formUpdate/{id}(id=${cargoType.id})}"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{cargoType/delete/(id=${cargoType.id})}"><i class="fa fa-trash"></i></a>
+                                        <a class="btn btn-round btn-sm btn-info" th:href="@{user/formUpdate/{id}(id=${user.id})}"><i class="fa fa-edit"></i></a>
+                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{user/delete/(id=${user.id})}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -79,41 +81,45 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Nouveau paramétrage</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Créer un nouvel utilisateur</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{cargoType/nouveau}" method="post" class="forms-sample">
+                    <form th:action="@{/user/nouveau}" method="post" class="forms-sample">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Type de carton</label>
+                            <label class="col-sm-3 col-form-label">Nom</label>
                             <div class="col-sm-9">
-                                <select name="cartonid" id="typeCarton" class="form-control border-info">
-                                    <option>--Choisir un carton--</option>
-                                    <option th:each="carton:${cartons}"
-                                            th:value="${carton.id}"
-                                            th:text="${carton.libelleCarton}">
-                                    </option>
-                                </select>
+                                <input type="text" name="nom" class="form-control border-info">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Pays de destination</label>
+                            <label class="col-sm-3 col-form-label">Prénom</label>
                             <div class="col-sm-9">
-                                <select name="paysid" id="pays" class="form-control border-info">
-                                    <option>--Choisir un pays--</option>
-                                    <option th:each="pays:${pays}"
-                                            th:value="${pays.id}"
-                                            th:text="${pays.libellePays}">
-                                    </option>
-                                </select>
+                                <input type="text" name="prenom" class="form-control border-info">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="prix" class="col-sm-3 col-form-label">Prix</label>
+                            <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-9">
-                                <input type="text" name="prix" class="form-control border-info" id="prix">
+                                <input type="text" name="email" class="form-control border-info">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Mot de passe</label>
+                            <div class="col-sm-9">
+                                <input type="password" name="password" class="form-control border-info">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Rôles</label>
+                            <div class="col-sm-9">
+                                <select name="roles" multiple="multiple" class="form-control border-info">
+                                    <option>--Sélectionner des rôles--</option>
+                                    <option>ADMIN</option>
+                                    <option>RECEPTIONNISTE</option>
+                                </select>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mr-2 pull-right">Enregistrer</button>
