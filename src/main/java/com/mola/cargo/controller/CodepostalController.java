@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Controller
+@RequestMapping("/param")
 public class CodepostalController {
 
     @Autowired
@@ -53,6 +55,6 @@ public class CodepostalController {
             touslescodes.add(codepostal);
         }
         codepostalService.saveCodepostal(touslescodes);
-        return "redirect:/codepostals";
+        return "redirect:/param/codepostals";
     }
 }

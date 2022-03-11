@@ -20,15 +20,8 @@
     <!-- NProgress -->
     <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
 
-    <!-- bootstrap-progressbar -->
-    <link href="/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- bootstrap-daterangepicker -->
-    <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
     <link href="/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
     <!-- Datatables -->
@@ -45,7 +38,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>CargoPlus</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Mola et fils</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -71,28 +64,28 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-bug"></i>Paramétrages<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a th:href="@{/pieces}">Ajouter une pièce</a></li>
-                      <li><a th:href="@{/paiements}">Ajouter un mode de paiement</a></li>
-                      <li><a th:href="@{/cargoTypes}">Conditions prix maritime</a></li>
-                      <li><a th:href="@{/emballages}">Carton aérien</a></li>
-                      <li><a th:href="@{/tarifs}">Paramétrage du tarif</a></li>
-                      <li><a th:href="@{/pays}">Enregistrer un pays</a></li>
-                      <li><a th:href="@{/etats}">Enregistrer un Etat</a></li>
-                      <li><a th:href="@{/codepostals}">Les codes postaux</a></li>
-                      <li><a th:href="@{/augmentations}">Paramétrer une augmentation</a></li>
+                      <li><a th:href="@{/param/pieces}">Ajouter une pièce</a></li>
+                      <li><a th:href="@{/param/paiements}">Ajouter un mode de paiement</a></li>
+                      <li><a th:href="@{/param/cargoTypes}">Paramétrage carton maritime</a></li>
+                      <li><a th:href="@{/param/emballages}">Paramétrage carton aérien</a></li>
+                      <li><a th:href="@{/param/tarifs}">Paramétrage des prix/kg</a></li>
+                      <li><a th:href="@{/param/pays}">Enregistrer un pays</a></li>
+                      <li><a th:href="@{/param/etats}">Enregistrer un Etat</a></li>
+                        <li><a th:href="@{/param/cartons}">Ajouter un carton</a></li>
+                      <li><a th:href="@{/param/codepostals}">Liste des codes postaux</a></li>
                     </ul>
                   </li>
                     <li><a><i class="fa fa-user"></i>Gestion des clients <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a th:href="@{/emetteurs}">Ajouter un expéditeur</a></li>
-                            <li><a th:href="@{/recepteurs}">Ajouter un destinataire</a></li>
+                            <li><a th:href="@{/personne/emetteurs}">Ajouter un expéditeur</a></li>
+                            <li><a th:href="@{/personne/recepteurs}">Ajouter un destinataire</a></li>
                             <li><a th:href="@{/cartonVentes}">Vente des cartons</a></li>
                         </ul>
                     </li>
 
-                  <li><a><i class="fa fa-plane"></i>Gestion des envois de colis <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-plane"></i>Gestion des envois <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a th:href="@{/emetteur/envoi}">Enregistrer un envoi</a></li>
+                      <li><a th:href="@{/personne/emetteur/envoi}">Enregistrer un envoi</a></li>
                       <li><a th:href="@{/choixAerien/commande}">Modifier un colis aérien</a></li>
                       <li><a th:href="@{/choixMaritime/commande}">Modifier un colis maritime</a></li>
                       <li><a href="project_detail.html">Project Detail</a></li>
@@ -102,9 +95,15 @@
                   </li>
                   <li><a><i class="fa fa-envelope"></i>Vente de cartons <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a th:href="@{/cartons}">Ajouter un carton</a></li>
                       <li><a th:href="@{/cartonAppros}">Appro des cartons</a></li>
                       <li><a th:href="@{/cartonVentes}">Vente des cartons</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-bar-chart"></i> Statistiques <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a th:href="@{/stat/depot}">Colis en dépôt</a></li>
+                      <li><a th:href="@{/cartonAppros}">Envois en cours</a></li>
+                      <li><a th:href="@{/cartonVentes}">Envois livrés</a></li>
                     </ul>
                   </li>
 
@@ -136,16 +135,19 @@
 
         <!-- top navigation -->
         <div class="top_nav">
-            <div class="nav_menu">
-                <nav class="nav navbar-nav">
-                <ul class=" navbar-right">
-                  <li sec:authorize="isAuthenticated()" style="padding-left: 15px;">
-                    <a th:href="@{/logout}">Déconnexion</a>
-                  </li>
-                </ul>
-              </nav>
+          <div class="nav_menu">
+            <div class="nav toggle">
+              <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
+            <nav class="nav navbar-nav">
+              <ul class=" navbar-right">
+                <li sec:authorize="isAuthenticated()" style="padding-left: 15px;">
+                    <a th:href="@{/logout}">Déconnexion</a>
+                </li>
+              </ul>
+            </nav>
           </div>
+        </div>
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -175,9 +177,6 @@
     <script src="/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="/vendors/nprogress/nprogress.js"></script>
-
-    <!-- Chart.js -->
-    <script src="/vendors/Chart.js/dist/Chart.min.js"></script>
     <!-- jQuery Sparklines -->
     <script src="/vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
     <!-- morris.js -->
@@ -187,24 +186,6 @@
     <script src="/vendors/gauge.js/dist/gauge.min.js"></script>
     <!-- bootstrap-progressbar -->
     <script src="/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- Skycons -->
-    <script src="/vendors/skycons/skycons.js"></script>
-    <!-- Flot -->
-    <script src="/vendors/Flot/jquery.flot.js"></script>
-    <script src="/vendors/Flot/jquery.flot.pie.js"></script>
-    <script src="/vendors/Flot/jquery.flot.time.js"></script>
-    <script src="/vendors/Flot/jquery.flot.stack.js"></script>
-    <script src="/vendors/Flot/jquery.flot.resize.js"></script>
-    <!-- Flot plugins -->
-    <script src="/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="/vendors/flot.curvedlines/curvedLines.js"></script>
-    <!-- DateJS -->
-    <script src="/vendors/DateJS/build/date.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="/vendors/moment/min/moment.min.js"></script>
-    <script src="/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
 
 
     <!-- jQuery Smart Wizard -->

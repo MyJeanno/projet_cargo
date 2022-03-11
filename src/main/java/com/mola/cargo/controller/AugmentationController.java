@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/param")
 public class AugmentationController {
     @Autowired
     private AugmentationService augmentationService;
@@ -24,7 +25,7 @@ public class AugmentationController {
         Augmentation augmentation = new Augmentation();
         augmentation.setPourcentage(pourcent);
         augmentationService.saveAugmentation(augmentation);
-        return "redirect:/augmentations";
+        return "redirect:/param/augmentations";
     }
 
     @GetMapping("augmentation/formUpdate/{id}")
@@ -36,12 +37,12 @@ public class AugmentationController {
     @PostMapping("augmentation/update")
     public String updateAugmentation(@ModelAttribute("augmentation") Augmentation augmentation){
         augmentationService.saveAugmentation(augmentation);
-        return "redirect:/augmentations";
+        return "redirect:/param/augmentations";
     }
 
     @GetMapping("/augmentation/delete")
     public String supprimerAugmentation(Long id){
         augmentationService.deleteAugmentation(id);
-        return "redirect:/augmentations";
+        return "redirect:/param/augmentations";
     }
 }

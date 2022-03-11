@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/param")
 public class EtatController {
 
     @Autowired
@@ -33,7 +34,7 @@ public class EtatController {
         etat.setLibelleEtat(libelle);
         etat.setPaysid(paysid);
         etatService.saveEtat(etat);
-        return "redirect:/etats";
+        return "redirect:/param/etats";
     }
 
     @GetMapping("etat/formUpdate/{id}")
@@ -46,12 +47,12 @@ public class EtatController {
     @PostMapping("/etat/update")
     public String updateEtat(@ModelAttribute("etat") Etat etat){
         etatService.saveEtat(etat);
-        return "redirect:/etats";
+        return "redirect:/param/etats";
     }
 
     @GetMapping("/etat/delete")
     public String supprimerEtat(Long id){
         etatService.deleteState(id);
-        return "redirect:/etats";
+        return "redirect:/param/etats";
     }
 }

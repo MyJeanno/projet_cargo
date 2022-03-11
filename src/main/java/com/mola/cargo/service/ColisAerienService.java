@@ -30,6 +30,14 @@ public class ColisAerienService {
         return colisAerienRepository.findColisAerienCommande(id);
     }
 
+    public List<ColisAerien> findColisAerienCommandePin(String pin){
+        return colisAerienRepository.findColisAerienCommandePin(pin);
+    }
+
+    public int nbreColisAerien(Long id){
+        return colisAerienRepository.nbreColisAerien(id);
+    }
+
     public ColisAerien showMaLastColisAerien(){
         return colisAerienRepository.showMaLastColisAerien();
     }

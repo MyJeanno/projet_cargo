@@ -15,7 +15,7 @@ public interface ProduitAerienRepository extends JpaRepository<ProduitAerien, Lo
     @Query("select pa from ProduitAerien pa where pa.colisAerien.commandeid = ?1")
     List<ProduitAerien> findProduitColisAerien(Long id);
 
-    @Query("select COUNT(ca) FROM  ColisAerien ca where ca.commandeid = ?1")
-    int nbreColisAerien(Long id);
+    @Query("select SUM(pa.prixProduit) FROM  ProduitAerien pa where pa.colisAerien.commandeid = ?1")
+    double sommePrixProduitAerien(Long id);
 
 }

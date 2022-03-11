@@ -79,7 +79,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Nouveau paramétrage</h5>
+                    <h6 class="modal-title" id="staticBackdropLabel">Nouveau paramétrage</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -89,8 +89,8 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Type de carton</label>
                             <div class="col-sm-9">
-                                <select name="cartonid" id="typeCarton" class="form-control border-info">
-                                    <option>--Choisir un carton--</option>
+                                <select name="cartonid" id="typeCarton" required class="form-control border-info">
+                                    <option value="">--Choisir un carton--</option>
                                     <option th:each="carton:${cartons}"
                                             th:value="${carton.id}"
                                             th:text="${carton.libelleCarton}">
@@ -101,8 +101,8 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Pays de destination</label>
                             <div class="col-sm-9">
-                                <select name="paysid" id="pays" class="form-control border-info">
-                                    <option>--Choisir un pays--</option>
+                                <select name="paysid" id="pays" required class="form-control border-info">
+                                    <option value="">--Choisir un pays--</option>
                                     <option th:each="pays:${pays}"
                                             th:value="${pays.id}"
                                             th:text="${pays.libellePays}">
@@ -113,7 +113,7 @@
                         <div class="form-group row">
                             <label for="prix" class="col-sm-3 col-form-label">Prix</label>
                             <div class="col-sm-9">
-                                <input type="text" name="prix" class="form-control border-info" id="prix">
+                                <input type="text" name="prix" required class="form-control border-info" id="prix">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mr-2 pull-right">Enregistrer</button>
@@ -130,7 +130,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h5>
+                    <h6 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

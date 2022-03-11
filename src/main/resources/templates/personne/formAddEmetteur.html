@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Enregistrer un nouveau client expéditeur</small></h3>
+            <h4><small>Enregistrer un nouveau client expéditeur</small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -33,7 +33,7 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/emetteur/nouveau}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/personne/emetteur/nouveau}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Nom <span class="required">*</span>
                         </label>
@@ -77,7 +77,7 @@
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a th:href="@{/emetteurs}" class="btn btn-secondary" type="button">Retour</a>
+                            <a th:href="@{/personne/emetteurs}" class="btn btn-secondary" type="button">Retour</a>
                             <button type="submit" class="btn btn-success">Enregistrer</button>
                         </div>
                     </div>

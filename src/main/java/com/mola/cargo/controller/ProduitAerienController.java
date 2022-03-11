@@ -41,9 +41,13 @@ public class ProduitAerienController {
 
     @GetMapping("/colisAerien/produits")
     public String afficherProduitAerien(Model model){
+        double prixTotal = produitAerienService.sommePrixProduitAerien(commandeService.showMaLastCommande().getId()) +
+                           produitAerienService.fraisEmballage(colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId()))+
+                           produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
         model.addAttribute("produitsAerien", produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
         model.addAttribute("tarifs", tarifService.showTarifs());
         model.addAttribute("lastColisAerien", colisAerienService.showMaLastColisAerien());
+        model.addAttribute("prixTotal", String.format("% ,.2f", prixTotal));
         return "produit/produitAerien";
     }
 
@@ -53,13 +57,15 @@ public class ProduitAerienController {
                                      @RequestParam Long tarifid,
                                      @RequestParam String designation,
                                      @RequestParam int quantite,
-                                     @RequestParam double poids){
+                                     @RequestParam double poids,
+                                     @RequestParam double valeurMarchande){
         ProduitAerien produitAerien = new ProduitAerien();
         produitAerien.setColisAerienid(colisAerienid);
         produitAerien.setTarifid(tarifid);
         produitAerien.setDesignation(designation);
         produitAerien.setQuantite(quantite);
         produitAerien.setPoids(poids);
+        produitAerien.setValeurMarchande(valeurMarchande);
         List<Tarif> listPrix = new ArrayList<>();
         listPrix = tarifService.showTarifs();
         for(Tarif t : listPrix){
@@ -127,7 +133,7 @@ public class ProduitAerienController {
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
         parameter.put("user", getPrincipal());
-        parameter.put("nbre_colis", produitAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
+        parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
         parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
         parameter.put("frais_emballage", produitAerienService.fraisEmballage(colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId())));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
@@ -147,7 +153,7 @@ public class ProduitAerienController {
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
         parameter.put("user", getPrincipal());
-        parameter.put("nbre_colis", produitAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
+        parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
         parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
         parameter.put("frais_emballage", produitAerienService.fraisEmballage(colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId())));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);

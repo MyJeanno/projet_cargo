@@ -14,7 +14,5 @@ import javax.persistence.Transient;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Emetteur extends Personne {
     private String adresseEmetteur;
-    @Transient
-    private final String SITUATION_EMETTEUR="En cours";
 
 }

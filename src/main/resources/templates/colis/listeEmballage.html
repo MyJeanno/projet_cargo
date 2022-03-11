@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Liste des types d'emballage pour le transport aérien</small></h3>
+            <h4><small>Liste des types d'emballage pour le transport aérien</small></h4>
         </div>
         <div class="title_right">
             <div class="col-md-2 col-sm-2 pull-right">
@@ -57,8 +57,8 @@
                                     <td th:text="${emballage.taille}"></td>
                                     <td th:text="${emballage.prix}"></td>
                                     <td>
-                                        <a class="btn btn-round btn-sm btn-info" th:href="@{/emballage/formUpdate/{id}(id=${emballage.id})}"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{/emballage/delete/(id=${emballage.id})}"><i class="fa fa-trash"></i></a>
+                                        <a class="btn btn-round btn-sm btn-info" th:href="@{emballage/formUpdate/{id}(id=${emballage.id})}"><i class="fa fa-edit"></i></a>
+                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{emballage/delete/(id=${emballage.id})}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -77,7 +77,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Nouveau emballage</h5>
+                    <h6 class="modal-title" id="staticBackdropLabel">Nouveau emballage</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -110,7 +110,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h5>
+                    <h6 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

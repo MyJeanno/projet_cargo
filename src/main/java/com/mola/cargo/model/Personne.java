@@ -27,7 +27,6 @@ public class Personne {
     private String emailPersonne;
     @Column(name = "numero_personne")
     private String numeroPersonne;
-    private String situation;
 
     @Transient
     protected final String INITIAL_ENTREPRISE = "MO";

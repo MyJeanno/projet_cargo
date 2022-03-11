@@ -2,6 +2,7 @@ package com.mola.cargo.service;
 
 import com.mola.cargo.model.Pays;
 import com.mola.cargo.repository.PaysRepository;
+import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,10 @@ public class PaysService {
 
     public List<Pays> showPays(){
         return paysRepository.findAll();
+    }
+
+    public List<Pays> findPaysTarif(){
+        return paysRepository.findPaysTarif();
     }
 
     public void savePays(Pays pays){

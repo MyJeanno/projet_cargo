@@ -7,7 +7,7 @@
 <div layout:fragment="content">
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Liste des codes postaux de l'Allemagne</small></h3>
+            <h4><small>Liste des codes postaux de l'Allemagne</small></h4>
         </div>
         <div class="title_right">
             <form th:action="@{/codepostal/nouveau}" method="post">
@@ -50,7 +50,6 @@
                                     <th>Id</th>
                                     <th>Code postal</th>
                                     <th>Etat</th>
-                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -58,10 +57,6 @@
                                     <td th:text="${codepostal.id}"></td>
                                     <td th:text="${codepostal.libelleCode}"></td>
                                     <td th:text="${codepostal.etat.libelleEtat}"></td>
-                                    <td>
-                                        <a class="btn btn-round btn-sm btn-info" th:href="@{codepostal/formUpdate/{id}(id=${codepostal.id})}"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{codepostal/delete/(id=${codepostal.id})}"><i class="fa fa-trash"></i></a>
-                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -80,7 +75,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h5>
+                    <h6 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

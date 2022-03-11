@@ -67,7 +67,7 @@
                         <label class="ccol-form-label col-md-3 col-sm-3 label-align">Type de pièce</label>
                         <div class="col-md-6 col-sm-6">
                             <select name="pieceid" required="true" class="form-control border-info">
-                                <option>--Choisir une pièce--</option>
+                                <option value="">--Choisir une pièce--</option>
                                 <option th:each="piece:${pieces}"
                                         th:value="${piece.id}"
                                         th:text="${piece.libellePiece}">
@@ -79,7 +79,7 @@
                         <label class="ccol-form-label col-md-3 col-sm-3 label-align">Lieu de paiement</label>
                         <div class="col-md-6 col-sm-6">
                             <select name="lieuPaiement" required="true" class="form-control border-info">
-                                <option>--Choisir un lieu de paiement--</option>
+                                <option value="">--Choisir un lieu de paiement--</option>
                                 <option>Togo</option>
                                 <option>Allemagne</option>
                             </select>

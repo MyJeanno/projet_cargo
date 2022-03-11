@@ -23,6 +23,7 @@ public class Commande {
     private Date dateEnvoi;
     @Column(name = "lieu_paiement")
     private String lieuPaiement;
+    private String statut;
 
     @ManyToOne
     @JoinColumn(name = "pieceid", insertable = false, updatable = false)

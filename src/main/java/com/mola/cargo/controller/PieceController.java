@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/param")
 public class PieceController {
 
     @Autowired
@@ -25,7 +26,7 @@ public class PieceController {
        Piece piece = new Piece();
        piece.setLibellePiece(lib);
        pieceService.savePiece(piece);
-       return "redirect:/pieces";
+       return "redirect:/param/pieces";
     }
 
     @GetMapping("piece/formUpdate/{id}")
@@ -37,12 +38,12 @@ public class PieceController {
     @PostMapping("piece/update")
     public String updatePiece(@ModelAttribute("piece") Piece piece){
         pieceService.savePiece(piece);
-        return "redirect:/pieces";
+        return "redirect:/param/pieces";
     }
 
     @GetMapping("/piece/delete/")
     public String supprimerPiece(Long id){
         pieceService.deletePiece(id);
-        return "redirect:/pieces";
+        return "redirect:/param/pieces";
     }
 }

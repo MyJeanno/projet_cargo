@@ -15,8 +15,6 @@ public class Recepteur extends Personne{
     private String rue;
     @Column(name = "code_postal")
     private int codePostal;
-    @Transient
-    private final String SITUATION_RECEPTEUR="En cours";
 
     @ManyToOne
     @JoinColumn(name = "etatid", insertable = false, updatable = false)

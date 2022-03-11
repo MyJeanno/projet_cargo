@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/param")
 public class EmballageController {
 
     @Autowired
@@ -25,25 +26,25 @@ public class EmballageController {
         emballage.setTaille(taille);
         emballage.setPrix(prix);
         emballageService.saveEmballage(emballage);
-        return "redirect:/emballages";
+        return "redirect:/param/emballages";
     }
 
-    @GetMapping("/emballage/formUpdate/{id}")
+    @GetMapping("emballage/formUpdate/{id}")
     public String showFormUpdate(@PathVariable("id") Long id, Model model){
       model.addAttribute("unEmballage", emballageService.showOneEmballage(id));
       return "colis/formUpdateEmballage";
     }
 
-    @PostMapping("/emballage/update")
+    @PostMapping("emballage/update")
     public String updateEmballage(@ModelAttribute("Emballage") Emballage emballage){
         emballageService.saveEmballage(emballage);
-        return "redirect:/emballages";
+        return "redirect:/param/emballages";
     }
 
     @GetMapping("/emballage/delete")
     public String suprimerEmballage(Long id){
         emballageService.deleteEmballage(id);
-        return "redirect:/emballages";
+        return "redirect:/param/emballages";
     }
 
 

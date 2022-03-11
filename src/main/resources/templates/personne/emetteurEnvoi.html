@@ -7,13 +7,13 @@
 <div layout:fragment="content">
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Sélectionner un client expéditeur pour l'envoi de colis</small></h3>
+            <h4><small>Sélectionner un client expéditeur pour l'envoi de colis</small></h4>
         </div>
 
         <div class="title_right">
             <div class="col-md-3 col-sm-3 pull-right">
                 <p><b><i>Nouveau client ?</i></b></p>
-                <a th:href="@{/emetteur/formEmetteur}" class="btn btn-info"><i class="fa fa-plus"></i> Ajouter</a>
+                <a th:href="@{/personne/emetteur/formEmetteur}" class="btn btn-info"><i class="fa fa-plus"></i> Ajouter</a>
             </div>
         </div>
     </div>
@@ -61,7 +61,7 @@
                                         <td th:text="${emetteur.villePersonne}"></td>
                                         <td th:text="${emetteur.numeroPersonne}"></td>
                                         <td>
-                                            <a class="btn btn-round btn-sm btn-info" th:href="@{/recepteur/liste/{id}(id=${emetteur.id})}"><i class="fa fa-arrow-right"></i></a>
+                                            <a class="btn btn-round btn-sm btn-info" th:href="@{/personne/recepteur/liste/{id}(id=${emetteur.id})}"><i class="fa fa-arrow-right"></i></a>
                                         </td>
                                     </tr>
                                     </tbody>

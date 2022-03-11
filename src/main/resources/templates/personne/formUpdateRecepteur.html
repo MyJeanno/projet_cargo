@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Mise à jour d'un client destinataire</small></h3>
+            <h4><small>Mise à jour d'un client destinataire</small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -33,7 +33,7 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/recepteur/update}" method="POST" th:object="${unRecepteur}" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/personne/recepteur/update}" method="POST" th:object="${unRecepteur}" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 ">
                             <input type="hidden" th:field="*{id}" required="required" class="form-control ">
@@ -61,7 +61,7 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Pays</label>
                         <div class="col-md-6 col-sm-6">
-                            <select th:field="*{paysid}" class="form-control border-info">
+                            <select th:field="*{paysid}" required class="form-control border-info">
                                 <option value="">--Choisir un pays--</option>
                                 <option th:each="pays:${pays}"
                                         th:value="${pays.id}"
@@ -73,7 +73,7 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Etat</label>
                         <div class="col-md-6 col-sm-6">
-                            <select th:field="*{etatid}" class="form-control border-info">
+                            <select th:field="*{etatid}" required class="form-control border-info">
                                 <option value="">--Choisir un Etat--</option>
                                 <option th:each="etat:${etats}"
                                         th:value="${etat.code}"
@@ -90,10 +90,9 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Rue <span class="required">*</span>
-                        </label>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Rue</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{rue}" required="required" class="form-control ">
+                            <input type="text" th:field="*{rue}" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
@@ -118,7 +117,7 @@
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a th:href="@{/recepteurs}" class="btn btn-secondary" type="button">Retour</a>
+                            <a th:href="@{/personne/recepteurs}" class="btn btn-secondary" type="button">Retour</a>
                             <button type="submit" class="btn btn-success">Modifier</button>
                         </div>
                     </div>

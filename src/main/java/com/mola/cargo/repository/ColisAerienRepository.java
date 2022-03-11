@@ -15,9 +15,16 @@ public interface ColisAerienRepository extends JpaRepository<ColisAerien, Long> 
     @Query("select ca from ColisAerien ca where ca.commandeid = ?1")
     List<ColisAerien> findColisAerienCommande(Long id);
 
+    @Query("select ca from ColisAerien ca where ca.commande.pin = ?1")
+    List<ColisAerien> findColisAerienCommandePin(String pin);
+
     @Query(value = "select * from Colis_aerien ORDER BY id DESC LIMIT 1", nativeQuery = true)
     ColisAerien showMaLastColisAerien();
 
     @Query(value = "SELECT count(DISTINCT commandeid) FROM colis_aerien", nativeQuery = true)
     int nbreCommandeAerien();
+
+    @Query("select COUNT(ca) FROM  ColisAerien ca where ca.commandeid = ?1")
+    int nbreColisAerien(Long id);
+
 }

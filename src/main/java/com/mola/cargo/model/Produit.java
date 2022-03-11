@@ -18,6 +18,7 @@ public class Produit {
     private String designation;
     private int quantite;
     private double poids;
+    private double valeurMarchande;
 
     @ManyToOne
     @JoinColumn(name = "tarifid", insertable = false, updatable = false)

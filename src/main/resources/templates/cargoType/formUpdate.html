@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Mise à jour du paramétrage des prix</small></h3>
+            <h4><small>Mise à jour du paramétrage des prix</small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -33,7 +33,7 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/cargoType/update}" method="POST" th:object="${unCargo}" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/param/cargoType/update}" method="POST" th:object="${unCargo}" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 ">
                             <input type="hidden" th:field="*{id}" required="required" class="form-control ">
@@ -42,7 +42,7 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Type de carton</label>
                         <div class="col-md-6 col-sm-6">
-                            <select th:field="*{cartonid}" class="form-control border-info">
+                            <select th:field="*{cartonid}" required class="form-control border-info">
                                 <option value="">--Choisir un Etat--</option>
                                 <option th:each="carton:${cartons}"
                                         th:value="${carton.id}"
@@ -54,7 +54,7 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Pays</label>
                         <div class="col-md-6 col-sm-6">
-                            <select th:field="*{paysid}" class="form-control border-info">
+                            <select th:field="*{paysid}" required class="form-control border-info">
                                 <option value="">--Choisir un pays--</option>
                                 <option th:each="pays:${pays}"
                                         th:value="${pays.id}"
@@ -72,7 +72,7 @@
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a th:href="@{/cargoTypes}" class="btn btn-secondary" type="button">Retour</a>
+                            <a th:href="@{/param/cargoTypes}" class="btn btn-secondary" type="button">Retour</a>
                             <button type="submit" class="btn btn-success">Modifier</button>
                         </div>
                     </div>

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/param")
 public class CargoTypeController {
 
     @Autowired
@@ -38,7 +39,7 @@ public class CargoTypeController {
         cargoType.setPaysid(paysid);
         cargoType.setPrix(prix);
         cargoTypeService.saveCargoType(cargoType);
-        return "redirect:/cargoTypes";
+        return "redirect:/param/cargoTypes";
     }
 
     @GetMapping("cargoType/formUpdate/{id}")
@@ -52,13 +53,13 @@ public class CargoTypeController {
     @PostMapping("cargoType/update")
     public String updateCargo(@ModelAttribute("cargoType") CargoType cargoType){
         cargoTypeService.saveCargoType(cargoType);
-        return "redirect:/cargoTypes";
+        return "redirect:/param/cargoTypes";
     }
 
     @GetMapping("cargoType/delete/")
     public String supprimerCargoType(Long id){
         cargoTypeService.deleteCargoType(id);
-        return "redirect:/cargoTypes";
+        return "redirect:/param/cargoTypes";
     }
 
 

@@ -81,7 +81,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Nouveau tarif</h5>
+                    <h6 class="modal-title" id="staticBackdropLabel">Nouveau tarif</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -91,25 +91,25 @@
                         <div class="form-group row">
                             <label for="lib" class="col-sm-3 col-form-label">Libellé tarif</label>
                             <div class="col-sm-9">
-                                <input type="text" name="libelle" class="form-control border-info" id="lib">
+                                <input type="text" name="libelle" required class="form-control border-info" id="lib">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="p" class="col-sm-3 col-form-label">Prix par kilo</label>
                             <div class="col-sm-9">
-                                <input type="number" name="prix" class="form-control border-info" id="p">
+                                <input type="number" name="prix" required class="form-control border-info" id="p">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="ta" class="col-sm-3 col-form-label">Taxe aérienne</label>
                             <div class="col-sm-9">
-                                <input type="number" name="taxeAe" class="form-control border-info" id="ta">
+                                <input type="number" name="taxeAe" required class="form-control border-info" id="ta">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="tm" class="col-sm-3 col-form-label">Taxe maritime</label>
                             <div class="col-sm-9">
-                                <input type="number" name="taxeMa" class="form-control border-info" id="tm">
+                                <input type="number" name="taxeMa" required class="form-control border-info" id="tm">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mr-2 pull-right">Enregistrer</button>
@@ -126,7 +126,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h5>
+                    <h6 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

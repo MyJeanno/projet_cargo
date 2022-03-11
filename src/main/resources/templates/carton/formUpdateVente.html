@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Mise à jour d'une vente de carton</small></h3>
+            <h4><small>Mise à jour d'une vente de carton</small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -52,7 +52,7 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Type de carton</label>
                         <div class="col-md-6 col-sm-6">
-                            <select th:field="*{cartonid}" class="form-control border-info">
+                            <select th:field="*{cartonid}" required class="form-control border-info">
                                 <option value="">--Choisir un carton--</option>
                                 <option th:each="carton:${cartons}"
                                         th:value="${carton.id}"

@@ -41,9 +41,12 @@ public class ProduitMaritimeController {
 
     @GetMapping("/colisMaritime/produits")
     public String afficherProduitMaritime(Model model){
+        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId())+
+                           produitMaritimeService.taxe(produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
         model.addAttribute("produitsMaritime", produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
         model.addAttribute("tarifs", tarifService.showTarifs());
         model.addAttribute("lastColisMaritime", colisMaritimeService.showMaLastColisMaritime());
+        model.addAttribute("prixTotal", String.format("% ,.2f",prixTotal));
         return "produit/produitMaritime";
     }
 
@@ -53,13 +56,15 @@ public class ProduitMaritimeController {
                                        @RequestParam Long tarifid,
                                        @RequestParam String designation,
                                        @RequestParam int quantite,
-                                       @RequestParam double poids){
+                                       @RequestParam double poids,
+                                       @RequestParam double valeurMarchande){
         ProduitMaritime produitMaritime = new ProduitMaritime();
         produitMaritime.setColisMaritimeid(colisMaritimeid);
         produitMaritime.setTarifid(tarifid);
         produitMaritime.setDesignation(designation);
         produitMaritime.setQuantite(quantite);
         produitMaritime.setPoids(poids);
+        produitMaritime.setValeurMarchande(valeurMarchande);
         produitMaritimeService.saveProduitMaritime(produitMaritime);
         return "redirect:/colisMaritime/produits";
     }

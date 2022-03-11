@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("param")
 public class TarifController {
 
     @Autowired
@@ -30,7 +31,7 @@ public class TarifController {
         tarif.setTaxeAerienne(taxeAe);
         tarif.setTaxeMaritime(taxeMa);
         tarifService.saveTarif(tarif);
-        return "redirect:/tarifs";
+        return "redirect:/param/tarifs";
     }
 
     @GetMapping("tarif/formUpdate/{id}")
@@ -42,12 +43,12 @@ public class TarifController {
     @PostMapping("/tarif/update")
     public String updateTarif(@ModelAttribute("tarif") Tarif tarif){
         tarifService.saveTarif(tarif);
-        return "redirect:/tarifs";
+        return "redirect:/param/tarifs";
     }
 
     @GetMapping("/tarif/delete")
     public String supprimerTarif(Long id){
         tarifService.deleteTarif(id);
-        return "redirect:/tarifs";
+        return "redirect:/param/tarifs";
     }
 }

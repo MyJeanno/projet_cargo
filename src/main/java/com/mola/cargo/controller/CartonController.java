@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/param")
 public class CartonController {
 
     @Autowired
@@ -34,7 +35,7 @@ public class CartonController {
         carton.setPoidAutorise(poids);
         carton.setQteStock(0);
         cartonService.saveCarton(carton);
-        return "redirect:/cartons";
+        return "redirect:/param/cartons";
     }
 
     @GetMapping("carton/formUpdate/{id}")
@@ -46,13 +47,13 @@ public class CartonController {
     @PostMapping("carton/update")
     public String updateCarton(@ModelAttribute("carton") Carton carton){
         cartonService.saveCarton(carton);
-        return "redirect:/cartons";
+        return "redirect:/param/cartons";
     }
 
     @GetMapping("/carton/delete")
     public String supprimerCarton(Long id){
         cartonService.deleteCarton(id);
-        return "redirect:/cartons";
+        return "redirect:/param/cartons";
     }
 
 }

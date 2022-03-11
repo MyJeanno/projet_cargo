@@ -15,6 +15,9 @@ public interface ColisMaritimeRepository extends JpaRepository<ColisMaritime, Lo
     @Query("select cm from ColisMaritime cm where cm.commandeid = ?1")
     List<ColisMaritime> findColisMaritimeCommande(Long id);
 
+    @Query("select cm from ColisMaritime cm where cm.commande.pin = ?1")
+    List<ColisMaritime> findColisMaritimeCommandePin(String pin);
+
     @Query(value = "select * from Colis_maritime ORDER BY id DESC LIMIT 1", nativeQuery = true)
     ColisMaritime showMaLastColisMaritime();
 
@@ -29,5 +32,8 @@ public interface ColisMaritimeRepository extends JpaRepository<ColisMaritime, Lo
 
     @Query(value = "SELECT count(DISTINCT commandeid) FROM colis_maritime", nativeQuery = true)
     int nbreCommandeMaritime();
+
+    @Query("select SUM(cm.prixColis) FROM ColisMaritime cm where cm.commandeid = ?1")
+    double montantTotalPrixCarton(Long id);
 
 }

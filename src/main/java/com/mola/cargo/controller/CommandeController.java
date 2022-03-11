@@ -1,9 +1,8 @@
 package com.mola.cargo.controller;
 
 import com.mola.cargo.model.Commande;
-import com.mola.cargo.service.CartonService;
-import com.mola.cargo.service.CommandeService;
-import com.mola.cargo.service.PaysService;
+import com.mola.cargo.service.*;
+import com.mola.cargo.util.Constante;
 import groovy.transform.AutoClone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +16,14 @@ import java.util.List;
 @Controller
 public class CommandeController {
 
+    @Autowired
+    private RecepteurService recepteurService;
+    @Autowired
+    private EmetteurService emetteurService;
+    @Autowired
+    private PieceService pieceService;
+    @Autowired
+    private PaiementService paiementService;
     @Autowired
     private CommandeService commandeService;
     @Autowired
@@ -34,6 +41,16 @@ public class CommandeController {
         return "commande/formCommande";
     }
 
+    //Renvoie le formulaire de la nouvelle commande
+    @GetMapping("/commande/formCommande")
+    public String showNouvelleCommande(Long idE, Long idR, Model model){
+        model.addAttribute("unEmetteur", emetteurService.showOneEmetteur(idE));
+        model.addAttribute("unRecepteur", recepteurService.showOneRecepteur(idR));
+        model.addAttribute("pieces", pieceService.showPiece());
+        model.addAttribute("modePaiments", paiementService.showPaiement());
+        return "commande/formNewCommande";
+    }
+
     @PostMapping("/commande/nouveau")
     public String enregistrerCommande(Commande commande){
         List<Commande> listeCommande = new ArrayList<>();
@@ -43,6 +60,7 @@ public class CommandeController {
             pin = commande.getPREFIX_COMMANDE()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
         }
         commande.setPin(pin);
+        commande.setStatut(Constante.INITIAL);
         commandeService.saveCommande(commande);
         return "redirect:/mode/envoi";
     }

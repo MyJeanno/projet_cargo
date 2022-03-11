@@ -5,10 +5,9 @@
 <body>
 
 <div layout:fragment="content">
-
     <div class="page-title">
         <div class="title_left">
-            <h3><small>Mise à jour d'un emballage</small></h3>
+            <h4><small>Mise à jour d'un emballage</small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -33,7 +32,7 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/emballage/update}" method="POST" th:object="${unEmballage}" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/param/emballage/update}" method="POST" th:object="${unEmballage}" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 ">
                             <input type="hidden" th:field="*{id}" required="required" class="form-control ">
@@ -55,7 +54,7 @@
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a th:href="@{/emballages}" class="btn btn-secondary" type="button">Retour</a>
+                            <a th:href="@{/param/emballages}" class="btn btn-secondary" type="button">Retour</a>
                             <button type="submit" class="btn btn-success">Modifier</button>
                         </div>
                     </div>

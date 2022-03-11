@@ -30,6 +30,15 @@ public class ColisMaritimeService {
         return colisMaritimeRepository.findColisMaritimeCommande(id);
     }
 
+    public List<ColisMaritime> findColisMaritimeCommandePin(String pin){
+        return colisMaritimeRepository.findColisMaritimeCommandePin(pin);
+    }
+
+
+    public double montantTotalPrixCarton(Long id){
+        return colisMaritimeRepository.montantTotalPrixCarton(id);
+    }
+
     public int nombreCommandeMaritime(){
         return colisMaritimeRepository.nbreCommandeMaritime();
     }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-title">
+        <div class="title_left">
+            <h4><small>Liste des colis en dépôt de la commande N° : <b th:text="${UneCommande.pin}"></b> </small></h4>
+        </div>
+        <div class="title_right">
+            <div class="col-md-9 col-sm-9 pull-right">
+                <button class="btn btn-warning">Envoi Maritime</button>
+                <a th:href="@{/colisMaritime/facture}" class="btn btn-primary"><i class="fa fa-download"></i> Facture client</a>
+                <a th:href="@{/colisMaritime/facture}" class="btn btn-info"><i class="fa fa-download"></i> Facture douane</a>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <hr/>
+
+    <hr/>
+    <!-- table -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Settings 1</a>
+                                <a class="dropdown-item" href="#">Settings 2</a>
+                            </div>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Type de carton</th>
+                                        <th>Prix</th>
+                                        <th>Numéro du colis</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="colisMaritimeCommande:${colisMaritimeCommandes}">
+                                        <td th:text="${colisMaritimeCommande.carton.libelleCarton}"></td>
+                                        <td th:text="${colisMaritimeCommande.prixColis}"></td>
+                                        <td th:text="${colisMaritimeCommande.numeroColis}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- End table -->
+    <!-- Modal delete -->
+    <div class="modal fade" id="deleteform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="alert alert-danger">Êtes-vous sûr de vouloir supprimer?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="" class="btn btn-danger" id="delRef">Supprimer</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal delete -->
+</div>
+</body>
+</html>

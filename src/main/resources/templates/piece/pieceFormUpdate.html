@@ -33,7 +33,7 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/piece/update}" method="POST" th:object="${unePiece}" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/param/piece/update}" method="POST" th:object="${unePiece}" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 ">
                             <input type="hidden" th:field="*{id}" required="required" class="form-control ">
@@ -48,7 +48,7 @@
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a th:href="@{/pieces}" class="btn btn-secondary" type="button">Retour</a>
+                            <a th:href="@{/param/pieces}" class="btn btn-secondary" type="button">Retour</a>
                             <button type="submit" class="btn btn-success">Modifier</button>
                         </div>
                     </div>

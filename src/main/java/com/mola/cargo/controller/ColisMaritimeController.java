@@ -40,7 +40,7 @@ public class ColisMaritimeController {
     public String afficherFormColisMaritime(Model model){
         model.addAttribute("lastCommande", commandeService.showMaLastCommande());
         model.addAttribute("cartons", cartonService.showCarton());
-        model.addAttribute("pays", paysService.showPays());
+        model.addAttribute("pays", paysService.findPaysTarif());
         return "colis/formColisMaritime";
     }
 

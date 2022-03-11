@@ -43,8 +43,8 @@
                     <div class="item form-group">
                         <label class="ccol-form-label col-md-3 col-sm-3 label-align">Type de carton</label>
                         <div class="col-md-6 col-sm-6">
-                            <select name="cartonid" class="form-control border-info">
-                                <option>--Choisir le type de carton--</option>
+                            <select name="cartonid" required class="form-control border-info">
+                                <option value="">--Choisir le type de carton--</option>
                                 <option th:each="carton:${cartons}"
                                         th:value="${carton.id}"
                                         th:text="${carton.libelleCarton}">
@@ -55,8 +55,8 @@
                     <div class="item form-group">
                         <label class="ccol-form-label col-md-3 col-sm-3 label-align">Pays de résidence</label>
                         <div class="col-md-6 col-sm-6">
-                            <select name="paysid" class="form-control border-info">
-                                <option>--Choisir le pays de résidence--</option>
+                            <select name="paysid" required class="form-control border-info">
+                                <option value="">--Choisir le pays de résidence--</option>
                                 <option th:each="pays:${pays}"
                                         th:value="${pays.id}"
                                         th:text="${pays.libellePays}">

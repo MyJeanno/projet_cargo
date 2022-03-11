@@ -24,6 +24,10 @@ public class ProduitAerienService {
         produitAerienRepository.save(produitAerien);
     }
 
+    public double sommePrixProduitAerien(Long id){
+        return produitAerienRepository.sommePrixProduitAerien(id);
+    }
+
     public ProduitAerien showOneProduitAerien(Long id){
         Optional<ProduitAerien> optional = produitAerienRepository.findById(id);
         ProduitAerien produitAerien = null;
@@ -37,10 +41,6 @@ public class ProduitAerienService {
 
     public List<ProduitAerien> findProduitColisAerien(Long id){
         return produitAerienRepository.findProduitColisAerien(id);
-    }
-
-    public int nbreColisAerien(Long id){
-        return produitAerienRepository.nbreColisAerien(id);
     }
 
     public void deleteProduitAerien(Long id){

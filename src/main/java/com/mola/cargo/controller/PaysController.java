@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/param")
 public class PaysController {
 
     @Autowired
@@ -24,7 +25,7 @@ public class PaysController {
         Pays pays = new Pays();
         pays.setLibellePays(libelle);
         paysService.savePays(pays);
-        return "redirect:/pays";
+        return "redirect:/param/pays";
     }
 
     @GetMapping("pays/formUpdate/{id}")
@@ -36,12 +37,12 @@ public class PaysController {
     @PostMapping("pays/update")
     public String updatePays(@ModelAttribute("pays") Pays pays){
        paysService.savePays(pays);
-       return "redirect:/pays";
+       return "redirect:/param/pays";
     }
 
     @GetMapping("/pays/delete")
     public String supprimerPays(Long id){
         paysService.deletePays(id);
-        return "redirect:/pays";
+        return "redirect:/param/pays";
     }
 }

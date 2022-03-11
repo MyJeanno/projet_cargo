@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/param")
 public class PaiementController {
 
     @Autowired
@@ -26,7 +27,7 @@ public class PaiementController {
         Paiement paiement = new Paiement();
         paiement.setModePaiement(mode);
         paiementService.savePaiement(paiement);
-        return "redirect:/paiements";
+        return "redirect:/param/paiements";
     }
 
     @GetMapping("/paiement/formUpdate/{id}")
@@ -38,12 +39,12 @@ public class PaiementController {
     @PostMapping("/paiement/update")
     public String updatePaiement(@ModelAttribute("paiement") Paiement paiement){
         paiementService.savePaiement(paiement);
-        return "redirect:/paiements";
+        return "redirect:/param/paiements";
     }
 
     @GetMapping("paiement/delete/")
     public String supprimerPaiement(Long id){
         paiementService.deletePaiement(id);
-        return "redirect:/paiements";
+        return "redirect:/param/paiements";
     }
 }
