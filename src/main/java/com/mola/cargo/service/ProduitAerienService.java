@@ -24,8 +24,12 @@ public class ProduitAerienService {
         produitAerienRepository.save(produitAerien);
     }
 
-    public double sommePrixProduitAerien(Long id){
-        return produitAerienRepository.sommePrixProduitAerien(id);
+    public Double sommePrixProduitAerien(Long id){
+        if(produitAerienRepository.sommePrixProduitAerien(id) == null){
+            return 0.0;
+        }else{
+            return produitAerienRepository.sommePrixProduitAerien(id);
+        }
     }
 
     public ProduitAerien showOneProduitAerien(Long id){
@@ -64,11 +68,19 @@ public class ProduitAerienService {
         return taxe;
     }
 
-    public double fraisEmballage(List<ColisAerien> listeca){
+    public Double fraisEmballage(Long id){
+        if(produitAerienRepository.fraisEmballage(id) == null){
+            return 0.0;
+        }else {
+            return produitAerienRepository.fraisEmballage(id);
+        }
+    }
+
+   /* public double fraisEmballage(List<ColisAerien> listeca){
         double montant=0;
         for (ColisAerien ca:listeca){
             montant = montant + ca.getEmballage().getPrix();
         }
         return montant;
-    }
+    }*/
 }

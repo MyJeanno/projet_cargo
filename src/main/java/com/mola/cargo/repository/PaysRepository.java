@@ -11,5 +11,5 @@ import java.util.List;
 public interface PaysRepository extends JpaRepository<Pays, Long> {
 
     @Query(value = "select * from pays where libelle_pays LIKE '%Allemagne'", nativeQuery = true)
-    public List<Pays> findPaysTarif();
+    List<Pays> findPaysTarif();
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="page-title">
+        <div class="title_left">
+            <h4><small>Créer une nouvelle sortie de colis maritime</small></h4>
+        </div>
+        <div class="title_right">
+            <div class="col-md-2 col-sm-2 pull-right">
+                <form th:action="@{/convoiMaritime/nouveau}" method="post">
+                    <button type="submit" class="btn btn-info" ><i class="fa fa-plus"></i> Ajout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- table -->
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Settings 1</a>
+                            <a class="dropdown-item" href="#">Settings 2</a>
+                        </div>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Identifiant</th>
+                                    <th>Date de création</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="convoiMaritime:${convoiMaritimes}">
+                                    <td th:text="${convoiMaritime.id}"></td>
+                                    <td th:text="${convoiMaritime.identifiant}"></td>
+                                    <td th:text="${convoiMaritime.dateCreation}"></td>
+                                    <td>
+                                        <a class="btn btn-round btn-sm btn-info" th:href="@{/sortieMaritimes}">Affecter colis</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- End table -->
+</div>
+</body>
+</html>

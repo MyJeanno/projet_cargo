@@ -41,8 +41,9 @@ public class ProduitAerienController {
 
     @GetMapping("/colisAerien/produits")
     public String afficherProduitAerien(Model model){
+        //System.out.println("Frais = "+produitAerienService.fraisEmballage());
         double prixTotal = produitAerienService.sommePrixProduitAerien(commandeService.showMaLastCommande().getId()) +
-                           produitAerienService.fraisEmballage(colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId()))+
+                           produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId())+
                            produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
         model.addAttribute("produitsAerien", produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
         model.addAttribute("tarifs", tarifService.showTarifs());
@@ -135,7 +136,7 @@ public class ProduitAerienController {
         parameter.put("user", getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
         parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
-        parameter.put("frais_emballage", produitAerienService.fraisEmballage(colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId())));
+        parameter.put("frais_emballage", produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
@@ -155,7 +156,7 @@ public class ProduitAerienController {
         parameter.put("user", getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
         parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
-        parameter.put("frais_emballage", produitAerienService.fraisEmballage(colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId())));
+        parameter.put("frais_emballage", produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();

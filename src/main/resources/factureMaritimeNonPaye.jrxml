@@ -8,7 +8,7 @@
     <parameter name="nb_petit_carton" class="java.lang.Integer"/>
     <parameter name="montant_petit_carton" class="java.lang.Double"/>
     <parameter name="nb_grand_carton" class="java.lang.Integer"/>
-    <parameter name="montant_grand_carton" class="java.lang.Integer"/>
+    <parameter name="montant_grand_carton" class="java.lang.Double"/>
     <parameter name="taxe_maritime" class="java.lang.Double"/>
     <parameter name="user" class="java.lang.String"/>
     <queryString>

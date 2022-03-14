@@ -3,25 +3,24 @@ package com.mola.cargo.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
-public class Colis {
+public class Sortie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "numero_colis")
-    private String numeroColis;
-    private String statut;
-
     @ManyToOne
-    @JoinColumn(name = "commandeid", insertable = false, updatable = false)
-    private Commande commande;
-    private Long commandeid;
+    @JoinColumn(name = "convoiid", insertable = false, updatable = false)
+    private Convoi convoi;
+    private Long convoiid;
 
 }

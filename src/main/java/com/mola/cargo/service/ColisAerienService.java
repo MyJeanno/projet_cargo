@@ -72,4 +72,12 @@ public class ColisAerienService {
     public void deleteColisAerien(Long id){
         colisAerienRepository.deleteById(id);
     }
+
+    public void updateStatutColisAerien(String statut, Long id){
+        colisAerienRepository.updateStatutColisAerien(statut, id);
+    }
+
+    public List<ColisAerien> showColisAerienDepot(String statut){
+        return colisAerienRepository.findByStatut(statut);
+    }
 }

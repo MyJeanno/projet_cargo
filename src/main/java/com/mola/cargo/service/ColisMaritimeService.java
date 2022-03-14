@@ -34,9 +34,13 @@ public class ColisMaritimeService {
         return colisMaritimeRepository.findColisMaritimeCommandePin(pin);
     }
 
-
-    public double montantTotalPrixCarton(Long id){
-        return colisMaritimeRepository.montantTotalPrixCarton(id);
+    public Double montantTotalPrixCarton(Long id){
+        if(colisMaritimeRepository.montantTotalPrixCarton(id) == null){
+            return 0.0;
+        }
+        else {
+            return colisMaritimeRepository.montantTotalPrixCarton(id);
+        }
     }
 
     public int nombreCommandeMaritime(){
@@ -84,5 +88,13 @@ public class ColisMaritimeService {
 
     public int nbreSelonCarton(Long id, String code){
         return colisMaritimeRepository.nbreCarton(id,code);
+    }
+
+    public void updateStatutColisMaritime(String statut, Long id){
+        colisMaritimeRepository.updateStatutColisMaritime(statut,id);
+    }
+
+    public List<ColisMaritime> showColisMaritimeDepot(String statut){
+        return colisMaritimeRepository.findByStatut(statut);
     }
 }

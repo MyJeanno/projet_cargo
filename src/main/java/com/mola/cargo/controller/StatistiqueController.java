@@ -22,7 +22,7 @@ public class StatistiqueController {
 
     @GetMapping("/stat/depot")
     public String afficherListDepot(Model model){
-        model.addAttribute("commandes", commandeService.showCommandeEnDepot(Constante.INITIAL));
+        //model.addAttribute("commandes", commandeService.showCommandeEnDepot(Constante.INITIAL));
         return "statistique/statEnvoiDepot";
     }
 

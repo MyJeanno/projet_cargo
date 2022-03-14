@@ -8,6 +8,7 @@ import com.mola.cargo.service.ColisAerienService;
 import com.mola.cargo.service.CommandeService;
 import com.mola.cargo.service.EmballageService;
 import com.mola.cargo.service.TarifService;
+import com.mola.cargo.util.Constante;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,7 @@ public class ColisAerienController {
             numero = commande.getPREFIX_COLIS()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
         }
         colisAerien.setNumeroColis(numero);
+        colisAerien.setStatut(Constante.INITIAL);
         colisAerien.setCommandeid(commandeService.showMaLastCommande().getId());
         colisAerienService.saveColisAerien(colisAerien);
         return "redirect:/colisAerien/produits";

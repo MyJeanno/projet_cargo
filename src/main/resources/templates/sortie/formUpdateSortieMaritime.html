@@ -8,9 +8,8 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h4><small>Mise à jour d'un colis par envoi aérien</small></h4>
+            <h4><small>Mise à jour d'une sortie de colis maritime</small></h4>
         </div>
-        <div class="clearfix"></div>
     </div>
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
@@ -34,38 +33,35 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/colisAerien/update}" method="POST" th:object="${unColisAerien}" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/sortieMaritime/update}" method="POST" th:object="${UneSortieMaritime}" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 ">
                             <input type="hidden" th:field="*{id}" required="required" class="form-control ">
-                            <input type="hidden" th:field="*{commandeid}" required="required" class="form-control ">
-                            <input type="hidden" th:field="*{numeroColis}" required="required" class="form-control ">
-                            <input type="hidden" th:field="*{statut}" required="required" class="form-control ">
+                            <input type="hidden" th:field="*{convoiid}" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Type d'emballage</label>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Numéro de colis</label>
                         <div class="col-md-6 col-sm-6">
-                            <select th:field="*{emballageid}" required="required" class="form-control border-info">
-                                <option value="">--Choisir un carton--</option>
-                                <option th:each="emballage:${emballages}"
-                                        th:value="${emballage.id}"
-                                        th:utext="${emballage.taille}">
+                            <select th:field="*{colisMaritimeid}" required class="form-control border-info">
+                                <option value="">--Choisir un numéro de colis--</option>
+                                <option th:each="colisMaritime:${colisMaritimes}"
+                                        th:value="${colisMaritime.id}"
+                                        th:utext="${colisMaritime.numeroColis}">
                                 </option>
                             </select>
                         </div>
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a th:href="@{/colisAerien/listes}" class="btn btn-secondary">Retour</a>
-                            <button type="submit" class="btn btn-success">Mettre à jour colis</button>
+                            <a th:href="@{/sortieMaritimes}" class="btn btn-secondary" type="button">Retour</a>
+                            <button type="submit" class="btn btn-success">Modifier</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
 </div>
 </body>
 </html>

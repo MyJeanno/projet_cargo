@@ -2,6 +2,7 @@ package com.mola.cargo.controller;
 
 import com.mola.cargo.model.*;
 import com.mola.cargo.service.*;
+import com.mola.cargo.util.Constante;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,7 @@ public class ColisMaritimeController {
             numero = commande.getPREFIX_COLIS_MARITIME()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
         }
         colisMaritime.setNumeroColis(numero);
+        colisMaritime.setStatut(Constante.INITIAL);
         colisMaritime.setCommandeid(commandeService.showMaLastCommande().getId());
 
         List<CargoType> listPrix = new ArrayList<>();

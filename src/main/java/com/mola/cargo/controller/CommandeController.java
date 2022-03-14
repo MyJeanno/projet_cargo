@@ -60,7 +60,7 @@ public class CommandeController {
             pin = commande.getPREFIX_COMMANDE()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
         }
         commande.setPin(pin);
-        commande.setStatut(Constante.INITIAL);
+       // commande.setStatut(Constante.INITIAL);
         commandeService.saveCommande(commande);
         return "redirect:/mode/envoi";
     }

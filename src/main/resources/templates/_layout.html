@@ -75,7 +75,7 @@
                       <li><a th:href="@{/param/codepostals}">Liste des codes postaux</a></li>
                     </ul>
                   </li>
-                    <li><a><i class="fa fa-user"></i>Gestion des clients <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-male"></i>Gestion des clients <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a th:href="@{/personne/emetteurs}">Ajouter un expéditeur</a></li>
                             <li><a th:href="@{/personne/recepteurs}">Ajouter un destinataire</a></li>
@@ -88,11 +88,21 @@
                       <li><a th:href="@{/personne/emetteur/envoi}">Enregistrer un envoi</a></li>
                       <li><a th:href="@{/choixAerien/commande}">Modifier un colis aérien</a></li>
                       <li><a th:href="@{/choixMaritime/commande}">Modifier un colis maritime</a></li>
-                      <li><a href="project_detail.html">Project Detail</a></li>
-                      <li><a href="contacts.html">Contacts</a></li>
-                      <li><a href="profile.html">Profile</a></li>
                     </ul>
                   </li>
+
+                  <li><a><i class="fa fa-share"></i> Gestion des sorties <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a>Créer un idenfiant<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          <li class="sub_menu"><a th:href="@{/convoiAeriens}">Aérien</a></li>
+                          <li><a th:href="@{/convoiMaritimes}">Maritime</a></li>
+                        </ul>
+                      </li>
+                      <li><a th:href="@{/choixMaritime/commande}">Modifier un colis maritime</a></li>
+                    </ul>
+                  </li>
+
                   <li><a><i class="fa fa-envelope"></i>Vente de cartons <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a th:href="@{/cartonAppros}">Appro des cartons</a></li>
@@ -101,7 +111,12 @@
                   </li>
                   <li><a><i class="fa fa-bar-chart"></i> Statistiques <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a th:href="@{/stat/depot}">Colis en dépôt</a></li>
+                      <li><a>Lots de colis envoyés<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          <li class="sub_menu"><a th:href="@{/sortieAerienAdmins}">Par voie aérien</a></li>
+                          <li><a th:href="@{/sortieMaritimeAdmins}">Par voie maritime</a></li>
+                        </ul>
+                      </li>
                       <li><a th:href="@{/cartonAppros}">Envois en cours</a></li>
                       <li><a th:href="@{/cartonVentes}">Envois livrés</a></li>
                     </ul>

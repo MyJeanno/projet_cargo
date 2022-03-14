@@ -118,12 +118,12 @@ public class ProduitMaritimeController {
         parameter.put("nb_petit_carton", petit);
         parameter.put("nb_grand_carton", grand);
         if(petit!=0){
-            parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(),"PC"));
+            parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "PC"));
         }else{
             parameter.put("montant_petit_carton", 0);
         }
         if(grand!=0){
-            parameter.put("montant_grand_carton", (int)colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(),"GC"));
+            parameter.put("montant_grand_carton", (double)colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "GC"));
         }else {
             parameter.put("montant_grand_carton", 0);
         }
@@ -151,12 +151,12 @@ public class ProduitMaritimeController {
         parameter.put("nb_petit_carton", petit);
         parameter.put("nb_grand_carton", grand);
         if(petit!=0){
-            parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(),"PC"));
+            parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "PC"));
         }else{
             parameter.put("montant_petit_carton", 0);
         }
         if(grand!=0){
-            parameter.put("montant_grand_carton", (int)colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(),"GC"));
+            parameter.put("montant_grand_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "GC"));
         }else {
             parameter.put("montant_grand_carton", 0);
         }
