@@ -30,6 +30,18 @@ public class ConvoiController {
         return "sortie/convoiAerien";
     }
 
+    @GetMapping("/convoiAeriensAdmin")
+    public String afficherConvoiAerienAdmin(Model model){
+        model.addAttribute("convoiAeriens", convoiService.findConvoiAerien());
+        return "sortie/convoiAerienAdmin";
+    }
+
+    @GetMapping("/convoiMaritimesAdmin")
+    public String afficherConvoiMaritimeAdmin(Model model){
+        model.addAttribute("convoiMaritimes", convoiService.findConvoiMaritime());
+        return "sortie/convoiMaritimeAdmin";
+    }
+
     @PostMapping("/convoiMaritime/nouveau")
     public String enregistrerConvoiMaritime(){
         Convoi convoi = new Convoi();
@@ -47,6 +59,7 @@ public class ConvoiController {
         convoiService.saveConvoi(convoi);
         return "redirect:/convoiAeriens";
     }
+
 
     @GetMapping("")
     public String supprimerConvoi(Long id){

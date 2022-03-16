@@ -1,9 +1,11 @@
 package com.mola.cargo.controller;
 
+import com.mola.cargo.model.Inventaire;
 import com.mola.cargo.model.ProduitAerien;
 import com.mola.cargo.model.ProduitMaritime;
 import com.mola.cargo.model.Tarif;
 import com.mola.cargo.service.*;
+import com.mola.cargo.util.Constante;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,8 @@ public class ProduitMaritimeController {
     private CommandeService commandeService;
     @Autowired
     private CartonService cartonService;
+    @Autowired
+    private InventaireService inventaireService;
 
     @GetMapping("/colisMaritime/produits")
     public String afficherProduitMaritime(Model model){
@@ -131,6 +135,15 @@ public class ProduitMaritimeController {
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        //Création d'un inventaire
+        Inventaire inventaire = new Inventaire();
+        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId())+
+                produitMaritimeService.taxe(produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
+        inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
+        inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
+        inventaire.setNombreColis(colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
+        inventaire.setPrixTotal(prixTotal);
+        inventaireService.saveInventaire(inventaire);
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 
@@ -164,6 +177,15 @@ public class ProduitMaritimeController {
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        //Création d'un inventaire
+        Inventaire inventaire = new Inventaire();
+        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId())+
+                produitMaritimeService.taxe(produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
+        inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
+        inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
+        inventaire.setNombreColis(colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
+        inventaire.setPrixTotal(prixTotal);
+        inventaireService.saveInventaire(inventaire);
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 }

@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h5><small>Liste des colis maritimes contenus dans le lot N° : <i th:text="${unConvoi.identifiant}" style="color:red;"></i></small></h5>
+            <h4><small>Factures non payées au Togo</small></h4>
         </div>
     </div>
 
@@ -16,6 +16,7 @@
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
+                <h2>Total : <small style="color:red;" th:text="${totalSomme}"></small></h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -38,18 +39,30 @@
                             <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>N° colis</th>
-                                    <th>N° commande</th>
+                                    <th>Id</th>
+                                    <th>N° com</th>
                                     <th>Expéditeur</th>
                                     <th>Destinataire</th>
+                                    <th>Lieu paiement</th>
+                                    <th>Nb colis</th>
+                                    <th>Montant facture</th>
+                                    <th>Statut</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="sortieMaritime:${sortieMaritimes}">
-                                    <td th:text="${sortieMaritime.colisMaritime.numeroColis}"></td>
-                                    <td th:text="${sortieMaritime.colisMaritime.commande.pin}"></td>
-                                    <td th:text="${sortieMaritime.colisMaritime.commande.emetteur.nomPersonne}+' '+${sortieMaritime.colisMaritime.commande.emetteur.prenomPersonne}"></td>
-                                    <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.nomPersonne}+' '+${sortieMaritime.colisMaritime.commande.recepteur.prenomPersonne}"></td>
+                                <tr th:each="inventaire:${inventaires}">
+                                    <td th:text="${inventaire.id}"></td>
+                                    <td th:text="${inventaire.commande.pin}"></td>
+                                    <td th:text="${inventaire.commande.emetteur.nomPersonne}+' '+${inventaire.commande.emetteur.prenomPersonne}"></td>
+                                    <td th:text="${inventaire.commande.recepteur.nomPersonne}+' '+${inventaire.commande.recepteur.prenomPersonne}"></td>
+                                    <td th:text="${inventaire.commande.lieuPaiement}"></td>
+                                    <td th:text="${inventaire.nombreColis}"></td>
+                                    <td th:text="${inventaire.prixTotal}"></td>
+                                    <td th:text="${inventaire.status}"></td>
+                                    <td>
+                                        <a class="btn btn-round btn-sm btn-info" th:href="@{/stat/facture/non_paye/{id}(id=${inventaire.id})}">Valider</a>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

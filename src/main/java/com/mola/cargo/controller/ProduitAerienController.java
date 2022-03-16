@@ -1,12 +1,11 @@
 package com.mola.cargo.controller;
 
+import com.mola.cargo.model.Inventaire;
 import com.mola.cargo.model.ProduitAerien;
 import com.mola.cargo.model.ProduitMaritime;
 import com.mola.cargo.model.Tarif;
-import com.mola.cargo.service.ColisAerienService;
-import com.mola.cargo.service.CommandeService;
-import com.mola.cargo.service.ProduitAerienService;
-import com.mola.cargo.service.TarifService;
+import com.mola.cargo.service.*;
+import com.mola.cargo.util.Constante;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,8 @@ public class ProduitAerienController {
     private ColisAerienService colisAerienService;
     @Autowired
     private CommandeService commandeService;
+    @Autowired
+    private InventaireService inventaireService;
 
     @GetMapping("/colisAerien/produits")
     public String afficherProduitAerien(Model model){
@@ -124,7 +125,7 @@ public class ProduitAerienController {
         return userName;
     }
 
-    //Fonction pour générer la facture aerienne
+    //Fonction pour générer la facture aerienne payée au Togo
     @GetMapping("/colisAerien/facture")
     public ResponseEntity<byte[]> factureAerienne() throws FileNotFoundException, JRException {
         List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId());
@@ -141,6 +142,16 @@ public class ProduitAerienController {
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        //Création d'un inventaire
+        Inventaire inventaire = new Inventaire();
+        double prixTotal = produitAerienService.sommePrixProduitAerien(commandeService.showMaLastCommande().getId()) +
+                produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId())+
+                produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
+        inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
+        inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
+        inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
+        inventaire.setPrixTotal(prixTotal);
+        inventaireService.saveInventaire(inventaire);
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 
@@ -161,6 +172,16 @@ public class ProduitAerienController {
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        //Création d'un inventaire
+        Inventaire inventaire = new Inventaire();
+        double prixTotal = produitAerienService.sommePrixProduitAerien(commandeService.showMaLastCommande().getId()) +
+                produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId())+
+                produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
+        inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
+        inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
+        inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
+        inventaire.setPrixTotal(prixTotal);
+        inventaireService.saveInventaire(inventaire);
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 

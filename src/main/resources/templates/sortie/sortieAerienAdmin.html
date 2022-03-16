@@ -8,7 +8,7 @@
 
   <div class="page-title">
     <div class="title_left">
-      <h4><small>Liste des sorties de colis aériens pour l'Allemagne</small></h4>
+      <h5><small>Liste des colis aériens contenus dans le lot N° : <i th:text="${unConvoi.identifiant}" style="color:red;"></i></small></h5>
     </div>
   </div>
 
@@ -38,20 +38,18 @@
               <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                 <tr>
-                  <th>Id de sortie</th>
-                  <th>Numéro du colis</th>
-                  <th>Numéro de la commande</th>
-                  <th>Actions</th>
+                  <th>N° colis</th>
+                  <th>N° commande</th>
+                  <th>Expéditeur</th>
+                  <th>Destinataire</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="sortieAerien:${sortieAeriens}">
-                  <td th:text="${sortieAerien.convoi.identifiant}"></td>
                   <td th:text="${sortieAerien.colisAerien.numeroColis}"></td>
                   <td th:text="${sortieAerien.colisAerien.commande.pin}"></td>
-                  <td>
-                    <a class="btn btn-round btn-sm btn-info dbtn" th:href="@{sortieAerien/colis/(id=${sortieAerien.id})}">Consulter contenu</a>
-                  </td>
+                  <td th:text="${sortieAerien.colisAerien.commande.emetteur.nomPersonne}+' '+${sortieAerien.colisAerien.commande.emetteur.prenomPersonne}"></td>
+                  <td th:text="${sortieAerien.colisAerien.commande.recepteur.nomPersonne}+' '+${sortieAerien.colisAerien.commande.recepteur.prenomPersonne}"></td>
                 </tr>
                 </tbody>
               </table>

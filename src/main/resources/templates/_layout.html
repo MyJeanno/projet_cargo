@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -113,12 +113,13 @@
                     <ul class="nav child_menu">
                       <li><a>Lots de colis envoyés<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                          <li class="sub_menu"><a th:href="@{/sortieAerienAdmins}">Par voie aérien</a></li>
-                          <li><a th:href="@{/sortieMaritimeAdmins}">Par voie maritime</a></li>
+                          <li class="sub_menu"><a th:href="@{/convoiAeriensAdmin}">Par voie aérien</a></li>
+                          <li><a th:href="@{/convoiMaritimesAdmin}">Par voie maritime</a></li>
                         </ul>
                       </li>
-                      <li><a th:href="@{/cartonAppros}">Envois en cours</a></li>
-                      <li><a th:href="@{/cartonVentes}">Envois livrés</a></li>
+                      <li><a th:href="@{/stat/inventaires}">Montant non encaissé</a></li>
+                      <li><a th:href="@{/stat/inventaires/encaisser}">Annulation encaissement</a></li>
+                      <li><a th:href="@{/stat/inventaires/non_paye}">Factures à payer en Allemagne</a></li>
                     </ul>
                   </li>
 

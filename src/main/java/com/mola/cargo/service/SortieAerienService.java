@@ -36,4 +36,8 @@ public class SortieAerienService {
     public void deleteSortieAerien(Long id){
         sortieAerienRepository.deleteById(id);
     }
+
+    public List<SortieAerien> showSortieColisConvois(Long id){
+        return sortieAerienRepository.findByConvoiid(id);
+    }
 }

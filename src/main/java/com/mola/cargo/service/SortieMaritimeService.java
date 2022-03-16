@@ -38,4 +38,8 @@ public class SortieMaritimeService {
     public void deleteSortieMaritime(Long id){
         sortieMaritimeRepository.deleteById(id);
     }
+
+    public List<SortieMaritime> showSortieColisMaritimeConvois(Long id){
+        return sortieMaritimeRepository.findByConvoiid(id);
+    }
 }

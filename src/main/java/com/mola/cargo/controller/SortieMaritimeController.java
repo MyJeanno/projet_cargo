@@ -31,11 +31,10 @@ public class SortieMaritimeController {
         return "sortie/sortieMaritime";
     }
 
-    @GetMapping("/sortieMaritimeAdmins")
-    public String afficherSortieAdmin(Model model){
-        model.addAttribute("sortieMaritimes", sortieMaritimeService.showSortieMaritimes());
-        model.addAttribute("colisMaritimes", colisMaritimeService.showColisMaritimeDepot(Constante.INITIAL));
-        model.addAttribute("unConvoi", convoiService.showMaLastConvoiMaritime());
+    @GetMapping("sortieMaritimes/colis/{id}")
+    public String afficherSortieAdmin(@PathVariable("id") Long id, Model model){
+        model.addAttribute("sortieMaritimes", sortieMaritimeService.showSortieColisMaritimeConvois(id));
+        model.addAttribute("unConvoi", convoiService.showOneConvoi(id));
         return "sortie/sortieMaritimeAdmin";
     }
 

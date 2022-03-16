@@ -1,19 +1,14 @@
 package com.mola.cargo.controller;
 
-import com.mola.cargo.model.Convoi;
 import com.mola.cargo.model.SortieAerien;
 import com.mola.cargo.service.ColisAerienService;
 import com.mola.cargo.service.ConvoiService;
 import com.mola.cargo.service.SortieAerienService;
 import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Controller
 public class SortieAerienController {
@@ -33,11 +28,10 @@ public class SortieAerienController {
         return "sortie/sortieAerien";
     }
 
-    @GetMapping("/sortieAerienAdmins")
-    public String afficherSortieAdmin(Model model){
-        model.addAttribute("sortieAeriens", sortieAerienService.showSortieAeriens());
-        model.addAttribute("colisAeriens", colisAerienService.showColisAerienDepot(Constante.INITIAL));
-        model.addAttribute("unConvoi", convoiService.showMaLastConvoiAerien());
+    @GetMapping("sortieAerien/colis/{id}")
+    public String afficherSortieAdmin(@PathVariable("id") Long id, Model model){
+        model.addAttribute("sortieAeriens", sortieAerienService.showSortieColisConvois(id));
+        model.addAttribute("unConvoi", convoiService.showOneConvoi(id));
         return "sortie/sortieAerienAdmin";
     }
 
@@ -70,4 +64,11 @@ public class SortieAerienController {
         colisAerienService.updateStatutColisAerien(Constante.INITIAL, id);
         return "redirect:/sortieAeriens";
     }
+
+   /* @GetMapping("sortieAerien/colis/{id}")
+    public String afficherColisAerienSortie(@PathVariable("id") Long id, Model model){
+        model.addAttribute("sortieAeriens", sortieAerienService.showOneSortieAerien(id));
+
+        return "sortie/colisSortieAerien";
+    }*/
 }
