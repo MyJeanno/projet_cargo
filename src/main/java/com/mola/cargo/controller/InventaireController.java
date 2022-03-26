@@ -3,6 +3,7 @@ package com.mola.cargo.controller;
 import com.mola.cargo.service.InventaireService;
 import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ public class InventaireController {
     @Autowired
     private InventaireService inventaireService;
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/inventaires")
     public String afficherPaiement(Model model){
         double prixTotal = inventaireService.sommeFactureNonEncaisse(Constante.INVENTAIRE_NON_ENCAISSE,

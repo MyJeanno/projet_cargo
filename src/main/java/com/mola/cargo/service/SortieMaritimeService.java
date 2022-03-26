@@ -7,6 +7,7 @@ import com.mola.cargo.repository.SortieMaritimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,5 +42,15 @@ public class SortieMaritimeService {
 
     public List<SortieMaritime> showSortieColisMaritimeConvois(Long id){
         return sortieMaritimeRepository.findByConvoiid(id);
+    }
+
+    public int colisSelonMois(int mois){
+        List<SortieMaritime> listeMois = new ArrayList<>();
+        for (SortieMaritime sm : sortieMaritimeRepository.findAll()){
+            if(sm.getConvoi().getDateCreation().getMonthValue()==mois){
+                listeMois.add(sm);
+            }
+        }
+        return listeMois.size();
     }
 }

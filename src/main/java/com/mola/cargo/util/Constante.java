@@ -19,4 +19,17 @@ public class Constante {
     public static final String LIEU_PAIEMENT_TOGO = "Togo";
     public static final String LIEU_PAIEMENT_ALL = "Allemangne";
 
+    public static final int MOIS_JANVIER = 1;
+    public static final int MOIS_FEVRIER = 2;
+    public static final int MOIS_MARS = 3;
+    public static final int MOIS_AVRIL = 4;
+    public static final int MOIS_MAI = 5;
+    public static final int MOIS_JUIN = 6;
+    public static final int MOIS_JUILLET = 7;
+    public static final int MOIS_AOUT = 8;
+    public static final int MOIS_SEPTEMBRE = 9;
+    public static final int MOIS_OCTOBRE = 10;
+    public static final int MOIS_NOVEMBRE = 11;
+    public static final int MOIS_DECEMBRE = 12;
+
 }

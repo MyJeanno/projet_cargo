@@ -1,6 +1,7 @@
 package com.mola.cargo.controller;
 
 import com.mola.cargo.service.*;
+import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +28,8 @@ public class HomeController {
     private ColisAerienService colisAerienService;
     @Autowired
     private ColisMaritimeService colisMaritimeService;
+    @Autowired
+    private SortieMaritimeService sortieMaritimeService;
 
     @GetMapping("/stat/envois")
     public String statEnvoiCommande(){
@@ -47,6 +50,9 @@ public class HomeController {
         model.addAttribute("totalCommande", commandeService.totalCommande());
         model.addAttribute("nbCommandeAerien", colisAerienService.nombreColisAerien());
         model.addAttribute("nbCommandeMaritime", colisMaritimeService.nombreCommandeMaritime());
+        model.addAttribute("janvier", sortieMaritimeService.colisSelonMois(Constante.MOIS_JANVIER));
+
+        System.out.println("Le nombre de vente en janvier est :"+sortieMaritimeService.colisSelonMois(Constante.MOIS_MARS));
 
        /* Map<String, Integer> nombre_colis = new HashMap<>();
         nombre_colis.put("Janvier", 5);

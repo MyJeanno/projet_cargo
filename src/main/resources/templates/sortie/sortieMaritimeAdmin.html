@@ -10,6 +10,11 @@
         <div class="title_left">
             <h5><small>Liste des colis maritimes contenus dans le lot N° : <i th:text="${unConvoi.identifiant}" style="color:red;"></i></small></h5>
         </div>
+        <div class="title_right">
+            <div class="col-md-3 col-sm-3 pull-right">
+                <a th:href="@{/sortieMaritime/facture/{id}(id=${unConvoi.id})}" class="btn btn-success"><i class="fa fa-download"></i> Imprimer</a>
+            </div>
+        </div>
     </div>
 
     <!-- table -->
@@ -42,6 +47,10 @@
                                     <th>N° commande</th>
                                     <th>Expéditeur</th>
                                     <th>Destinataire</th>
+                                    <th>Pays</th>
+                                    <th>Région</th>
+                                    <th>PLZ</th>
+                                    <th>Tél</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -50,6 +59,10 @@
                                     <td th:text="${sortieMaritime.colisMaritime.commande.pin}"></td>
                                     <td th:text="${sortieMaritime.colisMaritime.commande.emetteur.nomPersonne}+' '+${sortieMaritime.colisMaritime.commande.emetteur.prenomPersonne}"></td>
                                     <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.nomPersonne}+' '+${sortieMaritime.colisMaritime.commande.recepteur.prenomPersonne}"></td>
+                                    <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.pays.libellePays}"></td>
+                                    <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.etat.libelleEtat}"></td>
+                                    <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.codePostal}"></td>
+                                    <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.contactPersonne}"></td>
                                 </tr>
                                 </tbody>
                             </table>

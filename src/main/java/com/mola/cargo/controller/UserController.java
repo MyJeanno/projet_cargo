@@ -2,46 +2,44 @@ package com.mola.cargo.controller;
 
 import com.mola.cargo.model.Role;
 import com.mola.cargo.model.User;
+import com.mola.cargo.service.RoleService;
 import com.mola.cargo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
 import java.util.Set;
 
 @Controller
-public class AdminController {
+public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/users")
     public String showUsers(Model model){
       model.addAttribute("users",userService.showUsers());
-      return "login/user";
+      model.addAttribute("roles", roleService.showRoles());
+      return "securite/user";
     }
 
     @GetMapping("/login")
     public String login(Model model){
-        return "login/login";
+        return "securite/login";
     }
 
     @GetMapping("/user/form")
     public String showFormAddUser(Model model){
-       return "login/formAddUser";
+       return "securite/formAddUser";
     }
 
     @PostMapping("/user/nouveau")
@@ -53,14 +51,14 @@ public class AdminController {
         User user = new User();
         Role role = new Role();
         role.setNomRole(roles);
-        Set<Role> listerole = new HashSet<>();
-        listerole.add(role);
-        String pwdcrypter = bCryptPasswordEncoder.encode(password);
+        //Set<Role> listerole = new HashSet<>();
+        //listerole.add(role);
+        //String pwdcrypter = bCryptPasswordEncoder.encode(password);
         user.setNom(nom);
         user.setPrenom(prenom);
         user.setUsername(email);
-        user.setPassword(pwdcrypter);
-        user.setRoles(listerole);
+        //user.setPassword(pwdcrypter);
+        user.setRoles(roles);
         userService.saveUser(user);
         return "redirect:/users";
     }

@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -25,12 +24,29 @@ public class User {
     private String username;
     @Column(nullable = false)
     private String password;
+    private String roles = "";
+    private String permissions = "";
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public List<String> getRoleList(){
+        if(this.roles.length() > 0){
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
+
+    /*public List<String> getPermissionList(){
+        if(this.permissions.length() > 0){
+            return Arrays.asList(this.permissions.split(","));
+        }
+        return new ArrayList<>();
+    }*/
+
+   /* @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
-               joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-               inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    private Set<Role> roles;
+               joinColumns = @JoinColumn(name = "user_id"),
+               inverseJoinColumns = @JoinColumn(name = "role_id",
+               referencedColumnName = "id"))
+    private Set<Role> roles = new HashSet<>();;*/
 
 
 

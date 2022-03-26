@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArrivageColis" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54183f44-65f7-400f-b8fc-53c87859e006">
+    <parameter name="nbre" class="java.lang.Integer">
+        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <field name="colisMaritime.numeroColis" class="java.lang.String"/>
+    <field name="colisMaritime.commande.pin" class="java.lang.String"/>
+    <field name="colisMaritime.commande.emetteur.nomPersonne" class="java.lang.String"/>
+    <field name="colisMaritime.commande.emetteur.prenomPersonne" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.nomPersonne" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.prenomPersonne" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.pays.libellePays" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.etat.libelleEtat" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.codePostal" class="java.lang.Integer"/>
+    <field name="colisMaritime.commande.recepteur.contactPersonne" class="java.lang.String"/>
+    <field name="convoi.identifiant" class="java.lang.String"/>
+    <variable name="REPORT_PAGE" class="java.lang.Integer" incrementType="Page">
+        <variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+    </variable>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="154" splitType="Stretch">
+            <image>
+                <reportElement x="0" y="0" width="50" height="50" uuid="e7844cfb-c4cf-4438-b737-833283004015"/>
+                <imageExpression><![CDATA["D:/PROJET MENAD/cargo/head.png"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="0" y="40" width="290" height="50" uuid="6d7ff549-6016-43a6-9c4f-993abc3e36c3"/>
+                <textElement>
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[Adresse : Quartier Tokoin Wuiti, Av. Akei
+Lomé-Togo
+Email : info@molaetfils.com / www.molaetfils.com
+Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="220" y="0" width="340" height="40" uuid="b4561239-6fef-4bd3-878e-dab5ddb75b3b"/>
+                <textElement>
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[   			                                                                Mola et Fils, M. Biao
+                                       Commerce général, Import & Export, cargo shipping (MOLA CARGO),
+                              bureau de représentation commerciale et de conseils en matière de douane]]></text>
+            </staticText>
+            <line>
+                <reportElement x="0" y="90" width="555" height="1" uuid="4c6a729e-6ce7-4596-8486-5638333c169c"/>
+            </line>
+            <staticText>
+                <reportElement x="151" y="100" width="279" height="20" uuid="4be951cc-b9df-44f9-a7d2-ba58e8fc00fb"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true" isItalic="false" isUnderline="true"/>
+                </textElement>
+                <text><![CDATA[Liste des arrivages de nouveaux colis maritimes]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="120" width="50" height="21" uuid="fca08ab5-47d6-4964-a1d4-0c3a7cbd8ac4"/>
+                <box leftPadding="5"/>
+                <textElement>
+                    <font isUnderline="true"/>
+                </textElement>
+                <text><![CDATA[N° du lot]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="373" y="121" width="80" height="21" uuid="df285fba-7253-400d-b662-1406eebb493c"/>
+                <textElement>
+                    <font isUnderline="true"/>
+                </textElement>
+                <text><![CDATA[Nombre de colis]]></text>
+            </staticText>
+            <textField pattern="MMMM d, yyyy">
+                <reportElement x="70" y="121" width="210" height="20" uuid="c8362094-e26c-4f38-8aca-3cdd57564e7e"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{convoi.identifiant}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="473" y="120" width="80" height="20" uuid="5c444e61-5763-4fa7-b852-6c6861c9b916"/>
+                <box leftPadding="5" rightPadding="0"/>
+                <textElement textAlignment="Left"/>
+                <textFieldExpression><![CDATA[$P{nbre}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="50" y="120" width="20" height="20" uuid="9ea23012-2fde-4348-93e2-a4e91d61aa45"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="453" y="120" width="20" height="22" uuid="da112ffa-a7ea-4a52-b5b7-8507e0e5ec42"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[:]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="22" splitType="Stretch">
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="0" width="50" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="56e8daad-6947-4471-bbc8-781acd6f57c3"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[N° colis]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="50" y="0" width="50" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="460ab8e9-120d-47fe-876c-9b99565853d5"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[N° com]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="430" y="0" width="40" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="b4fe46a5-44bb-4e82-9118-0fab085e51aa"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[PLZ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="470" y="0" width="85" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="87349c8f-8f4d-43de-952c-9d920793856b"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Tél]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="100" y="0" width="110" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="039b1c43-cb79-4e83-9d96-5c229c5ab75c"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Expéditeur]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="323" y="0" width="50" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="52da1c2e-1cca-4edc-822f-5d91704fe9b3"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Pays]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="210" y="0" width="113" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="0d75bbde-817d-4d08-9066-72d343e4993f"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Destnataire]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="373" y="0" width="57" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="bc4f9f29-232d-4c2e-8602-21c5784e1a4b"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Etat]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="18" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="0" width="50" height="18" isPrintInFirstWholeBand="true" uuid="01aacf45-1e2b-4a3b-972a-374837135db8"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.numeroColis}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="50" y="0" width="50" height="18" isPrintInFirstWholeBand="true" uuid="f8f503f4-0a43-4c90-8cc7-febdf7e304eb"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.pin}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="0" width="110" height="18" isPrintInFirstWholeBand="true" uuid="1ed0b7b0-4d02-45cd-b4cf-70ec1ec121fb"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.emetteur.nomPersonne}+$F{colisMaritime.commande.emetteur.prenomPersonne}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="210" y="0" width="113" height="18" isPrintInFirstWholeBand="true" uuid="3d18078d-00cb-4465-9a8a-ee50dac22cf2"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.nomPersonne}+$F{colisMaritime.commande.recepteur.prenomPersonne}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="323" y="0" width="50" height="18" isPrintInFirstWholeBand="true" uuid="40342508-56f1-464a-aaf2-d863274cd25a"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.pays.libellePays}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="373" y="0" width="57" height="18" isPrintInFirstWholeBand="true" uuid="7fe7be10-4152-4b52-96c9-30b4eba53ff2"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.etat.libelleEtat}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="430" y="0" width="40" height="18" isPrintInFirstWholeBand="true" uuid="e86d0906-d0a4-4bae-9494-ebb54d116055"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.codePostal}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="470" y="0" width="85" height="18" isPrintInFirstWholeBand="true" uuid="0d8f0be5-3145-4db2-b1b7-12c0b30c231c"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.contactPersonne}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <pageFooter>
+        <band height="28">
+            <textField>
+                <reportElement x="453" y="6" width="100" height="20" uuid="cda77aca-fba6-4246-a6a9-e932b27c11d6"/>
+                <box rightPadding="5"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Page "+$V{REPORT_PAGE}+"/"+$V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+</jasperReport>

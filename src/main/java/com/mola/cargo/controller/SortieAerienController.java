@@ -1,14 +1,27 @@
 package com.mola.cargo.controller;
 
 import com.mola.cargo.model.SortieAerien;
+import com.mola.cargo.model.SortieMaritime;
 import com.mola.cargo.service.ColisAerienService;
 import com.mola.cargo.service.ConvoiService;
 import com.mola.cargo.service.SortieAerienService;
 import com.mola.cargo.util.Constante;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SortieAerienController {
@@ -63,6 +76,23 @@ public class SortieAerienController {
         sortieAerienService.deleteSortieAerien(id);
         colisAerienService.updateStatutColisAerien(Constante.INITIAL, id);
         return "redirect:/sortieAeriens";
+    }
+
+    //Fonction pour imprimer la liste des colis maritime envoyés
+    @GetMapping("/sortieAerien/facture/{id}")
+    public ResponseEntity<byte[]> factureMaritime(@PathVariable("id") Long id) throws FileNotFoundException, JRException {
+        List<SortieAerien> listeSortieAerien = sortieAerienService.showSortieColisConvois(id);
+        File file = ResourceUtils.getFile("classpath:listeArrivageAerien.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeSortieAerien);
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("Données colis", "Première source");
+        parameter.put("nbre", listeSortieAerien.size());
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
+        byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 
    /* @GetMapping("sortieAerien/colis/{id}")

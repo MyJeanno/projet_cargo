@@ -339,8 +339,8 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
-                    <font size="12" isBold="true"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
                 </textElement>
                 <text><![CDATA[N° colis]]></text>
             </staticText>
@@ -353,8 +353,8 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
-                    <font size="12" isBold="true"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Désignation]]></text>
             </staticText>
@@ -367,8 +367,8 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
-                    <font size="12" isBold="true"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Poids]]></text>
             </staticText>
@@ -381,8 +381,8 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
-                    <font size="12" isBold="true"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Prix en FCFA]]></text>
             </staticText>
@@ -395,8 +395,8 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
-                    <font size="12" isBold="true"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Qté]]></text>
             </staticText>
@@ -412,8 +412,8 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
-                    <font size="10"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{colisAerien.numeroColis}]]></textFieldExpression>
             </textField>
@@ -425,8 +425,8 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
-                    <font size="10"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
             </textField>
@@ -438,8 +438,8 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
-                    <font size="10"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{poids}]]></textFieldExpression>
             </textField>
@@ -451,8 +451,8 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Right">
-                    <font size="10"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="8"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{prixProduit}]]></textFieldExpression>
             </textField>
@@ -464,8 +464,8 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
-                    <font size="10"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{quantite}]]></textFieldExpression>
             </textField>
@@ -476,14 +476,14 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
             <staticText>
                 <reportElement x="0" y="14" width="274" height="23" uuid="1f9cc70c-7216-453a-bfc3-c364ae78c72d"/>
                 <textElement>
-                    <font size="12" isBold="true" isItalic="true"/>
+                    <font size="10" isBold="true" isItalic="true"/>
                 </textElement>
                 <text><![CDATA[Facture à regler avant le départ du colis]]></text>
             </staticText>
             <staticText>
                 <reportElement x="288" y="14" width="267" height="23" uuid="ffc6a9a7-8cce-490f-84d5-a319f96f3ebc"/>
                 <textElement textAlignment="Right">
-                    <font size="12" isBold="true" isItalic="true"/>
+                    <font size="10" isBold="true" isItalic="true"/>
                 </textElement>
                 <text><![CDATA[Merci pour votre confiance !]]></text>
             </staticText>
@@ -533,7 +533,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement>
-                    <font size="12"/>
+                    <font size="10"/>
                 </textElement>
                 <text><![CDATA[Total à payer en FCFA]]></text>
             </staticText>
@@ -546,7 +546,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement>
-                    <font size="12"/>
+                    <font size="10"/>
                 </textElement>
                 <text><![CDATA[Total à payer en Euro]]></text>
             </staticText>
@@ -579,14 +579,14 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
             <staticText>
                 <reportElement x="0" y="121" width="150" height="20" uuid="ae863787-0773-497c-b1ac-3e0a8c09bd6d"/>
                 <textElement textAlignment="Center">
-                    <font size="12" isUnderline="true"/>
+                    <font size="10" isUnderline="true"/>
                 </textElement>
                 <text><![CDATA[Agent commercial]]></text>
             </staticText>
             <staticText>
                 <reportElement x="410" y="121" width="143" height="20" uuid="5b988832-9843-4e3c-aa70-2d6102d670e8"/>
                 <textElement textAlignment="Center">
-                    <font size="12" isUnderline="true"/>
+                    <font size="10" isUnderline="true"/>
                 </textElement>
                 <text><![CDATA[Client]]></text>
             </staticText>
