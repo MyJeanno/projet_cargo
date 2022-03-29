@@ -18,6 +18,7 @@ public class Inventaire {
     private double prixTotal;
     private String status;
     private int nombreColis;
+    private String commercial;
 
     @ManyToOne
     @JoinColumn(name = "commandeid", insertable = false, updatable = false)

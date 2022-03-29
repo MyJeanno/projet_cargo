@@ -28,7 +28,7 @@ public interface ColisMaritimeRepository extends JpaRepository<ColisMaritime, Lo
     int nbreColisMaritime(Long id);
 
     @Query("select SUM(cm.prixColis) FROM ColisMaritime cm where cm.commandeid = ?1 and cm.carton.code = ?2 and cm.id in (select p.colisMaritimeid from ProduitMaritime p)")
-    double montantPrixCarton(Long id, String code);
+    Double montantPrixCarton(Long id, String code);
 
     @Query("select COUNT(cm) FROM ColisMaritime cm where cm.commandeid = ?1 and cm.carton.code = ?2 and cm.id in (select p.colisMaritimeid from ProduitMaritime p)")
     int nbreCarton(Long id, String code);

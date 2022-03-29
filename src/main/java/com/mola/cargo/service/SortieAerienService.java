@@ -1,10 +1,12 @@
 package com.mola.cargo.service;
 
 import com.mola.cargo.model.SortieAerien;
+import com.mola.cargo.model.SortieMaritime;
 import com.mola.cargo.repository.SortieAerienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,5 +41,15 @@ public class SortieAerienService {
 
     public List<SortieAerien> showSortieColisConvois(Long id){
         return sortieAerienRepository.findByConvoiid(id);
+    }
+
+    public int colisAerienSelonMois(int mois){
+        List<SortieAerien> listeMois = new ArrayList<>();
+        for (SortieAerien sa : sortieAerienRepository.findAll()){
+            if(sa.getConvoi().getDateCreation().getMonthValue()==mois){
+                listeMois.add(sa);
+            }
+        }
+        return listeMois.size();
     }
 }

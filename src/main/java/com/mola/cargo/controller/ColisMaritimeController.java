@@ -25,6 +25,8 @@ import java.util.*;
 @Controller
 public class ColisMaritimeController {
 
+    private final String TYPE_ENVOI_MARITIME = "MARITIME";
+
     @Autowired
     private ColisMaritimeService colisMaritimeService;
     @Autowired
@@ -42,6 +44,7 @@ public class ColisMaritimeController {
         model.addAttribute("lastCommande", commandeService.showMaLastCommande());
         model.addAttribute("cartons", cartonService.showCarton());
         model.addAttribute("pays", paysService.findPaysTarif());
+        commandeService.updateTypeCommande(TYPE_ENVOI_MARITIME, commandeService.showMaLastCommande().getId());
         return "colis/formColisMaritime";
     }
 

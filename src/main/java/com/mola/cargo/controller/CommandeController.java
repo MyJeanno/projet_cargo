@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -60,6 +62,7 @@ public class CommandeController {
             pin = commande.getPREFIX_COMMANDE()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
         }
         commande.setPin(pin);
+        commande.setDateEnvoi(new Date());
        // commande.setStatut(Constante.INITIAL);
         commandeService.saveCommande(commande);
         return "redirect:/mode/envoi";

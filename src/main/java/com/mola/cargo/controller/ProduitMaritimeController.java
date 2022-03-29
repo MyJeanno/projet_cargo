@@ -93,18 +93,6 @@ public class ProduitMaritimeController {
         return "redirect:/colisMaritime/produits";
     }
 
-    private String getPrincipal() {
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails) principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
-    }
-
     //Fonction pour générer la facture maritime payé
     @GetMapping("/colisMaritime/facture")
     public ResponseEntity<byte[]> factureMaritime() throws FileNotFoundException, JRException {
@@ -116,7 +104,7 @@ public class ProduitMaritimeController {
         int grand = colisMaritimeService.nbreSelonCarton(commandeService.showMaLastCommande().getId(), "GC");
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
-        parameter.put("user", getPrincipal());
+        parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
         parameter.put("taxe_maritime", produitMaritimeService.taxe(listeProdMaritime));
         parameter.put("nb_petit_carton", petit);
@@ -124,12 +112,12 @@ public class ProduitMaritimeController {
         if(petit!=0){
             parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "PC"));
         }else{
-            parameter.put("montant_petit_carton", 0);
+            parameter.put("montant_petit_carton", 0.0);
         }
         if(grand!=0){
             parameter.put("montant_grand_carton", (double)colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "GC"));
         }else {
-            parameter.put("montant_grand_carton", 0);
+            parameter.put("montant_grand_carton", 0.0);
         }
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
@@ -143,7 +131,10 @@ public class ProduitMaritimeController {
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
         inventaire.setPrixTotal(prixTotal);
-        inventaireService.saveInventaire(inventaire);
+        inventaire.setCommercial(produitMaritimeService.getPrincipal());
+        if(!inventaireService.testerAppartenance(commandeService.showMaLastCommande().getId())){
+            inventaireService.saveInventaire(inventaire);
+        }
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 
@@ -158,7 +149,7 @@ public class ProduitMaritimeController {
         int grand = colisMaritimeService.nbreSelonCarton(commandeService.showMaLastCommande().getId(), "GC");
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
-        parameter.put("user", getPrincipal());
+        parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
         parameter.put("taxe_maritime", produitMaritimeService.taxe(listeProdMaritime));
         parameter.put("nb_petit_carton", petit);
@@ -166,12 +157,12 @@ public class ProduitMaritimeController {
         if(petit!=0){
             parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "PC"));
         }else{
-            parameter.put("montant_petit_carton", 0);
+            parameter.put("montant_petit_carton", 0.0);
         }
         if(grand!=0){
             parameter.put("montant_grand_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "GC"));
         }else {
-            parameter.put("montant_grand_carton", 0);
+            parameter.put("montant_grand_carton", 0.0);
         }
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
@@ -185,7 +176,10 @@ public class ProduitMaritimeController {
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
         inventaire.setPrixTotal(prixTotal);
-        inventaireService.saveInventaire(inventaire);
+        inventaire.setCommercial(produitMaritimeService.getPrincipal());
+        if(!inventaireService.testerAppartenance(commandeService.showMaLastCommande().getId())){
+            inventaireService.saveInventaire(inventaire);
+        }
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 }

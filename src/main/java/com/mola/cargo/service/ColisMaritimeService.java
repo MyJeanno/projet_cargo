@@ -82,7 +82,10 @@ public class ColisMaritimeService {
         return colisMaritimeRepository.nbreColisMaritime(id);
     }
 
-    public double montantPrixCarton(Long id, String code){
+    public Double montantPrixCarton(Long id, String code){
+        if(colisMaritimeRepository.montantPrixCarton(id, code) == null){
+            return 0.0;
+        }
         return colisMaritimeRepository.montantPrixCarton(id, code);
     }
 

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -23,6 +24,7 @@ public class Commande {
     private Date dateEnvoi;
     @Column(name = "lieu_paiement")
     private String lieuPaiement;
+    private String typeEnvoi;
 
     @ManyToOne
     @JoinColumn(name = "pieceid", insertable = false, updatable = false)

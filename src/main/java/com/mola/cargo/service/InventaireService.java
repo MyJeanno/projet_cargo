@@ -21,6 +21,10 @@ public class InventaireService {
         return inventaireRepository.findAll();
     }
 
+    public Inventaire showOneInventaire(Long id){
+        return inventaireRepository.findById(id).get();
+    }
+
     public void updateStatutInventaire(String s, Long id){
         inventaireRepository.updateStatutInventaire(s, id);
     }
@@ -29,11 +33,31 @@ public class InventaireService {
         return inventaireRepository.findByStatusAndByLieu(s, lieu);
     }
 
+    public List<Inventaire> showInventaireSelonLieu(String lieu){
+        return inventaireRepository.findByLieu(lieu);
+    }
+
     public Double sommeFactureNonEncaisse(String s, String lieu){
         if(inventaireRepository.sommeFactureNonEncaisse(s, lieu) == null){
             return 0.0;
         }else {
             return inventaireRepository.sommeFactureNonEncaisse(s, lieu);
         }
+    }
+
+    public boolean testerAppartenance(Long numCom){
+        boolean boo=false;
+        for(Inventaire i: inventaireRepository.findAll()){
+            if(i.getCommandeid()==numCom){
+               boo = true;
+            }else{
+                boo = false;
+            }
+        }
+        return boo;
+    }
+
+    public List<Inventaire> findByTypeEnvoi(String type){
+        return inventaireRepository.findByTypeEnvoi(type);
     }
 }

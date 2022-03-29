@@ -30,18 +30,12 @@ public class HomeController {
     private ColisMaritimeService colisMaritimeService;
     @Autowired
     private SortieMaritimeService sortieMaritimeService;
+    @Autowired
+    private SortieAerienService sortieAerienService;
 
     @GetMapping("/stat/envois")
     public String statEnvoiCommande(){
         return "statistique/statEnvoi";
-    }
-
-    @GetMapping("/pieChart")
-    public String pieChart(Model model) {
-        model.addAttribute("pass", 90);
-        model.addAttribute("fail", 10);
-        return "piechart";
-
     }
 
     @GetMapping("/")
@@ -50,59 +44,43 @@ public class HomeController {
         model.addAttribute("totalCommande", commandeService.totalCommande());
         model.addAttribute("nbCommandeAerien", colisAerienService.nombreColisAerien());
         model.addAttribute("nbCommandeMaritime", colisMaritimeService.nombreCommandeMaritime());
-        model.addAttribute("janvier", sortieMaritimeService.colisSelonMois(Constante.MOIS_JANVIER));
+        //Envoi des paramètres des mois pour le graphique
+        model.addAttribute("janvierA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_JANVIER));
+        model.addAttribute("janvierM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_JANVIER));
 
-        System.out.println("Le nombre de vente en janvier est :"+sortieMaritimeService.colisSelonMois(Constante.MOIS_MARS));
+        model.addAttribute("fevrierA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_FEVRIER));
+        model.addAttribute("fevrierM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_FEVRIER));
 
-       /* Map<String, Integer> nombre_colis = new HashMap<>();
-        nombre_colis.put("Janvier", 5);
-        nombre_colis.put("Fevrier", 20);
-        nombre_colis.put("Mars", 18);
-        nombre_colis.put("Avril", 25);
-        nombre_colis.put("Mai", 14);
-        nombre_colis.put("Juin", 11);
-        nombre_colis.put("Juillet", 7);
-        nombre_colis.put("Août", 48);
-        nombre_colis.put("Septembre", 3);
-        nombre_colis.put("Octobre", 20);
-        nombre_colis.put("Novembre", 4);
-        nombre_colis.put("Décembre", 15);
-        model.addAttribute("nombre_colis", nombre_colis);
-       Map<String, Integer> surveyMap = new LinkedHashMap<>();
-        surveyMap.put("Java", 40);
-        surveyMap.put("Dev oops", 25);
-        surveyMap.put("Python", 20);
-        surveyMap.put(".Net", 15);
-        model.addAttribute("surveyMap", surveyMap);
-        return "home/home";
+        model.addAttribute("marsA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_MARS));
+        model.addAttribute("marsM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_MARS));
 
-        //first, add the regional sales
-        Integer northeastSales = 17089;
-        Integer westSales = 10603;
-        Integer midwestSales = 5223;
-        Integer southSales = 10111;
+        model.addAttribute("avrilA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_AVRIL));
+        model.addAttribute("avrilM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_AVRIL));
 
-        model.addAttribute("northeastSales", northeastSales);
-        model.addAttribute("southSales", southSales);
-        model.addAttribute("midwestSales", midwestSales);
-        model.addAttribute("westSales", westSales);
+        model.addAttribute("maiA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_MAI));
+        model.addAttribute("maiM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_MAI));
 
-        //now add sales by lure type
-        List<Integer> inshoreSales = Arrays.asList(4074, 3455, 4112);
-        List<Integer> nearshoreSales = Arrays.asList(3222, 3011, 3788);
-        List<Integer> offshoreSales = Arrays.asList(7811, 7098, 6455);
+        model.addAttribute("juinA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_JUIN));
+        model.addAttribute("juinM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_JUIN));
 
-        model.addAttribute("inshoreSales", inshoreSales);
-        model.addAttribute("nearshoreSales", nearshoreSales);
-        model.addAttribute("offshoreSales", offshoreSales);
-        Map<String, Integer> data = new LinkedHashMap<>();
-        data.put("Lomé", 20);
-        data.put("Kara", 60);
-        data.put("Atakpamé", 14);
-        data.put("Sokodé", 45);
-        data.put("Kpalimé", 15);
-        model.addAttribute("keyset", data.keySet());
-        model.addAttribute("values", data.values());*/
+        model.addAttribute("juilletA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_JUILLET));
+        model.addAttribute("juilletM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_JUILLET));
+
+        model.addAttribute("aoutA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_AOUT));
+        model.addAttribute("aoutM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_AOUT));
+
+        model.addAttribute("septembreA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_SEPTEMBRE));
+        model.addAttribute("septembreM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_SEPTEMBRE));
+
+        model.addAttribute("octobreA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_OCTOBRE));
+        model.addAttribute("octobreM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_OCTOBRE));
+
+        model.addAttribute("novembreA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_NOVEMBRE));
+        model.addAttribute("novembreM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_NOVEMBRE));
+
+        model.addAttribute("decembreA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_DECEMBRE));
+        model.addAttribute("decembreM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_DECEMBRE));
+
         return "home/home";
     }
 }

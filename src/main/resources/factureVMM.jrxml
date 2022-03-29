@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArrivageColis" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54183f44-65f7-400f-b8fc-53c87859e006">
+    <parameter name="nbre_colis" class="java.lang.Integer">
+        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+    </parameter>
+    <parameter name="nb_petit_carton" class="java.lang.Integer"/>
+    <parameter name="montant_petit_carton" class="java.lang.Double"/>
+    <parameter name="nb_grand_carton" class="java.lang.Integer"/>
+    <parameter name="montant_grand_carton" class="java.lang.Double"/>
+    <parameter name="taxe_maritime" class="java.lang.Double"/>
+    <parameter name="user" class="java.lang.String"/>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <field name="colisMaritime.commande.emetteur.contactPersonne" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.rue" class="java.lang.String"/>
+    <field name="valeurMarchande" class="java.lang.Double"/>
+    <field name="colisMaritime.commande.dateEnvoi" class="java.util.Date"/>
+    <field name="colisMaritime.commande.pin" class="java.lang.String"/>
+    <field name="colisMaritime.commande.emetteur.nomPersonne" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.nomPersonne" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.etat.libelleEtat" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.pays.libellePays" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.villePersonne" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.contactPersonne" class="java.lang.String"/>
+    <field name="colisMaritime.commande.emetteur.prenomPersonne" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.prenomPersonne" class="java.lang.String"/>
+    <field name="colisMaritime.numeroColis" class="java.lang.String"/>
+    <field name="designation" class="java.lang.String"/>
+    <field name="quantite" class="java.lang.Integer"/>
+    <field name="poids" class="java.lang.Double"/>
+    <field name="colisMaritime.commande.lieuPaiement" class="java.lang.String"/>
+    <field name="colisMaritime.carton.libelleCarton" class="java.lang.String"/>
+    <variable name="REPORT_PAGE" class="java.lang.Integer" incrementType="Page">
+        <variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+    </variable>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="280" splitType="Stretch">
+            <image>
+                <reportElement x="0" y="0" width="50" height="50" uuid="e7844cfb-c4cf-4438-b737-833283004015"/>
+                <imageExpression><![CDATA["D:/PROJET MENAD/cargo/head.png"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="0" y="40" width="290" height="50" uuid="6d7ff549-6016-43a6-9c4f-993abc3e36c3"/>
+                <textElement>
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[Adresse : Quartier Tokoin Wuiti, Av. Akei
+Lomé-Togo
+Email : info@molaetfils.com / www.molaetfils.com
+Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="220" y="0" width="340" height="40" uuid="b4561239-6fef-4bd3-878e-dab5ddb75b3b"/>
+                <textElement>
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[   			                                                                Mola et Fils, M. Biao
+                                       Commerce général, Import & Export, cargo shipping (MOLA CARGO),
+                              bureau de représentation commerciale et de conseils en matière de douane]]></text>
+            </staticText>
+            <line>
+                <reportElement x="0" y="90" width="555" height="1" uuid="4c6a729e-6ce7-4596-8486-5638333c169c"/>
+            </line>
+            <staticText>
+                <reportElement x="0" y="100" width="430" height="80" uuid="c38a52a6-0845-4a47-9c2a-adcaad8c48fe"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <text><![CDATA[]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="120" width="280" height="20" uuid="f7c828db-3145-4d94-8244-47bde45b5a09"/>
+                <box leftPadding="5"/>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.emetteur.nomPersonne}+' '+$F{colisMaritime.commande.emetteur.prenomPersonne}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="100" width="180" height="21" uuid="e5bb1be2-5738-473d-8dd9-1207265c6b1e"/>
+                <box leftPadding="5"/>
+                <textElement>
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Sender : Trader type]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="430" y="100" width="125" height="50" backcolor="#EDEBEB" uuid="46786b8e-5ab3-4452-8b14-5e324cdb609f"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[PROFORMA INVOICE]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="141" width="280" height="20" uuid="431db66a-76ff-48ac-9d8d-4aedee66b1da"/>
+                <box leftPadding="5"/>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.emetteur.contactPersonne}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="161" width="280" height="19" uuid="903d4e49-5a20-488b-9206-6592c45e7012"/>
+                <box leftPadding="5"/>
+                <text><![CDATA[Lomé - Togo]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="430" y="150" width="125" height="30" uuid="c541c4ee-d318-4ec1-82f1-87ba8373b6de"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.dateEnvoi}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="180" width="430" height="100" uuid="0f1b1b73-1eb9-4edb-ac7f-6b0660e98aa8"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <text><![CDATA[]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="180" width="180" height="21" uuid="747bb142-c58f-4599-97c4-5cdbd49e97e7"/>
+                <box leftPadding="5"/>
+                <textElement>
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Receiver : trader type]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="200" width="280" height="20" uuid="05e1b9a9-9814-44eb-93cf-4bb1b2060ee1"/>
+                <box leftPadding="5"/>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.nomPersonne}+' '+$F{colisMaritime.commande.recepteur.prenomPersonne}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="221" width="280" height="20" uuid="d534d9b0-dc7d-4585-bd60-661726048378"/>
+                <box leftPadding="5"/>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.contactPersonne}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="430" y="220" width="125" height="30" uuid="f6af32f6-3109-4c07-8fc7-701a17aceb28"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.pin}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="241" width="280" height="20" uuid="2e89b279-45fb-45f4-88a6-ea795c44e05b"/>
+                <box leftPadding="5"/>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.rue}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="260" width="280" height="20" uuid="5f1b145f-6af1-422f-a123-58cd856cd506"/>
+                <box leftPadding="5"/>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.pays.libellePays}+'-'+$F{colisMaritime.commande.recepteur.etat.libelleEtat}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="430" y="180" width="125" height="100" uuid="b8c0c1ce-d5b6-4b3f-8827-eddeae1bae29"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="431" y="190" width="123" height="30" uuid="7c9a9cdc-ab7d-4595-a547-614b8f58fcd1"/>
+                <box leftPadding="5"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Invoice number : ]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="22" splitType="Stretch">
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="0" width="60" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="9911c842-f1cf-4713-8ef9-6fc0aab38730"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[N°]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="60" y="0" width="330" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="718bcf73-0ca2-46b6-93a7-1d8ecfedad11"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Description of goods]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="390" y="0" width="40" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="50633673-942e-42da-8c15-01b977c618fd"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Qty]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="430" y="0" width="50" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="b2f8d04f-fbe6-40d5-a4df-b09c2ee8689c"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Weight]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="480" y="0" width="75" height="22" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="05a75b6b-8b30-48cf-80aa-9d2f513420ef"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Value]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="18" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="0" width="60" height="18" isPrintInFirstWholeBand="true" uuid="2a7cc3da-a4c2-44c8-96a0-0c2123bcdbf4"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.numeroColis}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="60" y="0" width="330" height="18" isPrintInFirstWholeBand="true" uuid="96a4ba7a-7a49-4507-8a69-e4bd9639ce92"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="390" y="0" width="40" height="18" isPrintInFirstWholeBand="true" uuid="52ab9f55-e0cf-4976-a4ec-26c24eae5b4c"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{quantite}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="430" y="0" width="50" height="18" isPrintInFirstWholeBand="true" uuid="566dd087-33f1-40b6-8484-ea57a6661682"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{poids}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="false">
+                <reportElement x="480" y="0" width="75" height="18" isPrintInFirstWholeBand="true" uuid="f8c03ec8-ef71-4054-8bff-f333311d1042"/>
+                <box leftPadding="5" rightPadding="0">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{valeurMarchande}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <pageFooter>
+        <band height="68">
+            <staticText>
+                <reportElement x="0" y="15" width="210" height="30" uuid="b421b8dc-9a8b-4b1e-a353-67a7520e3b5e"/>
+                <textElement>
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[Mola et Fils, M. Biao
+Quartier Tokoin Wuiti, Av. Akei, Lomé Togo]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="210" y="15" width="170" height="50" uuid="2d22cb92-4ee0-4384-bca4-cc8b64f33b1e"/>
+                <textElement>
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[RCCM: TG-LFW-01-2021-A10-06917
+CNSS: 148728
+NIF: 1001778160]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="385" y="15" width="170" height="50" uuid="1169011d-24f9-423b-9e45-8a8f48c533fd"/>
+                <textElement>
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[info@molaetfils.com
+www.moletfils.com
+Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text>
+            </staticText>
+            <line>
+                <reportElement x="0" y="10" width="555" height="1" uuid="76435725-01b9-4e64-a616-57b4b699c5a4"/>
+            </line>
+        </band>
+    </pageFooter>
+    <summary>
+        <band height="82">
+            <staticText>
+                <reportElement mode="Transparent" x="0" y="0" width="430" height="21" backcolor="#F4FB24" uuid="f7869951-181f-481a-928b-4ded645ef418"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10"/>
+                </textElement>
+                <text><![CDATA[Total pieces]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Transparent" x="0" y="21" width="430" height="21" backcolor="#F4FB24" uuid="ad223bae-9b89-4add-b2c7-730ae769cf1d"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10"/>
+                </textElement>
+                <text><![CDATA[Taxe]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="42" width="430" height="20" backcolor="#F4FB24" uuid="71ecf98d-08f5-4a8b-99f4-f95c930222ac"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10"/>
+                </textElement>
+                <text><![CDATA[Total invoice amount (FCFA)]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="62" width="430" height="20" backcolor="#F5DCF4" uuid="ab0846ab-8123-4503-823a-302e177c94fc"/>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10"/>
+                </textElement>
+                <text><![CDATA[Total amount (Euro)]]></text>
+            </staticText>
+            <textField pattern="#,##0.00#;#,##0.00#-">
+                <reportElement x="430" y="0" width="125" height="21" uuid="002183cb-d250-48c3-b58a-e540f4205e84"/>
+                <box rightPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{nbre_colis}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.00#;(#,##0.00#-)">
+                <reportElement x="430" y="21" width="125" height="21" uuid="96bdadf0-c5ea-4537-a826-dd7fddd3756a"/>
+                <box rightPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{taxe_maritime}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.00#;#,##0.00#-">
+                <reportElement x="430" y="42" width="125" height="20" uuid="f0536762-bd4c-42f5-804a-deda95186965"/>
+                <box rightPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{montant_petit_carton}+$P{montant_grand_carton}+$P{taxe_maritime}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.00¤;#,##0.00- ¤">
+                <reportElement x="430" y="62" width="125" height="20" uuid="06f886de-4ee2-43d9-9973-a6c5d546efad"/>
+                <box rightPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[($P{montant_petit_carton}+$P{montant_grand_carton}+$P{taxe_maritime})/655.97]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+</jasperReport>

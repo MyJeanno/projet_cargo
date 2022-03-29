@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
-      xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 </head>
 <body>
 <div layout:fragment="content">
-
-    <div class="page-title">
-        <div class="title_left">
-            <h4><small>Annuler un encaissement de facture</small></h4>
+    <div class="clearfix"></div>
+    <div>
+        <div style="margin:10px;" class="title_left">
+            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Liste des factures payés au Togo</small></h4>
         </div>
     </div>
-
     <!-- table -->
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
@@ -45,8 +46,8 @@
                                     <th>Lieu paiement</th>
                                     <th>Nb colis</th>
                                     <th>Montant facture</th>
-                                    <th>Statut</th>
-                                    <th>Action</th>
+                                    <th>Client</th>
+                                    <th>Douane</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -58,9 +59,13 @@
                                     <td th:text="${inventaire.commande.lieuPaiement}"></td>
                                     <td th:text="${inventaire.nombreColis}"></td>
                                     <td th:text="${inventaire.prixTotal}"></td>
-                                    <td th:text="${inventaire.status}"></td>
-                                    <td>
-                                        <a class="btn btn-round btn-sm btn-warning" th:href="@{/stat/annuler/encaissement/{id}(id=${inventaire.id})}">Annuler</a>
+                                    <td th:switch="${inventaire.commande.typeEnvoi}">
+                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-success" th:href="@{/stat/inventaireMaritime/facture/{id}(id=${inventaire.id})}">Imprimer</a>
+                                        <a th:case="*" class="btn btn-round btn-sm btn-success" th:href="@{/stat/inventaireAerien/facture/{id}(id=${inventaire.id})}">Imprimer</a>
+                                    </td>
+                                    <td th:switch="${inventaire.commande.typeEnvoi}">
+                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-info" th:href="@{/stat/douaneMaritime/facture/{id}(id=${inventaire.id})}">Imprimer</a>
+                                        <a th:case="*" class="btn btn-round btn-sm btn-info" th:href="@{/stat/douaneAerien/facture/{id}(id=${inventaire.id})}">Imprimer</a>
                                     </td>
                                 </tr>
                                 </tbody>

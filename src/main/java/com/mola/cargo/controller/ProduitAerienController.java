@@ -151,6 +151,7 @@ public class ProduitAerienController {
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
         inventaire.setPrixTotal(prixTotal);
+        inventaire.setCommercial(getPrincipal());
         inventaireService.saveInventaire(inventaire);
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
@@ -181,9 +182,9 @@ public class ProduitAerienController {
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
         inventaire.setPrixTotal(prixTotal);
+        inventaire.setCommercial(getPrincipal());
         inventaireService.saveInventaire(inventaire);
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
-
 
 }

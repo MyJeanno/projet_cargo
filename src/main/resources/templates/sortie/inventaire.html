@@ -10,7 +10,7 @@
     <div class="clearfix"></div>
     <div>
         <div style="margin:10px;" class="title_left">
-            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Liste des factures payés au Togo</small></h4>
+            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Encaissement des factures payés au Togo</small></h4>
         </div>
     </div>
     <!-- table -->
@@ -62,7 +62,7 @@
                                     <td th:text="${inventaire.prixTotal}"></td>
                                     <td th:text="${inventaire.status}"></td>
                                     <td sec:authorize="hasAnyRole('ADMIN')">
-                                        <a class="btn btn-round btn-sm btn-info" th:href="@{inventaire/valider/{id}(id=${inventaire.id})}">Encaisser</a>
+                                        <a class="btn btn-round btn-sm btn-info" th:href="@{/stat/inventaire/valider/{id}(id=${inventaire.id})}">Encaisser</a>
                                     </td>
                                 </tr>
                                 </tbody>

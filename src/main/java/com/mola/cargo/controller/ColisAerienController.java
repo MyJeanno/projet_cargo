@@ -30,6 +30,8 @@ import java.util.Map;
 @Controller
 public class ColisAerienController {
 
+    private final String TYPE_ENVOI_AERIEN = "AERIEN";
+
     @Autowired
     private ColisAerienService colisAerienService;
     @Autowired
@@ -43,6 +45,7 @@ public class ColisAerienController {
     public String afficherFormColisAerien(Model model){
         model.addAttribute("lastCommande", commandeService.showMaLastCommande());
         model.addAttribute("emballages", emballageService.showEmballages());
+        commandeService.updateTypeCommande(TYPE_ENVOI_AERIEN, commandeService.showMaLastCommande().getId());
         return "colis/formColisAerien";
     }
 

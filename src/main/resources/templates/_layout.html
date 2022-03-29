@@ -99,6 +99,12 @@
                           <li><a th:href="@{/convoiMaritimes}">Maritime</a></li>
                         </ul>
                       </li>
+                      <li><a>Liste des factures<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          <li class="sub_menu"><a th:href="@{/stat/listeFactures/aerien}">Aériennes</a></li>
+                          <li><a th:href="@{/stat/listeFactures/maritime}">Maritimes </a></li>
+                        </ul>
+                      </li>
                       <li><a th:href="@{/choixMaritime/commande}">Modifier un colis maritime</a></li>
                     </ul>
                   </li>
@@ -109,6 +115,15 @@
                       <li><a th:href="@{/cartonVentes}">Vente des cartons</a></li>
                     </ul>
                   </li>
+
+                  <li><a><i class="fa fa-info"></i> Inventaire <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a th:href="@{/stat/inventaires}">Factures payés au Togo</a></li>
+                      <li><a th:href="@{/stat/inventaires/encaisser}">Annuler un encaissement</a></li>
+                      <li><a th:href="@{/stat/inventaires/non_paye}">Factures à payer en Allemagne</a></li>
+                    </ul>
+                  </li>
+
                   <li><a><i class="fa fa-bar-chart"></i> Statistiques <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a>Lots de colis envoyés<span class="fa fa-chevron-down"></span></a>
@@ -117,9 +132,6 @@
                           <li><a th:href="@{/convoiMaritimesAdmin}">Par voie maritime</a></li>
                         </ul>
                       </li>
-                      <li><a th:href="@{/stat/inventaires}">Montant non encaissé</a></li>
-                      <li><a th:href="@{/stat/inventaires/encaisser}">Annulation encaissement</a></li>
-                      <li><a th:href="@{/stat/inventaires/non_paye}">Factures à payer en Allemagne</a></li>
                     </ul>
                   </li>
 

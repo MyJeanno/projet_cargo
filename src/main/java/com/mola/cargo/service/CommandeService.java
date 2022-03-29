@@ -20,9 +20,9 @@ public class CommandeService {
         return (borneInf+random.nextInt(borneSup-borneInf));
     }
 
-    /*public List<Commande> showCommandeEnDepot(String status){
-        return commandeRepository.findByStatut(status);
-    }*/
+    public void updateTypeCommande(String type, Long id){
+        commandeRepository.updateTypeCommande(type, id);
+    }
 
     public Commande showCommandePin(String pin){
         return commandeRepository.findByPin(pin);
@@ -65,4 +65,5 @@ public class CommandeService {
     public List<Commande> showCommande(){
         return commandeRepository.findAll();
     }
+
 }

@@ -16,8 +16,9 @@ public class Constante {
     public static final String INVENTAIRE_NON_ENCAISSE = "NON ENCAISSE";
     public static final String INVENTAIRE_ENCAISSE = "ENCAISSE";
     public static final String INVENTAIRE_REGLE = "REGLE";
-    public static final String LIEU_PAIEMENT_TOGO = "Togo";
-    public static final String LIEU_PAIEMENT_ALL = "Allemangne";
+    public static final String ENVOI_MARITIME = "MARITIME";
+    public static final String ENVOI_AERIEN = "AERIEN";
+
 
     public static final int MOIS_JANVIER = 1;
     public static final int MOIS_FEVRIER = 2;

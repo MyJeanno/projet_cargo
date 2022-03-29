@@ -532,7 +532,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
+                <textElement verticalAlignment="Middle">
                     <font size="10"/>
                 </textElement>
                 <text><![CDATA[Total à payer en FCFA]]></text>
@@ -545,7 +545,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
+                <textElement verticalAlignment="Middle">
                     <font size="10"/>
                 </textElement>
                 <text><![CDATA[Total à payer en Euro]]></text>
@@ -558,7 +558,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Right">
+                <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font size="12" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$V{totalprixcfa}+$P{taxe}+$P{frais_emballage}]]></textFieldExpression>
@@ -571,7 +571,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Right">
+                <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font size="12" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[($V{totalprixcfa}+$P{taxe}+$P{frais_emballage})/655.97]]></textFieldExpression>
@@ -612,7 +612,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
+                <textElement verticalAlignment="Middle">
                     <font size="10"/>
                 </textElement>
                 <text><![CDATA[Frais d'emballage des produits]]></text>
@@ -625,7 +625,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
+                <textElement verticalAlignment="Middle">
                     <font size="10"/>
                 </textElement>
                 <text><![CDATA[Taxe phytosanitaire]]></text>
@@ -638,7 +638,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
+                <textElement verticalAlignment="Middle">
                     <font size="10"/>
                 </textElement>
                 <text><![CDATA[Total]]></text>
@@ -651,7 +651,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Right">
+                <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font size="10" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$V{totalprixcfa}]]></textFieldExpression>
@@ -664,7 +664,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Right">
+                <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{taxe}]]></textFieldExpression>
@@ -677,7 +677,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Right">
+                <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{frais_emballage}]]></textFieldExpression>

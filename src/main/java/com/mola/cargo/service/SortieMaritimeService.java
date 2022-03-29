@@ -44,7 +44,7 @@ public class SortieMaritimeService {
         return sortieMaritimeRepository.findByConvoiid(id);
     }
 
-    public int colisSelonMois(int mois){
+    public int colisMaritimeSelonMois(int mois){
         List<SortieMaritime> listeMois = new ArrayList<>();
         for (SortieMaritime sm : sortieMaritimeRepository.findAll()){
             if(sm.getConvoi().getDateCreation().getMonthValue()==mois){
