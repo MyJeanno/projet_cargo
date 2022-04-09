@@ -4,7 +4,10 @@ import com.mola.cargo.model.ColisAerien;
 import com.mola.cargo.model.Produit;
 import com.mola.cargo.model.ProduitAerien;
 import com.mola.cargo.repository.ProduitAerienRepository;
+import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +18,8 @@ import java.util.Optional;
 public class ProduitAerienService {
     @Autowired
     private ProduitAerienRepository produitAerienRepository;
+    @Autowired
+    private TarifAerienService tarifAerienService;
 
     public List<ProduitAerien> showProduitsAerien(){
         return produitAerienRepository.findAll();
@@ -24,13 +29,13 @@ public class ProduitAerienService {
         produitAerienRepository.save(produitAerien);
     }
 
-    public Double sommePrixProduitAerien(Long id){
+   /* public Double sommePrixProduitAerien(Long id){
         if(produitAerienRepository.sommePrixProduitAerien(id) == null){
             return 0.0;
         }else{
             return produitAerienRepository.sommePrixProduitAerien(id);
         }
-    }
+    }*/
 
     public ProduitAerien showOneProduitAerien(Long id){
         Optional<ProduitAerien> optional = produitAerienRepository.findById(id);
@@ -57,11 +62,11 @@ public class ProduitAerienService {
         return false;
     }
 
-    public double taxe(List<ProduitAerien> listeAerien) {
+   public double taxe(List<ProduitAerien> listeAerien) {
         double taxe = 0;
         for (ProduitAerien p : listeAerien) {
-            if (p.getTarif().getTaxeAerienne() != 0) {
-                taxe = p.getTarif().getTaxeAerienne();
+            if (p.getTarif().getTaxe().equals(Constante.TAXE_OUI)) {
+                taxe = tarifAerienService.leTarifaerien().getTaxe();
                 break;
             }
         }
@@ -74,6 +79,18 @@ public class ProduitAerienService {
         }else {
             return produitAerienRepository.fraisEmballage(id);
         }
+    }
+
+    public String getPrincipal() {
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
     }
 
    /* public double fraisEmballage(List<ColisAerien> listeca){

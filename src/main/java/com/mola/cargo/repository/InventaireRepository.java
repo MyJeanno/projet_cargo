@@ -29,4 +29,6 @@ public interface InventaireRepository extends JpaRepository<Inventaire, Long> {
     @Query("select i from Inventaire i where i.commande.typeEnvoi =?1")
     List<Inventaire> findByTypeEnvoi(String type);
 
+    List<Inventaire> findByStatus(String status);
+
 }

@@ -43,6 +43,10 @@ public class SortieAerienService {
         return sortieAerienRepository.findByConvoiid(id);
     }
 
+    public int nbreTotalColisAerien(){
+        return sortieAerienRepository.findAll().size();
+    }
+
     public int colisAerienSelonMois(int mois){
         List<SortieAerien> listeMois = new ArrayList<>();
         for (SortieAerien sa : sortieAerienRepository.findAll()){
@@ -51,5 +55,31 @@ public class SortieAerienService {
             }
         }
         return listeMois.size();
+    }
+
+    public List<SortieAerien> sortieAerienByCommande(){
+        return sortieAerienRepository.sortieAerienByCommande();
+    }
+
+    public boolean existeDeja(List<SortieAerien> liste, Long id){
+        boolean existe = false;
+        for (SortieAerien sa : liste){
+            if(sa.getColisAerien().getCommande().getId()==id){
+                existe = true;
+            }else {
+                existe = false;
+            }
+        }
+        return existe;
+    }
+
+    public List<SortieAerien> listeCommandeAerien(Long id){
+        List<SortieAerien> liste = new ArrayList<>();
+        for (SortieAerien sa : sortieAerienRepository.listeCommande(id)){
+            if (!existeDeja(liste, sa.getColisAerien().getCommande().getId())){
+               liste.add(sa);
+            }
+        }
+        return liste;
     }
 }

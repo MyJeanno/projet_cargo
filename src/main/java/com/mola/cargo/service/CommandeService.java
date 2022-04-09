@@ -20,6 +20,10 @@ public class CommandeService {
         return (borneInf+random.nextInt(borneSup-borneInf));
     }
 
+    public Commande showOnecommande(Long id){
+        return commandeRepository.findById(id).get();
+    }
+
     public void updateTypeCommande(String type, Long id){
         commandeRepository.updateTypeCommande(type, id);
     }

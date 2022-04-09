@@ -10,7 +10,7 @@
     <div class="clearfix"></div>
     <div>
         <div style="margin:10px;" class="title_left">
-            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Liste des factures payés au Togo</small></h4>
+            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Liste de toutes les factures </small></h4>
         </div>
     </div>
     <!-- table -->
@@ -60,12 +60,12 @@
                                     <td th:text="${inventaire.nombreColis}"></td>
                                     <td th:text="${inventaire.prixTotal}"></td>
                                     <td th:switch="${inventaire.commande.typeEnvoi}">
-                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-success" th:href="@{/stat/inventaireMaritime/facture/{id}(id=${inventaire.id})}">Imprimer</a>
-                                        <a th:case="*" class="btn btn-round btn-sm btn-success" th:href="@{/stat/inventaireAerien/facture/{id}(id=${inventaire.id})}">Imprimer</a>
+                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-info" th:href="@{/stat/inventaireMaritime/facture/{id}(id=${inventaire.id})}"><i class="fa fa-download"></i></a>
+                                        <a th:case="*" class="btn btn-round btn-sm btn-info" th:href="@{/stat/inventaireAerien/facture/{id}(id=${inventaire.id})}"><i class="fa fa-download"></i></a>
                                     </td>
                                     <td th:switch="${inventaire.commande.typeEnvoi}">
-                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-info" th:href="@{/stat/douaneMaritime/facture/{id}(id=${inventaire.id})}">Imprimer</a>
-                                        <a th:case="*" class="btn btn-round btn-sm btn-info" th:href="@{/stat/douaneAerien/facture/{id}(id=${inventaire.id})}">Imprimer</a>
+                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-success" th:href="@{/stat/douaneMaritime/facture/{id}(id=${inventaire.id})}"><i class="fa fa-print"></i></a>
+                                        <a th:case="*" class="btn btn-round btn-sm btn-success" th:href="@{/stat/douaneAerien/facture/{id}(id=${inventaire.id})}"><i class="fa fa-print"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>

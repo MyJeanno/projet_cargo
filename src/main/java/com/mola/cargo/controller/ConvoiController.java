@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
@@ -28,6 +29,21 @@ public class ConvoiController {
     public String afficherConvoiAerien(Model model){
         model.addAttribute("convoiAeriens", convoiService.findConvoiAerien());
         return "sortie/convoiAerien";
+    }
+
+    @GetMapping("/toutConvoi/liste")
+    public String afficherToutConvoiAerien(Model model){
+        model.addAttribute("convoiAeriens", convoiService.showConvois());
+        return "sortie/toutConvois";
+    }
+
+    @GetMapping("/toutconvoi/{id}")
+    public String afficherToutConvoiColis(@PathVariable("id") Long id, Model model){
+        //model.addAttribute("convoiAeriens", convoiService.showOneConvoi(id));
+        if(convoiService.showOneConvoi(id).getIdentifiant().contains(Constante.PREFIX_AERIEN)){
+            return "redirect:/sortieAeriens";
+        }
+        return "redirect:/sortieMaritimes";
     }
 
     @GetMapping("/convoiAeriensAdmin")
@@ -59,7 +75,6 @@ public class ConvoiController {
         convoiService.saveConvoi(convoi);
         return "redirect:/convoiAeriens";
     }
-
 
     @GetMapping("")
     public String supprimerConvoi(Long id){

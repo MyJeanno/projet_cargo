@@ -8,14 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h4><small>Créer une nouvelle sortie de colis maritime</small></h4>
-        </div>
-        <div class="title_right">
-            <div class="col-md-2 col-sm-2 pull-right">
-                <form th:action="@{/convoiMaritime/nouveau}" method="post">
-                    <button type="submit" class="btn btn-info" ><i class="fa fa-plus"></i> Créer</button>
-                </form>
-            </div>
+            <h4><small>Liste des différents convois de colis</small></h4>
         </div>
     </div>
 
@@ -52,12 +45,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="convoiMaritime:${convoiMaritimes}">
-                                    <td th:text="${convoiMaritime.id}"></td>
-                                    <td th:text="${convoiMaritime.identifiant}"></td>
-                                    <td th:text="${convoiMaritime.dateCreation}"></td>
+                                <tr th:each="convoiAerien:${convoiAeriens}">
+                                    <td th:text="${convoiAerien.id}"></td>
+                                    <td th:text="${convoiAerien.identifiant}"></td>
+                                    <td th:text="${convoiAerien.dateCreation}"></td>
                                     <td>
-                                        <a class="btn btn-round btn-sm btn-info" th:href="@{/sortieMaritimes}">Affecter colis</a>
+                                        <a class="btn btn-round btn-sm btn-info" th:href="@{/convoiAerien/{id}(id=${convoiAerien.id})}">Consulter</a>
                                     </td>
                                 </tr>
                                 </tbody>

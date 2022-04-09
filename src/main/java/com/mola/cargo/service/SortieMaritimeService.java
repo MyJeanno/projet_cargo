@@ -44,6 +44,10 @@ public class SortieMaritimeService {
         return sortieMaritimeRepository.findByConvoiid(id);
     }
 
+    public int nbreTotalColisMaritime(){
+        return sortieMaritimeRepository.findAll().size();
+    }
+
     public int colisMaritimeSelonMois(int mois){
         List<SortieMaritime> listeMois = new ArrayList<>();
         for (SortieMaritime sm : sortieMaritimeRepository.findAll()){
@@ -52,5 +56,27 @@ public class SortieMaritimeService {
             }
         }
         return listeMois.size();
+    }
+
+    public boolean existeDeja(List<SortieMaritime> liste, Long id){
+        boolean existe = false;
+        for (SortieMaritime sa : liste){
+            if(sa.getColisMaritime().getCommande().getId()==id){
+                existe = true;
+            }else {
+                existe = false;
+            }
+        }
+        return existe;
+    }
+
+    public List<SortieMaritime> listeCommandeMaritime(Long id){
+        List<SortieMaritime> liste = new ArrayList<>();
+        for (SortieMaritime sa : sortieMaritimeRepository.listeCommande(id)){
+            if (!existeDeja(liste, sa.getColisMaritime().getCommande().getId())){
+                liste.add(sa);
+            }
+        }
+        return liste;
     }
 }

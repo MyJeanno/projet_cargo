@@ -39,17 +39,15 @@ public class ProduitAerienController {
     private CommandeService commandeService;
     @Autowired
     private InventaireService inventaireService;
+    @Autowired
+    private TarifAerienService tarifAerienService;
 
     @GetMapping("/colisAerien/produits")
     public String afficherProduitAerien(Model model){
         //System.out.println("Frais = "+produitAerienService.fraisEmballage());
-        double prixTotal = produitAerienService.sommePrixProduitAerien(commandeService.showMaLastCommande().getId()) +
-                           produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId())+
-                           produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
         model.addAttribute("produitsAerien", produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
         model.addAttribute("tarifs", tarifService.showTarifs());
         model.addAttribute("lastColisAerien", colisAerienService.showMaLastColisAerien());
-        model.addAttribute("prixTotal", String.format("% ,.2f", prixTotal));
         return "produit/produitAerien";
     }
 
@@ -68,7 +66,8 @@ public class ProduitAerienController {
         produitAerien.setQuantite(quantite);
         produitAerien.setPoids(poids);
         produitAerien.setValeurMarchande(valeurMarchande);
-        List<Tarif> listPrix = new ArrayList<>();
+
+        /*List<Tarif> listPrix = new ArrayList<>();
         listPrix = tarifService.showTarifs();
         for(Tarif t : listPrix){
             if(produitAerien.getTarifid() == t.getId()){
@@ -78,7 +77,8 @@ public class ProduitAerienController {
                     produitAerien.setPrixProduit(t.getPrixkilo()*((int)produitAerien.getPoids()+1));
                 }
             }
-        }
+        }*/
+
         produitAerienService.saveProduitAerien(produitAerien);
         return "redirect:/colisAerien/produits";
     }
@@ -92,7 +92,7 @@ public class ProduitAerienController {
 
     @PostMapping("/produitAerien/update")
     public String updateProduitAerien(@ModelAttribute("produitAerien") ProduitAerien produitAerien){
-        List<Tarif> listPrix = new ArrayList<>();
+        /*List<Tarif> listPrix = new ArrayList<>();
         listPrix = tarifService.showTarifs();
         for(Tarif t : listPrix){
             if(produitAerien.getTarifid() == t.getId()){
@@ -102,7 +102,7 @@ public class ProduitAerienController {
                     produitAerien.setPrixProduit(t.getPrixkilo()*((int)produitAerien.getPoids()+1));
                 }
             }
-        }
+        }*/
         produitAerienService.saveProduitAerien(produitAerien);
         return "redirect:/colisAerien/produits";
     }
@@ -137,22 +137,25 @@ public class ProduitAerienController {
         parameter.put("user", getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
         parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
-        parameter.put("frais_emballage", produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId()));
+        parameter.put("poids", colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande().getId()));
+        parameter.put("prixkilo", tarifAerienService.leTarifaerien().getPrix());
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
-        double prixTotal = produitAerienService.sommePrixProduitAerien(commandeService.showMaLastCommande().getId()) +
-                produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId())+
-                produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
+        double prixTotal = colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande().getId())*tarifAerienService.leTarifaerien().getPrix()
+               // + produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId());
+                + produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
         inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
         inventaire.setPrixTotal(prixTotal);
         inventaire.setCommercial(getPrincipal());
-        inventaireService.saveInventaire(inventaire);
+        if(!inventaireService.testerAppartenance(commandeService.showMaLastCommande().getId())){
+            inventaireService.saveInventaire(inventaire);
+        }
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 
@@ -168,22 +171,25 @@ public class ProduitAerienController {
         parameter.put("user", getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
         parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
-        parameter.put("frais_emballage", produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId()));
+        parameter.put("poids", colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande().getId()));
+        parameter.put("prixkilo", tarifAerienService.leTarifaerien().getPrix());
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
-        double prixTotal = produitAerienService.sommePrixProduitAerien(commandeService.showMaLastCommande().getId()) +
-                produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId())+
-                produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
+        double prixTotal = colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande().getId())*tarifAerienService.leTarifaerien().getPrix()
+                //+ produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId())
+                + produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
         inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
         inventaire.setPrixTotal(prixTotal);
         inventaire.setCommercial(getPrincipal());
-        inventaireService.saveInventaire(inventaire);
+        if(!inventaireService.testerAppartenance(commandeService.showMaLastCommande().getId())){
+            inventaireService.saveInventaire(inventaire);
+        }
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 

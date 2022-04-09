@@ -37,4 +37,12 @@ public interface ColisAerienRepository extends JpaRepository<ColisAerien, Long> 
 
     List<ColisAerien> findByStatut(String statut);
 
+    @Query("select SUM(ca.poids) FROM ColisAerien ca where ca.commandeid = ?1")
+    Double poidsTotalColisAerien(Long id);
+
+    @Transactional
+    @Modifying
+    @Query("update ColisAerien ca SET ca.poids = :p WHERE ca.id = :id")
+    void updatePoidsColisAerien(@Param("p") double p, @Param("id") Long id);
+
 }

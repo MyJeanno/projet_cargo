@@ -34,7 +34,7 @@
         <band splitType="Stretch"/>
     </background>
     <title>
-        <band height="257" splitType="Stretch">
+        <band height="247" splitType="Stretch">
             <image>
                 <reportElement x="0" y="0" width="50" height="50" uuid="0b04e103-25d8-46c3-9287-33ef6b42153f"/>
                 <imageExpression><![CDATA["D:/PROJET MENAD/cargo/head.png"]]></imageExpression>
@@ -58,47 +58,176 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                                        Commerce général, Import & Export, cargo shipping (MOLA CARGO),
                               bureau de représentation commerciale et de conseils en matière de douane]]></text>
             </staticText>
+            <line>
+                <reportElement x="0" y="90" width="555" height="1" uuid="c761b3ae-60f6-4a40-8550-3b0d3e8177f5"/>
+            </line>
             <staticText>
-                <reportElement x="151" y="100" width="279" height="20" uuid="2a560c2c-3585-46cb-8d39-88c7160770a2"/>
-                <textElement textAlignment="Center">
-                    <font size="12" isBold="true" isItalic="false" isUnderline="true"/>
+                <reportElement mode="Opaque" x="0" y="100" width="555" height="20" backcolor="#F7EEED" uuid="1e041c86-5fa8-40a1-9915-daf091b2b48e"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="14" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Facture]]></text>
+                <text><![CDATA[      Facture]]></text>
             </staticText>
             <staticText>
-                <reportElement x="0" y="129" width="100" height="20" uuid="e695e7c0-7f27-4ae7-89b4-67724b6b5849"/>
+                <reportElement x="290" y="120" width="265" height="118" uuid="404e41bd-d435-4fef-a903-35cb3ea4a93a"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <text><![CDATA[]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="120" width="290" height="118" uuid="0b40bb76-73a9-4245-abbe-02d73492454b"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <text><![CDATA[]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="10" y="122" width="100" height="17" uuid="1eb58fe9-5db9-4bf6-a04e-b37419718a38"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
-                    <paragraph lineSpacing="Fixed"/>
+                    <paragraph lineSpacing="Fixed" lineSpacingSize="0.0"/>
                 </textElement>
                 <text><![CDATA[Date]]></text>
             </staticText>
             <staticText>
-                <reportElement x="0" y="149" width="100" height="19" uuid="d8fe29a5-c01a-4719-a3e9-2bf50f9d02fd"/>
+                <reportElement x="10" y="139" width="100" height="19" uuid="45615963-47ea-431d-bb7c-dab16326f7ac"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
-                    <paragraph lineSpacing="Fixed"/>
+                    <paragraph lineSpacing="Fixed" lineSpacingSize="0.0"/>
                 </textElement>
                 <text><![CDATA[Numéro de facture]]></text>
             </staticText>
             <staticText>
-                <reportElement x="0" y="169" width="100" height="20" uuid="0fd4d797-90ee-404e-96c6-2b88fec8296f"/>
+                <reportElement x="10" y="159" width="100" height="19" uuid="9c031451-d295-49bb-bb03-c777c3b07989"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
-                    <paragraph lineSpacing="Fixed"/>
+                    <paragraph lineSpacing="Fixed" lineSpacingSize="0.0"/>
                 </textElement>
                 <text><![CDATA[Nature]]></text>
             </staticText>
             <staticText>
-                <reportElement x="0" y="190" width="99" height="19" uuid="b1b48029-1e50-43ae-95b3-0e1649ea8d33"/>
+                <reportElement x="10" y="179" width="99" height="19" uuid="cef0c6e7-2fe1-4c31-98b6-4a16d17b75ac"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
-                    <paragraph lineSpacing="Fixed"/>
+                    <paragraph lineSpacing="Fixed" lineSpacingSize="0.0"/>
                 </textElement>
                 <text><![CDATA[Expéditeur]]></text>
             </staticText>
             <staticText>
-                <reportElement x="303" y="130" width="77" height="20" uuid="7c471b6c-8259-4f39-a49c-6b580eb1bf19"/>
+                <reportElement x="10" y="199" width="99" height="19" uuid="9048ffb2-6e9a-4a3e-aa01-f918830d15c1"/>
+                <textElement>
+                    <font size="10" isUnderline="true"/>
+                    <paragraph lineSpacing="Fixed" lineSpacingSize="0.0"/>
+                </textElement>
+                <text><![CDATA[Lieu de paiement]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="11" y="219" width="99" height="19" uuid="305c369e-6360-4184-a890-e9c3558ec267"/>
+                <textElement>
+                    <font size="10" isUnderline="true"/>
+                    <paragraph lineSpacing="Fixed" lineSpacingSize="0.0"/>
+                </textElement>
+                <text><![CDATA[Nombre de colis]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="112" y="218" width="30" height="20" uuid="b3a11a57-238c-480e-b6d2-b4d6258fb936"/>
+                <textElement textAlignment="Center">
+                    <font size="11"/>
+                </textElement>
+                <text><![CDATA[ : ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="111" y="198" width="30" height="20" uuid="1fe5af71-38e2-40b5-9750-1a319d246420"/>
+                <textElement textAlignment="Center">
+                    <font size="11"/>
+                </textElement>
+                <text><![CDATA[ : ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="111" y="177" width="30" height="20" uuid="fcf2a041-188d-4461-bbc0-805a89754aa4"/>
+                <textElement textAlignment="Center">
+                    <font size="11"/>
+                </textElement>
+                <text><![CDATA[ : ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="112" y="157" width="30" height="20" uuid="4d417ffd-443b-49b0-a5d3-775d83407624"/>
+                <textElement textAlignment="Center">
+                    <font size="10"/>
+                </textElement>
+                <text><![CDATA[ : ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="112" y="139" width="30" height="19" uuid="d112d38e-5b02-468e-9cdd-1e2a7da48b10"/>
+                <textElement textAlignment="Center">
+                    <font size="10"/>
+                </textElement>
+                <text><![CDATA[ : ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="112" y="122" width="30" height="17" uuid="c171895e-0bdc-422d-9a66-ed86723056a8"/>
+                <textElement textAlignment="Center">
+                    <font size="10"/>
+                </textElement>
+                <text><![CDATA[ : ]]></text>
+            </staticText>
+            <textField pattern="MMMM d, yyyy">
+                <reportElement x="142" y="124" width="142" height="15" uuid="769f49ca-4dd5-4c1e-ad48-caa4c5db7587"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.dateEnvoi}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="142" y="139" width="142" height="17" uuid="57e4d57c-b7f3-412b-bdce-e1a7c77d7b29"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.pin}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="142" y="155" width="156" height="21" uuid="337980f2-a652-4ce3-8956-a7d2031e7d64"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <text><![CDATA[Envoi maritime de marchandises]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="141" y="177" width="142" height="20" uuid="0ebc3008-7a39-4917-ad67-93eed21cc3b6"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.emetteur.nomPersonne}+" "+$F{colisMaritime.commande.emetteur.prenomPersonne}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="141" y="198" width="142" height="20" uuid="2da9a943-0e8f-4df7-95e4-dc2bf9a051d8"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.lieuPaiement}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="142" y="218" width="141" height="20" uuid="479050c1-b524-4e93-b6fc-72bad813aac6"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{nbre_colis}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="303" y="122" width="77" height="20" uuid="c3a2b8fa-3175-4a4e-bc70-2fa26b286526"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
                     <paragraph lineSpacing="Fixed"/>
@@ -106,7 +235,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Destinataire]]></text>
             </staticText>
             <staticText>
-                <reportElement x="303" y="151" width="77" height="20" uuid="8556337a-655d-4a2b-a0bf-9204e73e85a7"/>
+                <reportElement x="303" y="139" width="77" height="20" uuid="0b305440-17ed-4d10-9b26-7ef11f0d8c13"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
                     <paragraph lineSpacing="Fixed"/>
@@ -114,7 +243,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Départ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="303" y="171" width="77" height="19" uuid="d4ccbe0c-5f09-4ed0-8a39-fd16d7e3a6b8"/>
+                <reportElement x="303" y="159" width="77" height="19" uuid="52189e5a-adfc-4abd-8e93-28479027e99c"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
                     <paragraph lineSpacing="Fixed"/>
@@ -122,7 +251,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Arrivée]]></text>
             </staticText>
             <staticText>
-                <reportElement x="303" y="191" width="77" height="20" uuid="521f3469-8cd9-444d-b222-92337d891300"/>
+                <reportElement x="303" y="179" width="77" height="20" uuid="600c320f-0e57-41be-890e-b95cc89d04dc"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
                     <paragraph lineSpacing="Fixed"/>
@@ -130,188 +259,82 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Ville]]></text>
             </staticText>
             <staticText>
-                <reportElement x="303" y="211" width="79" height="20" uuid="23d3a20d-89a8-469a-afc3-c7ad197144d3"/>
+                <reportElement x="303" y="199" width="79" height="20" uuid="eb8285ef-c3f0-498c-8cd6-2c758fc3bbbb"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
                     <paragraph lineSpacing="Fixed"/>
                 </textElement>
                 <text><![CDATA[Contact]]></text>
             </staticText>
-            <textField pattern="MMMM d, yyyy">
-                <reportElement x="132" y="129" width="142" height="20" uuid="d4728345-6576-4d45-9d6b-e2bd20738f86"/>
-                <textElement>
-                    <font size="10"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.dateEnvoi}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="132" y="149" width="142" height="20" uuid="87736419-e0a1-488a-b7b4-1d7d4251dedc"/>
-                <textElement>
-                    <font size="10"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.pin}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="131" y="188" width="142" height="20" uuid="e5df5579-c08b-413d-bb2b-1a5d601311f5"/>
-                <textElement>
-                    <font size="10"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.emetteur.nomPersonne}+" "+$F{colisMaritime.commande.emetteur.prenomPersonne}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="412" y="130" width="141" height="20" uuid="d02bdf8c-d4e2-484c-982c-83c46dc7f70f"/>
-                <textElement>
-                    <font size="10"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.nomPersonne}+" "+$F{colisMaritime.commande.recepteur.prenomPersonne}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="412" y="151" width="141" height="20" uuid="24d0fc83-fe23-4637-8992-9e77b8599697"/>
-                <textElement>
-                    <font size="10"/>
-                </textElement>
-                <textFieldExpression><![CDATA["Togo"]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="412" y="171" width="141" height="19" uuid="4d415b79-5094-4a42-9a34-4d2db1a9d5e9"/>
-                <textElement>
-                    <font size="10"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.etat.libelleEtat}+" - "+$F{colisMaritime.commande.recepteur.pays.libellePays}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="412" y="191" width="141" height="20" uuid="0e6f53f4-e14e-4df6-96d9-36f2f308dd14"/>
-                <textElement>
-                    <font size="10"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.villePersonne}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="412" y="211" width="143" height="20" uuid="bbc6149b-3ded-4795-81e8-65d2b9b826f7"/>
-                <textElement>
-                    <font size="10"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.contactPersonne}]]></textFieldExpression>
-            </textField>
-            <line>
-                <reportElement x="0" y="90" width="555" height="1" uuid="c761b3ae-60f6-4a40-8550-3b0d3e8177f5"/>
-            </line>
             <staticText>
-                <reportElement x="102" y="129" width="30" height="20" uuid="bb7600cd-4f07-4c70-9294-8198efc09a60"/>
-                <textElement textAlignment="Center">
-                    <font size="10"/>
-                </textElement>
-                <text><![CDATA[ : ]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="102" y="149" width="30" height="20" uuid="1ac49bfb-da5b-47f1-a3dd-18b8ad55b135"/>
-                <textElement textAlignment="Center">
-                    <font size="10"/>
-                </textElement>
-                <text><![CDATA[ : ]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="102" y="168" width="30" height="20" uuid="843f77d0-12d2-41c7-a9da-5321c69290da"/>
-                <textElement textAlignment="Center">
-                    <font size="10"/>
-                </textElement>
-                <text><![CDATA[ : ]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="101" y="189" width="30" height="20" uuid="b041c95a-bf57-4730-a724-9a4d103fc5af"/>
-                <textElement textAlignment="Center">
-                    <font size="11"/>
-                </textElement>
-                <text><![CDATA[ : ]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="382" y="130" width="30" height="20" uuid="ba8ea7fb-9b11-45c8-98f2-9cf44da103e7"/>
-                <textElement textAlignment="Center">
-                    <font size="11"/>
-                </textElement>
-                <text><![CDATA[ : ]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="382" y="151" width="30" height="20" uuid="bf576e85-b747-4546-93b0-8b682e4b9025"/>
-                <textElement textAlignment="Center">
-                    <font size="11"/>
-                </textElement>
-                <text><![CDATA[ : ]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="382" y="171" width="30" height="20" uuid="fa620cb2-bc76-4fac-9ff8-db811694e7a5"/>
-                <textElement textAlignment="Center">
-                    <font size="11"/>
-                </textElement>
-                <text><![CDATA[ : ]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="382" y="191" width="30" height="20" uuid="dbb79760-7970-4538-9697-aaf9bbb8a9ca"/>
-                <textElement textAlignment="Center">
-                    <font size="11"/>
-                </textElement>
-                <text><![CDATA[ : ]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="132" y="171" width="156" height="17" uuid="50893973-8974-4196-891b-bfbb7f1042e6"/>
-                <textElement>
-                    <font size="10"/>
-                </textElement>
-                <text><![CDATA[Envoi maritime de marchandises]]></text>
-            </staticText>
-            <line>
-                <reportElement x="281" y="130" width="1" height="119" uuid="12d57c5e-845c-4bce-a415-d19d600ab2f4"/>
-            </line>
-            <staticText>
-                <reportElement x="380" y="211" width="30" height="20" uuid="fcd8c08f-503b-4c49-9656-daf5df88b84a"/>
+                <reportElement x="380" y="199" width="30" height="20" uuid="5b6c2f77-6f70-4656-9592-9b40e8faf26f"/>
                 <textElement textAlignment="Center">
                     <font size="11"/>
                 </textElement>
                 <text><![CDATA[  : ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="0" y="211" width="99" height="19" uuid="b8853512-99e9-41ff-a75b-58494a0b132c"/>
-                <textElement>
-                    <font size="10" isUnderline="true"/>
-                    <paragraph lineSpacing="Fixed"/>
+                <reportElement x="382" y="179" width="30" height="20" uuid="2b97d826-2ae7-4deb-bd70-5f9ecf0d2de6"/>
+                <textElement textAlignment="Center">
+                    <font size="11"/>
                 </textElement>
-                <text><![CDATA[Lieu de paiement]]></text>
+                <text><![CDATA[ : ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="101" y="210" width="30" height="20" uuid="0865c1f7-506c-4ae8-a9f7-384f4bf568e9"/>
+                <reportElement x="382" y="159" width="30" height="20" uuid="cdb53e11-8a63-4d1e-b132-d90552fe6544"/>
+                <textElement textAlignment="Center">
+                    <font size="11"/>
+                </textElement>
+                <text><![CDATA[ : ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="382" y="139" width="30" height="20" uuid="d5e05f87-6c33-4cee-9ee2-621335e3672d"/>
+                <textElement textAlignment="Center">
+                    <font size="11"/>
+                </textElement>
+                <text><![CDATA[ : ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="382" y="122" width="30" height="20" uuid="4d04828a-7154-45f4-bd02-f395f0003fac"/>
                 <textElement textAlignment="Center">
                     <font size="11"/>
                 </textElement>
                 <text><![CDATA[ : ]]></text>
             </staticText>
             <textField>
-                <reportElement x="131" y="209" width="142" height="20" uuid="51e3148f-01c9-4692-9586-571b17413054"/>
+                <reportElement x="412" y="122" width="141" height="20" uuid="b3f7bf1d-7ddf-4cba-9cd2-17fffc57bc35"/>
                 <textElement>
                     <font size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.lieuPaiement}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.nomPersonne}+" "+$F{colisMaritime.commande.recepteur.prenomPersonne}]]></textFieldExpression>
             </textField>
-            <staticText>
-                <reportElement x="1" y="231" width="99" height="19" uuid="c0fda14c-964a-4eb5-a944-a52af355ceaa"/>
-                <textElement>
-                    <font size="10" isUnderline="true"/>
-                    <paragraph lineSpacing="Fixed"/>
-                </textElement>
-                <text><![CDATA[Nombre de colis]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="102" y="230" width="30" height="20" uuid="d3270d94-4295-49cd-957b-cc045329c92f"/>
-                <textElement textAlignment="Center">
-                    <font size="11"/>
-                </textElement>
-                <text><![CDATA[ : ]]></text>
-            </staticText>
             <textField>
-                <reportElement x="132" y="229" width="141" height="20" uuid="d01f3d54-3a10-4eee-b4c3-f707289ba71b"/>
+                <reportElement x="412" y="139" width="141" height="20" uuid="12a94f56-719b-47c8-bb19-0e4cc66d9e8c"/>
                 <textElement>
                     <font size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{nbre_colis}]]></textFieldExpression>
+                <textFieldExpression><![CDATA["Togo"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="412" y="159" width="141" height="19" uuid="fdfa82d9-0dad-48fb-96bf-47bcaea9efe5"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.etat.libelleEtat}+" - "+$F{colisMaritime.commande.recepteur.pays.libellePays}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="412" y="179" width="141" height="20" uuid="47b1ff13-1280-4f6e-bf55-0e3da8d65e9f"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.villePersonne}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="412" y="199" width="143" height="20" uuid="b1b34832-9de5-46d3-b70f-fcb9a258e31e"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.contactPersonne}]]></textFieldExpression>
             </textField>
         </band>
     </title>

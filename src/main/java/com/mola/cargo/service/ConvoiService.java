@@ -49,6 +49,10 @@ public class ConvoiService {
         return convoi;
     }
 
+    public List<Convoi> findToutConvoi(){
+        return convoiRepository.findToutConvoi();
+    }
+
     public void deleteConvoi(Long id){
         convoiRepository.deleteById(id);
     }

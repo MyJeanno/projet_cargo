@@ -18,6 +18,10 @@ public class Constante {
     public static final String INVENTAIRE_REGLE = "REGLE";
     public static final String ENVOI_MARITIME = "MARITIME";
     public static final String ENVOI_AERIEN = "AERIEN";
+    public static final String LIEU_TOGO = "Togo";
+    public static final String LIEU_ALL = "Allemagne";
+    public static final String TAXE_OUI = "Oui";
+    public static final String TAXE_NON = "Non";
 
 
     public static final int MOIS_JANVIER = 1;

@@ -42,8 +42,9 @@ public class HomeController {
     public String home(Model model){
         model.addAttribute("nbClient", emetteurService.nbreEmetteur());
         model.addAttribute("totalCommande", commandeService.totalCommande());
-        model.addAttribute("nbCommandeAerien", colisAerienService.nombreColisAerien());
-        model.addAttribute("nbCommandeMaritime", colisMaritimeService.nombreCommandeMaritime());
+        model.addAttribute("nbCommandeAerien", sortieAerienService.nbreTotalColisAerien());
+        model.addAttribute("nbCommandeMaritime", sortieMaritimeService.nbreTotalColisMaritime());
+
         //Envoi des paramètres des mois pour le graphique
         model.addAttribute("janvierA", sortieAerienService.colisAerienSelonMois(Constante.MOIS_JANVIER));
         model.addAttribute("janvierM", sortieMaritimeService.colisMaritimeSelonMois(Constante.MOIS_JANVIER));

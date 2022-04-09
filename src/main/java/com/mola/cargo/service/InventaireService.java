@@ -33,6 +33,10 @@ public class InventaireService {
         return inventaireRepository.findByStatusAndByLieu(s, lieu);
     }
 
+    public List<Inventaire> showInventaireParStatut(String statut){
+        return inventaireRepository.findByStatus(statut);
+    }
+
     public List<Inventaire> showInventaireSelonLieu(String lieu){
         return inventaireRepository.findByLieu(lieu);
     }
@@ -60,4 +64,6 @@ public class InventaireService {
     public List<Inventaire> findByTypeEnvoi(String type){
         return inventaireRepository.findByTypeEnvoi(type);
     }
+
+
 }

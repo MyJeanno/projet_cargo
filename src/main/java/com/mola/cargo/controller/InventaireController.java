@@ -27,9 +27,6 @@ import java.util.Map;
 @RequestMapping("/stat")
 public class InventaireController {
 
-    public static final String LIEU_PAIEMENT_TOGO = "Togo";
-    public static final String LIEU_PAIEMENT_ALL = "Allemagne";
-
     @Autowired
     private InventaireService inventaireService;
     @Autowired
@@ -47,38 +44,38 @@ public class InventaireController {
     @GetMapping("/inventaires")
     public String afficherPaiement(Model model){
         double prixTotal = inventaireService.sommeFactureNonEncaisse(Constante.INVENTAIRE_NON_ENCAISSE,
-                LIEU_PAIEMENT_TOGO);
+                Constante.LIEU_TOGO);
         model.addAttribute("inventaires", inventaireService.showInventaireSelonStatut(Constante.INVENTAIRE_NON_ENCAISSE,
-                LIEU_PAIEMENT_TOGO));
+                Constante.LIEU_TOGO));
         model.addAttribute("totalSomme", String.format("% ,.2f",prixTotal));
         return "sortie/inventaire";
     }
 
-    @GetMapping("/listeFactures/aerien")
+    @GetMapping("/listeFactures/all")
     public String afficherFacrureTogo(Model model){
-        model.addAttribute("inventaires", inventaireService.findByTypeEnvoi(Constante.ENVOI_AERIEN));
-        return "sortie/listeFactureAerien";
+        model.addAttribute("inventaires", inventaireService.showInventaires());
+        return "sortie/factures";
     }
 
-    @GetMapping("/listeFactures/maritime")
+    /*@GetMapping("/listeFactures/all")
     public String afficherFacrureAll(Model model){
         model.addAttribute("inventaires", inventaireService.findByTypeEnvoi(Constante.ENVOI_MARITIME));
         return "sortie/listeFactureMaritime";
-    }
+    }*/
 
     @GetMapping("/inventaires/encaisser")
     public String afficherPaiementEncaisser(Model model){
         model.addAttribute("inventaires", inventaireService.showInventaireSelonStatut(Constante.INVENTAIRE_ENCAISSE,
-                LIEU_PAIEMENT_TOGO));
+                Constante.LIEU_TOGO));
         return "sortie/encaiser";
     }
 
     @GetMapping("/inventaires/non_paye")
     public String afficherFactureNonPayer(Model model){
         Double prixTotal = inventaireService.sommeFactureNonEncaisse(Constante.INVENTAIRE_NON_ENCAISSE,
-                LIEU_PAIEMENT_ALL);
+                Constante.LIEU_ALL);
         model.addAttribute("inventaires", inventaireService.showInventaireSelonStatut(Constante.INVENTAIRE_NON_ENCAISSE,
-                LIEU_PAIEMENT_ALL));
+                Constante.LIEU_ALL));
         model.addAttribute("totalSomme",String.format("% ,.2f",prixTotal));
         return "sortie/paiementAllemagne";
     }
@@ -105,6 +102,7 @@ public class InventaireController {
     @GetMapping("/inventaireMaritime/facture/{id}")
     public ResponseEntity<byte[]> factureMaritime(@PathVariable("id") Long id) throws FileNotFoundException, JRException {
         List<ProduitMaritime> listeProdMaritime = produitMaritimeService.findProduitColisMaritime(inventaireService.showOneInventaire(id).getCommandeid());
+        System.out.println("**************************TAILLE  = "+listeProdMaritime.size());
         File file = ResourceUtils.getFile("classpath:factureMaritimePaye.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdMaritime);
@@ -179,7 +177,7 @@ public class InventaireController {
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
-        parameter.put("frais_emballage", produitAerienService.fraisEmballage(inventaireService.showOneInventaire(id).getCommandeid()));
+        //parameter.put("frais_emballage", produitAerienService.fraisEmballage(inventaireService.showOneInventaire(id).getCommandeid()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
@@ -199,7 +197,7 @@ public class InventaireController {
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
-        parameter.put("frais_emballage", produitAerienService.fraisEmballage(inventaireService.showOneInventaire(id).getCommandeid()));
+        //parameter.put("frais_emballage", produitAerienService.fraisEmballage(inventaireService.showOneInventaire(id).getCommandeid()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
@@ -221,7 +219,7 @@ public class InventaireController {
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
-        parameter.put("frais_emballage", produitAerienService.fraisEmballage(inventaireService.showOneInventaire(id).getCommandeid()));
+        //parameter.put("frais_emballage", produitAerienService.fraisEmballage(inventaireService.showOneInventaire(id).getCommandeid()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();

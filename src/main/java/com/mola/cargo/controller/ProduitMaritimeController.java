@@ -45,7 +45,7 @@ public class ProduitMaritimeController {
 
     @GetMapping("/colisMaritime/produits")
     public String afficherProduitMaritime(Model model){
-        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId())+
+        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId());
                            produitMaritimeService.taxe(produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
         model.addAttribute("produitsMaritime", produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
         model.addAttribute("tarifs", tarifService.showTarifs());
@@ -125,7 +125,7 @@ public class ProduitMaritimeController {
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
-        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId())+
+        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId());
                 produitMaritimeService.taxe(produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
         inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
@@ -170,8 +170,8 @@ public class ProduitMaritimeController {
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
-        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId())+
-                produitMaritimeService.taxe(produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
+        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId());
+               produitMaritimeService.taxe(produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
         inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));

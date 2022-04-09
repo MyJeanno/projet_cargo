@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h4><small>Mise à jour d'un tarif</small></h4>
+            <h4><small>Mise à jour du tarif aérien</small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -33,29 +33,30 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/param/tarif/update}" method="POST" th:object="${unTarif}" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/tarifAerien/update}" method="POST" th:object="${unTarifAerien}" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 ">
                             <input type="hidden" th:field="*{id}" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Libellé tarif <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Prix par kilo <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{libelleTarif}" required="required" class="form-control ">
+                            <input type="text" th:field="*{prix}" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Taxe ?</label>
-                        <div class="col-md-6 col-sm-6">
-                            <input type="radio" name="taxe" value="Oui" th:field="*{taxe}" /> Oui :
-                            <input type="radio" name="taxe" value="Non" th:field="*{taxe}" /> Non
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Taxe<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" th:field="*{taxe}" required="required" class="form-control ">
                         </div>
                     </div>
+
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a th:href="@{/param/tarifs}" class="btn btn-secondary" type="button">Retour</a>
+                            <a th:href="@{/tarifAerien/param}" class="btn btn-secondary" type="button">Retour</a>
                             <button type="submit" class="btn btn-success">Modifier</button>
                         </div>
                     </div>

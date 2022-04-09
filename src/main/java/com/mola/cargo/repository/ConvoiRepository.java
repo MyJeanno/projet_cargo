@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface ConvoiRepository extends JpaRepository<Convoi, Long> {
 
-    @Query(value = "SELECT * FROM convoi WHERE identifiant LIKE 'MFM%' ORDER BY date_creation ASC", nativeQuery = true)
+    @Query(value = "SELECT * FROM convoi i WHERE i.identifiant LIKE 'MFM%' AND i.id NOT IN (SELECT convoiid FROM sortie_maritime)", nativeQuery = true)
     List<Convoi> findConvoiMaritime();
 
-    @Query(value = "SELECT * FROM convoi WHERE identifiant LIKE 'MFA%' ORDER BY date_creation ASC", nativeQuery = true)
+    @Query(value = "SELECT * FROM convoi i WHERE i.identifiant LIKE 'MFA%' AND i.id NOT IN (SELECT convoiid FROM sortie_aerien)", nativeQuery = true)
     List<Convoi> findConvoiAerien();
 
     @Query(value = "select * from convoi WHERE identifiant LIKE 'MFA%' ORDER BY id DESC LIMIT 1", nativeQuery = true)
@@ -22,6 +22,9 @@ public interface ConvoiRepository extends JpaRepository<Convoi, Long> {
 
     @Query(value = "select * from convoi WHERE identifiant LIKE 'MFM%' ORDER BY id DESC LIMIT 1", nativeQuery = true)
     Convoi showMaLastConvoiMaritime();
+
+    @Query(value = "SELECT * FROM convoi order by date_creation desc", nativeQuery = true)
+    List<Convoi> findToutConvoi();
 
     //Convoi findByStatut(String statut);
 }

@@ -34,6 +34,10 @@ public class ColisAerienService {
         return colisAerienRepository.findColisAerienCommandePin(pin);
     }
 
+    public void updatePoidsColisAerien(double poids, Long id){
+        colisAerienRepository.updatePoidsColisAerien(poids, id);
+    }
+
     public int nbreColisAerien(Long id){
         return colisAerienRepository.nbreColisAerien(id);
     }
@@ -44,6 +48,14 @@ public class ColisAerienService {
 
     public int nombreColisAerien(){
         return colisAerienRepository.nbreCommandeAerien();
+    }
+
+    public Double poidsTotalColisAerien(Long id){
+        if(colisAerienRepository.poidsTotalColisAerien(id)==null){
+            return 0.0;
+        }else{
+            return colisAerienRepository.poidsTotalColisAerien(id);
+        }
     }
 
     public boolean testerAppartenance(List<ColisAerien> liste, String num){

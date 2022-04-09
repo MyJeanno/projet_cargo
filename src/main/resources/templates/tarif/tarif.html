@@ -47,9 +47,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Libellé tarif</th>
-                                    <th>Prix par kilo</th>
-                                    <th>Taxe aérienne</th>
-                                    <th>Taxe maritime</th>
+                                    <th>Taxe</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -57,9 +55,7 @@
                                 <tr th:each="tarif:${tarifs}">
                                     <td th:text="${tarif.id}"></td>
                                     <td th:text="${tarif.libelleTarif}"></td>
-                                    <td th:text="${tarif.prixkilo}"></td>
-                                    <td th:text="${tarif.taxeAerienne}"></td>
-                                    <td th:text="${tarif.taxeMaritime}"></td>
+                                    <td th:text="${tarif.taxe}"></td>
                                     <td>
                                         <a class="btn btn-round btn-sm btn-info" th:href="@{tarif/formUpdate/{id}(id=${tarif.id})}"><i class="fa fa-edit"></i></a>
                                         <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{tarif/delete/(id=${tarif.id})}"><i class="fa fa-trash"></i></a>
@@ -95,21 +91,10 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="p" class="col-sm-3 col-form-label">Prix par kilo</label>
+                            <label class="col-sm-3 col-form-label">Taxe ?</label>
                             <div class="col-sm-9">
-                                <input type="number" name="prix" required class="form-control border-info" id="p">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="ta" class="col-sm-3 col-form-label">Taxe aérienne</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="taxeAe" required class="form-control border-info" id="ta">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="tm" class="col-sm-3 col-form-label">Taxe maritime</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="taxeMa" required class="form-control border-info" id="tm">
+                                <input type="radio" name="taxe" value="Oui" /> Oui :
+                                <input type="radio" name="taxe" value="Non" checked="" /> Non
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mr-2 pull-right">Enregistrer</button>

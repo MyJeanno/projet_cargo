@@ -38,7 +38,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Mola et fils</span></a>
+              <a th:href="@{/}" class="site_title"><i class="fa fa-paw"></i> <span>Mola et fils</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -68,7 +68,8 @@
                       <li><a th:href="@{/param/paiements}">Ajouter un mode de paiement</a></li>
                       <li><a th:href="@{/param/cargoTypes}">Paramétrage carton maritime</a></li>
                       <li><a th:href="@{/param/emballages}">Paramétrage carton aérien</a></li>
-                      <li><a th:href="@{/param/tarifs}">Paramétrage des prix/kg</a></li>
+                      <li><a th:href="@{/tarifAerien/param}">Paramétrage des prix/kg</a></li>
+                      <li><a th:href="@{/param/tarifs}">Paramétrage des produits</a></li>
                       <li><a th:href="@{/param/pays}">Enregistrer un pays</a></li>
                       <li><a th:href="@{/param/etats}">Enregistrer un Etat</a></li>
                         <li><a th:href="@{/param/cartons}">Ajouter un carton</a></li>
@@ -99,12 +100,9 @@
                           <li><a th:href="@{/convoiMaritimes}">Maritime</a></li>
                         </ul>
                       </li>
-                      <li><a>Liste des factures<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                          <li class="sub_menu"><a th:href="@{/stat/listeFactures/aerien}">Aériennes</a></li>
-                          <li><a th:href="@{/stat/listeFactures/maritime}">Maritimes </a></li>
-                        </ul>
-                      </li>
+                      <li><a th:href="@{/toutConvoi/liste}">Facture par lot</a></li>
+                      <li><a th:href="@{/stat/listeFactures/all}">Rechercher une Facture</a></li>
+                      <li><a th:href="@{/toutConvoi/liste}">Réaffecter un colis</a></li>
                       <li><a th:href="@{/choixMaritime/commande}">Modifier un colis maritime</a></li>
                     </ul>
                   </li>
@@ -124,12 +122,13 @@
                     </ul>
                   </li>
 
-                  <li><a><i class="fa fa-bar-chart"></i> Statistiques <span class="fa fa-chevron-down"></span></a>
+                  <li sec:authorize="hasAnyRole('ADMIN')"><a><i class="fa fa-bar-chart"></i> Statistiques <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a>Lots de colis envoyés<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                           <li class="sub_menu"><a th:href="@{/convoiAeriensAdmin}">Par voie aérien</a></li>
                           <li><a th:href="@{/convoiMaritimesAdmin}">Par voie maritime</a></li>
+                          <li><a th:href="@{/sortie/commande}">Commande par envoi</a></li>
                         </ul>
                       </li>
                     </ul>

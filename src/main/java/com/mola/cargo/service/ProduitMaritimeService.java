@@ -5,6 +5,7 @@ import com.mola.cargo.model.ColisMaritime;
 import com.mola.cargo.model.ProduitAerien;
 import com.mola.cargo.model.ProduitMaritime;
 import com.mola.cargo.repository.ProduitMaritimeRepository;
+import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,8 @@ public class ProduitMaritimeService {
 
     @Autowired
     private ProduitMaritimeRepository produitMaritimeRepository;
+    @Autowired
+    private TarifAerienService tarifAerienService;
 
     public List<ProduitMaritime> showProduitsMaritime(){
         return produitMaritimeRepository.findAll();
@@ -59,8 +62,8 @@ public class ProduitMaritimeService {
     public double taxe(List<ProduitMaritime> listeMaritime) {
         double taxe = 0;
         for (ProduitMaritime p : listeMaritime) {
-            if (p.getTarif().getTaxeMaritime() != 0) {
-                taxe = p.getTarif().getTaxeMaritime();
+            if (p.getTarif().getTaxe().equals(Constante.TAXE_OUI)) {
+                taxe = tarifAerienService.leTarifaerien().getTaxe();
                 break;
             }
         }
