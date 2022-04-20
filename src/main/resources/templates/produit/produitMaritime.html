@@ -12,11 +12,10 @@
         <div class="title_right">
             <div class="col-md-8 col-sm-8 pull-right" th:switch="${lastColisMaritime.commande.lieuPaiement}">
                 <button disabled class="btn btn-warning">Envoi maritime</button>
-                <a th:case="Togo" th:href="@{/colisMaritime/facture}" class="btn btn-success"><i class="fa fa-download"></i> Facture</a>
-                <a th:case="*" th:href="@{/colisMaritime/facture_non_paye}" class="btn btn-success"><i class="fa fa-download"></i> Facture</a>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
                     <i class="fa fa-plus"></i> Ajouter un produit
                 </button>
+                <a th:href="@{/colisMaritime/ajouterPoids}" class="btn btn-success">Terminer</a>
             </div>
         </div>
     </div>
@@ -25,7 +24,6 @@
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Montant à payer : <small style="color:red;" th:text="${prixTotal}"></small></h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -83,7 +81,8 @@
     <div>
         <h5><small><i>Appuyer sur ce bouton si vous voulez ajouter un nouveau colis à cette commande </i></small></h5>
         <a th:href="@{/colisMaritime/form}" class="btn btn-info"><i class="fa fa-plus"></i> Nouveau colis</a>
-    </div>
+    </div><br><br>
+    <div class="clearfix"></div>
     <!-- Modal add -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">

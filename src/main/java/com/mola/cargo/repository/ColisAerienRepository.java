@@ -40,9 +40,32 @@ public interface ColisAerienRepository extends JpaRepository<ColisAerien, Long> 
     @Query("select SUM(ca.poids) FROM ColisAerien ca where ca.commandeid = ?1")
     Double poidsTotalColisAerien(Long id);
 
+    @Query("select SUM(ca.prixColis) FROM ColisAerien ca where ca.commandeid = ?1")
+    Double prixTotalColisAerien(Long id);
+
+    @Query("select SUM(ca.transportAllemagne) FROM ColisAerien ca where ca.commandeid = ?1")
+    Double prixTransportColisAerien(Long id);
+
     @Transactional
     @Modifying
-    @Query("update ColisAerien ca SET ca.poids = :p WHERE ca.id = :id")
-    void updatePoidsColisAerien(@Param("p") double p, @Param("id") Long id);
+    @Query("update ColisAerien ca SET ca.poids = :p,  " +
+                                     "ca.prixKilo = :prixk, " +
+                                     "ca.prixColis = :prixt WHERE ca.id = :id")
+    void updatePoidsColisAerien(@Param("p") double p,
+                                @Param("prixk") double prixk,
+                                @Param("prixt") double prixt,
+                                @Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    @Query("update ColisAerien ca SET ca.poids = :p,  " +
+            "ca.prixKilo = :prixk, " +
+            "ca.prixColis = :prixt, " +
+            "ca.transportAllemagne = :trans WHERE ca.id = :id")
+    void updateToutColisAerien(@Param("p") double p,
+                                @Param("prixk") double prixk,
+                                @Param("prixt") double prixt,
+                                @Param("trans") double trans,
+                                @Param("id") Long id);
 
 }

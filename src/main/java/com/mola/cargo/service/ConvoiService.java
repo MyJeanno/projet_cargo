@@ -53,6 +53,14 @@ public class ConvoiService {
         return convoiRepository.findToutConvoi();
     }
 
+    public List<Convoi> findTouConvoiMaritime(){
+        return convoiRepository.findTouConvoiMaritime();
+    }
+
+    public List<Convoi> findToutConvoiAerien(){
+        return convoiRepository.findToutConvoiAerien();
+    }
+
     public void deleteConvoi(Long id){
         convoiRepository.deleteById(id);
     }

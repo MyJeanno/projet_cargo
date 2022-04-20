@@ -14,4 +14,10 @@ public interface ProduitMaritimeRepository extends JpaRepository<ProduitMaritime
 
     @Query("select pm from ProduitMaritime pm where pm.colisMaritime.commandeid = ?1")
     List<ProduitMaritime> findProduitColisMaritime(Long id);
+
+    @Query("select max(pm.tarif.taxeMaritime) from ProduitMaritime pm where pm.colisMaritime.commandeid = ?1")
+    Double MaxTaxeCommandeMaritime(Long id);
+
+    @Query("select SUM(pm.poids) FROM ProduitMaritime pm where pm.colisMaritimeid = ?1")
+    Double sommePoidsColisMaritime(Long id);
 }

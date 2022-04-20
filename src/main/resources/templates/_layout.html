@@ -68,8 +68,9 @@
                       <li><a th:href="@{/param/paiements}">Ajouter un mode de paiement</a></li>
                       <li><a th:href="@{/param/cargoTypes}">Paramétrage carton maritime</a></li>
                       <li><a th:href="@{/param/emballages}">Paramétrage carton aérien</a></li>
-                      <li><a th:href="@{/tarifAerien/param}">Paramétrage des prix/kg</a></li>
-                      <li><a th:href="@{/param/tarifs}">Paramétrage des produits</a></li>
+                      <li><a th:href="@{/param/tarifs}">Paramétrage des prix/kg</a></li>
+                      <li><a th:href="@{/reduction/param}">Paramétrage des reductions</a></li>
+                      <li><a th:href="@{/param/transports}">Paramétrage transport</a></li>
                       <li><a th:href="@{/param/pays}">Enregistrer un pays</a></li>
                       <li><a th:href="@{/param/etats}">Enregistrer un Etat</a></li>
                         <li><a th:href="@{/param/cartons}">Ajouter un carton</a></li>
@@ -102,7 +103,7 @@
                       </li>
                       <li><a th:href="@{/toutConvoi/liste}">Facture par lot</a></li>
                       <li><a th:href="@{/stat/listeFactures/all}">Rechercher une Facture</a></li>
-                      <li><a th:href="@{/toutConvoi/liste}">Réaffecter un colis</a></li>
+                      <li><a th:href="@{/lesConvoi/liste}">Réaffecter un colis</a></li>
                       <li><a th:href="@{/choixMaritime/commande}">Modifier un colis maritime</a></li>
                     </ul>
                   </li>
@@ -128,7 +129,6 @@
                         <ul class="nav child_menu">
                           <li class="sub_menu"><a th:href="@{/convoiAeriensAdmin}">Par voie aérien</a></li>
                           <li><a th:href="@{/convoiMaritimesAdmin}">Par voie maritime</a></li>
-                          <li><a th:href="@{/sortie/commande}">Commande par envoi</a></li>
                         </ul>
                       </li>
                     </ul>

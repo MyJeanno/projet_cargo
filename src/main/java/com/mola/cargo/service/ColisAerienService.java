@@ -1,9 +1,6 @@
 package com.mola.cargo.service;
 
-import com.mola.cargo.model.Colis;
-import com.mola.cargo.model.ColisAerien;
-import com.mola.cargo.model.ColisMaritime;
-import com.mola.cargo.model.Commande;
+import com.mola.cargo.model.*;
 import com.mola.cargo.repository.ColisAerienRepository;
 import com.mola.cargo.repository.ColisMaritimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +14,8 @@ public class ColisAerienService {
 
     @Autowired
     private ColisAerienRepository colisAerienRepository;
+    @Autowired
+    private ProduitAerienService produitAerienService;
 
     public void saveColisAerien(ColisAerien colisAerien){
         colisAerienRepository.save(colisAerien);
@@ -34,8 +33,12 @@ public class ColisAerienService {
         return colisAerienRepository.findColisAerienCommandePin(pin);
     }
 
-    public void updatePoidsColisAerien(double poids, Long id){
-        colisAerienRepository.updatePoidsColisAerien(poids, id);
+    public void updatePoidsColisAerien(double poids, double prixKilo, double prixTotal, Long id){
+        colisAerienRepository.updatePoidsColisAerien(poids, prixKilo, prixTotal, id);
+    }
+
+    public void updateToutColisAerien(double poids, double prixKilo, double prixTotal, double trans, Long id){
+        colisAerienRepository.updateToutColisAerien(poids, prixKilo, prixTotal, trans, id);
     }
 
     public int nbreColisAerien(Long id){
@@ -57,6 +60,28 @@ public class ColisAerienService {
             return colisAerienRepository.poidsTotalColisAerien(id);
         }
     }
+
+    public Double prixTotalColisAerien(Long id){
+        if(colisAerienRepository.prixTotalColisAerien(id)==null){
+            return 0.0;
+        }else{
+            return colisAerienRepository.prixTotalColisAerien(id);
+        }
+    }
+
+    public double appliquerReduction(double montant, double reduction){
+        return montant-montant*reduction/100;
+    }
+
+    public Double prixTransportColisAerien(Long id){
+        if(colisAerienRepository.prixTransportColisAerien(id)==null){
+            return 0.0;
+        }else{
+            return colisAerienRepository.prixTransportColisAerien(id);
+        }
+    }
+
+
 
     public boolean testerAppartenance(List<ColisAerien> liste, String num){
         boolean appartient = false;

@@ -2,8 +2,6 @@ package com.mola.cargo.controller;
 
 import com.mola.cargo.model.Inventaire;
 import com.mola.cargo.model.ProduitAerien;
-import com.mola.cargo.model.ProduitMaritime;
-import com.mola.cargo.model.Tarif;
 import com.mola.cargo.service.*;
 import com.mola.cargo.util.Constante;
 import net.sf.jasperreports.engine.*;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +37,7 @@ public class ProduitAerienController {
     @Autowired
     private InventaireService inventaireService;
     @Autowired
-    private TarifAerienService tarifAerienService;
+    private ReductionService tarifAerienService;
 
     @GetMapping("/colisAerien/produits")
     public String afficherProduitAerien(Model model){
@@ -136,18 +133,21 @@ public class ProduitAerienController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
-        parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
+        parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId()));
         parameter.put("poids", colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande().getId()));
-        parameter.put("prixkilo", tarifAerienService.leTarifaerien().getPrix());
+        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
+                                      commandeService.showMaLastCommande().getReduction()));
+        parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
-        double prixTotal = colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande().getId())*tarifAerienService.leTarifaerien().getPrix()
-               // + produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId());
-                + produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
+        double prixTotal = colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
+                  commandeService.showMaLastCommande().getReduction())
+                  + produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId())
+                  +colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId());
         inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
@@ -170,18 +170,21 @@ public class ProduitAerienController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
-        parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
+        parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId()));
         parameter.put("poids", colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande().getId()));
-        parameter.put("prixkilo", tarifAerienService.leTarifaerien().getPrix());
+        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
+                                    commandeService.showMaLastCommande().getReduction()));
+        parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
-        double prixTotal = colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande().getId())*tarifAerienService.leTarifaerien().getPrix()
-                //+ produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId())
-                + produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
+        double prixTotal = colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
+                commandeService.showMaLastCommande().getReduction())
+                + produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId())
+                +colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId());
         inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +34,9 @@ public class SortieAerienController {
     @Autowired
     private ProduitAerienService produitAerienService;
     @Autowired
-    private TarifAerienService tarifAerienService;
+    private ReductionService tarifAerienService;
+    @Autowired
+    private CommandeService commandeService;
 
     @GetMapping("/sortieAeriens")
     public String afficherSortie(Model model){
@@ -111,9 +112,10 @@ public class SortieAerienController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitAerienService.getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(id));
-        parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
+        parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(id));
         parameter.put("poids", colisAerienService.poidsTotalColisAerien(id));
-        parameter.put("prixkilo", tarifAerienService.leTarifaerien().getPrix());
+        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(id), commandeService.showOnecommande(id).getReduction()));
+        parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(id));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
@@ -132,9 +134,10 @@ public class SortieAerienController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitAerienService.getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(id));
-        parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
+        parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(id));
         parameter.put("poids", colisAerienService.poidsTotalColisAerien(id));
-        parameter.put("prixkilo", tarifAerienService.leTarifaerien().getPrix());
+        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(id), commandeService.showOnecommande(id).getReduction()));
+        parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(id));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();

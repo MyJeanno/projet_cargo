@@ -22,11 +22,15 @@ public class TarifController {
 
     @PostMapping("tarif/nouveau")
     public String enregistrerTarif(@RequestParam String libelle,
-                                   @RequestParam String taxe
+                                   @RequestParam double prix,
+                                   @RequestParam double taxeA,
+                                   @RequestParam double taxeM
                                    ){
         Tarif tarif = new Tarif();
         tarif.setLibelleTarif(libelle);
-        tarif.setTaxe(taxe);
+        tarif.setPrixKilo(prix);
+        tarif.setTaxeAerien(taxeA);
+        tarif.setTaxeMaritime(taxeM);
         tarifService.saveTarif(tarif);
         return "redirect:/param/tarifs";
     }

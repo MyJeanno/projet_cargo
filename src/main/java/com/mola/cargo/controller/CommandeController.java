@@ -32,6 +32,8 @@ public class CommandeController {
     private CartonService cartonService;
     @Autowired
     private PaysService paysService;
+    @Autowired
+    private ReductionService reductionService;
 
     @GetMapping("/mode/envoi")
     public String choisirModeEnvoi(){
@@ -50,6 +52,7 @@ public class CommandeController {
         model.addAttribute("unRecepteur", recepteurService.showOneRecepteur(idR));
         model.addAttribute("pieces", pieceService.showPiece());
         model.addAttribute("modePaiments", paiementService.showPaiement());
+        model.addAttribute("uneReduction", reductionService.lareduction());
         return "commande/formNewCommande";
     }
 
@@ -63,7 +66,6 @@ public class CommandeController {
         }
         commande.setPin(pin);
         commande.setDateEnvoi(new Date());
-       // commande.setStatut(Constante.INITIAL);
         commandeService.saveCommande(commande);
         return "redirect:/mode/envoi";
     }

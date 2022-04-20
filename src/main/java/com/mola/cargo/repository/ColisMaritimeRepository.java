@@ -39,11 +39,25 @@ public interface ColisMaritimeRepository extends JpaRepository<ColisMaritime, Lo
     @Query("select SUM(cm.prixColis) FROM ColisMaritime cm where cm.commandeid = ?1 AND cm.id in (select p.colisMaritimeid from ProduitMaritime p)")
     Double montantTotalPrixCarton(Long id);
 
+    @Query("select SUM(cm.transportAllemagne) FROM ColisMaritime cm where cm.commandeid = ?1")
+    Double montantTotalTransport(Long id);
+
     @Transactional
     @Modifying
     @Query("update ColisMaritime cm SET cm.statut = :statut WHERE cm.id = :id")
     void updateStatutColisMaritime(@Param("statut") String statut, @Param("id") Long id);
 
     List<ColisMaritime> findByStatut(String statut);
+
+    @Transactional
+    @Modifying
+    @Query("update ColisMaritime cm SET cm.poids = :poids, cm.transportAllemagne = :trans where cm.id = :id")
+    void updatePoidsTransportColisMaritime(@Param("poids") double poids, @Param("trans") double trans, @Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    @Query("update ColisMaritime cm SET cm.poids = :poids where cm.id = :id")
+    void updatePoidsColisMaritime(@Param("poids") double poids, @Param("id") Long id);
+
 
 }

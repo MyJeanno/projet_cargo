@@ -18,6 +18,10 @@ public class Colis {
     @Column(name = "numero_colis")
     private String numeroColis;
     private String statut;
+    @Column(name = "prix_colis")
+    private double prixColis;
+    private double poids;
+    private double transportAllemagne;
 
     @ManyToOne
     @JoinColumn(name = "commandeid", insertable = false, updatable = false)

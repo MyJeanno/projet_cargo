@@ -25,6 +25,8 @@ public class Commande {
     @Column(name = "lieu_paiement")
     private String lieuPaiement;
     private String typeEnvoi;
+    private String transport;
+    private double reduction;
 
     @ManyToOne
     @JoinColumn(name = "pieceid", insertable = false, updatable = false)

@@ -4,20 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Tarif {
+public class Transport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "libelle_tarif")
-    private String libelleTarif;
-    private double prixKilo;
-    private double taxeAerien;
-    private double taxeMaritime;
+    private double inf;
+    private double sup;
+    private double prix;
 }

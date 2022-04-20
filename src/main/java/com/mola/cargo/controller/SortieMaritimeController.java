@@ -105,16 +105,17 @@ public class SortieMaritimeController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(id));
-        parameter.put("taxe_maritime", produitMaritimeService.taxe(listeProdMaritime));
+        parameter.put("taxe_maritime", produitMaritimeService.MaxTaxeCommandeMaritime(id));
         parameter.put("nb_petit_carton", petit);
         parameter.put("nb_grand_carton", grand);
+        parameter.put("total_transport", colisMaritimeService.montantTotalTransport(id));
         if(petit!=0){
-            parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(id, "PC"));
+            parameter.put("montant_petit_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(id, "PC"), commandeService.showOnecommande(id).getReduction()));
         }else{
             parameter.put("montant_petit_carton", 0.0);
         }
         if(grand!=0){
-            parameter.put("montant_grand_carton", (double)colisMaritimeService.montantPrixCarton(id, "GC"));
+            parameter.put("montant_grand_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(id, "GC"),commandeService.showOnecommande(id).getReduction()));
         }else {
             parameter.put("montant_grand_carton", 0.0);
         }
@@ -138,16 +139,17 @@ public class SortieMaritimeController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(id));
-        parameter.put("taxe_maritime", produitMaritimeService.taxe(listeProdMaritime));
+        parameter.put("taxe_maritime", produitMaritimeService.MaxTaxeCommandeMaritime(id));
         parameter.put("nb_petit_carton", petit);
         parameter.put("nb_grand_carton", grand);
+        parameter.put("total_transport", colisMaritimeService.montantTotalTransport(id));
         if(petit!=0){
-            parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(id, "PC"));
+            parameter.put("montant_petit_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(id, "PC"), commandeService.showOnecommande(id).getReduction()));
         }else{
             parameter.put("montant_petit_carton", 0.0);
         }
         if(grand!=0){
-            parameter.put("montant_grand_carton", colisMaritimeService.montantPrixCarton(id, "GC"));
+            parameter.put("montant_grand_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(id, "GC"), commandeService.showOnecommande(id).getReduction()));
         }else {
             parameter.put("montant_grand_carton", 0.0);
         }

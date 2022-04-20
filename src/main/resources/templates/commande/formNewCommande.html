@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h4><small>Créer une nouvelle commande pour cet envoi</small></h4>
+            <h4><small>Créer une nouvelle commande pour cet envoi </small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -69,13 +69,27 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="ccol-form-label col-md-3 col-sm-3 label-align">Lieu de paiement</label>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Lieu de paiement</label>
                         <div class="col-md-6 col-sm-6">
                             <select name="lieuPaiement" required="true" class="form-control border-info">
                                 <option value="">--Choisir un lieu de paiement--</option>
                                 <option>Togo</option>
                                 <option>Allemagne</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Transport Allemagne ?</label>
+                        <div class="col-md-6 col-sm-6">
+                            <input type="radio" name="transport" value="Oui" required /> Oui
+                            <input type="radio" name="transport" value="Non" required /> Non
+                        </div>
+                    </div>
+                    <div th:switch="${uneReduction.activation}" th:case="Oui" class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Réduction ?</label>
+                        <div class="col-md-6 col-sm-6">
+                            <input type="radio" name="reduction" th:value="${uneReduction.taux}" /> Oui
+                            <input type="radio" name="reduction" value="0" checked /> Non
                         </div>
                     </div>
                     <div class="item form-group">

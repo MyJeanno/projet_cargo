@@ -65,8 +65,7 @@ public class InventaireController {
 
     @GetMapping("/inventaires/encaisser")
     public String afficherPaiementEncaisser(Model model){
-        model.addAttribute("inventaires", inventaireService.showInventaireSelonStatut(Constante.INVENTAIRE_ENCAISSE,
-                Constante.LIEU_TOGO));
+        model.addAttribute("inventaires", inventaireService.showInventaireParStatut(Constante.INVENTAIRE_ENCAISSE));
         return "sortie/encaiser";
     }
 
@@ -94,7 +93,7 @@ public class InventaireController {
 
     @GetMapping("/facture/non_paye/{id}")
     public String validerFactureNonPayer(@PathVariable("id") Long id){
-        inventaireService.updateStatutInventaire(Constante.INVENTAIRE_REGLE, id);
+        inventaireService.updateStatutInventaire(Constante.INVENTAIRE_ENCAISSE, id);
         return "redirect:/stat/inventaires/non_paye";
     }
 
@@ -102,7 +101,6 @@ public class InventaireController {
     @GetMapping("/inventaireMaritime/facture/{id}")
     public ResponseEntity<byte[]> factureMaritime(@PathVariable("id") Long id) throws FileNotFoundException, JRException {
         List<ProduitMaritime> listeProdMaritime = produitMaritimeService.findProduitColisMaritime(inventaireService.showOneInventaire(id).getCommandeid());
-        System.out.println("**************************TAILLE  = "+listeProdMaritime.size());
         File file = ResourceUtils.getFile("classpath:factureMaritimePaye.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdMaritime);
@@ -112,16 +110,17 @@ public class InventaireController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(inventaireService.showOneInventaire(id).getCommandeid()));
-        parameter.put("taxe_maritime", produitMaritimeService.taxe(listeProdMaritime));
+        parameter.put("taxe_maritime", produitMaritimeService.MaxTaxeCommandeMaritime(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("nb_petit_carton", petit);
         parameter.put("nb_grand_carton", grand);
+        parameter.put("total_transport", colisMaritimeService.montantTotalTransport(inventaireService.showOneInventaire(id).getCommandeid()));
         if(petit!=0){
-            parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(inventaireService.showOneInventaire(id).getCommandeid(), "PC"));
+            parameter.put("montant_petit_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(inventaireService.showOneInventaire(id).getCommandeid(), "PC"), inventaireService.showOneInventaire(id).getCommande().getReduction()));
         }else{
             parameter.put("montant_petit_carton", 0.0);
         }
         if(grand!=0){
-            parameter.put("montant_grand_carton", (double)colisMaritimeService.montantPrixCarton(inventaireService.showOneInventaire(id).getCommandeid(), "GC"));
+            parameter.put("montant_grand_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(inventaireService.showOneInventaire(id).getCommandeid(), "GC"), inventaireService.showOneInventaire(id).getCommande().getReduction()));
         }else {
             parameter.put("montant_grand_carton", 0.0);
         }
@@ -145,16 +144,17 @@ public class InventaireController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(inventaireService.showOneInventaire(id).getCommandeid()));
-        parameter.put("taxe_maritime", produitMaritimeService.taxe(listeProdMaritime));
+        parameter.put("taxe_maritime", produitMaritimeService.MaxTaxeCommandeMaritime(inventaireService.showOneInventaire(id).getId()));
         parameter.put("nb_petit_carton", petit);
         parameter.put("nb_grand_carton", grand);
+        parameter.put("total_transport", colisMaritimeService.montantTotalTransport(inventaireService.showOneInventaire(id).getCommandeid()));
         if(petit!=0){
-            parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(inventaireService.showOneInventaire(id).getCommandeid(), "PC"));
+            parameter.put("montant_petit_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(inventaireService.showOneInventaire(id).getCommandeid(), "PC"), inventaireService.showOneInventaire(id).getCommande().getReduction()));
         }else{
             parameter.put("montant_petit_carton", 0.0);
         }
         if(grand!=0){
-            parameter.put("montant_grand_carton", colisMaritimeService.montantPrixCarton(inventaireService.showOneInventaire(id).getCommandeid(), "GC"));
+            parameter.put("montant_grand_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(inventaireService.showOneInventaire(id).getCommandeid(), "GC"), inventaireService.showOneInventaire(id).getCommande().getReduction()));
         }else {
             parameter.put("montant_grand_carton", 0.0);
         }
@@ -176,8 +176,10 @@ public class InventaireController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
-        parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
-        //parameter.put("frais_emballage", produitAerienService.fraisEmballage(inventaireService.showOneInventaire(id).getCommandeid()));
+        parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(inventaireService.showOneInventaire(id).getCommandeid()));
+        parameter.put("poids", colisAerienService.poidsTotalColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
+        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(inventaireService.showOneInventaire(id).getCommandeid()),inventaireService.showOneInventaire(id).getCommande().getReduction()));
+        parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
@@ -196,8 +198,10 @@ public class InventaireController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
-        parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
-        //parameter.put("frais_emballage", produitAerienService.fraisEmballage(inventaireService.showOneInventaire(id).getCommandeid()));
+        parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(inventaireService.showOneInventaire(id).getCommandeid()));
+        parameter.put("poids", colisAerienService.poidsTotalColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
+        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(inventaireService.showOneInventaire(id).getCommandeid()),inventaireService.showOneInventaire(id).getCommande().getReduction()));
+        parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
@@ -218,8 +222,6 @@ public class InventaireController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
-        parameter.put("taxe", produitAerienService.taxe(listeProdAerien));
-        //parameter.put("frais_emballage", produitAerienService.fraisEmballage(inventaireService.showOneInventaire(id).getCommandeid()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
@@ -240,7 +242,6 @@ public class InventaireController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(inventaireService.showOneInventaire(id).getCommandeid()));
-        parameter.put("taxe_maritime", produitMaritimeService.taxe(listeProdMaritime));
         parameter.put("nb_petit_carton", petit);
         parameter.put("nb_grand_carton", grand);
         if(petit!=0){

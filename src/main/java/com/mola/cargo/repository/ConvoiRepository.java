@@ -26,5 +26,11 @@ public interface ConvoiRepository extends JpaRepository<Convoi, Long> {
     @Query(value = "SELECT * FROM convoi order by date_creation desc", nativeQuery = true)
     List<Convoi> findToutConvoi();
 
+    @Query(value = "SELECT * FROM convoi i WHERE i.identifiant LIKE 'MFM%'", nativeQuery = true)
+    List<Convoi> findTouConvoiMaritime();
+
+    @Query(value = "SELECT * FROM convoi i WHERE i.identifiant LIKE 'MFA%'", nativeQuery = true)
+    List<Convoi> findToutConvoiAerien();
+
     //Convoi findByStatut(String statut);
 }

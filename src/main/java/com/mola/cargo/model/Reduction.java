@@ -13,13 +13,13 @@ import javax.persistence.Id;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TarifAerien {
+public class Reduction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double prix;
-    private double taxe;
+    private double taux;
+    private String activation;
 
 
 

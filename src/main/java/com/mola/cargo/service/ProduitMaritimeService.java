@@ -1,11 +1,7 @@
 package com.mola.cargo.service;
 
-import com.mola.cargo.model.ColisAerien;
-import com.mola.cargo.model.ColisMaritime;
-import com.mola.cargo.model.ProduitAerien;
 import com.mola.cargo.model.ProduitMaritime;
 import com.mola.cargo.repository.ProduitMaritimeRepository;
-import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +16,7 @@ public class ProduitMaritimeService {
     @Autowired
     private ProduitMaritimeRepository produitMaritimeRepository;
     @Autowired
-    private TarifAerienService tarifAerienService;
+    private ReductionService tarifAerienService;
 
     public List<ProduitMaritime> showProduitsMaritime(){
         return produitMaritimeRepository.findAll();
@@ -41,6 +37,20 @@ public class ProduitMaritimeService {
         return produitMaritime;
     }
 
+    public Double MaxTaxeCommandeMaritime(Long id){
+        if(produitMaritimeRepository.MaxTaxeCommandeMaritime(id)==null){
+            return 0.0;
+        }
+        return produitMaritimeRepository.MaxTaxeCommandeMaritime(id);
+    }
+
+    public Double sommePoidsColisMaritime(Long id){
+        if(produitMaritimeRepository.sommePoidsColisMaritime(id) == null){
+            return 0.;
+        }
+        return produitMaritimeRepository.sommePoidsColisMaritime(id);
+    }
+
     public void deleteProduitMaritime(Long id){
         produitMaritimeRepository.deleteById(id);
     }
@@ -59,7 +69,7 @@ public class ProduitMaritimeService {
         return n;
     }
 
-    public double taxe(List<ProduitMaritime> listeMaritime) {
+    /*public double taxe(List<ProduitMaritime> listeMaritime) {
         double taxe = 0;
         for (ProduitMaritime p : listeMaritime) {
             if (p.getTarif().getTaxe().equals(Constante.TAXE_OUI)) {
@@ -68,7 +78,7 @@ public class ProduitMaritimeService {
             }
         }
         return taxe;
-    }
+    }*/
 
     public String getPrincipal() {
         String userName = null;

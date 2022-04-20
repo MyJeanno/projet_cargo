@@ -35,6 +35,8 @@ public class ColisMaritimeController {
     private CartonService cartonService;
     @Autowired
     private PaysService paysService;
+    @Autowired
+    TransportService transportService;
 
     //Formulaire colis maritime
     @GetMapping("/colisMaritime/form")
@@ -77,6 +79,36 @@ public class ColisMaritimeController {
         model.addAttribute("colisMaritime", colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande().getId()));
         model.addAttribute("lastCommande", commandeService.showMaLastCommande());
         return "colis/listeColisMaritime";
+    }
+
+    //Pour ajouter les poids des colis après pesé
+    @GetMapping("/colisMaritime/ajouterPoids")
+    public String afficherColisAerien(Model model){
+        model.addAttribute("lesColis", colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande().getId()));
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
+        model.addAttribute("lastColisAerien", colisMaritimeService.showMaLastColisMaritime());
+        return "colis/poidsColisMaritime";
+    }
+
+    @PostMapping("/colisMaritime/updatePoids")
+    public String ajouterPoids(@RequestParam List<Double> poids){
+        List<ColisMaritime> ListeColisMaritime = colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande().getId());
+        int i =0;
+        for (ColisMaritime cm:ListeColisMaritime){
+            if(cm.getCommande().getTransport().equals("Oui")){
+                colisMaritimeService.updatePoidsTransportColisMaritime(poids.get(i),
+                        transportService.calculerPrixTransportAllemangne(poids.get(i)),cm.getId());
+            }else{
+                colisMaritimeService.updatePoidsColisMaritime(poids.get(i), cm.getId());
+            }
+            i++;
+        }
+        if(colisMaritimeService.showMaLastColisMaritime().getCommande().getLieuPaiement().equals(Constante.LIEU_TOGO)){
+            return "redirect:/colisMaritime/facture";
+        }else{
+            return "redirect:/colisMaritime/facture_non_paye";
+        }
+
     }
 
     //Formulaire de mise à jour d'un colis par voie maritime

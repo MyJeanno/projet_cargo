@@ -1,28 +1,16 @@
 package com.mola.cargo.controller;
 
-import com.mola.cargo.model.Colis;
 import com.mola.cargo.model.ColisAerien;
 import com.mola.cargo.model.Commande;
-import com.mola.cargo.model.Tarif;
 import com.mola.cargo.service.*;
 import com.mola.cargo.util.Constante;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class ColisAerienController {
@@ -36,9 +24,11 @@ public class ColisAerienController {
     @Autowired
     private EmballageService emballageService;
     @Autowired
-    private TarifAerienService tarifAerienService;
+    private ReductionService tarifAerienService;
     @Autowired
     private ProduitAerienService produitAerienService;
+    @Autowired
+    private TransportService transportService;
 
     @GetMapping("/colisAerien/form")
     public String afficherFormColisAerien(Model model){
@@ -50,13 +40,10 @@ public class ColisAerienController {
 
     @GetMapping("/colisAerien/listePoids")
     public String afficherColisAerien(Model model){
-        double prixTotal = colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande().getId())*tarifAerienService.leTarifaerien().getPrix()
-                //+ produitAerienService.fraisEmballage(commandeService.showMaLastCommande().getId());
-                + produitAerienService.taxe(produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
         model.addAttribute("lesColis", colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId()));
         model.addAttribute("lastCommande", commandeService.showMaLastCommande());
         model.addAttribute("lastColisAerien", colisAerienService.showMaLastColisAerien());
-        model.addAttribute("prixTotal", String.format("% ,.2f", prixTotal));
+        //model.addAttribute("prixTotal", String.format("% ,.2f", prixTotal));
         return "colis/poidsColisAerien";
     }
 
@@ -65,7 +52,18 @@ public class ColisAerienController {
       List<ColisAerien> ListeColisAeriens = colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId());
       int i =0;
       for (ColisAerien ca:ListeColisAeriens){
-          colisAerienService.updatePoidsColisAerien(poids.get(i), ca.getId());
+          if(ca.getCommande().getTransport().equals("Oui")){
+              colisAerienService.updateToutColisAerien(poids.get(i),
+                      produitAerienService.showMaxPrixProduit(ca.getId()),
+                      poids.get(i)*produitAerienService.showMaxPrixProduit(ca.getId()),
+                      transportService.calculerPrixTransportAllemangne(poids.get(i)),
+                      ca.getId());
+          }else {
+              colisAerienService.updatePoidsColisAerien(poids.get(i),
+                      produitAerienService.showMaxPrixProduit(ca.getId()),
+                      poids.get(i)*produitAerienService.showMaxPrixProduit(ca.getId()),
+                      ca.getId());
+          }
           i++;
       }
       if(colisAerienService.showMaLastColisAerien().getCommande().getLieuPaiement().equals(Constante.LIEU_TOGO)){

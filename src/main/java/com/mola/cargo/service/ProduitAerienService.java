@@ -1,16 +1,12 @@
 package com.mola.cargo.service;
 
-import com.mola.cargo.model.ColisAerien;
-import com.mola.cargo.model.Produit;
 import com.mola.cargo.model.ProduitAerien;
 import com.mola.cargo.repository.ProduitAerienRepository;
-import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +15,7 @@ public class ProduitAerienService {
     @Autowired
     private ProduitAerienRepository produitAerienRepository;
     @Autowired
-    private TarifAerienService tarifAerienService;
+    private ReductionService tarifAerienService;
 
     public List<ProduitAerien> showProduitsAerien(){
         return produitAerienRepository.findAll();
@@ -52,6 +48,24 @@ public class ProduitAerienService {
         return produitAerienRepository.findProduitColisAerien(id);
     }
 
+    public List<ProduitAerien> showProduitColisAerien(Long id){
+        return produitAerienRepository.findByColisAerienid(id);
+    }
+
+    public Double showMaxPrixProduit(Long id){
+        if(produitAerienRepository.MaxPrixTarifColisAerien(id)==null){
+            return 0.0;
+        }
+        return produitAerienRepository.MaxPrixTarifColisAerien(id);
+    }
+
+    public Double showMaxTaxeAerienne(Long id){
+        if (produitAerienRepository.MaxTaxeCommandeAerien(id)==null){
+            return 0.0;
+        }
+        return produitAerienRepository.MaxTaxeCommandeAerien(id);
+    }
+
     public void deleteProduitAerien(Long id){
         produitAerienRepository.deleteById(id);
     }
@@ -62,7 +76,7 @@ public class ProduitAerienService {
         return false;
     }
 
-   public double taxe(List<ProduitAerien> listeAerien) {
+   /*public double taxe(List<ProduitAerien> listeAerien) {
         double taxe = 0;
         for (ProduitAerien p : listeAerien) {
             if (p.getTarif().getTaxe().equals(Constante.TAXE_OUI)) {
@@ -71,7 +85,7 @@ public class ProduitAerienService {
             }
         }
         return taxe;
-    }
+    }*/
 
     public Double fraisEmballage(Long id){
         if(produitAerienRepository.fraisEmballage(id) == null){

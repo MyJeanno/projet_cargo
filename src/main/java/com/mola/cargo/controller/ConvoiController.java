@@ -37,8 +37,14 @@ public class ConvoiController {
         return "sortie/toutConvois";
     }
 
+    @GetMapping("/lesConvoi/liste")
+    public String afficherLesConvoiAerien(Model model){
+        model.addAttribute("convoiAeriens", convoiService.showConvois());
+        return "sortie/lesConvois";
+    }
+
     @GetMapping("/toutconvoi/{id}")
-    public String afficherToutConvoiColis(@PathVariable("id") Long id, Model model){
+    public String afficherToutConvoiColis(@PathVariable("id") Long id){
         //model.addAttribute("convoiAeriens", convoiService.showOneConvoi(id));
         if(convoiService.showOneConvoi(id).getIdentifiant().contains(Constante.PREFIX_AERIEN)){
             return "redirect:/sortieAeriens";
@@ -48,13 +54,13 @@ public class ConvoiController {
 
     @GetMapping("/convoiAeriensAdmin")
     public String afficherConvoiAerienAdmin(Model model){
-        model.addAttribute("convoiAeriens", convoiService.findConvoiAerien());
+        model.addAttribute("convoiAeriens", convoiService.findToutConvoiAerien());
         return "sortie/convoiAerienAdmin";
     }
 
     @GetMapping("/convoiMaritimesAdmin")
     public String afficherConvoiMaritimeAdmin(Model model){
-        model.addAttribute("convoiMaritimes", convoiService.findConvoiMaritime());
+        model.addAttribute("convoiMaritimes", convoiService.findTouConvoiMaritime());
         return "sortie/convoiMaritimeAdmin";
     }
 

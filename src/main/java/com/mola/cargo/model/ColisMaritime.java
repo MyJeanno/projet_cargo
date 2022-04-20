@@ -13,8 +13,6 @@ import javax.persistence.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ColisMaritime extends Colis {
 
-    @Column(name = "prix_colis")
-    private double prixColis;
     @ManyToOne
     @JoinColumn(name = "cartonid", insertable = false, updatable = false)
     private Carton carton;

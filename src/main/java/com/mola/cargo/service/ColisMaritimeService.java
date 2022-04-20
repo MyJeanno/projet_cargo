@@ -6,6 +6,7 @@ import com.mola.cargo.model.ColisMaritime;
 import com.mola.cargo.model.ProduitMaritime;
 import com.mola.cargo.repository.ColisMaritimeRepository;
 import com.mola.cargo.repository.ColisRepository;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,10 @@ public class ColisMaritimeService {
         else {
             return colisMaritimeRepository.montantTotalPrixCarton(id);
         }
+    }
+
+    public void updatePoidsTransportColisMaritime(double poids, double trans, Long id){
+        colisMaritimeRepository.updatePoidsTransportColisMaritime(poids, trans, id);
     }
 
     public int nombreCommandeMaritime(){
@@ -89,6 +94,10 @@ public class ColisMaritimeService {
         return colisMaritimeRepository.montantPrixCarton(id, code);
     }
 
+    public double appliquerReduction(double montant, double reduction){
+        return montant-montant*reduction/100;
+    }
+
     public int nbreSelonCarton(Long id, String code){
         return colisMaritimeRepository.nbreCarton(id,code);
     }
@@ -99,5 +108,17 @@ public class ColisMaritimeService {
 
     public List<ColisMaritime> showColisMaritimeDepot(String statut){
         return colisMaritimeRepository.findByStatut(statut);
+    }
+
+    public void updatePoidsColisMaritime(double poids, Long id){
+        colisMaritimeRepository.updatePoidsColisMaritime(poids, id);
+    }
+
+    public Double montantTotalTransport(Long id){
+        if(colisMaritimeRepository.montantTotalTransport(id) == null){
+            return 0.0;
+        }else {
+            return colisMaritimeRepository.montantTotalTransport(id);
+        }
     }
 }

@@ -45,12 +45,9 @@ public class ProduitMaritimeController {
 
     @GetMapping("/colisMaritime/produits")
     public String afficherProduitMaritime(Model model){
-        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId());
-                           produitMaritimeService.taxe(produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
         model.addAttribute("produitsMaritime", produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
         model.addAttribute("tarifs", tarifService.showTarifs());
         model.addAttribute("lastColisMaritime", colisMaritimeService.showMaLastColisMaritime());
-        model.addAttribute("prixTotal", String.format("% ,.2f",prixTotal));
         return "produit/produitMaritime";
     }
 
@@ -70,6 +67,7 @@ public class ProduitMaritimeController {
         produitMaritime.setPoids(poids);
         produitMaritime.setValeurMarchande(valeurMarchande);
         produitMaritimeService.saveProduitMaritime(produitMaritime);
+        //colisMaritimeService.updateTransportColisMaritime(transportService.calculerPrixTransportAllemangne(produitMaritimeService.sommePoidsColisMaritime(colisMaritimeid)),colisMaritimeid);
         return "redirect:/colisMaritime/produits";
     }
 
@@ -106,16 +104,17 @@ public class ProduitMaritimeController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
-        parameter.put("taxe_maritime", produitMaritimeService.taxe(listeProdMaritime));
+        parameter.put("taxe_maritime", produitMaritimeService.MaxTaxeCommandeMaritime(commandeService.showMaLastCommande().getId()));
         parameter.put("nb_petit_carton", petit);
         parameter.put("nb_grand_carton", grand);
+        parameter.put("total_transport", colisMaritimeService.montantTotalTransport(commandeService.showMaLastCommande().getId()));
         if(petit!=0){
-            parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "PC"));
+            parameter.put("montant_petit_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "PC"), commandeService.showMaLastCommande().getReduction()));
         }else{
             parameter.put("montant_petit_carton", 0.0);
         }
         if(grand!=0){
-            parameter.put("montant_grand_carton", (double)colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "GC"));
+            parameter.put("montant_grand_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "GC"),commandeService.showMaLastCommande().getReduction()));
         }else {
             parameter.put("montant_grand_carton", 0.0);
         }
@@ -125,8 +124,10 @@ public class ProduitMaritimeController {
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
-        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId());
-                produitMaritimeService.taxe(produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
+        double prixTotal = colisMaritimeService.appliquerReduction(colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId()),
+                           commandeService.showMaLastCommande().getReduction())
+                           + produitMaritimeService.MaxTaxeCommandeMaritime(commandeService.showMaLastCommande().getId())
+                           + colisMaritimeService.montantTotalTransport(commandeService.showMaLastCommande().getId());
         inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
@@ -151,16 +152,17 @@ public class ProduitMaritimeController {
         parameter.put("Données colis", "Première source");
         parameter.put("user", produitMaritimeService.getPrincipal());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
-        parameter.put("taxe_maritime", produitMaritimeService.taxe(listeProdMaritime));
+        parameter.put("taxe_maritime", produitMaritimeService.MaxTaxeCommandeMaritime(commandeService.showMaLastCommande().getId()));
         parameter.put("nb_petit_carton", petit);
         parameter.put("nb_grand_carton", grand);
+        parameter.put("total_transport", colisMaritimeService.montantTotalTransport(commandeService.showMaLastCommande().getId()));
         if(petit!=0){
-            parameter.put("montant_petit_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "PC"));
+            parameter.put("montant_petit_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "PC"), commandeService.showMaLastCommande().getReduction()));
         }else{
             parameter.put("montant_petit_carton", 0.0);
         }
         if(grand!=0){
-            parameter.put("montant_grand_carton", colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "GC"));
+            parameter.put("montant_grand_carton", colisMaritimeService.appliquerReduction(colisMaritimeService.montantPrixCarton(commandeService.showMaLastCommande().getId(), "GC"),commandeService.showMaLastCommande().getReduction()));
         }else {
             parameter.put("montant_grand_carton", 0.0);
         }
@@ -170,8 +172,10 @@ public class ProduitMaritimeController {
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
-        double prixTotal = colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId());
-               produitMaritimeService.taxe(produitMaritimeService.findProduitColisMaritime(commandeService.showMaLastCommande().getId()));
+        double prixTotal = colisMaritimeService.appliquerReduction(colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId()),
+                commandeService.showMaLastCommande().getReduction())
+                + produitMaritimeService.MaxTaxeCommandeMaritime(commandeService.showMaLastCommande().getId())
+                + colisMaritimeService.montantTotalTransport(commandeService.showMaLastCommande().getId());
         inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
