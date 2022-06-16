@@ -40,6 +40,8 @@
     <field name="colisAerien.transportAllemagne" class="java.lang.Double"/>
     <field name="colisAerien.poids" class="java.lang.Double"/>
     <field name="colisAerien.commande.reduction" class="java.lang.Double"/>
+    <field name="colisAerien.commande.emetteur.numeroPersonne" class="java.lang.String"/>
+    <field name="colisAerien.commande.recepteur.numeroPersonne" class="java.lang.String"/>
     <variable name="nbreColis" class="java.lang.Integer" calculation="Count">
         <variableExpression><![CDATA[$F{colisAerien.numeroColis}]]></variableExpression>
     </variable>
@@ -156,7 +158,7 @@
         <band splitType="Stretch"/>
     </background>
     <title>
-        <band height="216" splitType="Stretch">
+        <band height="229" splitType="Stretch">
             <image>
                 <reportElement x="0" y="0" width="50" height="50" uuid="0b04e103-25d8-46c3-9287-33ef6b42153f"/>
                 <imageExpression><![CDATA["D:/PROJET MENAD/cargo/head.png"]]></imageExpression>
@@ -184,7 +186,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <reportElement x="0" y="90" width="555" height="1" uuid="c761b3ae-60f6-4a40-8550-3b0d3e8177f5"/>
             </line>
             <staticText>
-                <reportElement x="0" y="117" width="288" height="93" uuid="b837435f-f8e9-4430-b0e7-ec373243a0d7"/>
+                <reportElement x="0" y="117" width="288" height="108" uuid="b837435f-f8e9-4430-b0e7-ec373243a0d7"/>
                 <box>
                     <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -194,7 +196,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[]]></text>
             </staticText>
             <staticText>
-                <reportElement x="288" y="117" width="267" height="93" uuid="0fd9d432-2cdb-428d-831d-5f39585406e1"/>
+                <reportElement x="288" y="117" width="267" height="108" uuid="0fd9d432-2cdb-428d-831d-5f39585406e1"/>
                 <box>
                     <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -219,7 +221,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Facture]]></text>
             </staticText>
             <staticText>
-                <reportElement x="300" y="119" width="77" height="15" uuid="a9c5b303-cdc0-4dcf-a783-02ae714a1f9d"/>
+                <reportElement x="300" y="119" width="60" height="15" uuid="a9c5b303-cdc0-4dcf-a783-02ae714a1f9d"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
                     <paragraph lineSpacing="Fixed"/>
@@ -227,7 +229,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Destinataire]]></text>
             </staticText>
             <staticText>
-                <reportElement x="300" y="134" width="77" height="15" uuid="c2b700f7-34f5-4d40-8487-766a181a987f">
+                <reportElement x="300" y="134" width="60" height="15" uuid="c2b700f7-34f5-4d40-8487-766a181a987f">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -237,7 +239,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Départ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="300" y="149" width="77" height="15" uuid="64de28f1-b218-4c90-af72-989f3d294d5a">
+                <reportElement x="300" y="149" width="60" height="15" uuid="64de28f1-b218-4c90-af72-989f3d294d5a">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -247,7 +249,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Arrivée]]></text>
             </staticText>
             <staticText>
-                <reportElement x="300" y="164" width="77" height="15" uuid="73cfe742-8403-484e-92e5-9a95bae28c5f">
+                <reportElement x="300" y="164" width="60" height="15" uuid="73cfe742-8403-484e-92e5-9a95bae28c5f">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -257,7 +259,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Ville]]></text>
             </staticText>
             <staticText>
-                <reportElement x="300" y="179" width="79" height="15" uuid="9a14ca28-1a3b-44cb-b8b1-449caad9e4d4">
+                <reportElement x="300" y="179" width="60" height="15" uuid="9a14ca28-1a3b-44cb-b8b1-449caad9e4d4">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -267,7 +269,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Contact]]></text>
             </staticText>
             <staticText>
-                <reportElement x="377" y="180" width="30" height="15" uuid="905814ad-bb98-4d7a-be80-89f9428ed42a">
+                <reportElement x="360" y="180" width="21" height="15" uuid="905814ad-bb98-4d7a-be80-89f9428ed42a">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Center">
@@ -276,7 +278,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[  : ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="379" y="164" width="30" height="15" uuid="e3af5172-2e8b-4f3a-819f-2bf39b094ed0">
+                <reportElement x="360" y="164" width="20" height="15" uuid="e3af5172-2e8b-4f3a-819f-2bf39b094ed0">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Center">
@@ -285,7 +287,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[ : ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="379" y="149" width="30" height="15" uuid="6ef01b0d-ec4f-4463-95cd-37405d1d173d">
+                <reportElement x="360" y="149" width="20" height="15" uuid="6ef01b0d-ec4f-4463-95cd-37405d1d173d">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Center">
@@ -294,7 +296,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[ : ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="379" y="134" width="30" height="15" uuid="0685fb43-e8aa-44c6-8cc5-c3330f29674e">
+                <reportElement x="360" y="134" width="20" height="15" uuid="0685fb43-e8aa-44c6-8cc5-c3330f29674e">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Center">
@@ -303,21 +305,21 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[ : ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="379" y="119" width="30" height="15" uuid="50412d94-0464-4bea-8a99-28ec7b97d2f4"/>
+                <reportElement x="360" y="119" width="20" height="15" uuid="50412d94-0464-4bea-8a99-28ec7b97d2f4"/>
                 <textElement textAlignment="Center">
                     <font size="11"/>
                 </textElement>
                 <text><![CDATA[ : ]]></text>
             </staticText>
             <textField>
-                <reportElement x="409" y="119" width="141" height="15" uuid="309eab6d-12ed-4586-b47b-b47291c383d4"/>
+                <reportElement x="381" y="119" width="169" height="15" uuid="309eab6d-12ed-4586-b47b-b47291c383d4"/>
                 <textElement>
                     <font size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{colisAerien.commande.recepteur.nomPersonne}+" "+$F{colisAerien.commande.recepteur.prenomPersonne}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="409" y="134" width="141" height="15" uuid="c7d7a230-d6ca-439a-be3e-3694ddf7e602">
+                <reportElement x="381" y="134" width="169" height="15" uuid="c7d7a230-d6ca-439a-be3e-3694ddf7e602">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -326,7 +328,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA["Togo"]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="409" y="149" width="141" height="15" uuid="cddd2662-4dfd-461b-a8d0-9b8bf740d823">
+                <reportElement x="381" y="149" width="169" height="15" uuid="cddd2662-4dfd-461b-a8d0-9b8bf740d823">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -335,7 +337,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisAerien.commande.recepteur.etat.libelleEtat}+" - "+$F{colisAerien.commande.recepteur.pays.libellePays}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="409" y="164" width="141" height="15" uuid="6d9877b0-c66a-4b20-84e4-985e423a8d23">
+                <reportElement x="381" y="164" width="169" height="15" uuid="6d9877b0-c66a-4b20-84e4-985e423a8d23">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -344,7 +346,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisAerien.commande.recepteur.villePersonne}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="409" y="179" width="141" height="15" uuid="b37f1a01-cb3f-4edf-9cf7-419a2df4f434">
+                <reportElement x="381" y="179" width="169" height="15" uuid="b37f1a01-cb3f-4edf-9cf7-419a2df4f434">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -353,7 +355,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisAerien.commande.recepteur.contactPersonne}]]></textFieldExpression>
             </textField>
             <staticText>
-                <reportElement x="6" y="119" width="100" height="15" uuid="79ae2191-3595-49ee-8b56-281a68af96f8"/>
+                <reportElement x="6" y="119" width="84" height="15" uuid="79ae2191-3595-49ee-8b56-281a68af96f8"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
                     <paragraph lineSpacing="Fixed"/>
@@ -361,7 +363,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Date]]></text>
             </staticText>
             <staticText>
-                <reportElement x="6" y="134" width="100" height="15" uuid="886ea443-d787-4225-9aae-cd49931769cb"/>
+                <reportElement x="6" y="134" width="84" height="15" uuid="886ea443-d787-4225-9aae-cd49931769cb"/>
                 <textElement>
                     <font size="10" isUnderline="true"/>
                     <paragraph lineSpacing="Fixed"/>
@@ -369,7 +371,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Numéro de facture]]></text>
             </staticText>
             <staticText>
-                <reportElement x="6" y="149" width="100" height="15" uuid="36b01470-bd2f-4b71-b1cb-8b166b9b929b">
+                <reportElement x="6" y="149" width="84" height="15" uuid="36b01470-bd2f-4b71-b1cb-8b166b9b929b">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -379,7 +381,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Nature]]></text>
             </staticText>
             <staticText>
-                <reportElement x="6" y="164" width="100" height="15" uuid="e60cd8f0-4988-43f5-8d12-74a2dbc0882d">
+                <reportElement x="6" y="164" width="84" height="15" uuid="e60cd8f0-4988-43f5-8d12-74a2dbc0882d">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -389,7 +391,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[nombre de colis]]></text>
             </staticText>
             <staticText>
-                <reportElement x="7" y="180" width="99" height="15" uuid="8aeb8d4f-783a-4825-942e-0fbf26d49d79">
+                <reportElement x="7" y="180" width="83" height="15" uuid="8aeb8d4f-783a-4825-942e-0fbf26d49d79">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -399,7 +401,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Expéditeur]]></text>
             </staticText>
             <staticText>
-                <reportElement x="7" y="195" width="99" height="15" uuid="e817e1d2-26c8-4450-bcb6-770f27055821">
+                <reportElement x="7" y="195" width="83" height="15" uuid="e817e1d2-26c8-4450-bcb6-770f27055821">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -409,7 +411,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Lieu de paiement]]></text>
             </staticText>
             <staticText>
-                <reportElement x="108" y="195" width="30" height="15" uuid="0d50b9fb-ab6b-4f93-abb2-a8146d1e6d61">
+                <reportElement x="90" y="195" width="20" height="15" uuid="0d50b9fb-ab6b-4f93-abb2-a8146d1e6d61">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Center">
@@ -418,7 +420,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[ : ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="108" y="180" width="30" height="15" uuid="dc98c0e5-90ee-4513-a7db-b95d6ac5c517">
+                <reportElement x="90" y="180" width="20" height="15" uuid="dc98c0e5-90ee-4513-a7db-b95d6ac5c517">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Center">
@@ -427,7 +429,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[ : ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="108" y="164" width="30" height="15" uuid="ab495444-9304-4de1-a79c-67e31b823487">
+                <reportElement x="90" y="164" width="20" height="15" uuid="ab495444-9304-4de1-a79c-67e31b823487">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Center">
@@ -436,35 +438,35 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[ : ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="108" y="149" width="30" height="15" uuid="aef00799-da28-42a4-a4b8-f3b0819fbb3b"/>
+                <reportElement x="90" y="149" width="20" height="15" uuid="aef00799-da28-42a4-a4b8-f3b0819fbb3b"/>
                 <textElement textAlignment="Center">
                     <font size="10"/>
                 </textElement>
                 <text><![CDATA[ : ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="108" y="134" width="30" height="15" uuid="772618f7-f663-42cb-9868-378fdcef9e37"/>
+                <reportElement x="90" y="134" width="20" height="15" uuid="772618f7-f663-42cb-9868-378fdcef9e37"/>
                 <textElement textAlignment="Center">
                     <font size="10"/>
                 </textElement>
                 <text><![CDATA[ : ]]></text>
             </staticText>
             <staticText>
-                <reportElement x="108" y="119" width="30" height="15" uuid="b4d1014d-296b-42ca-8485-bf520e98ab38"/>
+                <reportElement x="90" y="119" width="20" height="15" uuid="b4d1014d-296b-42ca-8485-bf520e98ab38"/>
                 <textElement textAlignment="Center">
                     <font size="10"/>
                 </textElement>
                 <text><![CDATA[ : ]]></text>
             </staticText>
             <textField pattern="MMMM d, yyyy">
-                <reportElement x="138" y="119" width="142" height="15" uuid="c20e9547-6305-43d7-b237-90b6471676aa"/>
+                <reportElement x="110" y="119" width="170" height="15" uuid="c20e9547-6305-43d7-b237-90b6471676aa"/>
                 <textElement>
                     <font size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{colisAerien.commande.dateEnvoi}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="138" y="134" width="142" height="15" uuid="b840af94-1f39-4809-89da-2ab2a029ecc8">
+                <reportElement x="110" y="134" width="170" height="15" uuid="b840af94-1f39-4809-89da-2ab2a029ecc8">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -473,14 +475,14 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisAerien.commande.pin}]]></textFieldExpression>
             </textField>
             <staticText>
-                <reportElement x="138" y="149" width="142" height="15" uuid="42b2e344-6759-4a75-a5e2-f5f82ce346e5"/>
+                <reportElement x="110" y="149" width="170" height="15" uuid="42b2e344-6759-4a75-a5e2-f5f82ce346e5"/>
                 <textElement>
                     <font size="10"/>
                 </textElement>
                 <text><![CDATA[Envoi aérien de marchandises]]></text>
             </staticText>
             <textField>
-                <reportElement x="138" y="164" width="142" height="15" uuid="e42cd217-94e7-4356-bd53-e42192260705">
+                <reportElement x="110" y="164" width="170" height="15" uuid="e42cd217-94e7-4356-bd53-e42192260705">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -489,7 +491,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$P{nbre_colis}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="138" y="180" width="142" height="15" uuid="4d47057a-295f-4ebd-bba2-e826bffd6ba6">
+                <reportElement x="110" y="180" width="170" height="15" uuid="4d47057a-295f-4ebd-bba2-e826bffd6ba6">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -498,7 +500,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisAerien.commande.emetteur.nomPersonne}+" "+$F{colisAerien.commande.emetteur.prenomPersonne}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="138" y="195" width="142" height="15" uuid="237c9483-1b1d-4d5d-9f12-afc2c306bda1">
+                <reportElement x="110" y="195" width="170" height="15" uuid="237c9483-1b1d-4d5d-9f12-afc2c306bda1">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -507,7 +509,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisAerien.commande.lieuPaiement}]]></textFieldExpression>
             </textField>
             <staticText>
-                <reportElement x="300" y="195" width="77" height="15" uuid="ae3e87dc-1436-46fe-b4c7-5b08b73196f2">
+                <reportElement x="300" y="195" width="60" height="15" uuid="ae3e87dc-1436-46fe-b4c7-5b08b73196f2">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement>
@@ -517,7 +519,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Réduction]]></text>
             </staticText>
             <staticText>
-                <reportElement x="377" y="195" width="33" height="15" uuid="f5f5bdd5-7ae1-4413-9048-6adf6219d709">
+                <reportElement x="360" y="195" width="21" height="15" uuid="f5f5bdd5-7ae1-4413-9048-6adf6219d709">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Center">
@@ -526,11 +528,65 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[  : ]]></text>
             </staticText>
             <textField>
-                <reportElement x="412" y="195" width="138" height="15" uuid="6e95877d-246f-4ca8-8a77-991ee051e78d"/>
+                <reportElement x="384" y="195" width="166" height="15" uuid="6e95877d-246f-4ca8-8a77-991ee051e78d"/>
                 <textElement>
                     <font size="10" isBold="true" isItalic="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{colisAerien.commande.reduction}.equals(0.0)?"Non" : $F{colisAerien.commande.reduction}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="7" y="210" width="83" height="15" uuid="fd56c9d6-9efb-47e7-ba75-d8831dedfabc">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font size="10" isUnderline="true"/>
+                    <paragraph lineSpacing="Fixed"/>
+                </textElement>
+                <text><![CDATA[N° expéditeur]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="90" y="210" width="20" height="15" uuid="16b98953-3be5-405b-abcf-6dfc609f0b45">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Center">
+                    <font size="11"/>
+                </textElement>
+                <text><![CDATA[ : ]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="110" y="210" width="170" height="15" uuid="07e6b1f2-11f3-4c00-9ea2-a78f4d932c96">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisAerien.commande.emetteur.numeroPersonne}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="300" y="210" width="60" height="15" uuid="75743aac-bea3-4be2-bf15-ec3ef490ffcf">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font size="10" isUnderline="true"/>
+                    <paragraph lineSpacing="Fixed"/>
+                </textElement>
+                <text><![CDATA[N° receveur]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="360" y="210" width="21" height="15" uuid="ad0cfd89-d35c-44c0-ba01-c611c79fd3d6">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Center">
+                    <font size="11"/>
+                </textElement>
+                <text><![CDATA[  : ]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="380" y="210" width="173" height="15" uuid="bf84da80-1826-45ed-88a7-54a168e7a284"/>
+                <textElement>
+                    <font size="10" isBold="false" isItalic="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisAerien.commande.recepteur.numeroPersonne}]]></textFieldExpression>
             </textField>
         </band>
     </title>
@@ -697,13 +753,6 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
     <columnFooter>
         <band height="31">
             <staticText>
-                <reportElement x="0" y="5" width="274" height="23" uuid="1f9cc70c-7216-453a-bfc3-c364ae78c72d"/>
-                <textElement>
-                    <font size="10" isBold="true" isItalic="true"/>
-                </textElement>
-                <text><![CDATA[Facture à regler avant le départ du colis]]></text>
-            </staticText>
-            <staticText>
                 <reportElement x="288" y="5" width="267" height="23" uuid="ffc6a9a7-8cce-490f-84d5-a319f96f3ebc"/>
                 <textElement textAlignment="Right">
                     <font size="10" isBold="true" isItalic="true"/>
@@ -746,9 +795,9 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
         </band>
     </pageFooter>
     <summary>
-        <band height="179" splitType="Stretch">
+        <band height="158" splitType="Stretch">
             <staticText>
-                <reportElement mode="Opaque" x="0" y="36" width="450" height="18" backcolor="#F4FB24" uuid="9ad86f08-785b-4b7c-a9e5-239112e276c3">
+                <reportElement mode="Opaque" x="0" y="36" width="450" height="18" backcolor="#FAD13E" uuid="9ad86f08-785b-4b7c-a9e5-239112e276c3">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -808,34 +857,6 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                 <textFieldExpression><![CDATA[($P{montantTotal}+$P{taxe}+$P{transportTotal})/655.97]]></textFieldExpression>
             </textField>
             <staticText>
-                <reportElement x="0" y="81" width="150" height="20" uuid="ae863787-0773-497c-b1ac-3e0a8c09bd6d"/>
-                <textElement textAlignment="Center">
-                    <font size="10" isUnderline="true"/>
-                </textElement>
-                <text><![CDATA[Agent commercial]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="410" y="81" width="143" height="20" uuid="5b988832-9843-4e3c-aa70-2d6102d670e8"/>
-                <textElement textAlignment="Center">
-                    <font size="10" isUnderline="true"/>
-                </textElement>
-                <text><![CDATA[Client]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="0" y="120" width="150" height="50" uuid="b2db7b4e-99e1-432d-aba4-b55ef877c3d3"/>
-                <box>
-                    <pen lineWidth="1.0" lineStyle="Dashed"/>
-                </box>
-                <text><![CDATA[]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="410" y="120" width="143" height="50" uuid="b5a66b03-712f-4662-93fe-1fc148723c45"/>
-                <box>
-                    <pen lineWidth="1.0" lineStyle="Dashed"/>
-                </box>
-                <text><![CDATA[]]></text>
-            </staticText>
-            <staticText>
                 <reportElement mode="Transparent" x="0" y="18" width="450" height="18" backcolor="#F4FB24" uuid="dfb2f4a1-9d02-4024-94c6-c3518808a601">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
@@ -880,28 +901,6 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                 </textElement>
                 <textFieldExpression><![CDATA[$P{taxe}]]></textFieldExpression>
             </textField>
-            <textField>
-                <reportElement x="0" y="100" width="150" height="17" uuid="774759e4-0e81-4838-8c85-a7d5472ed3ef"/>
-                <textElement textAlignment="Center">
-                    <font size="10"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$P{user}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="410" y="102" width="144" height="18" uuid="3ba4bd3a-314e-47a0-a764-8fb4297921fd"/>
-                <textElement textAlignment="Center">
-                    <font size="10"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{colisAerien.commande.emetteur.nomPersonne}+" "+$F{colisAerien.commande.emetteur.prenomPersonne}]]></textFieldExpression>
-            </textField>
-            <image>
-                <reportElement x="151" y="73" width="110" height="70" uuid="461eb18b-bc3e-4a76-b259-e502405a7814"/>
-                <imageExpression><![CDATA["D:/PROJET MENAD/cargo/tampon.PNG"]]></imageExpression>
-            </image>
-            <image>
-                <reportElement x="260" y="90" width="133" height="76" uuid="cdaa16c2-286d-4337-b4fc-a231a4a26e09"/>
-                <imageExpression><![CDATA["D:/PROJET MENAD/cargo/tampon_paye.PNG"]]></imageExpression>
-            </image>
             <textField pattern="#,##0.###;(#,##0.###-)">
                 <reportElement x="450" y="0" width="50" height="18" uuid="6636a50c-f4a9-438a-975b-793e9bdc7030">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -932,6 +931,57 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                 </textElement>
                 <textFieldExpression><![CDATA[$P{transportTotal}]]></textFieldExpression>
             </textField>
+            <staticText>
+                <reportElement x="0" y="72" width="280" height="58" uuid="8bca951c-d85e-4907-9d8d-4c0b3ace0e87"/>
+                <box leftPadding="0">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center">
+                    <font isUnderline="true"/>
+                </textElement>
+                <text><![CDATA[Agent commercial]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="130" width="555" height="18" backcolor="#FAD13E" uuid="3cb2ffbb-ef96-4687-a0d6-014990e0f522">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Facture à regler avant le départ du colis]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="94" y="90" width="100" height="18" uuid="774759e4-0e81-4838-8c85-a7d5472ed3ef">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{user}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="280" y="72" width="275" height="58" uuid="7d9cf297-0a19-4dc9-8645-706cf9194e80"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <text><![CDATA[]]></text>
+            </staticText>
+            <image>
+                <reportElement x="331" y="76" width="119" height="50" uuid="5436d1aa-7131-45f5-88a9-030bfada3439"/>
+                <imageExpression><![CDATA["D:/PROJET MENAD/cargo/tampon_paye.PNG"]]></imageExpression>
+            </image>
         </band>
     </summary>
 </jasperReport>

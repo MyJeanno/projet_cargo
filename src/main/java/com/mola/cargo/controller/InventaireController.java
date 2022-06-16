@@ -1,5 +1,6 @@
 package com.mola.cargo.controller;
 
+import com.mola.cargo.model.Annulation;
 import com.mola.cargo.model.ProduitAerien;
 import com.mola.cargo.model.ProduitMaritime;
 import com.mola.cargo.service.*;
@@ -13,12 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +39,10 @@ public class InventaireController {
     private ColisAerienService colisAerienService;
     @Autowired
     private CommandeService commandeService;
+    @Autowired
+    private AnnulationService annulationService;
+    @Autowired
+    private RecepteurService recepteurService;
 
     //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/inventaires")
@@ -86,15 +90,27 @@ public class InventaireController {
     }
 
     @GetMapping("/annuler/encaissement/{id}")
-    public String annulerEncaissement(@PathVariable("id") Long id){
-        inventaireService.updateStatutInventaire(Constante.INVENTAIRE_NON_ENCAISSE, id);
+    public String annulerEncaissement(@PathVariable("id") Long id, Model model){
+        model.addAttribute("unEncaissement", inventaireService.showOneInventaire(id));
+        return "sortie/formAnnuler";
+    }
+    @PostMapping("/encaissement/annuler")
+    public String validerAnnulation(Annulation annulation){
+        annulationService.saveAnnulation(annulation);
+        inventaireService.updateStatutInventaire(Constante.INVENTAIRE_ATTENTE, annulation.getInventaire_id());
         return "redirect:/stat/inventaires";
     }
 
-    @GetMapping("/facture/non_paye/{id}")
-    public String validerFactureNonPayer(@PathVariable("id") Long id){
-        inventaireService.updateStatutInventaire(Constante.INVENTAIRE_ENCAISSE, id);
-        return "redirect:/stat/inventaires/non_paye";
+    @GetMapping("/inventaires/annulation")
+    public String afficherListeAnnulation(Model model){
+        model.addAttribute("annulationAttente", inventaireService.showInventaireParStatut(Constante.INVENTAIRE_ATTENTE));
+        return "sortie/listeAnnulation";
+    }
+
+    @GetMapping("/validation/annulation/{id}")
+    public String updateEncaissementAttente(@PathVariable("id") Long id){
+        inventaireService.updateStatutInventaire(Constante.INVENTAIRE_NON_ENCAISSE, id);
+        return "redirect:/stat/inventaires/annulation";
     }
 
     //Fonction pour générer la facture maritime payé
@@ -127,7 +143,7 @@ public class InventaireController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonnePaye(inventaireService.showOneInventaire(id).getCommandeid())+"-"+ LocalDate.now()+".pdf");
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 
@@ -161,7 +177,7 @@ public class InventaireController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonneNonPaye(inventaireService.showOneInventaire(id).getCommandeid())+"-"+ LocalDate.now()+".pdf");
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 
@@ -183,7 +199,7 @@ public class InventaireController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonnePaye(inventaireService.showOneInventaire(id).getCommandeid())+"-"+LocalDate.now()+".pdf");
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 
@@ -205,7 +221,7 @@ public class InventaireController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonneNonPaye(inventaireService.showOneInventaire(id).getCommandeid())+"-"+LocalDate.now()+".pdf");
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 

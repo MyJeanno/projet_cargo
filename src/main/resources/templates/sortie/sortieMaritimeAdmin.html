@@ -49,6 +49,7 @@
                                     <th>Destinataire</th>
                                     <th>Pays</th>
                                     <th>Région</th>
+                                    <th>Rue</th>
                                     <th>PLZ</th>
                                     <th>Tél</th>
                                 </tr>
@@ -61,6 +62,7 @@
                                     <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.nomPersonne}+' '+${sortieMaritime.colisMaritime.commande.recepteur.prenomPersonne}"></td>
                                     <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.pays.libellePays}"></td>
                                     <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.etat.libelleEtat}"></td>
+                                    <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.rue}"></td>
                                     <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.codePostal}"></td>
                                     <td th:text="${sortieMaritime.colisMaritime.commande.recepteur.contactPersonne}"></td>
                                 </tr>

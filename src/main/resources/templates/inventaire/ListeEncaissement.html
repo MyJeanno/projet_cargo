@@ -6,9 +6,10 @@
 <body>
 <div layout:fragment="content">
 
-    <div class="page-title">
-        <div class="title_left">
-            <h4><small>Factures non payées au Togo</small></h4>
+    <div class="clearfix"></div>
+    <div>
+        <div style="margin:10px;" class="title_left">
+            <h4 style="background-color:Peru;color:white;padding:3px;"><small> Liste des encaissements de factures en Allemangne</small></h4>
         </div>
     </div>
 
@@ -43,27 +44,24 @@
                                     <th>N° com</th>
                                     <th>Expéditeur</th>
                                     <th>Destinataire</th>
-                                    <th>Nb colis</th>
+                                    <th>Date</th>
                                     <th>Montant facture</th>
-                                    <th>Montant payé</th>
-                                    <th>Reste</th>
-                                    <th>Statut</th>
+                                    <th>Montant encaissé</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="inventaire:${inventaires}">
-                                    <td th:text="${inventaire.id}"></td>
-                                    <td th:text="${inventaire.commande.pin}"></td>
-                                    <td th:text="${inventaire.commande.emetteur.nomPersonne}+' '+${inventaire.commande.emetteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.commande.recepteur.nomPersonne}+' '+${inventaire.commande.recepteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.nombreColis}"></td>
-                                    <td th:text="${inventaire.prixTotal}"></td>
-                                    <td th:text="${inventaire.commande.montantPaye}"></td>
-                                    <td th:text="${inventaire.commande.recepteur.solde}"></td>
-                                    <td th:text="${inventaire.status}"></td>
+                                <tr th:each="encaissement:${listeEncaissement}">
+                                    <td th:text="${encaissement.id}"></td>
+                                    <td th:text="${encaissement.commande.pin}"></td>
+                                    <td th:text="${encaissement.commande.emetteur.nomPersonne}+' '+${encaissement.commande.emetteur.prenomPersonne}"></td>
+                                    <td th:text="${encaissement.commande.recepteur.nomPersonne}+' '+${encaissement.commande.recepteur.prenomPersonne}"></td>
+                                    <td th:text="${encaissement.dateEncaissement}"></td>
+                                    <td th:text="${encaissement.commande.montantTotal}"></td>
+                                    <td th:text="${encaissement.montant}"></td>
                                     <td>
-                                        <a class="btn btn-round btn-sm btn-info dbtn" th:href="@{/stat/form/encaissement/{id}(id=${inventaire.id})}">Valider</a>
+                                        <a class="btn btn-round btn-sm btn-info" th:href="@{/stat/encaissement/formUpdate/{id}(id=${encaissement.id})}"><i class="fa fa-edit"></i></a>
+                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{/stat/encaissement/delete/(id=${encaissement.id})}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -76,27 +74,29 @@
     </div>
     <div class="clearfix"></div>
     <!-- End table -->
+
     <!-- Modal delete -->
     <div class="modal fade" id="deleteform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">Confirmation d'encaissement</h6>
+                    <h6 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="alert alert-danger">Êtes-vous sûr de vouloir valider l'encaissement?</p>
+                    <p class="alert alert-danger">Êtes-vous sûr de vouloir supprimer?</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="" class="btn btn-success" id="delRef">Valider</a>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <a href="" class="btn btn-danger" id="delRef">Supprimer</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Modal delete -->
+
 </div>
 </body>
 </html>

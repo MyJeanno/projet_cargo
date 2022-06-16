@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head></head>
+<body>
+
+<div layout:fragment="content">
+    <div class="clearfix"></div>
+    <div>
+        <div style="margin:10px;" class="title_left">
+            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Détail des paiements de la facture N° :  <b th:text="${lastCommande.pin}"></b></small></h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12 col-sm-12" align="center">
+        <div class="x_panel">
+            <div class="x_title">
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a class="dropdown-item" href="#">Settings 1</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                    <table class="table table-striped" style="width:100%">
+                        <tr>
+                            <td>Nombre de colis</td>
+                            <td> : </td>
+                            <td><b th:text="${nbColis}"></b></td>
+                        </tr>
+                        <tr>
+                            <td>Prix total des colis</td>
+                            <td> : </td>
+                            <td><b th:text="${prixColis}"></b></td>
+                        </tr>
+                        <tr>
+                            <td>Frais de livraison en Allemagne</td>
+                            <td> : </td>
+                            <td><b th:text="${transport}"></b></td>
+                        </tr>
+                        <tr>
+                            <td>Taxe phytosanitaire</td>
+                            <td> : </td>
+                            <td><b th:text="${taxe}"></b></td>
+                        </tr>
+                        <tr>
+                            <td>Montant total à payer</td>
+                            <td> : </td>
+                             <td><b th:text="${prixTotal}"></b></td>
+                        </tr>
+                    </table>
+                <form th:action="@{/envoi/fin}" method="post" class="form-horizontal form-label-left">
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Montant payé</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" name="paye" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" class="btn btn-primary">Finaliser</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

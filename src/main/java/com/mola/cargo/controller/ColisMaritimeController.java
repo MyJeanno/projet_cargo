@@ -96,18 +96,14 @@ public class ColisMaritimeController {
         int i =0;
         for (ColisMaritime cm:ListeColisMaritime){
             if(cm.getCommande().getTransport().equals("Oui")){
-                colisMaritimeService.updatePoidsTransportColisMaritime(poids.get(i),
-                        transportService.calculerPrixTransportAllemangne(poids.get(i)),cm.getId());
+                colisMaritimeService.updatePoidsTransportColisMaritime(colisMaritimeService.arrondirPoids(poids.get(i)),
+                        transportService.calculerPrixTransportAllemangne(colisMaritimeService.arrondirPoids(poids.get(i))),cm.getId());
             }else{
-                colisMaritimeService.updatePoidsColisMaritime(poids.get(i), cm.getId());
+                colisMaritimeService.updatePoidsColisMaritime(colisMaritimeService.arrondirPoids(poids.get(i)), cm.getId());
             }
             i++;
         }
-        if(colisMaritimeService.showMaLastColisMaritime().getCommande().getLieuPaiement().equals(Constante.LIEU_TOGO)){
-            return "redirect:/colisMaritime/facture";
-        }else{
-            return "redirect:/colisMaritime/facture_non_paye";
-        }
+        return "redirect:/envoiMaritime/detail";
 
     }
 

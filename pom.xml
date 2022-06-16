@@ -11,10 +11,12 @@
 	<groupId>com.mola</groupId>
 	<artifactId>cargo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>cargo</name>
 	<description>Gestion logistique des cargos</description>
 	<properties>
 		<java.version>11</java.version>
+		<start-class>com.mola.cargo.CargoApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -48,6 +50,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- Dépendance pour importer les fichiers microsoft : Excel -->
 		<dependency>

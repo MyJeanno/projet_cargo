@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,7 +120,7 @@ public class SortieAerienController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonnePaye(id)+"-"+ LocalDate.now()+".pdf");
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 
@@ -141,7 +142,7 @@ public class SortieAerienController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonneNonPaye(id)+"-"+ LocalDate.now()+".pdf");
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 

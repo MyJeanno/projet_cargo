@@ -122,7 +122,7 @@ public class SortieMaritimeController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonnePaye(id)+"-"+ LocalDate.now()+".pdf");
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 
@@ -156,7 +156,7 @@ public class SortieMaritimeController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonneNonPaye(id)+"-"+ LocalDate.now()+".pdf");
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 

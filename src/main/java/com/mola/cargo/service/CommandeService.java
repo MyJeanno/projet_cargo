@@ -28,6 +28,10 @@ public class CommandeService {
         commandeRepository.updateTypeCommande(type, id);
     }
 
+    public void updatePaiementCommande(double total, double paye, Long id){
+        commandeRepository.updatePaiementCommande(total, paye, id);
+    }
+
     public Commande showCommandePin(String pin){
         return commandeRepository.findByPin(pin);
     }
@@ -68,6 +72,14 @@ public class CommandeService {
     }
     public List<Commande> showCommande(){
         return commandeRepository.findAll();
+    }
+
+    public String getIdentitePersonnePaye(Long id){
+        return showOnecommande(id).getEmetteur().getNomPersonne()+" "+showOnecommande(id).getEmetteur().getPrenomPersonne();
+    }
+
+    public String getIdentitePersonneNonPaye(Long id){
+        return showOnecommande(id).getRecepteur().getNomPersonne()+" "+showOnecommande(id).getRecepteur().getPrenomPersonne();
     }
 
 }

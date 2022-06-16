@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,15 @@ public class ProduitMaritimeController {
     private CartonService cartonService;
     @Autowired
     private InventaireService inventaireService;
+    @Autowired
+    private RecepteurService recepteurService;
+
+    private double getTotalApayer(){
+        return  colisMaritimeService.appliquerReduction(colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId()),
+                commandeService.showMaLastCommande().getReduction())
+                + produitMaritimeService.MaxTaxeCommandeMaritime(commandeService.showMaLastCommande().getId())
+                + colisMaritimeService.montantTotalTransport(commandeService.showMaLastCommande().getId());
+    }
 
     @GetMapping("/colisMaritime/produits")
     public String afficherProduitMaritime(Model model){
@@ -91,6 +101,28 @@ public class ProduitMaritimeController {
         return "redirect:/colisMaritime/produits";
     }
 
+    @GetMapping("/envoiMaritime/detail")
+    public String afficherDetailCommande(Model model){
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
+        model.addAttribute("nbColis", colisMaritimeService.nbreColisMaritime(commandeService.showMaLastCommande().getId()));
+        model.addAttribute("transport", String.format("% ,.2f", colisMaritimeService.montantTotalTransport(commandeService.showMaLastCommande().getId())));
+        model.addAttribute("taxe", String.format("% ,.2f", produitMaritimeService.MaxTaxeCommandeMaritime(commandeService.showMaLastCommande().getId())));
+        model.addAttribute("prixColis", String.format("% ,.2f", colisMaritimeService.appliquerReduction(colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId()),
+                commandeService.showMaLastCommande().getReduction())));
+        model.addAttribute("prixTotal", String.format("% ,.2f", getTotalApayer()));
+        return "commande/detailEnvoiMaritime";
+    }
+    @PostMapping("/envoiMaritime/fin")
+    public String finaliserCommande(@RequestParam String paye){
+        commandeService.updatePaiementCommande(getTotalApayer(), Double.parseDouble(paye), commandeService.showMaLastCommande().getId());
+        recepteurService.updateSoldeClient(getTotalApayer()-Double.parseDouble(paye), commandeService.showMaLastCommande().getRecepteur().getId());
+        if(commandeService.showMaLastCommande().getLieuPaiement().equals(Constante.LIEU_TOGO)){
+            return "redirect:/colisMaritime/facture";
+        }else{
+            return "redirect:/colisMaritime/facture_non_paye";
+        }
+    }
+
     //Fonction pour générer la facture maritime payé
     @GetMapping("/colisMaritime/facture")
     public ResponseEntity<byte[]> factureMaritime() throws FileNotFoundException, JRException {
@@ -121,7 +153,7 @@ public class ProduitMaritimeController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonnePaye(commandeService.showMaLastCommande().getId())+"-"+ LocalDate.now()+".pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
         double prixTotal = colisMaritimeService.appliquerReduction(colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId()),
@@ -169,7 +201,7 @@ public class ProduitMaritimeController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonneNonPaye(commandeService.showMaLastCommande().getId())+"-"+LocalDate.now()+".pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
         double prixTotal = colisMaritimeService.appliquerReduction(colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande().getId()),

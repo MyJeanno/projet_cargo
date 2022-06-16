@@ -27,6 +27,9 @@ public class Commande {
     private String typeEnvoi;
     private String transport;
     private double reduction;
+    private double montantTotal;
+    private double montantPaye;
+    private String etatCommande;
 
     @ManyToOne
     @JoinColumn(name = "pieceid", insertable = false, updatable = false)

@@ -1,5 +1,6 @@
 package com.mola.cargo.controller;
 
+import com.mola.cargo.model.Commande;
 import com.mola.cargo.model.Inventaire;
 import com.mola.cargo.model.ProduitAerien;
 import com.mola.cargo.service.*;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,15 @@ public class ProduitAerienController {
     private InventaireService inventaireService;
     @Autowired
     private ReductionService tarifAerienService;
+    @Autowired
+    private RecepteurService recepteurService;
+
+    private double getTotalApayer(){
+        return  colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
+                commandeService.showMaLastCommande().getReduction())
+                + produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId())
+                +colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId());
+    }
 
     @GetMapping("/colisAerien/produits")
     public String afficherProduitAerien(Model model){
@@ -109,6 +120,27 @@ public class ProduitAerienController {
         produitAerienService.deleteProduitAerien(id);
         return "redirect:/colisAerien/produits";
     }
+    @GetMapping("/envoi/detail")
+    public String afficherDetailCommande(Model model){
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
+        model.addAttribute("nbColis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
+        model.addAttribute("transport", String.format("% ,.2f", colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId())));
+        model.addAttribute("taxe", String.format("% ,.2f", produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId())));
+        model.addAttribute("prixColis", String.format("% ,.2f", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
+                commandeService.showMaLastCommande().getReduction())));
+        model.addAttribute("prixTotal", String.format("% ,.2f", getTotalApayer()));
+        return "commande/detailEnvoiAerien";
+    }
+    @PostMapping("/envoi/fin")
+    public String finaliserCommande(@RequestParam String paye){
+        commandeService.updatePaiementCommande(getTotalApayer(), Double.parseDouble(paye), commandeService.showMaLastCommande().getId());
+        recepteurService.updateSoldeClient(getTotalApayer()-Double.parseDouble(paye), commandeService.showMaLastCommande().getRecepteur().getId());
+        if(commandeService.showMaLastCommande().getLieuPaiement().equals(Constante.LIEU_TOGO)){
+            return "redirect:/colisAerien/facture";
+        }else{
+            return "redirect:/colisAerien/facture_non_paye";
+        }
+    }
 
     private String getPrincipal() {
         String userName = null;
@@ -141,13 +173,10 @@ public class ProduitAerienController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonnePaye(commandeService.showMaLastCommande().getId())+"-"+LocalDate.now()+".pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
-        double prixTotal = colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
-                  commandeService.showMaLastCommande().getReduction())
-                  + produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId())
-                  +colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId());
+        double prixTotal = getTotalApayer();
         inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
@@ -178,13 +207,10 @@ public class ProduitAerienController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=facture.pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonneNonPaye(commandeService.showMaLastCommande().getId())+"-"+LocalDate.now()+".pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
-        double prixTotal = colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
-                commandeService.showMaLastCommande().getReduction())
-                + produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId())
-                +colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId());
+        double prixTotal = getTotalApayer();
         inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
         inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));

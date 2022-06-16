@@ -43,5 +43,13 @@ public class RecepteurService {
         recepteurRepository.deleteById(id);
     }
 
+    public void updateSoldeClient(double solde, Long id){
+        recepteurRepository.updateSoldeClient(solde, id);
+    }
+
+    public void updateSoldeClientEncaissement(double montant, Long id){
+        recepteurRepository.updateSoldeClientEncaissement(montant, id);
+    }
+
 
 }

@@ -18,6 +18,7 @@
     <field name="colisMaritime.commande.recepteur.codePostal" class="java.lang.Integer"/>
     <field name="colisMaritime.commande.recepteur.contactPersonne" class="java.lang.String"/>
     <field name="convoi.identifiant" class="java.lang.String"/>
+    <field name="colisMaritime.commande.recepteur.rue" class="java.lang.String"/>
     <variable name="REPORT_PAGE" class="java.lang.Integer" incrementType="Page">
         <variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
     </variable>
@@ -135,7 +136,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[N° com]]></text>
             </staticText>
             <staticText>
-                <reportElement mode="Opaque" x="430" y="0" width="40" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="b4fe46a5-44bb-4e82-9118-0fab085e51aa">
+                <reportElement mode="Opaque" x="450" y="0" width="40" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="b4fe46a5-44bb-4e82-9118-0fab085e51aa">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -151,7 +152,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[PLZ]]></text>
             </staticText>
             <staticText>
-                <reportElement mode="Opaque" x="470" y="0" width="85" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="87349c8f-8f4d-43de-952c-9d920793856b">
+                <reportElement mode="Opaque" x="490" y="0" width="65" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="87349c8f-8f4d-43de-952c-9d920793856b">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -167,7 +168,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Tél]]></text>
             </staticText>
             <staticText>
-                <reportElement mode="Opaque" x="100" y="0" width="110" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="039b1c43-cb79-4e83-9d96-5c229c5ab75c">
+                <reportElement mode="Opaque" x="100" y="0" width="90" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="039b1c43-cb79-4e83-9d96-5c229c5ab75c">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -183,7 +184,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Expéditeur]]></text>
             </staticText>
             <staticText>
-                <reportElement mode="Opaque" x="323" y="0" width="50" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="52da1c2e-1cca-4edc-822f-5d91704fe9b3">
+                <reportElement mode="Opaque" x="280" y="0" width="50" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="52da1c2e-1cca-4edc-822f-5d91704fe9b3">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -199,7 +200,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Pays]]></text>
             </staticText>
             <staticText>
-                <reportElement mode="Opaque" x="210" y="0" width="113" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="0d75bbde-817d-4d08-9066-72d343e4993f">
+                <reportElement mode="Opaque" x="190" y="0" width="90" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="0d75bbde-817d-4d08-9066-72d343e4993f">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -215,7 +216,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Destnataire]]></text>
             </staticText>
             <staticText>
-                <reportElement mode="Opaque" x="373" y="0" width="57" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="bc4f9f29-232d-4c2e-8602-21c5784e1a4b">
+                <reportElement mode="Opaque" x="330" y="0" width="50" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="bc4f9f29-232d-4c2e-8602-21c5784e1a4b">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -229,6 +230,22 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <font size="10" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Etat]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="380" y="0" width="70" height="18" backcolor="rgba(184, 176, 176, 0.33333334)" uuid="182d8251-22f3-4fcf-970e-6b5539d8c62b">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box leftPadding="5">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Rue]]></text>
             </staticText>
         </band>
     </columnHeader>
@@ -266,7 +283,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisMaritime.commande.pin}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="100" y="0" width="110" height="15" isPrintInFirstWholeBand="true" uuid="1ed0b7b0-4d02-45cd-b4cf-70ec1ec121fb">
+                <reportElement x="100" y="0" width="90" height="15" isPrintInFirstWholeBand="true" uuid="1ed0b7b0-4d02-45cd-b4cf-70ec1ec121fb">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -281,7 +298,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisMaritime.commande.emetteur.nomPersonne}+$F{colisMaritime.commande.emetteur.prenomPersonne}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="210" y="0" width="113" height="15" isPrintInFirstWholeBand="true" uuid="3d18078d-00cb-4465-9a8a-ee50dac22cf2">
+                <reportElement x="190" y="0" width="90" height="15" isPrintInFirstWholeBand="true" uuid="3d18078d-00cb-4465-9a8a-ee50dac22cf2">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -296,7 +313,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.nomPersonne}+$F{colisMaritime.commande.recepteur.prenomPersonne}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="323" y="0" width="50" height="15" isPrintInFirstWholeBand="true" uuid="40342508-56f1-464a-aaf2-d863274cd25a">
+                <reportElement x="280" y="0" width="50" height="15" isPrintInFirstWholeBand="true" uuid="40342508-56f1-464a-aaf2-d863274cd25a">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -311,7 +328,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.pays.libellePays}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="373" y="0" width="57" height="15" isPrintInFirstWholeBand="true" uuid="7fe7be10-4152-4b52-96c9-30b4eba53ff2">
+                <reportElement x="330" y="0" width="50" height="15" isPrintInFirstWholeBand="true" uuid="7fe7be10-4152-4b52-96c9-30b4eba53ff2">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -326,7 +343,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.etat.libelleEtat}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="430" y="0" width="40" height="15" isPrintInFirstWholeBand="true" uuid="e86d0906-d0a4-4bae-9494-ebb54d116055">
+                <reportElement x="450" y="0" width="40" height="15" isPrintInFirstWholeBand="true" uuid="e86d0906-d0a4-4bae-9494-ebb54d116055">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -341,7 +358,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.codePostal}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="470" y="0" width="85" height="15" isPrintInFirstWholeBand="true" uuid="0d8f0be5-3145-4db2-b1b7-12c0b30c231c">
+                <reportElement x="490" y="0" width="65" height="15" isPrintInFirstWholeBand="true" uuid="0d8f0be5-3145-4db2-b1b7-12c0b30c231c">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -354,6 +371,21 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <font size="8"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.contactPersonne}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="380" y="0" width="70" height="15" isPrintInFirstWholeBand="true" uuid="74c2e0ef-2a15-4e59-848d-b8a61eaf32a5">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box leftPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.rue}]]></textFieldExpression>
             </textField>
         </band>
     </detail>

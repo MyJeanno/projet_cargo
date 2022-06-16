@@ -114,6 +114,14 @@ public class ColisMaritimeService {
         colisMaritimeRepository.updatePoidsColisMaritime(poids, id);
     }
 
+    public double arrondirPoids(double d){
+        if(d-(int)d<=0.5){
+            return (int)d + 0.5;
+        }else{
+            return (int)d + 1;
+        }
+    }
+
     public Double montantTotalTransport(Long id){
         if(colisMaritimeRepository.montantTotalTransport(id) == null){
             return 0.0;

@@ -88,6 +88,7 @@
                   <li><a><i class="fa fa-plane"></i>Gestion des envois <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a th:href="@{/personne/emetteur/envoi}">Enregistrer un envoi</a></li>
+                      <li><a th:href="@{/personne/emetteur/envoi}">Annuler un envoi inachevé</a></li>
                       <li><a th:href="@{/choixAerien/commande}">Modifier un colis aérien</a></li>
                       <li><a th:href="@{/choixMaritime/commande}">Modifier un colis maritime</a></li>
                     </ul>
@@ -118,8 +119,11 @@
                   <li><a><i class="fa fa-info"></i> Inventaire <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a th:href="@{/stat/inventaires}">Factures payés au Togo</a></li>
-                      <li><a th:href="@{/stat/inventaires/encaisser}">Annuler un encaissement</a></li>
                       <li><a th:href="@{/stat/inventaires/non_paye}">Factures à payer en Allemagne</a></li>
+                      <li><a th:href="@{/stat/inventaires/encaisser}">Annuler un encaissement</a></li>
+                      <li><a th:href="@{/stat/encaissement/liste}">Liste des encaissements</a></li>
+                      <li><a th:href="@{/stat/inventaires/annulation}">Valider une annulation</a></li>
+                      <li><a th:href="@{/stat/annulation/liste}">Afficher les annulations</a></li>
                     </ul>
                   </li>
 

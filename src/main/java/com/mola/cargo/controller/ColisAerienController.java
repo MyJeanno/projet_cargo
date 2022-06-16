@@ -53,24 +53,20 @@ public class ColisAerienController {
       int i =0;
       for (ColisAerien ca:ListeColisAeriens){
           if(ca.getCommande().getTransport().equals("Oui")){
-              colisAerienService.updateToutColisAerien(poids.get(i),
+              colisAerienService.updateToutColisAerien(colisAerienService.arrondirPoids(poids.get(i)),
                       produitAerienService.showMaxPrixProduit(ca.getId()),
-                      poids.get(i)*produitAerienService.showMaxPrixProduit(ca.getId()),
-                      transportService.calculerPrixTransportAllemangne(poids.get(i)),
+                       colisAerienService.arrondirPoids(poids.get(i))*produitAerienService.showMaxPrixProduit(ca.getId()),
+                      transportService.calculerPrixTransportAllemangne(colisAerienService.arrondirPoids(poids.get(i))),
                       ca.getId());
           }else {
-              colisAerienService.updatePoidsColisAerien(poids.get(i),
+              colisAerienService.updatePoidsColisAerien(colisAerienService.arrondirPoids(poids.get(i)),
                       produitAerienService.showMaxPrixProduit(ca.getId()),
-                      poids.get(i)*produitAerienService.showMaxPrixProduit(ca.getId()),
+                      colisAerienService.arrondirPoids(poids.get(i))*produitAerienService.showMaxPrixProduit(ca.getId()),
                       ca.getId());
           }
           i++;
       }
-      if(colisAerienService.showMaLastColisAerien().getCommande().getLieuPaiement().equals(Constante.LIEU_TOGO)){
-          return "redirect:/colisAerien/facture";
-      }else{
-          return "redirect:/colisAerien/facture_non_paye";
-      }
+     return "redirect:/envoi/detail";
 
     }
 

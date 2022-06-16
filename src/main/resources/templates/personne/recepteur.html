@@ -54,6 +54,7 @@
                                         <th>Code postal</th>
                                         <th>Contact</th>
                                         <th>Numéro client</th>
+                                        <th>Reste à payer</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -68,6 +69,7 @@
                                         <td th:text="${recepteur.codePostal}"></td>
                                         <td th:text="${recepteur.contactPersonne}"></td>
                                         <td th:text="${recepteur.numeroPersonne}"></td>
+                                        <td th:text="${recepteur.solde}"></td>
                                         <td>
                                             <a class="btn btn-round btn-sm btn-info" th:href="@{/personne/recepteur/formUpdate/{id}(id=${recepteur.id})}"><i class="fa fa-edit"></i></a>
                                         </td>

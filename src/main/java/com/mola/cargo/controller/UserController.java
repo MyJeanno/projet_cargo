@@ -53,11 +53,11 @@ public class UserController {
         role.setNomRole(roles);
         //Set<Role> listerole = new HashSet<>();
         //listerole.add(role);
-        //String pwdcrypter = bCryptPasswordEncoder.encode(password);
+        String pwdcrypter = bCryptPasswordEncoder.encode(password);
         user.setNom(nom);
         user.setPrenom(prenom);
         user.setUsername(email);
-        //user.setPassword(pwdcrypter);
+        user.setPassword(pwdcrypter);
         user.setRoles(roles);
         userService.saveUser(user);
         return "redirect:/users";

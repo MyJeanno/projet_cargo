@@ -49,6 +49,7 @@
                   <th>Destinataire</th>
                   <th>Pays</th>
                   <th>Région</th>
+                  <th>Rue</th>
                   <th>PLZ</th>
                   <th>Tél</th>
                 </tr>
@@ -61,6 +62,7 @@
                   <td th:text="${sortieAerien.colisAerien.commande.recepteur.nomPersonne}+' '+${sortieAerien.colisAerien.commande.recepteur.prenomPersonne}"></td>
                   <td th:text="${sortieAerien.colisAerien.commande.recepteur.pays.libellePays}"></td>
                   <td th:text="${sortieAerien.colisAerien.commande.recepteur.etat.libelleEtat}"></td>
+                  <td th:text="${sortieAerien.colisAerien.commande.recepteur.rue}"></td>
                   <td th:text="${sortieAerien.colisAerien.commande.recepteur.codePostal}"></td>
                   <td th:text="${sortieAerien.colisAerien.commande.recepteur.contactPersonne}"></td>
                 </tr>

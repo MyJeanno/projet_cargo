@@ -50,6 +50,7 @@ public class RecepteurController {
         if(recepteur.getEtatid()==null){
             recepteur.setEtatid(17L);
         }
+        recepteur.setSolde(0);
         recepteurService.saveRecepteur(recepteur);
         return "redirect:/personne/recepteurs";
     }

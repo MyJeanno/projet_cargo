@@ -73,6 +73,14 @@ public class ColisAerienService {
         return montant-montant*reduction/100;
     }
 
+    public double arrondirPoids(double d){
+        if(d-(int)d<=0.5){
+            return (int)d + 0.5;
+        }else{
+            return (int)d + 1;
+        }
+    }
+
     public Double prixTransportColisAerien(Long id){
         if(colisAerienRepository.prixTransportColisAerien(id)==null){
             return 0.0;

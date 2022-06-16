@@ -15,6 +15,7 @@ public class Recepteur extends Personne{
     private String rue;
     @Column(name = "code_postal")
     private int codePostal;
+    private double solde;
 
     @ManyToOne
     @JoinColumn(name = "etatid", insertable = false, updatable = false)
