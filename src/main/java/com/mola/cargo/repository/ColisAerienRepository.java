@@ -24,6 +24,9 @@ public interface ColisAerienRepository extends JpaRepository<ColisAerien, Long> 
     @Query(value = "select * from Colis_aerien ORDER BY id DESC LIMIT 1", nativeQuery = true)
     ColisAerien showMaLastColisAerien();
 
+  /*  @Query("select ca from Colis_aerien ca where ca.commandeid = :id ORDER BY ca.id DESC LIMIT 1")
+    ColisAerien showMaLastColisAerienCommande(@Param("id") Long id);*/
+
     @Query(value = "SELECT count(DISTINCT commandeid) FROM colis_aerien", nativeQuery = true)
     int nbreCommandeAerien();
 
@@ -67,5 +70,8 @@ public interface ColisAerienRepository extends JpaRepository<ColisAerien, Long> 
                                 @Param("prixt") double prixt,
                                 @Param("trans") double trans,
                                 @Param("id") Long id);
+
+    @Query("delete from ColisAerien ca where ca.commandeid = :id")
+    void supprimerColisCommande(@Param("id") Long id);
 
 }

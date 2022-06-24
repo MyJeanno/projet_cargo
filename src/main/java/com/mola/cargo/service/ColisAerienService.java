@@ -49,6 +49,10 @@ public class ColisAerienService {
         return colisAerienRepository.showMaLastColisAerien();
     }
 
+   /* public ColisAerien showMaLastColisAerienCommande(Long id){
+        return colisAerienRepository.showMaLastColisAerienCommande(id);
+    }*/
+
     public int nombreColisAerien(){
         return colisAerienRepository.nbreCommandeAerien();
     }
@@ -124,5 +128,20 @@ public class ColisAerienService {
 
     public List<ColisAerien> showColisAerienDepot(String statut){
         return colisAerienRepository.findByStatut(statut);
+    }
+
+    public boolean appartenanceColisAerien(List<ColisAerien> liste, Long id){
+        boolean app = false;
+        for(ColisAerien ca : liste){
+            if(ca.getCommandeid() == id){
+                app = true;
+                break;
+            }
+        }
+        return app;
+    }
+
+    public void supprimerColisCommande(Long id){
+        colisAerienRepository.supprimerColisCommande(id);
     }
 }

@@ -12,6 +12,8 @@ public class Constante {
     public static final String PREFIX_AERIEN = "MFA_DEPART";
     public static final String STATUT_CONVOI_NOUVEAU = "NOUVEAU";
     public static final String STATUT_CONVOI_ANCIEN = "ANCIEN";
+    public static final String STATUT_COMMANDE_ACHEVE = "ACHEVE";
+    public static final String STATUT_COMMANDE_INACHEVE = "INACHEVE";
 
     public static final String INVENTAIRE_NON_ENCAISSE = "NON ENCAISSE";
     public static final String INVENTAIRE_ENCAISSE = "ENCAISSE";

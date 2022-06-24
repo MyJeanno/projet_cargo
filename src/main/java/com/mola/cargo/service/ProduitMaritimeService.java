@@ -1,5 +1,6 @@
 package com.mola.cargo.service;
 
+import com.mola.cargo.model.ProduitAerien;
 import com.mola.cargo.model.ProduitMaritime;
 import com.mola.cargo.repository.ProduitMaritimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,21 @@ public class ProduitMaritimeService {
             userName = principal.toString();
         }
         return userName;
+    }
+
+    public boolean appartenanceProduitMaritime(List<ProduitMaritime> liste, Long id) {
+        boolean app = false;
+        for (ProduitMaritime pm : liste) {
+            if (pm.getColisMaritime().getCommandeid() == id) {
+                app = true;
+                break;
+            }
+        }
+        return app;
+    }
+
+    public void supprimerProduitCommande(Long id){
+        produitMaritimeRepository.supprimerProduitCommande(id);
     }
 
 }

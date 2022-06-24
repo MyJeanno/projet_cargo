@@ -1,9 +1,6 @@
 package com.mola.cargo.controller;
 
-import com.mola.cargo.model.Inventaire;
-import com.mola.cargo.model.ProduitAerien;
-import com.mola.cargo.model.ProduitMaritime;
-import com.mola.cargo.model.Tarif;
+import com.mola.cargo.model.*;
 import com.mola.cargo.service.*;
 import com.mola.cargo.util.Constante;
 import net.sf.jasperreports.engine.*;
@@ -61,6 +58,19 @@ public class ProduitMaritimeController {
         return "produit/produitMaritime";
     }
 
+    @GetMapping("/colisMaritimeReprise/produits{id}")
+    public String afficherProduitMaritimeCommande(@PathVariable("id") Long id, Model model){
+        List<ColisMaritime> liste_colis_maritime = colisMaritimeService.showColisMaritime();
+        model.addAttribute("produitsMaritime", produitMaritimeService.findProduitColisMaritime(colisMaritimeService.showOneColisMaritime(id).getCommandeid()));
+        model.addAttribute("tarifs", tarifService.showTarifs());
+        model.addAttribute("lastColisMaritime", colisMaritimeService.showOneColisMaritime(id));
+        if(colisMaritimeService.appartenanceColisMaritime(liste_colis_maritime, colisMaritimeService.showOneColisMaritime(id).getCommandeid())){
+            return "produit/produitMaritime";
+        }else{
+            return "redirect:/reprise/impossible";
+        }
+    }
+
     //Pour enregistrer un nouveau produit
     @PostMapping("/produitMaritime/nouveau")
     public String enregistrerPMaritime(@RequestParam Long colisMaritimeid,
@@ -115,6 +125,7 @@ public class ProduitMaritimeController {
     @PostMapping("/envoiMaritime/fin")
     public String finaliserCommande(@RequestParam String paye){
         commandeService.updatePaiementCommande(getTotalApayer(), Double.parseDouble(paye), commandeService.showMaLastCommande().getId());
+        commandeService.updateEtatCommande(Constante.STATUT_COMMANDE_ACHEVE, commandeService.showMaLastCommande().getId());
         recepteurService.updateSoldeClient(getTotalApayer()-Double.parseDouble(paye), commandeService.showMaLastCommande().getRecepteur().getId());
         if(commandeService.showMaLastCommande().getLieuPaiement().equals(Constante.LIEU_TOGO)){
             return "redirect:/colisMaritime/facture";

@@ -5,6 +5,7 @@ import com.mola.cargo.model.Produit;
 import com.mola.cargo.model.ProduitAerien;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,5 +30,7 @@ public interface ProduitAerienRepository extends JpaRepository<ProduitAerien, Lo
 
     @Query("select SUM(ca.emballage.prix) from ColisAerien ca where ca.commandeid = ?1 and ca.id in (select pa.colisAerienid from ProduitAerien pa)")
     Double fraisEmballage(Long id);
+    @Query("delete from ProduitAerien pa where pa.colisAerien.commandeid = :id")
+    void supprimerProduitCommande(@Param("id") Long id);
 
 }

@@ -1,6 +1,6 @@
 package com.mola.cargo.controller;
 
-import com.mola.cargo.model.Commande;
+import com.mola.cargo.model.*;
 import com.mola.cargo.service.*;
 import com.mola.cargo.util.Constante;
 import groovy.transform.AutoClone;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
@@ -34,6 +35,14 @@ public class CommandeController {
     private PaysService paysService;
     @Autowired
     private ReductionService reductionService;
+    @Autowired
+    private ColisAerienService colisAerienService;
+    @Autowired
+    private ColisMaritimeService colisMaritimeService;
+    @Autowired
+    private ProduitAerienService produitAerienService;
+    @Autowired
+    private ProduitMaritimeService produitMaritimeService;
 
     @GetMapping("/mode/envoi")
     public String choisirModeEnvoi(){
@@ -66,7 +75,72 @@ public class CommandeController {
         }
         commande.setPin(pin);
         commande.setDateEnvoi(new Date());
-        commandeService.saveCommande(commande);
-        return "redirect:/mode/envoi";
+        commande.setEtatCommande(Constante.STATUT_COMMANDE_INACHEVE);
+        if(commandeService.commandeSelonEtat(Constante.STATUT_COMMANDE_INACHEVE).size()==0){
+            commandeService.saveCommande(commande);
+            return "redirect:/mode/envoi";
+        }else{
+            return "redirect:/commande/info";
+        }
     }
+    @GetMapping("/enregistrements/inacheves")
+    public String commandeInacheve(Model model){
+        model.addAttribute("commande_inacheve", commandeService.commandeSelonEtat(Constante.STATUT_COMMANDE_INACHEVE));
+        return "commande/inacheve";
+    }
+
+    @GetMapping("/commande/info")
+    public String warningReprise(){
+        return "commande/erreurEnregistrement";
+    }
+
+    @GetMapping("/reprise/impossible")
+    public String infoReprise(){
+        return "commande/erreurReprise";
+    }
+    /*@GetMapping("/commande2/reprise/{id}")
+    public String reprendreCommande(@PathVariable("id") Long id){
+        List<ColisAerien> liste_colis_aerien = colisAerienService.showColisAerien();
+        List<ColisMaritime> liste_colis_maritime = colisMaritimeService.showColisMaritime();
+        List<ProduitAerien> liste_produit_aerien = produitAerienService.showProduitsAerien();
+        List<ProduitMaritime> liste_produit_maritime = produitMaritimeService.showProduitsMaritime();
+        //System.out.println("**************Id = "+id+"****************************");
+        if(commandeService.showOnecommande(id).getTypeEnvoi().equals(Constante.ENVOI_AERIEN)){
+            if(colisAerienService.appartenanceColisAerien(liste_colis_aerien, id)){
+                return "redirect:/colisAerien/produits";
+            }else {
+                return "redirect:/commande/info";
+            }
+        }else{
+            if(colisMaritimeService.appartenanceColisMaritime(liste_colis_maritime,id)){
+                return "redirect:/colisMaritime/produits";
+            }else {
+                return "redirect:/commande/info";
+            }
+        }
+    }*/
+
+    @GetMapping("/commande/annuler/{id}")
+    public String reprendreCommande(@PathVariable("id") Long id) {
+        List<ColisAerien> liste_colis_aerien = colisAerienService.showColisAerien();
+        List<ColisMaritime> liste_colis_maritime = colisMaritimeService.showColisMaritime();
+        List<ProduitAerien> liste_produit_aerien = produitAerienService.showProduitsAerien();
+        List<ProduitMaritime> liste_produit_maritime = produitMaritimeService.showProduitsMaritime();
+       // System.out.println("***********************IDCOM = "+commandeService.showOnecommande(id).getTypeEnvoi()+"***************************");
+       if(produitAerienService.appartenanceProduitAerien(liste_produit_aerien, id)){
+            produitAerienService.supprimerProduitCommande(id);
+            colisAerienService.supprimerColisCommande(id);
+        }else if(produitMaritimeService.appartenanceProduitMaritime(liste_produit_maritime, id)){
+            produitMaritimeService.supprimerProduitCommande(id);
+            colisMaritimeService.supprimerColisCommande(id);
+        }else if(colisAerienService.appartenanceColisAerien(liste_colis_aerien, id)){
+           colisAerienService.supprimerColisCommande(id);
+       }else {
+           colisMaritimeService.supprimerColisCommande(id);
+       }
+       ;commandeService.supprimerCommande(id);
+        return "redirect:/enregistrements/inacheves";
+    }
+
+
 }

@@ -129,4 +129,20 @@ public class ColisMaritimeService {
             return colisMaritimeRepository.montantTotalTransport(id);
         }
     }
+
+    public boolean appartenanceColisMaritime(List<ColisMaritime> liste, Long id){
+        boolean app = false;
+        for(ColisMaritime cm : liste){
+            if(cm.getCommandeid() == id){
+                app = true;
+                break;
+            }
+        }
+        return app;
+    }
+
+    public void supprimerColisCommande(Long id){
+        colisMaritimeRepository.supprimerColisCommande(id);
+    }
+
 }

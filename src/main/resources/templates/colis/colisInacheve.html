@@ -5,23 +5,12 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="page-title">
-        <div class="title_left">
-            <h4><small>Liste des codes postaux de l'Allemagne</small></h4>
-        </div>
-        <div class="title_right">
-           <!-- <form th:action="@{/codepostal/nouveau}" method="post">
-                <div class="col-md-2 col-sm-2 pull-right">
-                    <button type="submit" class="btn btn-info" >
-                        <i class="fa fa-plus"></i> Ajout
-                    </button>
-                </div>
-            </form> -->
-        </div>
+    <div class="clearfix"></div>
+    <div>
+            <h4><small>Liste des colis de la commande</small></h4>
     </div>
 
     <!-- table -->
-    <!--<div class="row">-->
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
@@ -48,15 +37,19 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Code postal</th>
-                                    <th>Etat</th>
+                                    <th>N° de la commande</th>
+                                    <th>N° du colis</th>
+                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="codepostal:${codepostals}">
-                                    <td th:text="${codepostal.id}"></td>
-                                    <td th:text="${codepostal.libelleCode}"></td>
-                                    <td th:text="${codepostal.etat.libelleEtat}"></td>
+                                <tr th:each="colisAerien:${liste_colis}">
+                                    <td th:text="${colisAerien.id}"></td>
+                                    <td th:text="${colisAerien.commande.pin}"></td>
+                                    <td th:text="${colisAerien.numeroColis}"></td>
+                                    <td>
+                                        <a class="btn btn-round btn-sm btn-info" th:href="@{/colis/reprise/{id}(id=${colisAerien.id})}">Reprendre</a>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -66,31 +59,8 @@
             </div>
         </div>
     </div>
-   <!-- </div>-->
     <div class="clearfix"></div>
     <!-- End table -->
-
-    <!-- Modal delete -->
-    <div class="modal fade" id="deleteform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p class="alert alert-danger">Êtes-vous sûr de vouloir supprimer?</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="" class="btn btn-danger" id="delRef">Supprimer</a>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Modal delete -->
 </div>
 </body>
 </html>

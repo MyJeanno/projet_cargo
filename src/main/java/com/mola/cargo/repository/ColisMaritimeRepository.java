@@ -59,5 +59,8 @@ public interface ColisMaritimeRepository extends JpaRepository<ColisMaritime, Lo
     @Query("update ColisMaritime cm SET cm.poids = :poids where cm.id = :id")
     void updatePoidsColisMaritime(@Param("poids") double poids, @Param("id") Long id);
 
+    @Query("delete from ColisMaritime cm where cm.commandeid = :id")
+    void supprimerColisCommande(@Param("id") Long id);
+
 
 }

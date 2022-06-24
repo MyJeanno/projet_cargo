@@ -1,5 +1,7 @@
 package com.mola.cargo.service;
 
+import com.mola.cargo.model.ColisAerien;
+import com.mola.cargo.model.ColisMaritime;
 import com.mola.cargo.model.ProduitAerien;
 import com.mola.cargo.repository.ProduitAerienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,4 +116,19 @@ public class ProduitAerienService {
         }
         return montant;
     }*/
+
+    public boolean appartenanceProduitAerien(List<ProduitAerien> liste, Long id){
+        boolean app = false;
+        for(ProduitAerien pa : liste){
+            if(pa.getColisAerien().getCommandeid() == id){
+                app = true;
+                break;
+            }
+        }
+        return app;
+    }
+
+    public void supprimerProduitCommande(Long id){
+        produitAerienRepository.supprimerProduitCommande(id);
+    }
 }

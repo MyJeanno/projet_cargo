@@ -23,8 +23,16 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
 
     @Transactional
     @Modifying
+    @Query("update Commande c SET c.etatCommande = :etat WHERE c.id = :id")
+    void updateEtatCommande(@Param("etat") String etat, @Param("id") Long id);
+
+    @Transactional
+    @Modifying
     @Query("update Commande c SET c.montantTotal = :total, c.montantPaye = :paye WHERE c.id = :id")
     void updatePaiementCommande(@Param("total") double total, @Param("paye") double paye, @Param("id") Long id);
 
     Commande findByPin(String pin);
+    List<Commande> findByEtatCommande(String etat);
+    @Query("delete from Commande c where c.id = :id")
+    void supprimerCommande(@Param("id") Long id);
 }

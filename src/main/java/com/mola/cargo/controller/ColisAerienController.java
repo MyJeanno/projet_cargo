@@ -1,7 +1,6 @@
 package com.mola.cargo.controller;
 
-import com.mola.cargo.model.ColisAerien;
-import com.mola.cargo.model.Commande;
+import com.mola.cargo.model.*;
 import com.mola.cargo.service.*;
 import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,6 +128,20 @@ public class ColisAerienController {
         model.addAttribute("colisAerien", colisAerienService.showColisAerienCommande(id));
         model.addAttribute("lastCommande", commandeService.showCommandePin(numCom));
         return "colis/listeColisAerien";
+    }
+    @GetMapping("/commande/reprise/{id}")
+    public String colisInacheve(@PathVariable("id") Long id, Model model){
+        model.addAttribute("liste_colis", colisAerienService.showColisAerienCommande(id));
+        return "colis/colisInacheve";
+    }
+
+    @GetMapping("/colis/reprise/{id}")
+    public String reprendreCommande(@PathVariable("id") Long id){
+        if(commandeService.showOnecommande(id).getTypeEnvoi().equals(Constante.ENVOI_AERIEN)){
+            return "redirect:/colisAerienReprise/produits/{id}";
+        }else{
+                return "redirect:/colisMaritimeReprise/produits{id}";
+        }
     }
 
 }

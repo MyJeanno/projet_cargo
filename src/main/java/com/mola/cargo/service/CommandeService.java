@@ -32,6 +32,14 @@ public class CommandeService {
         commandeRepository.updatePaiementCommande(total, paye, id);
     }
 
+    public void updateEtatCommande(String etat, Long id){
+        commandeRepository.updateEtatCommande(etat, id);
+    }
+
+    public List<Commande> commandeSelonEtat(String etat){
+        return commandeRepository.findByEtatCommande(etat);
+    }
+
     public Commande showCommandePin(String pin){
         return commandeRepository.findByPin(pin);
     }
@@ -80,6 +88,10 @@ public class CommandeService {
 
     public String getIdentitePersonneNonPaye(Long id){
         return showOnecommande(id).getRecepteur().getNomPersonne()+" "+showOnecommande(id).getRecepteur().getPrenomPersonne();
+    }
+
+    public void supprimerCommande(Long id){
+        commandeRepository.supprimerCommande(id);
     }
 
 }

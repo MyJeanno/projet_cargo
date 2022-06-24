@@ -1,5 +1,6 @@
 package com.mola.cargo.controller;
 
+import com.mola.cargo.model.ColisAerien;
 import com.mola.cargo.model.Commande;
 import com.mola.cargo.model.Inventaire;
 import com.mola.cargo.model.ProduitAerien;
@@ -57,6 +58,19 @@ public class ProduitAerienController {
         model.addAttribute("tarifs", tarifService.showTarifs());
         model.addAttribute("lastColisAerien", colisAerienService.showMaLastColisAerien());
         return "produit/produitAerien";
+    }
+
+    @GetMapping("/colisAerienReprise/produits/{id}")
+    public String afficherProduitAerienReprise(@PathVariable("id") Long id, Model model){
+        List<ColisAerien> liste_colis_aerien = colisAerienService.showColisAerien();
+        model.addAttribute("produitsAerien", produitAerienService.findProduitColisAerien(colisAerienService.showOneColisAerien(id).getCommandeid()));
+        model.addAttribute("tarifs", tarifService.showTarifs());
+        model.addAttribute("lastColisAerien", colisAerienService.showOneColisAerien(id));
+        if(colisAerienService.appartenanceColisAerien(liste_colis_aerien, colisAerienService.showOneColisAerien(id).getCommandeid())){
+            return "produit/produitAerien";
+        }else {
+            return "redirect:/reprise/impossible";
+        }
     }
 
     //Pour enregistrer un nouveau produit
@@ -134,6 +148,7 @@ public class ProduitAerienController {
     @PostMapping("/envoi/fin")
     public String finaliserCommande(@RequestParam String paye){
         commandeService.updatePaiementCommande(getTotalApayer(), Double.parseDouble(paye), commandeService.showMaLastCommande().getId());
+        commandeService.updateEtatCommande(Constante.STATUT_COMMANDE_ACHEVE, commandeService.showMaLastCommande().getId());
         recepteurService.updateSoldeClient(getTotalApayer()-Double.parseDouble(paye), commandeService.showMaLastCommande().getRecepteur().getId());
         if(commandeService.showMaLastCommande().getLieuPaiement().equals(Constante.LIEU_TOGO)){
             return "redirect:/colisAerien/facture";

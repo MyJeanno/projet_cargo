@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
-public class CargoApplication extends SpringBootServletInitializer {
+public class CargoApplication{
 	public static void main(String[] args) {
 		SpringApplication.run(CargoApplication.class, args);
 	}
-
+/*
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(CargoApplication.class);
-	}
+	}*/
 }
