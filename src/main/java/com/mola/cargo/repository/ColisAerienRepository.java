@@ -21,8 +21,8 @@ public interface ColisAerienRepository extends JpaRepository<ColisAerien, Long> 
     @Query("select ca from ColisAerien ca where ca.commande.pin = ?1")
     List<ColisAerien> findColisAerienCommandePin(String pin);
 
-    @Query(value = "select * from Colis_aerien ORDER BY id DESC LIMIT 1", nativeQuery = true)
-    ColisAerien showMaLastColisAerien();
+    @Query(value = "select * from colis_aerien WHERE commandeid = :id ORDER BY id DESC LIMIT 1", nativeQuery = true)
+    ColisAerien showMaLastColisAerien(@Param("id") Long id);
 
   /*  @Query("select ca from Colis_aerien ca where ca.commandeid = :id ORDER BY ca.id DESC LIMIT 1")
     ColisAerien showMaLastColisAerienCommande(@Param("id") Long id);*/
@@ -70,8 +70,9 @@ public interface ColisAerienRepository extends JpaRepository<ColisAerien, Long> 
                                 @Param("prixt") double prixt,
                                 @Param("trans") double trans,
                                 @Param("id") Long id);
-
-    @Query("delete from ColisAerien ca where ca.commandeid = :id")
+    @Transactional
+    @Modifying
+    @Query(value = "delete from colis_aerien where commandeid=:id", nativeQuery = true)
     void supprimerColisCommande(@Param("id") Long id);
 
 }

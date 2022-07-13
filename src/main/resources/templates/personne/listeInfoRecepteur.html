@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="clearfix"></div>
+    <div>
+        <div style="margin:10px;" class="title_left">
+            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Liste des clients receveurs bloqués</small></h4>
+        </div>
+    </div>
+
+    <!-- table -->
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Settings 1</a>
+                            <a class="dropdown-item" href="#">Settings 2</a>
+                        </div>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nom & prénoms</th>
+                                    <th>Pays</th>
+                                    <th>Etat</th>
+                                    <th>Ville</th>
+                                    <th>Date du blocage</th>
+                                    <th>Motif du blocage</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="info:${infos}">
+                                    <td th:text="${info.id}"></td>
+                                    <td th:text="${info.recepteur.nomPersonne}+' '+${info.recepteur.prenomPersonne}"></td>
+                                    <td th:text="${info.recepteur.pays.libellePays}"></td>
+                                    <td th:text="${info.recepteur.etat.libelleEtat}"></td>
+                                    <td th:text="${info.recepteur.villePersonne}"></td>
+                                    <td th:text="${info.dateInfo}"></td>
+                                    <td th:text="${info.motifInfo}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- End table -->
+</div>
+</body>
+</html>

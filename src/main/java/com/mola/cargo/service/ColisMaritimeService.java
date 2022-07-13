@@ -79,8 +79,8 @@ public class ColisMaritimeService {
         return appartient;
     }
 
-    public ColisMaritime showMaLastColisMaritime(){
-        return colisMaritimeRepository.showMaLastColisMaritime();
+    public ColisMaritime showMaLastColisMaritime(Long id){
+        return colisMaritimeRepository.showMaLastColisMaritime(id);
     }
 
     public int nbreColisMaritime(Long id){
@@ -143,6 +143,10 @@ public class ColisMaritimeService {
 
     public void supprimerColisCommande(Long id){
         colisMaritimeRepository.supprimerColisCommande(id);
+    }
+
+    public ColisMaritime showMaColisMaritimeByCommandeId(Long id){
+        return colisMaritimeRepository.showMaColisMaritimeByCommandeId(id);
     }
 
 }

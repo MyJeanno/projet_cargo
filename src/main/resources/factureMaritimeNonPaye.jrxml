@@ -21,6 +21,15 @@
     <parameter name="taxe_maritime" class="java.lang.Double"/>
     <parameter name="user" class="java.lang.String"/>
     <parameter name="total_transport" class="java.lang.Double"/>
+    <parameter name="chemin_logo" class="java.lang.String">
+        <defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+    </parameter>
+    <parameter name="tampon_non_paye" class="java.lang.String">
+        <defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+    </parameter>
+    <parameter name="logo_paypal" class="java.lang.String">
+        <defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+    </parameter>
     <queryString>
         <![CDATA[]]>
     </queryString>
@@ -151,7 +160,7 @@
         <band height="232" splitType="Stretch">
             <image>
                 <reportElement x="0" y="0" width="50" height="50" uuid="0b04e103-25d8-46c3-9287-33ef6b42153f"/>
-                <imageExpression><![CDATA["D:/PROJET MENAD/cargo/head.png"]]></imageExpression>
+                <imageExpression><![CDATA[$P{chemin_logo}]]></imageExpression>
             </image>
             <staticText>
                 <reportElement x="0" y="40" width="290" height="50" uuid="dacad7cb-5f0f-4ff2-a504-ad9e3a777899"/>
@@ -162,15 +171,6 @@
 Lomé-Togo
 Email : info@molaetfils.com / www.molaetfils.com
 Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="220" y="0" width="340" height="40" uuid="234293cb-da59-463e-b517-cc260f2db444"/>
-                <textElement>
-                    <font size="8"/>
-                </textElement>
-                <text><![CDATA[   			                                                                Mola et Fils, M. Biao
-                                       Commerce général, Import & Export, cargo shipping (MOLA CARGO),
-                              bureau de représentation commerciale et de conseils en matière de douane]]></text>
             </staticText>
             <line>
                 <reportElement x="0" y="90" width="555" height="1" uuid="c761b3ae-60f6-4a40-8550-3b0d3e8177f5"/>
@@ -809,7 +809,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                 <textElement verticalAlignment="Middle">
                     <font size="10"/>
                 </textElement>
-                <text><![CDATA[Total payé en Euro]]></text>
+                <text><![CDATA[Total avancé en Euro]]></text>
             </staticText>
             <textField pattern="#,##0.00#;#,##0.00#-">
                 <reportElement x="460" y="72" width="95" height="18" uuid="e1e2fecf-5e50-4e37-9fa5-2890939d1dfc">
@@ -825,21 +825,6 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <font size="12" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{montant_petit_carton}+$P{montant_grand_carton}+$P{taxe_maritime}+$P{total_transport}]]></textFieldExpression>
-            </textField>
-            <textField pattern="#,##0.00¤;#,##0.00- ¤">
-                <reportElement x="460" y="108" width="95" height="18" uuid="db84adb4-4b06-4ca0-adc9-01bcc8e814f1">
-                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
-                </reportElement>
-                <box rightPadding="5">
-                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                </box>
-                <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font size="12" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.montantPaye}/655.97]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement mode="Transparent" x="0" y="54" width="460" height="18" backcolor="#F4FB24" uuid="562a7315-7cd7-4f16-b93f-9436190119e6">
@@ -1089,7 +1074,7 @@ Receveur : Menad BIAO]]></text>
                 <reportElement x="330" y="224" width="162" height="37" uuid="11f4ca40-a7dd-4710-a5b6-47f4660560ae">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
-                <imageExpression><![CDATA["D:/PROJET MENAD/cargo/paypal.png"]]></imageExpression>
+                <imageExpression><![CDATA[$P{logo_paypal}]]></imageExpression>
             </image>
             <staticText>
                 <reportElement x="330" y="261" width="162" height="18" uuid="1da60308-6796-46de-be35-74daf22dc588"/>
@@ -1132,9 +1117,9 @@ Receveur : Menad BIAO]]></text>
                 <textElement verticalAlignment="Middle">
                     <font size="10"/>
                 </textElement>
-                <text><![CDATA[Total payé en XOF]]></text>
+                <text><![CDATA[Total avancé en XOF]]></text>
             </staticText>
-            <textField pattern="#,##0.00¤;#,##0.00- ¤">
+            <textField pattern="#,##0.00#;#,##0.00#-">
                 <reportElement x="460" y="90" width="95" height="18" uuid="a30cb4ca-9660-4e93-9ca3-5a7998481934">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
@@ -1162,11 +1147,11 @@ Receveur : Menad BIAO]]></text>
                 <textElement verticalAlignment="Middle">
                     <font size="10"/>
                 </textElement>
-                <text><![CDATA[Reste à payer]]></text>
+                <text><![CDATA[Reste à payer(en XOF/Euro)]]></text>
             </staticText>
             <image>
                 <reportElement x="350" y="150" width="130" height="47" uuid="d3738169-bb16-470f-aec4-531ae97c541a"/>
-                <imageExpression><![CDATA["D:/PROJET MENAD/cargo/tamponAll.PNG"]]></imageExpression>
+                <imageExpression><![CDATA[$P{tampon_non_paye}]]></imageExpression>
             </image>
             <textField pattern="#,##0.00#;#,##0.00#-">
                 <reportElement x="350" y="126" width="110" height="18" uuid="171aa6f0-1a8b-48fd-bf5a-d8d2e0a586a4">
@@ -1183,8 +1168,8 @@ Receveur : Menad BIAO]]></text>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.solde}]]></textFieldExpression>
             </textField>
-            <textField pattern="#,##0.00¤;#,##0.00- ¤">
-                <reportElement x="460" y="126" width="95" height="18" uuid="629e0d90-ade5-4a00-a590-3c9960c0b22f">
+            <textField pattern="#,##0.00#;#,##0.00#-">
+                <reportElement x="460" y="108" width="95" height="18" uuid="488ac723-3605-47dd-a346-8f8baf16d6e7">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box rightPadding="5">
@@ -1196,7 +1181,22 @@ Receveur : Menad BIAO]]></text>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font size="12" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.solde}/655.97]]></textFieldExpression>
+                <textFieldExpression><![CDATA[String.valueOf(String.format("% ,.2f", ($F{colisMaritime.commande.montantPaye}/655.97)))+"€"]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.00#;#,##0.00#-">
+                <reportElement x="460" y="126" width="95" height="18" uuid="ef8d7cb8-93f5-4bf9-8fe4-b857c2ac45ff">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box rightPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[String.valueOf(String.format("% ,.2f", ($F{colisMaritime.commande.recepteur.solde}/655.97)))+"€"]]></textFieldExpression>
             </textField>
         </band>
     </summary>

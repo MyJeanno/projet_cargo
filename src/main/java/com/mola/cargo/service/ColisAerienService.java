@@ -45,8 +45,8 @@ public class ColisAerienService {
         return colisAerienRepository.nbreColisAerien(id);
     }
 
-    public ColisAerien showMaLastColisAerien(){
-        return colisAerienRepository.showMaLastColisAerien();
+    public ColisAerien showMaLastColisAerien(Long id){
+        return colisAerienRepository.showMaLastColisAerien(id);
     }
 
    /* public ColisAerien showMaLastColisAerienCommande(Long id){
@@ -78,7 +78,9 @@ public class ColisAerienService {
     }
 
     public double arrondirPoids(double d){
-        if(d-(int)d<=0.5){
+        if(d-(int)d == 0.0){
+            return d;
+        }else if(d-(int)d<=0.5){
             return (int)d + 0.5;
         }else{
             return (int)d + 1;

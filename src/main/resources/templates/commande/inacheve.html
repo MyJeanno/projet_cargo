@@ -39,6 +39,7 @@
                                     <thead>
                                     <tr>
                                         <th>N°</th>
+                                        <th>Commercial</th>
                                         <th>Emetteur</th>
                                         <th>Récepteur</th>
                                         <th>Actions</th>
@@ -47,10 +48,11 @@
                                     <tbody>
                                     <tr th:each="commande:${commande_inacheve}">
                                         <td th:text="${commande.pin}"></td>
+                                        <td th:text="${commande.user.prenom}"></td>
                                         <td th:text="${commande.emetteur.nomPersonne}+' '+${commande.emetteur.prenomPersonne}"></td>
                                         <td th:text="${commande.recepteur.nomPersonne}+' '+${commande.recepteur.prenomPersonne}"></td>
                                         <td>
-                                            <a class="btn btn-round btn-sm btn-info" th:href="@{/commande/reprise/{id}(id=${commande.id})}">Reprendre</a>
+                                            <!--<a class="btn btn-round btn-sm btn-info" th:href="@{/commande/reprise/{id}(id=${commande.id})}">Reprendre</a>-->
                                             <a class="btn btn-round btn-sm btn-danger" th:href="@{/commande/annuler/{id}(id=${commande.id})}">Supprimer</a>
                                         </td>
                                     </tr>

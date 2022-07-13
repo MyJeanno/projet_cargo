@@ -10,11 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class CommandeController {
@@ -57,8 +57,14 @@ public class CommandeController {
     //Renvoie le formulaire de la nouvelle commande
     @GetMapping("/commande/formCommande")
     public String showNouvelleCommande(Long idE, Long idR, Model model){
-        model.addAttribute("unEmetteur", emetteurService.showOneEmetteur(idE));
-        model.addAttribute("unRecepteur", recepteurService.showOneRecepteur(idR));
+        if(idE!=null && idR!=null){
+            model.addAttribute("unEmetteur", emetteurService.showOneEmetteur(idE));
+            model.addAttribute("unRecepteur", recepteurService.showOneRecepteur(idR));
+        }else {
+            model.addAttribute("unEmetteur", emetteurService.showMonDernierEmetteur(Constante.showUserConnecte().getId()));
+            model.addAttribute("unRecepteur", recepteurService.showMonDernierRecepteur(Constante.showUserConnecte().getId()));
+        }
+
         model.addAttribute("pieces", pieceService.showPiece());
         model.addAttribute("modePaiments", paiementService.showPaiement());
         model.addAttribute("uneReduction", reductionService.lareduction());
@@ -75,8 +81,9 @@ public class CommandeController {
         }
         commande.setPin(pin);
         commande.setDateEnvoi(new Date());
-        commande.setEtatCommande(Constante.STATUT_COMMANDE_INACHEVE);
-        if(commandeService.commandeSelonEtat(Constante.STATUT_COMMANDE_INACHEVE).size()==0){
+        commande.setEtatCommande(Constante.STATUT_COMMANDE_CREE);
+        commande.setUserid(Constante.showUserConnecte().getId());
+        if(commandeService.showCommandeInacheve(Constante.STATUT_COMMANDE_ACHEVE, Constante.showUserConnecte().getId()).size()==0){
             commandeService.saveCommande(commande);
             return "redirect:/mode/envoi";
         }else{
@@ -85,7 +92,7 @@ public class CommandeController {
     }
     @GetMapping("/enregistrements/inacheves")
     public String commandeInacheve(Model model){
-        model.addAttribute("commande_inacheve", commandeService.commandeSelonEtat(Constante.STATUT_COMMANDE_INACHEVE));
+        model.addAttribute("commande_inacheve", commandeService.showCommandeInacheve(Constante.STATUT_COMMANDE_ACHEVE, Constante.showUserConnecte().getId()));
         return "commande/inacheve";
     }
 
@@ -122,25 +129,30 @@ public class CommandeController {
 
     @GetMapping("/commande/annuler/{id}")
     public String reprendreCommande(@PathVariable("id") Long id) {
-        List<ColisAerien> liste_colis_aerien = colisAerienService.showColisAerien();
-        List<ColisMaritime> liste_colis_maritime = colisMaritimeService.showColisMaritime();
-        List<ProduitAerien> liste_produit_aerien = produitAerienService.showProduitsAerien();
-        List<ProduitMaritime> liste_produit_maritime = produitMaritimeService.showProduitsMaritime();
-       // System.out.println("***********************IDCOM = "+commandeService.showOnecommande(id).getTypeEnvoi()+"***************************");
-       if(produitAerienService.appartenanceProduitAerien(liste_produit_aerien, id)){
-            produitAerienService.supprimerProduitCommande(id);
-            colisAerienService.supprimerColisCommande(id);
-        }else if(produitMaritimeService.appartenanceProduitMaritime(liste_produit_maritime, id)){
-            produitMaritimeService.supprimerProduitCommande(id);
-            colisMaritimeService.supprimerColisCommande(id);
-        }else if(colisAerienService.appartenanceColisAerien(liste_colis_aerien, id)){
-           colisAerienService.supprimerColisCommande(id);
-       }else {
-           colisMaritimeService.supprimerColisCommande(id);
-       }
-       ;commandeService.supprimerCommande(id);
+        if(commandeService.showOnecommande(id).getEtatCommande().equals(Constante.STATUT_COMMANDE_CREE)) {
+            commandeService.supprimerCommande(id);
+            return "redirect:/enregistrements/inacheves";
+        }
+        if(commandeService.showOnecommande(id).getTypeEnvoi().equals(Constante.ENVOI_AERIEN)){
+            if(commandeService.showOnecommande(id).getEtatCommande().equals(Constante.STATUT_COLIS_CREE)){
+                colisAerienService.supprimerColisCommande(id);
+                commandeService.supprimerCommande(id);
+            }else if(commandeService.showOnecommande(id).getEtatCommande().equals(Constante.STATUT_PRODUIT_CREE)){
+                produitAerienService.supprimerProduitCommande(colisAerienService.showColisAerienCommande(id));
+                colisAerienService.supprimerColisCommande(id);
+                commandeService.supprimerCommande(id);
+            }
+        }else{
+            if(commandeService.showOnecommande(id).getEtatCommande().equals(Constante.STATUT_COLIS_CREE)){
+                colisMaritimeService.supprimerColisCommande(id);
+                commandeService.supprimerCommande(id);
+            }else if(commandeService.showOnecommande(id).getEtatCommande().equals(Constante.STATUT_PRODUIT_CREE)){
+                produitMaritimeService.supprimerProduitCommande(colisMaritimeService.showColisMaritimeCommande(id));
+                colisMaritimeService.supprimerColisCommande(id);
+                commandeService.supprimerCommande(id);
+            }
+        }
         return "redirect:/enregistrements/inacheves";
     }
-
 
 }

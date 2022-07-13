@@ -59,18 +59,27 @@
                             <td> : </td>
                              <td><b th:text="${prixTotal}"></b></td>
                         </tr>
+                        <tr>
+                            <td>Lieu de paiement</td>
+                            <td> : </td>
+                            <td bgcolor="yellow"><b th:text="${lastCommande.lieuPaiement}"></b></td>
+                        </tr>
                     </table>
                 <form th:action="@{/envoi/fin}" method="post" class="form-horizontal form-label-left">
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Montant payé</label>
+                    <div class="item form-group" th:switch = ${lastCommande.lieuPaiement}>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Montant à avancer</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="paye" class="form-control ">
+                            <input th:case = "Togo" type="text" th:value="${prixTotal2}" readonly name="paye" required class="form-control ">
+                            <input th:case="*" type="text" value="0" name="paye" required class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
                             <button type="submit" class="btn btn-primary">Finaliser</button>
                         </div>
+                    </div>
+                    <div class="item form-group" th:switch = ${lastCommande.lieuPaiement}>
+                       <p th:case = "Allemagne"><strong>NB : s'il y a un montant à avancer, précisez-le. Dans le cas contraire laisser le champ à zéro comme montant par défaut puis finaliser</strong></p>
                     </div>
                 </form>
                 </div>

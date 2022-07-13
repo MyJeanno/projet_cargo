@@ -3,245 +3,257 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Ets MOLA & FILS | CargoPlus</title>
+  <title>Ets MOLA & FILS | CargoPlus</title>
 
-    <!-- Bootstrap -->
-    <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
+  <!-- Bootstrap -->
+  <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- NProgress -->
+  <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="/build/css/custom.min.css" rel="stylesheet">
-    <!-- jQuery custom content scroller -->
-    <link href="/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
-    <!-- Datatables -->
-    <link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-  </head>
+  <!-- Custom Theme Style -->
+  <link href="/build/css/custom.min.css" rel="stylesheet">
+  <!-- jQuery custom content scroller -->
+  <link href="/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <!-- Datatables -->
+  <link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  <link href="/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+  <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+  <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+  <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+</head>
 
-  <body class="nav-md footer_fixed">
-    <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a th:href="@{/}" class="site_title"><i class="fa fa-paw"></i> <span>Mola et fils</span></a>
-            </div>
+<body class="nav-md footer_fixed">
+<div class="container body">
+  <div class="main_container">
+    <div class="col-md-3 left_col">
+      <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+          <a th:href="@{/}" class="site_title"><i class="fa fa-paw"></i> <span>Mola et fils</span></a>
+        </div>
 
-            <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="/images/logo2.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Bienvenu,</span>
-                <h2 th:text ="${#authentication.getPrincipal().getUser().getPrenom()}"></h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+          <div class="profile_pic">
+            <img src="/images/logo2.jpg" alt="..." class="img-circle profile_img">
+          </div>
+          <div class="profile_info">
+            <span>Bienvenu,</span>
+            <h2 th:text ="${#authentication.getPrincipal().getUser().getPrenom()}"></h2>
+          </div>
+        </div>
+        <!-- /menu profile quick info -->
 
-            <br />
+        <br />
 
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>Live On</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i>Paramétrages<span class="fa fa-chevron-down"></span></a>
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+          <div class="menu_section">
+            <h3>Live On</h3>
+            <ul class="nav side-menu">
+              <li sec:authorize="hasAnyRole('ADMIN')"><a><i class="fa fa-bug"></i>Paramétrages<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a th:href="@{/param/pieces}">Ajouter une pièce</a></li>
+                  <li><a th:href="@{/param/paiements}">Ajouter un mode de paiement</a></li>
+                  <li><a th:href="@{/param/cargoTypes}">Paramétrage carton maritime</a></li>
+                  <li><a th:href="@{/param/emballages}">Paramétrage carton aérien</a></li>
+                  <li><a th:href="@{/param/tarifs}">Paramétrage des prix/kg</a></li>
+                  <li><a th:href="@{/reduction/param}">Paramétrage des reductions</a></li>
+                  <li><a th:href="@{/param/transports}">Paramétrage transport</a></li>
+                  <li><a th:href="@{/param/pays}">Enregistrer un pays</a></li>
+                  <li><a th:href="@{/param/etats}">Enregistrer un Etat</a></li>
+                  <li><a th:href="@{/param/cartons}">Ajouter un carton</a></li>
+                  <li><a th:href="@{/param/codepostals}">Liste des codes postaux</a></li>
+                  <li><a>Bloquer/débloquer un client<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a th:href="@{/param/pieces}">Ajouter une pièce</a></li>
-                      <li><a th:href="@{/param/paiements}">Ajouter un mode de paiement</a></li>
-                      <li><a th:href="@{/param/cargoTypes}">Paramétrage carton maritime</a></li>
-                      <li><a th:href="@{/param/emballages}">Paramétrage carton aérien</a></li>
-                      <li><a th:href="@{/param/tarifs}">Paramétrage des prix/kg</a></li>
-                      <li><a th:href="@{/reduction/param}">Paramétrage des reductions</a></li>
-                      <li><a th:href="@{/param/transports}">Paramétrage transport</a></li>
-                      <li><a th:href="@{/param/pays}">Enregistrer un pays</a></li>
-                      <li><a th:href="@{/param/etats}">Enregistrer un Etat</a></li>
-                        <li><a th:href="@{/param/cartons}">Ajouter un carton</a></li>
-                      <li><a th:href="@{/param/codepostals}">Liste des codes postaux</a></li>
+                      <li class="sub_menu"><a th:href="@{/personne/emetteur/info}">Envoyeur</a></li>
+                      <li><a th:href="@{/personne/recepteur/info}">Receveur</a></li>
                     </ul>
                   </li>
-                    <li><a><i class="fa fa-male"></i>Gestion des clients <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a th:href="@{/personne/emetteurs}">Ajouter un expéditeur</a></li>
-                            <li><a th:href="@{/personne/recepteurs}">Ajouter un destinataire</a></li>
-                            <li><a th:href="@{/cartonVentes}">Vente des cartons</a></li>
-                        </ul>
-                    </li>
-
-                  <li><a><i class="fa fa-plane"></i>Gestion des envois <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a th:href="@{/personne/emetteur/envoi}">Enregistrer un envoi</a></li>
-                      <!--<li><a th:href="@{/enregistrements/inacheves}">Annuler un enregistrement inachevé</a></li>-->
-                    </ul>
-                  </li>
-
-                  <li><a><i class="fa fa-share"></i> Gestion des sorties <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a>Créer un idenfiant<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                          <li class="sub_menu"><a th:href="@{/convoiAeriens}">Aérien</a></li>
-                          <li><a th:href="@{/convoiMaritimes}">Maritime</a></li>
-                        </ul>
-                      </li>
-                      <li><a th:href="@{/toutConvoi/liste}">Facture par lot</a></li>
-                      <li><a th:href="@{/stat/listeFactures/all}">Rechercher une Facture</a></li>
-                      <li><a th:href="@{/lesConvoi/liste}">Réaffecter un colis</a></li>
-                      <li><a th:href="@{/choixMaritime/commande}">Modifier un colis maritime</a></li>
-                    </ul>
-                  </li>
-
-                  <li><a><i class="fa fa-envelope"></i>Vente de cartons <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a th:href="@{/cartonAppros}">Appro des cartons</a></li>
-                      <li><a th:href="@{/cartonVentes}">Vente des cartons</a></li>
-                    </ul>
-                  </li>
-
-                  <li><a><i class="fa fa-info"></i> Inventaire <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a th:href="@{/stat/inventaires}">Factures payés au Togo</a></li>
-                      <li><a th:href="@{/stat/inventaires/non_paye}">Factures à payer en Allemagne</a></li>
-                      <li><a th:href="@{/stat/inventaires/encaisser}">Annuler un encaissement</a></li>
-                      <li><a th:href="@{/stat/encaissement/liste}">Liste des encaissements</a></li>
-                      <li><a th:href="@{/stat/inventaires/annulation}">Valider une annulation</a></li>
-                      <li><a th:href="@{/stat/annulation/liste}">Afficher les annulations</a></li>
-                    </ul>
-                  </li>
-
-                  <li sec:authorize="hasAnyRole('ADMIN')"><a><i class="fa fa-bar-chart"></i> Statistiques <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a>Lots de colis envoyés<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                          <li class="sub_menu"><a th:href="@{/convoiAeriensAdmin}">Par voie aérien</a></li>
-                          <li><a th:href="@{/convoiMaritimesAdmin}">Par voie maritime</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
-              </div>
+              </li>
+              <li><a><i class="fa fa-male"></i>Gestion des clients <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a th:href="@{/personne/emetteurs}">Ajouter un expéditeur</a></li>
+                  <li><a th:href="@{/personne/recepteurs}">Ajouter un destinataire</a></li>
+                  <li><a> Clients bloqués<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li class="sub_menu"><a th:href="@{/emetteur/listeInfo}">Envoyeur</a></li>
+                      <li><a th:href="@{/recepteur/listeInfo}">Receveur</a></li>
+                    </ul>
+                  </li>
+                  <li><a th:href="@{/cartonVentes}">Vente des cartons</a></li>
+                  <li><a th:href="@{/users/mon_compte}">Mon compte</a></li>
+                </ul>
+              </li>
 
-            </div>
-            <!-- /sidebar menu -->
+              <li><a><i class="fa fa-plane"></i>Gestion des envois <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a th:href="@{/personne/emetteur/envoi}">Enregistrer un envoi</a></li>
+                  <li><a th:href="@{/enregistrements/inacheves}">Enregistrement inachevé</a></li>
+                </ul>
+              </li>
 
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
+              <li><a><i class="fa fa-share"></i> Gestion des sorties <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a>Créer un idenfiant<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li class="sub_menu"><a th:href="@{/convoiAeriens}">Aérien</a></li>
+                      <li><a th:href="@{/convoiMaritimes}">Maritime</a></li>
+                    </ul>
+                  </li>
+                  <li><a th:href="@{/toutConvoi/liste}">Facture par lot</a></li>
+                  <li><a th:href="@{/stat/listeFactures/all}">Rechercher une Facture</a></li>
+                  <li><a th:href="@{/lesConvoi/liste}">Réaffecter un colis</a></li>
+                  <!--<li><a th:href="@{/choixMaritime/commande}">Modifier un colis maritime</a></li>-->
+                </ul>
+              </li>
+
+              <li><a><i class="fa fa-envelope"></i>Vente de cartons <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a th:href="@{/cartonAppros}">Appro des cartons</a></li>
+                  <li><a th:href="@{/cartonVentes}">Vente des cartons</a></li>
+                </ul>
+              </li>
+
+              <li><a><i class="fa fa-info"></i> Inventaire <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a th:href="@{/stat/inventaires}">Factures payés au Togo</a></li>
+                  <li><a th:href="@{/stat/inventaires/non_paye}">Factures à payer en Allemagne</a></li>
+                  <li><a th:href="@{/stat/inventaires/encaisser}">Annuler un encaissement</a></li>
+                  <li><a th:href="@{/stat/encaissement/liste}">Liste des encaissements</a></li>
+                  <li><a th:href="@{/stat/inventaires/annulation}">Valider une annulation</a></li>
+                  <!--<li><a th:href="@{/stat/annulation/liste}">Afficher les annulations</a></li>-->
+                </ul>
+              </li>
+
+              <li sec:authorize="hasAnyRole('ADMIN')"><a><i class="fa fa-bar-chart"></i> Statistiques <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a>Lots de colis envoyés<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li class="sub_menu"><a th:href="@{/convoiAeriensAdmin}">Par voie aérien</a></li>
+                      <li><a th:href="@{/convoiMaritimesAdmin}">Par voie maritime</a></li>
+                    </ul>
+                  <li sec:authorize="hasAnyRole('SUPER')"><a th:href="@{/users}">Créer un utilisateur</a></li>
+                  </li>
+                </ul>
+              </li>
+
+            </ul>
           </div>
+
         </div>
+        <!-- /sidebar menu -->
 
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-            <div class="nav toggle">
-              <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-            </div>
-            <nav class="nav navbar-nav">
-              <ul class=" navbar-right">
-                <li sec:authorize="isAuthenticated()" style="padding-left: 15px;">
-                    <a th:href="@{/logout}">Déconnexion</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+          <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+          </a>
+          <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+          </a>
         </div>
-        <!-- /top navigation -->
-
-        <!-- page content -->
-        <div class="right_col" role="main">
-          <div class="">
-          <div layout:fragment="content"></div>
-          </div>
-        </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            &copy; Ora-Tech technology <a href="#">Copyright 2022. Tous droits réservés.</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+        <!-- /menu footer buttons -->
       </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="/vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FastClick -->
-    <script src="/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="/vendors/nprogress/nprogress.js"></script>
-    <!-- jQuery Sparklines -->
-    <script src="/vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-    <!-- morris.js -->
-    <script src="/vendors/raphael/raphael.min.js"></script>
-    <script src="/vendors/morris.js/morris.min.js"></script>
-    <!-- gauge.js -->
-    <script src="/vendors/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- top navigation -->
+    <div class="top_nav">
+      <div class="nav_menu">
+        <div class="nav toggle">
+          <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+        </div>
+        <nav class="nav navbar-nav">
+          <ul class=" navbar-right">
+            <li sec:authorize="isAuthenticated()" style="padding-left: 15px;">
+              <a th:href="@{/logout}">Déconnexion</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- /top navigation -->
 
+    <!-- page content -->
+    <div class="right_col" role="main">
+      <div class="">
+        <div layout:fragment="content"></div>
+      </div>
+    </div>
+    <!-- /page content -->
 
-    <!-- jQuery Smart Wizard -->
-    <script src="/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="/build/js/custom.min.js"></script>
-    <script src="/build/js/suppression.js"></script>
-    <script src="/build/js/colis.js"></script>
-    <!-- jQuery custom content scroller -->
-    <script src="/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <!-- iCheck -->
-    <script src="/vendors/iCheck/icheck.min.js"></script>
-    <!-- Datatables -->
-    <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-    <script src="/vendors/jszip/dist/jszip.min.js"></script>
-    <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
-  </body>
+    <!-- footer content -->
+    <footer>
+      <div class="pull-right">
+        &copy; Ora-Tech technology <a href="#">Copyright 2022. Tous droits réservés.</a>
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- FastClick -->
+<script src="/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/vendors/nprogress/nprogress.js"></script>
+<!-- jQuery Sparklines -->
+<script src="/vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<!-- morris.js -->
+<script src="/vendors/raphael/raphael.min.js"></script>
+<script src="/vendors/morris.js/morris.min.js"></script>
+<!-- gauge.js -->
+<script src="/vendors/gauge.js/dist/gauge.min.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+
+<!-- jQuery Smart Wizard -->
+<script src="/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="/build/js/custom.min.js"></script>
+<script src="/build/js/suppression.js"></script>
+<script src="/build/js/colis.js"></script>
+<!-- jQuery custom content scroller -->
+<script src="/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- iCheck -->
+<script src="/vendors/iCheck/icheck.min.js"></script>
+<!-- Datatables -->
+<script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="/vendors/jszip/dist/jszip.min.js"></script>
+<script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
+</body>
 </html>

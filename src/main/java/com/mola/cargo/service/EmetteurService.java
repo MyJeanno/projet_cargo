@@ -46,4 +46,12 @@ public class EmetteurService {
     public void deleteEmetteur(Long id){
         emetteurRepository.deleteById(id);
     }
+
+    public Emetteur showMonDernierEmetteur(Long id){
+        return emetteurRepository.showMaLastEmetteur(id);
+    }
+
+    public void updateInfoEmetteur(String etat, Long id){
+        emetteurRepository.updateInfoEmetteur(etat, id);
+    }
 }

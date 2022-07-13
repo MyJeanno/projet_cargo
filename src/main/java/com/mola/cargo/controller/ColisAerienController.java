@@ -31,24 +31,24 @@ public class ColisAerienController {
 
     @GetMapping("/colisAerien/form")
     public String afficherFormColisAerien(Model model){
-        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande(Constante.showUserConnecte().getId()));
         model.addAttribute("emballages", emballageService.showEmballages());
-        commandeService.updateTypeCommande(Constante.ENVOI_AERIEN, commandeService.showMaLastCommande().getId());
+        commandeService.updateTypeCommande(Constante.ENVOI_AERIEN, commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
         return "colis/formColisAerien";
     }
 
     @GetMapping("/colisAerien/listePoids")
     public String afficherColisAerien(Model model){
-        model.addAttribute("lesColis", colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId()));
-        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
-        model.addAttribute("lastColisAerien", colisAerienService.showMaLastColisAerien());
+        model.addAttribute("lesColis", colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande(Constante.showUserConnecte().getId()));
+        model.addAttribute("lastColisAerien", colisAerienService.showMaLastColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
         //model.addAttribute("prixTotal", String.format("% ,.2f", prixTotal));
         return "colis/poidsColisAerien";
     }
 
     @PostMapping("/colisAerien/poids")
     public String ajouterPoids(@RequestParam List<Double> poids){
-      List<ColisAerien> ListeColisAeriens = colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId());
+      List<ColisAerien> ListeColisAeriens = colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
       int i =0;
       for (ColisAerien ca:ListeColisAeriens){
           if(ca.getCommande().getTransport().equals("Oui")){
@@ -80,8 +80,11 @@ public class ColisAerienController {
         }
         colisAerien.setNumeroColis(numero);
         colisAerien.setStatut(Constante.INITIAL);
-        colisAerien.setCommandeid(commandeService.showMaLastCommande().getId());
+        colisAerien.setCommandeid(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
         colisAerien.setPoids(0.0);
+        if(!commandeService.showOnecommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()).getEtatCommande().equals(Constante.STATUT_PRODUIT_CREE)){
+            commandeService.updateEtatCommande(Constante.STATUT_COLIS_CREE, commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+        }
         colisAerienService.saveColisAerien(colisAerien);
         return "redirect:/colisAerien/produits";
     }
@@ -89,8 +92,8 @@ public class ColisAerienController {
     //Liste des colis par voie aérienne
     @GetMapping("/colisAerien/listes")
     public String afficherListeColisAerien(Model model){
-        model.addAttribute("colisAerien", colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande().getId()));
-        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
+        model.addAttribute("colisAerien", colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande(Constante.showUserConnecte().getId()));
         return "colis/listeColisAerien";
     }
 

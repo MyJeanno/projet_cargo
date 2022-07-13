@@ -1,6 +1,7 @@
 package com.mola.cargo.repository;
 
 import com.mola.cargo.model.Commande;
+import com.mola.cargo.model.ProduitAerien;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,8 +14,11 @@ import java.util.List;
 @Repository
 public interface CommandeRepository extends JpaRepository<Commande, Long> {
 
-    @Query(value = "select * from commande ORDER BY id DESC LIMIT 1", nativeQuery = true)
-    Commande showMaLastCommande();
+    @Query(value = "select * from commande WHERE userid = :id ORDER BY id DESC LIMIT 1", nativeQuery = true)
+    Commande showMaLastCommande(@Param("id") Long id);
+
+    @Query("select c from Commande c where c.etatCommande != :etat and userid = :id")
+    List<Commande> showCommandeInacheve(@Param("etat") String etat, @Param("id") Long id);
 
     @Transactional
     @Modifying
@@ -33,6 +37,8 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
 
     Commande findByPin(String pin);
     List<Commande> findByEtatCommande(String etat);
-    @Query("delete from Commande c where c.id = :id")
-    void supprimerCommande(@Param("id") Long id);
+    @Transactional
+    @Modifying
+    @Query(value = "delete from commande where id=:idc", nativeQuery = true)
+    void supprimerCommande(@Param("idc") Long idc);
 }

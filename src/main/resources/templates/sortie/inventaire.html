@@ -41,6 +41,7 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>Commercial</th>
                                     <th>N° com</th>
                                     <th>Expéditeur</th>
                                     <th>Destinataire</th>
@@ -54,6 +55,7 @@
                                 <tbody>
                                 <tr th:each="inventaire:${inventaires}">
                                     <td th:text="${inventaire.id}"></td>
+                                    <td th:text="${inventaire.commande.user.prenom}"></td>
                                     <td th:text="${inventaire.commande.pin}"></td>
                                     <td th:text="${inventaire.commande.emetteur.nomPersonne}+' '+${inventaire.commande.emetteur.prenomPersonne}"></td>
                                     <td th:text="${inventaire.commande.recepteur.nomPersonne}+' '+${inventaire.commande.recepteur.prenomPersonne}"></td>

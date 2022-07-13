@@ -1,14 +1,14 @@
 package com.mola.cargo.controller;
 
-import com.mola.cargo.model.ColisAerien;
-import com.mola.cargo.model.Commande;
-import com.mola.cargo.model.Inventaire;
-import com.mola.cargo.model.ProduitAerien;
+import com.mola.cargo.model.*;
 import com.mola.cargo.service.*;
 import com.mola.cargo.util.Constante;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +16,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -43,20 +43,22 @@ public class ProduitAerienController {
     private ReductionService tarifAerienService;
     @Autowired
     private RecepteurService recepteurService;
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     private double getTotalApayer(){
-        return  colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
-                commandeService.showMaLastCommande().getReduction())
-                + produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId())
-                +colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId());
+        return  colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()),
+                commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getReduction())
+                + produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId())
+                +colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
     }
 
     @GetMapping("/colisAerien/produits")
     public String afficherProduitAerien(Model model){
         //System.out.println("Frais = "+produitAerienService.fraisEmballage());
-        model.addAttribute("produitsAerien", produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId()));
+        model.addAttribute("produitsAerien", produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
         model.addAttribute("tarifs", tarifService.showTarifs());
-        model.addAttribute("lastColisAerien", colisAerienService.showMaLastColisAerien());
+        model.addAttribute("lastColisAerien", colisAerienService.showMaLastColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
         return "produit/produitAerien";
     }
 
@@ -100,7 +102,7 @@ public class ProduitAerienController {
                 }
             }
         }*/
-
+        commandeService.updateEtatCommande(Constante.STATUT_PRODUIT_CREE, commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
         produitAerienService.saveProduitAerien(produitAerien);
         return "redirect:/colisAerien/produits";
     }
@@ -136,21 +138,22 @@ public class ProduitAerienController {
     }
     @GetMapping("/envoi/detail")
     public String afficherDetailCommande(Model model){
-        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
-        model.addAttribute("nbColis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
-        model.addAttribute("transport", String.format("% ,.2f", colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId())));
-        model.addAttribute("taxe", String.format("% ,.2f", produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId())));
-        model.addAttribute("prixColis", String.format("% ,.2f", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
-                commandeService.showMaLastCommande().getReduction())));
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande(Constante.showUserConnecte().getId()));
+        model.addAttribute("nbColis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
+        model.addAttribute("transport", String.format("% ,.2f", colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId())));
+        model.addAttribute("taxe", String.format("% ,.2f", produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId())));
+        model.addAttribute("prixColis", String.format("% ,.2f", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()),
+                commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getReduction())));
         model.addAttribute("prixTotal", String.format("% ,.2f", getTotalApayer()));
+        model.addAttribute("prixTotal2", getTotalApayer());
         return "commande/detailEnvoiAerien";
     }
     @PostMapping("/envoi/fin")
     public String finaliserCommande(@RequestParam String paye){
-        commandeService.updatePaiementCommande(getTotalApayer(), Double.parseDouble(paye), commandeService.showMaLastCommande().getId());
-        commandeService.updateEtatCommande(Constante.STATUT_COMMANDE_ACHEVE, commandeService.showMaLastCommande().getId());
-        recepteurService.updateSoldeClient(getTotalApayer()-Double.parseDouble(paye), commandeService.showMaLastCommande().getRecepteur().getId());
-        if(commandeService.showMaLastCommande().getLieuPaiement().equals(Constante.LIEU_TOGO)){
+        commandeService.updatePaiementCommande(getTotalApayer(), Double.parseDouble(paye), commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+        commandeService.updateEtatCommande(Constante.STATUT_COMMANDE_ACHEVE, commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+        recepteurService.updateSoldeClient(getTotalApayer()-Double.parseDouble(paye), commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getRecepteur().getId());
+        if(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getLieuPaiement().equals(Constante.LIEU_TOGO)){
             return "redirect:/colisAerien/facture";
         }else{
             return "redirect:/colisAerien/facture_non_paye";
@@ -160,7 +163,6 @@ public class ProduitAerienController {
     private String getPrincipal() {
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         if (principal instanceof UserDetails) {
             userName = ((UserDetails) principal).getUsername();
         } else {
@@ -171,33 +173,40 @@ public class ProduitAerienController {
 
     //Fonction pour générer la facture aerienne payée au Togo
     @GetMapping("/colisAerien/facture")
-    public ResponseEntity<byte[]> factureAerienne() throws FileNotFoundException, JRException {
-        List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId());
+    public ResponseEntity<byte[]> factureAerienne() throws IOException, JRException {
+        List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+        /*En local
         File file = ResourceUtils.getFile("classpath:factureAeriennePaye.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        */
+        //En déploiement
+        Resource resource = resourceLoader.getResource("classpath:factureAeriennePaye.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdAerien);
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
-        parameter.put("user", getPrincipal());
-        parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
-        parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId()));
-        parameter.put("poids", colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande().getId()));
-        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
-                                      commandeService.showMaLastCommande().getReduction()));
-        parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId()));
+        parameter.put("chemin_logo", "head.png");
+        parameter.put("tampon_paye", "tampon_paye.PNG");
+        parameter.put("user", commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getUser().getPrenom());
+        parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
+        parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
+        parameter.put("poids", colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
+        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()),
+                commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getReduction()));
+        parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonnePaye(commandeService.showMaLastCommande().getId())+"-"+LocalDate.now()+".pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonnePaye(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId())+"-"+LocalDate.now()+".pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
         double prixTotal = getTotalApayer();
-        inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
+        inventaire.setCommandeid(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
-        inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
+        inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
         inventaire.setPrixTotal(prixTotal);
-        inventaire.setCommercial(getPrincipal());
-        if(!inventaireService.testerAppartenance(commandeService.showMaLastCommande().getId())){
+        inventaire.setCommercial(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getUser().getPrenom());
+        if(!inventaireService.testerAppartenance(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId())){
             inventaireService.saveInventaire(inventaire);
         }
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
@@ -205,33 +214,36 @@ public class ProduitAerienController {
 
     //Fonction pour générer la facture aerienne non payée
     @GetMapping("/colisAerien/facture_non_paye")
-    public ResponseEntity<byte[]> factureAerienneNonPaye() throws FileNotFoundException, JRException {
-        List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande().getId());
-        File file = ResourceUtils.getFile("classpath:factureAerienneNonPaye.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+    public ResponseEntity<byte[]> factureAerienneNonPaye() throws IOException, JRException {
+        List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+        Resource resource = resourceLoader.getResource("classpath:factureAerienneNonPaye.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdAerien);
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
-        parameter.put("user", getPrincipal());
-        parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
-        parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande().getId()));
-        parameter.put("poids", colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande().getId()));
-        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande().getId()),
-                                    commandeService.showMaLastCommande().getReduction()));
-        parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande().getId()));
+        parameter.put("chemin_logo", "head.png");
+        parameter.put("tampon_non_paye", "tamponAll.PNG");
+        parameter.put("logo_paypal", "paypal.png");
+        parameter.put("user", commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getUser().getPrenom());
+        parameter.put("nbre_colis", colisAerienService.nbreColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
+        parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
+        parameter.put("poids", colisAerienService.poidsTotalColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
+        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()),
+                                    commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getReduction()));
+        parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonneNonPaye(commandeService.showMaLastCommande().getId())+"-"+LocalDate.now()+".pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonneNonPaye(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId())+"-"+LocalDate.now()+".pdf");
         //Création d'un inventaire
         Inventaire inventaire = new Inventaire();
         double prixTotal = getTotalApayer();
-        inventaire.setCommandeid(commandeService.showMaLastCommande().getId());
+        inventaire.setCommandeid(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
         inventaire.setStatus(Constante.INVENTAIRE_NON_ENCAISSE);
-        inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande().getId()));
+        inventaire.setNombreColis(colisAerienService.nbreColisAerien(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
         inventaire.setPrixTotal(prixTotal);
-        inventaire.setCommercial(getPrincipal());
-        if(!inventaireService.testerAppartenance(commandeService.showMaLastCommande().getId())){
+        inventaire.setCommercial(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getUser().getPrenom());
+        if(!inventaireService.testerAppartenance(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId())){
             inventaireService.saveInventaire(inventaire);
         }
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);

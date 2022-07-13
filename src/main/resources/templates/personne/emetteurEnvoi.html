@@ -50,6 +50,7 @@
                                         <th>Prénoms</th>
                                         <th>Ville</th>
                                         <th>Numéro client</th>
+                                        <th>Autorisation client</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -60,8 +61,10 @@
                                         <td th:text="${emetteur.prenomPersonne}"></td>
                                         <td th:text="${emetteur.villePersonne}"></td>
                                         <td th:text="${emetteur.numeroPersonne}"></td>
-                                        <td>
-                                            <a class="btn btn-round btn-sm btn-info" th:href="@{/personne/recepteur/liste/{id}(id=${emetteur.id})}"><i class="fa fa-arrow-right"></i></a>
+                                        <td th:text="${emetteur.etatPersonne}"></td>
+                                        <td th:switch="${emetteur.etatPersonne}">
+                                            <a th:case="AUTORISE" class="btn btn-round btn-sm btn-info" th:href="@{/personne/recepteur/liste/{id}(id=${emetteur.id})}"><i class="fa fa-arrow-right"></i></a>
+                                            <a th:case="*" class="btn btn-round btn-sm btn-warning dbtn" title="Client bloqué"><i class="fa fa-arrow-right"></i></a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -75,6 +78,26 @@
     </div>
     <div class="clearfix"></div>
     <!-- End table -->
+    <!-- Modal information -->
+    <div class="modal fade" id="deleteform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel">Information sur le client</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="alert alert-info">Impossible de faire un envoi avec ce client. Veuillez contacter le responsable pour necéssaire à faire</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal information -->
 </div>
 </body>
 </html>

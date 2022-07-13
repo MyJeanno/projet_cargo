@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
-public class CargoApplication{
+public class CargoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CargoApplication.class, args);
 	}

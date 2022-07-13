@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head></head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="page-title">
+        <div class="title_left">
+            <h4><small>Justification de blocage d'un receveur de colis</small></h4>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a class="dropdown-item" href="#">Settings 1</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form th:action="@{/personne/infoRecepteur/nouveau}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="hidden" name="recepteurId" th:value="${unRecepteur.id}" required="required" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-3 col-sm-3 ">Motif de blocage<span class="required">*</span></label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <textarea name="motifInfo" class="form-control" required="required" rows="3" placeholder="Motif"></textarea>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <a th:href="@{/personne/recepteur/info}" class="btn btn-secondary" type="button">Retour</a>
+                            <button type="submit" class="btn btn-success">Valider</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

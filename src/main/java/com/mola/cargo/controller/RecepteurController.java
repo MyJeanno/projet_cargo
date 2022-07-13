@@ -3,6 +3,7 @@ package com.mola.cargo.controller;
 import com.mola.cargo.model.Emetteur;
 import com.mola.cargo.model.Recepteur;
 import com.mola.cargo.service.*;
+import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,24 @@ public class RecepteurController {
     public String afficherRecepteur(Model model){
         model.addAttribute("recepteurs", recepteurService.showRecepteur());
         return "personne/recepteur";
+    }
+
+    @GetMapping("/recepteur/info")
+    public String showRecepteurInfo(Model model){
+        model.addAttribute("recepteurs", recepteurService.showRecepteur());
+        return "personne/recepteurInfo";
+    }
+
+    @GetMapping("/recepteur/info/form/{id}")
+    public String formInfo(@PathVariable("id") Long id, Model model){
+        model.addAttribute("unRecepteur", recepteurService.showOneRecepteur(id));
+        return "personne/formRecepteurInfo";
+    }
+
+    @GetMapping("/recepteur/info/debloquer/{id}")
+    public String debloquerEmetteur(@PathVariable("id") Long id){
+        recepteurService.updateInfoRecepteur(Constante.CLIENT_AUTORISE, id);
+        return "redirect:/personne/recepteur/info";
     }
 
     //Renvoie la liste des clients recepteurs pour l'envoi
@@ -51,8 +70,10 @@ public class RecepteurController {
             recepteur.setEtatid(17L);
         }
         recepteur.setSolde(0);
+        recepteur.setUserid(Constante.showUserConnecte().getId());
+        recepteur.setEtatPersonne(Constante.CLIENT_AUTORISE);
         recepteurService.saveRecepteur(recepteur);
-        return "redirect:/personne/recepteurs";
+        return "redirect:/commande/formCommande";
     }
 
     //renvoie le formulaire de mise à jour

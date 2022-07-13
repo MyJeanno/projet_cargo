@@ -4,13 +4,13 @@ import com.mola.cargo.model.Role;
 import com.mola.cargo.model.User;
 import com.mola.cargo.service.RoleService;
 import com.mola.cargo.service.UserService;
+import com.mola.cargo.util.Constante;
+import org.apache.bcel.classfile.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,6 +30,12 @@ public class UserController {
       model.addAttribute("users",userService.showUsers());
       model.addAttribute("roles", roleService.showRoles());
       return "securite/user";
+    }
+
+    @GetMapping("/users/mon_compte")
+    public String showUserProfil(Model model){
+        model.addAttribute("unUser",userService.showOneUser(Constante.showUserConnecte().getId()));
+        return "securite/monCompte";
     }
 
     @GetMapping("/login")
@@ -60,6 +66,27 @@ public class UserController {
         user.setPassword(pwdcrypter);
         user.setRoles(roles);
         userService.saveUser(user);
+        return "redirect:/users";
+    }
+    @GetMapping("/user/formUpdate/{id}")
+    public String formupdateUser(@PathVariable("id") Long id, Model model){
+        model.addAttribute("unUser", userService.showOneUser(id));
+        model.addAttribute("roles", roleService.showRoles());
+        return "securite/formEditUser";
+    }
+    @PostMapping("/user/update")
+    public String updateUser(@ModelAttribute("user") User user){
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        if(user.getRoles().isEmpty()){
+            user.setRoles("RECEPTIONNISTE");
+        }
+        userService.saveUser(user);
+        return "redirect:/users/mon_compte";
+    }
+
+    @GetMapping("/user/delete")
+    public String supprimerUser(Long id){
+        userService.deleteUser(id);
         return "redirect:/users";
     }
 

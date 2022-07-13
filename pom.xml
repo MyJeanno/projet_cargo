@@ -16,7 +16,7 @@
 	<description>Gestion logistique des cargos</description>
 	<properties>
 		<java.version>8</java.version>
-		<start-class>com.mola.cargo.CargoApplication</start-class>
+		<!--<start-class>com.mola.cargo.CargoApplication</start-class>-->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -118,6 +118,13 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
 				</configuration>
 			</plugin>
 		</plugins>

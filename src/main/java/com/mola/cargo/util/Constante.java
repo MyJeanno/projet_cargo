@@ -1,6 +1,9 @@
 package com.mola.cargo.util;
 
+import com.mola.cargo.model.User;
+import com.mola.cargo.service.CustomUserDetails;
 import lombok.Data;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Data
 public class Constante {
@@ -14,6 +17,9 @@ public class Constante {
     public static final String STATUT_CONVOI_ANCIEN = "ANCIEN";
     public static final String STATUT_COMMANDE_ACHEVE = "ACHEVE";
     public static final String STATUT_COMMANDE_INACHEVE = "INACHEVE";
+    public static final String STATUT_COMMANDE_CREE = "COMMANDE";
+    public static final String STATUT_COLIS_CREE = "COLIS";
+    public static final String STATUT_PRODUIT_CREE = "PRODUIT";
 
     public static final String INVENTAIRE_NON_ENCAISSE = "NON ENCAISSE";
     public static final String INVENTAIRE_ENCAISSE = "ENCAISSE";
@@ -24,6 +30,9 @@ public class Constante {
     public static final String LIEU_ALL = "Allemagne";
     public static final String TAXE_OUI = "Oui";
     public static final String TAXE_NON = "Non";
+
+    public static final String CLIENT_BLOQUE = "BLOQUE";
+    public static final String CLIENT_AUTORISE = "AUTORISE";
 
 
     public static final int MOIS_JANVIER = 1;
@@ -38,5 +47,16 @@ public class Constante {
     public static final int MOIS_OCTOBRE = 10;
     public static final int MOIS_NOVEMBRE = 11;
     public static final int MOIS_DECEMBRE = 12;
+
+    public static User showUserConnecte() {
+        User user = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof CustomUserDetails) {
+            user = ((CustomUserDetails) principal).getUser();
+        } else {
+            user = (User)principal;
+        }
+        return user;
+    }
 
 }

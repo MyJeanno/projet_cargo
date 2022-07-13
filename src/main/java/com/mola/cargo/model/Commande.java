@@ -46,6 +46,12 @@ public class Commande {
     private Recepteur recepteur;
     private Long recepteurid;
 
+    @ManyToOne
+    @JoinColumn(name = "userid", insertable = false, updatable = false)
+    private User user;
+    private Long userid;
+
+
     @Transient
     private final int NBRE_INITIAL = 10000;
     @Transient

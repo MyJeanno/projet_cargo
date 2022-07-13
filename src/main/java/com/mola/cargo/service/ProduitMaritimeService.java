@@ -1,5 +1,7 @@
 package com.mola.cargo.service;
 
+import com.mola.cargo.model.ColisAerien;
+import com.mola.cargo.model.ColisMaritime;
 import com.mola.cargo.model.ProduitAerien;
 import com.mola.cargo.model.ProduitMaritime;
 import com.mola.cargo.repository.ProduitMaritimeRepository;
@@ -104,8 +106,10 @@ public class ProduitMaritimeService {
         return app;
     }
 
-    public void supprimerProduitCommande(Long id){
-        produitMaritimeRepository.supprimerProduitCommande(id);
+    public void supprimerProduitCommande(List<ColisMaritime> liste_maritime){
+        for(ColisMaritime cm:liste_maritime){
+            produitMaritimeRepository.supprimerProduitCommande(cm.getId());
+        }
     }
 
 }

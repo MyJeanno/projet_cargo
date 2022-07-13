@@ -21,8 +21,11 @@ public interface ColisMaritimeRepository extends JpaRepository<ColisMaritime, Lo
     @Query("select cm from ColisMaritime cm where cm.commande.pin = ?1")
     List<ColisMaritime> findColisMaritimeCommandePin(String pin);
 
-    @Query(value = "select * from Colis_maritime ORDER BY id DESC LIMIT 1", nativeQuery = true)
-    ColisMaritime showMaLastColisMaritime();
+    @Query(value = "select * from colis_maritime WHERE commandeid = :id ORDER BY id DESC LIMIT 1", nativeQuery = true)
+    ColisMaritime showMaLastColisMaritime(@Param("id") Long id);
+
+    @Query(value = "select * from colis_maritime where commandeid=:id LIMIT 1", nativeQuery = true)
+    ColisMaritime showMaColisMaritimeByCommandeId(@Param("id") Long id);
 
     @Query("select COUNT(cm) FROM  ColisMaritime cm where cm.commandeid = ?1 and cm.id in (select p.colisMaritimeid from ProduitMaritime p)")
     int nbreColisMaritime(Long id);
@@ -59,7 +62,9 @@ public interface ColisMaritimeRepository extends JpaRepository<ColisMaritime, Lo
     @Query("update ColisMaritime cm SET cm.poids = :poids where cm.id = :id")
     void updatePoidsColisMaritime(@Param("poids") double poids, @Param("id") Long id);
 
-    @Query("delete from ColisMaritime cm where cm.commandeid = :id")
+    @Transactional
+    @Modifying
+    @Query(value = "delete from colis_maritime where commandeid=:id", nativeQuery = true)
     void supprimerColisCommande(@Param("id") Long id);
 
 

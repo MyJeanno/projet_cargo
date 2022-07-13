@@ -60,9 +60,9 @@
                                     <td th:text="${user.prenom}"></td>
                                     <td th:text="${user.username}"></td>
                                     <td th:text="${user.password}"></td>
-                                    <td>
-                                        <a class="btn btn-round btn-sm btn-info" th:href="@{user/formUpdate/{id}(id=${user.id})}"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{user/delete/(id=${user.id})}"><i class="fa fa-trash"></i></a>
+                                     <td>
+                                        <a class="btn btn-round btn-sm btn-info" th:href="@{/user/formUpdate/{id}(id=${user.id})}"><i class="fa fa-edit"></i></a>
+                                        <!--<a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{/user/delete/(id=${user.id})}"><i class="fa fa-trash"></i></a>-->
                                     </td>
                                 </tr>
                                 </tbody>
@@ -103,7 +103,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-9">
-                                <input type="text" name="email" class="form-control border-info">
+                                <input type="email" name="email" class="form-control border-info">
                             </div>
                         </div>
                         <div class="form-group row">

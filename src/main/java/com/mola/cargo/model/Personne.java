@@ -27,6 +27,13 @@ public class Personne {
     private String emailPersonne;
     @Column(name = "numero_personne")
     private String numeroPersonne;
+    @Column(name = "etat_personne")
+    private String etatPersonne;
+
+    @ManyToOne
+    @JoinColumn(name = "userid", insertable = false, updatable = false)
+    private User user;
+    private Long userid;
 
     @Transient
     protected final String INITIAL_ENTREPRISE = "MO";

@@ -2,10 +2,15 @@ package com.mola.cargo.service;
 
 import com.mola.cargo.model.ColisAerien;
 import com.mola.cargo.model.Commande;
+import com.mola.cargo.model.User;
 import com.mola.cargo.repository.CommandeRepository;
+import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -72,8 +77,8 @@ public class CommandeService {
       return commandeRepository.findAll().size();
     }
 
-    public Commande showMaLastCommande(){
-        return commandeRepository.showMaLastCommande();
+    public Commande showMaLastCommande(Long id){
+        return commandeRepository.showMaLastCommande(id);
     }
     public void saveCommande(Commande commande){
         commandeRepository.save(commande);
@@ -92,6 +97,10 @@ public class CommandeService {
 
     public void supprimerCommande(Long id){
         commandeRepository.supprimerCommande(id);
+    }
+
+    public List<Commande> showCommandeInacheve(String etat, Long id){
+        return commandeRepository.showCommandeInacheve(etat, id);
     }
 
 }

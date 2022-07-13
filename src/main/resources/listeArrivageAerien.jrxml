@@ -4,6 +4,9 @@
     <parameter name="nbre" class="java.lang.Integer">
         <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
     </parameter>
+    <parameter name="chemin_logo" class="java.lang.String">
+        <defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+    </parameter>
     <queryString>
         <![CDATA[]]>
     </queryString>
@@ -26,10 +29,10 @@
         <band splitType="Stretch"/>
     </background>
     <title>
-        <band height="154" splitType="Stretch">
+        <band height="142" splitType="Stretch">
             <image>
                 <reportElement x="0" y="0" width="50" height="50" uuid="e7844cfb-c4cf-4438-b737-833283004015"/>
-                <imageExpression><![CDATA["D:/PROJET MENAD/cargo/head.png"]]></imageExpression>
+                <imageExpression><![CDATA[$P{chemin_logo}]]></imageExpression>
             </image>
             <staticText>
                 <reportElement x="0" y="40" width="290" height="50" uuid="6d7ff549-6016-43a6-9c4f-993abc3e36c3"/>
@@ -40,15 +43,6 @@
 Lomé-Togo
 Email : info@molaetfils.com / www.molaetfils.com
 Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="220" y="0" width="340" height="40" uuid="b4561239-6fef-4bd3-878e-dab5ddb75b3b"/>
-                <textElement>
-                    <font size="8"/>
-                </textElement>
-                <text><![CDATA[   			                                                                Mola et Fils, M. Biao
-                                       Commerce général, Import & Export, cargo shipping (MOLA CARGO),
-                              bureau de représentation commerciale et de conseils en matière de douane]]></text>
             </staticText>
             <line>
                 <reportElement x="0" y="90" width="555" height="1" uuid="4c6a729e-6ce7-4596-8486-5638333c169c"/>
@@ -97,6 +91,27 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <reportElement x="453" y="120" width="20" height="22" uuid="da112ffa-a7ea-4a52-b5b7-8507e0e5ec42"/>
                 <textElement textAlignment="Center"/>
                 <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="180" y="0" width="373" height="13" uuid="ef0b08bf-8d80-4894-8b32-36922c1b5f88">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Right"/>
+                <text><![CDATA[Mola et Fils, M. Biao]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="180" y="13" width="373" height="13" uuid="78f6c959-a65f-415c-926f-98f1b51f9872">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Right"/>
+                <text><![CDATA[Commerce général, Import & Export, cargo shipping (MOLA CARGO),]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="180" y="26" width="373" height="13" uuid="b02b92d6-03a0-4818-b1e2-77256f429f23">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Right"/>
+                <text><![CDATA[bureau de représentation commerciale et de conseils en matière de douane.]]></text>
             </staticText>
         </band>
     </title>
@@ -373,7 +388,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textFieldExpression><![CDATA[$F{colisAerien.commande.recepteur.contactPersonne}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="390" y="0" width="60" height="15" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="2444f006-13db-465e-877b-e5c6caed56ed">
+                <reportElement x="390" y="0" width="60" height="15" isPrintInFirstWholeBand="true" uuid="2444f006-13db-465e-877b-e5c6caed56ed">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -400,4 +415,3 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
         </band>
     </pageFooter>
 </jasperReport>
-

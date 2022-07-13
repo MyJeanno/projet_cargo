@@ -8,6 +8,8 @@ import com.mola.cargo.util.Constante;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +46,8 @@ public class InventaireController {
     private AnnulationService annulationService;
     @Autowired
     private RecepteurService recepteurService;
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/inventaires")
@@ -115,16 +120,18 @@ public class InventaireController {
 
     //Fonction pour générer la facture maritime payé
     @GetMapping("/inventaireMaritime/facture/{id}")
-    public ResponseEntity<byte[]> factureMaritime(@PathVariable("id") Long id) throws FileNotFoundException, JRException {
+    public ResponseEntity<byte[]> factureMaritime(@PathVariable("id") Long id) throws IOException, JRException {
         List<ProduitMaritime> listeProdMaritime = produitMaritimeService.findProduitColisMaritime(inventaireService.showOneInventaire(id).getCommandeid());
-        File file = ResourceUtils.getFile("classpath:factureMaritimePaye.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Resource resource = resourceLoader.getResource("classpath:factureMaritimePaye.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdMaritime);
         int petit = colisMaritimeService.nbreSelonCarton(inventaireService.showOneInventaire(id).getCommandeid(), "PC");
         int grand = colisMaritimeService.nbreSelonCarton(inventaireService.showOneInventaire(id).getCommandeid(), "GC");
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
-        parameter.put("user", produitMaritimeService.getPrincipal());
+        parameter.put("chemin_logo", "head.png");
+        parameter.put("tampon_paye", "tampon_paye.PNG");
+        parameter.put("user", inventaireService.showOneInventaire(id).getCommande().getUser().getPrenom());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("taxe_maritime", produitMaritimeService.MaxTaxeCommandeMaritime(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("nb_petit_carton", petit);
@@ -149,16 +156,19 @@ public class InventaireController {
 
     //Fonction pour générer la facture maritime non payé
     @GetMapping("/inventaireMaritimeNP/facture/{id}")
-    public ResponseEntity<byte[]> factureMaritimeNonPaye(@PathVariable("id") Long id) throws FileNotFoundException, JRException {
+    public ResponseEntity<byte[]> factureMaritimeNonPaye(@PathVariable("id") Long id) throws IOException, JRException {
         List<ProduitMaritime> listeProdMaritime = produitMaritimeService.findProduitColisMaritime(inventaireService.showOneInventaire(id).getCommandeid());
-        File file = ResourceUtils.getFile("classpath:factureMaritimeNonPaye.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Resource resource = resourceLoader.getResource("classpath:factureMaritimeNonPaye.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdMaritime);
         int petit = colisMaritimeService.nbreSelonCarton(inventaireService.showOneInventaire(id).getCommandeid(), "PC");
         int grand = colisMaritimeService.nbreSelonCarton(inventaireService.showOneInventaire(id).getCommandeid(), "GC");
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
-        parameter.put("user", produitMaritimeService.getPrincipal());
+        parameter.put("chemin_logo", "head.png");
+        parameter.put("tampon_non_paye", "tamponAll.PNG");
+        parameter.put("logo_paypal", "paypal.png");
+        parameter.put("user", inventaireService.showOneInventaire(id).getCommande().getUser().getPrenom());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("taxe_maritime", produitMaritimeService.MaxTaxeCommandeMaritime(inventaireService.showOneInventaire(id).getId()));
         parameter.put("nb_petit_carton", petit);
@@ -183,14 +193,16 @@ public class InventaireController {
 
     //Fonction pour générer la facture aerienne payée au Togo
     @GetMapping("/inventaireAerien/facture/{id}")
-    public ResponseEntity<byte[]> factureAerienne(@PathVariable("id") Long id) throws FileNotFoundException, JRException {
+    public ResponseEntity<byte[]> factureAerienne(@PathVariable("id") Long id) throws IOException, JRException {
         List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(inventaireService.showOneInventaire(id).getCommandeid());
-        File file = ResourceUtils.getFile("classpath:factureAeriennePaye.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Resource resource = resourceLoader.getResource("classpath:factureAeriennePaye.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdAerien);
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
-        parameter.put("user", produitMaritimeService.getPrincipal());
+        parameter.put("chemin_logo", "head.png");
+        parameter.put("tampon_paye", "tampon_paye.PNG");
+        parameter.put("user", inventaireService.showOneInventaire(id).getCommande().getUser().getPrenom());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("poids", colisAerienService.poidsTotalColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
@@ -205,14 +217,17 @@ public class InventaireController {
 
     //Fonction pour générer la facture aerienne non payée
     @GetMapping("/inventaireAerienNP/facture/{id}")
-    public ResponseEntity<byte[]> factureAerienneNonPaye(@PathVariable("id") Long id) throws FileNotFoundException, JRException {
+    public ResponseEntity<byte[]> factureAerienneNonPaye(@PathVariable("id") Long id) throws IOException, JRException {
         List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(inventaireService.showOneInventaire(id).getCommandeid());
-        File file = ResourceUtils.getFile("classpath:factureAerienneNonPaye.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Resource resource = resourceLoader.getResource("classpath:factureAerienneNonPaye.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdAerien);
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
-        parameter.put("user", produitMaritimeService.getPrincipal());
+        parameter.put("chemin_logo", "head.png");
+        parameter.put("tampon_non_paye", "tamponAll.PNG");
+        parameter.put("logo_paypal", "paypal.png");
+        parameter.put("user", inventaireService.showOneInventaire(id).getCommande().getUser().getPrenom());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("poids", colisAerienService.poidsTotalColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
@@ -229,14 +244,14 @@ public class InventaireController {
 
     //Fonction pour générer la facture aerienne payée au Togo
     @GetMapping("/douaneAerien/facture/{id}")
-    public ResponseEntity<byte[]> factureAerienneVM(@PathVariable("id") Long id) throws FileNotFoundException, JRException {
+    public ResponseEntity<byte[]> factureAerienneVM(@PathVariable("id") Long id) throws IOException, JRException {
         List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(inventaireService.showOneInventaire(id).getCommandeid());
-        File file = ResourceUtils.getFile("classpath:factureVMA.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Resource resource = resourceLoader.getResource("classpath:factureVMA.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdAerien);
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
-        parameter.put("user", produitMaritimeService.getPrincipal());
+        parameter.put("user", inventaireService.showOneInventaire(id).getCommande().getUser().getPrenom());
         parameter.put("nbre_colis", colisAerienService.nbreColisAerien(inventaireService.showOneInventaire(id).getCommandeid()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
@@ -247,16 +262,16 @@ public class InventaireController {
 
     //Fonction pour générer la facture maritime payé
     @GetMapping("/douaneMaritime/facture/{id}")
-    public ResponseEntity<byte[]> factureMaritimeVM(@PathVariable("id") Long id) throws FileNotFoundException, JRException {
+    public ResponseEntity<byte[]> factureMaritimeVM(@PathVariable("id") Long id) throws IOException, JRException {
         List<ProduitMaritime> listeProdMaritime = produitMaritimeService.findProduitColisMaritime(inventaireService.showOneInventaire(id).getCommandeid());
-        File file = ResourceUtils.getFile("classpath:factureVMM.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Resource resource = resourceLoader.getResource("classpath:factureVMM.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdMaritime);
         int petit = colisMaritimeService.nbreSelonCarton(inventaireService.showOneInventaire(id).getCommandeid(), "PC");
         int grand = colisMaritimeService.nbreSelonCarton(inventaireService.showOneInventaire(id).getCommandeid(), "GC");
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("Données colis", "Première source");
-        parameter.put("user", produitMaritimeService.getPrincipal());
+        parameter.put("user", inventaireService.showOneInventaire(id).getCommande().getUser().getPrenom());
         parameter.put("nbre_colis", colisMaritimeService.nbreColisMaritime(inventaireService.showOneInventaire(id).getCommandeid()));
         parameter.put("nb_petit_carton", petit);
         parameter.put("nb_grand_carton", grand);

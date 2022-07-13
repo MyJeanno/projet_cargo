@@ -128,7 +128,9 @@ public class ProduitAerienService {
         return app;
     }
 
-    public void supprimerProduitCommande(Long id){
-        produitAerienRepository.supprimerProduitCommande(id);
+    public void supprimerProduitCommande(List<ColisAerien> liste_aerien){
+        for(ColisAerien ca:liste_aerien){
+            produitAerienRepository.supprimerProduitCommande(ca.getId());
+        }
     }
 }

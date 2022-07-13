@@ -41,10 +41,10 @@ public class ColisMaritimeController {
     //Formulaire colis maritime
     @GetMapping("/colisMaritime/form")
     public String afficherFormColisMaritime(Model model){
-        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande(Constante.showUserConnecte().getId()));
         model.addAttribute("cartons", cartonService.showCarton());
         model.addAttribute("pays", paysService.findPaysTarif());
-        commandeService.updateTypeCommande(Constante.ENVOI_MARITIME, commandeService.showMaLastCommande().getId());
+        commandeService.updateTypeCommande(Constante.ENVOI_MARITIME, commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
         return "colis/formColisMaritime";
     }
 
@@ -60,7 +60,7 @@ public class ColisMaritimeController {
         }
         colisMaritime.setNumeroColis(numero);
         colisMaritime.setStatut(Constante.INITIAL);
-        colisMaritime.setCommandeid(commandeService.showMaLastCommande().getId());
+        colisMaritime.setCommandeid(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
 
         List<CargoType> listPrix = new ArrayList<>();
         listPrix = cargoTypeService.showCargoType();
@@ -76,23 +76,23 @@ public class ColisMaritimeController {
     //Liste des colis par voie maritime
     @GetMapping("/colisMaritime/listes")
     public String afficherListeColis(Model model){
-        model.addAttribute("colisMaritime", colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande().getId()));
-        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
+        model.addAttribute("colisMaritime", colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande(Constante.showUserConnecte().getId()));
         return "colis/listeColisMaritime";
     }
 
     //Pour ajouter les poids des colis après pesé
     @GetMapping("/colisMaritime/ajouterPoids")
     public String afficherColisAerien(Model model){
-        model.addAttribute("lesColis", colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande().getId()));
-        model.addAttribute("lastCommande", commandeService.showMaLastCommande());
-        model.addAttribute("lastColisAerien", colisMaritimeService.showMaLastColisMaritime());
+        model.addAttribute("lesColis", colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
+        model.addAttribute("lastCommande", commandeService.showMaLastCommande(Constante.showUserConnecte().getId()));
+        model.addAttribute("lastColisAerien", colisMaritimeService.showMaLastColisMaritime(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
         return "colis/poidsColisMaritime";
     }
 
     @PostMapping("/colisMaritime/updatePoids")
     public String ajouterPoids(@RequestParam List<Double> poids){
-        List<ColisMaritime> ListeColisMaritime = colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande().getId());
+        List<ColisMaritime> ListeColisMaritime = colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
         int i =0;
         for (ColisMaritime cm:ListeColisMaritime){
             if(cm.getCommande().getTransport().equals("Oui")){

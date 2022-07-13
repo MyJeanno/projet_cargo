@@ -21,6 +21,12 @@
     <parameter name="taxe_maritime" class="java.lang.Double"/>
     <parameter name="user" class="java.lang.String"/>
     <parameter name="total_transport" class="java.lang.Double"/>
+    <parameter name="chemin_logo" class="java.lang.String">
+        <defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+    </parameter>
+    <parameter name="tampon_paye" class="java.lang.String">
+        <defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+    </parameter>
     <queryString>
         <![CDATA[]]>
     </queryString>
@@ -149,7 +155,7 @@
         <band height="232" splitType="Stretch">
             <image>
                 <reportElement x="0" y="0" width="50" height="50" uuid="0b04e103-25d8-46c3-9287-33ef6b42153f"/>
-                <imageExpression><![CDATA["D:/PROJET MENAD/cargo/head.png"]]></imageExpression>
+                <imageExpression><![CDATA[$P{chemin_logo}]]></imageExpression>
             </image>
             <staticText>
                 <reportElement x="0" y="40" width="290" height="50" uuid="dacad7cb-5f0f-4ff2-a504-ad9e3a777899"/>
@@ -160,15 +166,6 @@
 Lomé-Togo
 Email : info@molaetfils.com / www.molaetfils.com
 Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="220" y="0" width="340" height="40" uuid="234293cb-da59-463e-b517-cc260f2db444"/>
-                <textElement>
-                    <font size="8"/>
-                </textElement>
-                <text><![CDATA[   			                                                                Mola et Fils, M. Biao
-                                       Commerce général, Import & Export, cargo shipping (MOLA CARGO),
-                              bureau de représentation commerciale et de conseils en matière de douane]]></text>
             </staticText>
             <line>
                 <reportElement x="0" y="90" width="555" height="1" uuid="c761b3ae-60f6-4a40-8550-3b0d3e8177f5"/>
@@ -584,6 +581,27 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.numeroPersonne}]]></textFieldExpression>
             </textField>
+            <staticText>
+                <reportElement x="180" y="0" width="373" height="13" uuid="5c29e151-5a64-4ad6-8a06-d80d63194855">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Right"/>
+                <text><![CDATA[Mola et Fils, M. Biao]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="180" y="13" width="373" height="13" uuid="13c78498-5776-4fab-a758-aedfc49ba27e">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Right"/>
+                <text><![CDATA[Commerce général, Import & Export, cargo shipping (MOLA CARGO),]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="180" y="26" width="373" height="13" uuid="e6e83d38-0b28-4b99-aa2c-3cf781cdc6d7">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Right"/>
+                <text><![CDATA[bureau de représentation commerciale et de conseils en matière de douane.]]></text>
+            </staticText>
         </band>
     </title>
     <columnHeader>
@@ -778,7 +796,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
         </band>
     </pageFooter>
     <summary>
-        <band height="197" splitType="Stretch">
+        <band height="205" splitType="Stretch">
             <staticText>
                 <reportElement mode="Opaque" x="0" y="72" width="460" height="18" backcolor="#FAD13E" uuid="9ad86f08-785b-4b7c-a9e5-239112e276c3">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -823,21 +841,6 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <font size="12" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{montant_petit_carton}+$P{montant_grand_carton}+$P{taxe_maritime}+$P{total_transport}]]></textFieldExpression>
-            </textField>
-            <textField pattern="#,##0.00¤;#,##0.00- ¤">
-                <reportElement x="460" y="90" width="95" height="18" uuid="db84adb4-4b06-4ca0-adc9-01bcc8e814f1">
-                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
-                </reportElement>
-                <box rightPadding="5">
-                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                </box>
-                <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font size="12" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[($P{montant_petit_carton}+$P{montant_grand_carton}+$P{taxe_maritime}+$P{total_transport})/655.97]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement mode="Transparent" x="0" y="54" width="460" height="18" backcolor="#F4FB24" uuid="562a7315-7cd7-4f16-b93f-9436190119e6">
@@ -977,7 +980,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
             </staticText>
             <image>
                 <reportElement x="320" y="112" width="119" height="50" uuid="ac9d98bc-1f58-4a80-b49e-9b8a4ed14e1e"/>
-                <imageExpression><![CDATA["D:/PROJET MENAD/cargo/tampon_paye.PNG"]]></imageExpression>
+                <imageExpression><![CDATA[$P{tampon_paye}]]></imageExpression>
             </image>
             <staticText>
                 <reportElement mode="Transparent" x="0" y="0" width="420" height="18" backcolor="#F4FB24" uuid="66c071d9-c639-4dae-b349-70bbf524e881">
@@ -1071,6 +1074,22 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                 </textElement>
                 <text><![CDATA[Facture à regler avant le départ du colis]]></text>
             </staticText>
+            <textField pattern="#,##0.00#;#,##0.00#-">
+                <reportElement x="460" y="90" width="95" height="18" uuid="0411e330-7962-47f2-a234-e253709c7351">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box rightPadding="5">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[String.valueOf(String.format("% ,.2f", (($P{montant_petit_carton}+$P{montant_grand_carton}+$P{taxe_maritime}+$P{total_transport})/655.97)))+"€"
+]]></textFieldExpression>
+            </textField>
         </band>
     </summary>
 </jasperReport>
