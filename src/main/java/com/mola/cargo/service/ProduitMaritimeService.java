@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -110,6 +111,15 @@ public class ProduitMaritimeService {
         for(ColisMaritime cm:liste_maritime){
             produitMaritimeRepository.supprimerProduitCommande(cm.getId());
         }
+    }
+
+    public List<String> PoidsParCategorieAlimentaire(String statut){
+        List<String> listeDefault = new ArrayList<>();
+        listeDefault = produitMaritimeRepository.PoidsParCategorieAlimentaire(statut);
+        if(listeDefault.isEmpty()){
+            listeDefault.add("0");
+        }
+        return listeDefault;
     }
 
 }

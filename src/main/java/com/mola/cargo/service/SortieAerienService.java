@@ -82,4 +82,21 @@ public class SortieAerienService {
         }
         return liste;
     }
+
+    public Double poidsTotalColisAerienLot(Long id){
+        if(sortieAerienRepository.poidsTotalColisAerienLot(id)==null){
+            return 0.0;
+        }else{
+            return sortieAerienRepository.poidsTotalColisAerienLot(id);
+        }
+    }
+
+    public List<String> PoidsParCategorieAlimentaire(Long id){
+        List<String> listeDefault = new ArrayList<>();
+        listeDefault = sortieAerienRepository.PoidsParCategorieAlimentaire(id);
+        if(listeDefault.isEmpty()){
+            listeDefault.add("0");
+        }
+        return listeDefault;
+    }
 }

@@ -14,12 +14,12 @@ public interface RecepteurRepository extends JpaRepository<Recepteur, Long> {
 
     @Transactional
     @Modifying
-    @Query("update Recepteur r SET r.solde = solde + :reste  WHERE r.id = :id")
+    @Query("update Recepteur r SET r.solde = r.solde + :reste  WHERE r.id = :id")
     void updateSoldeClient(@Param("reste") double reste, @Param("id") Long id);
 
     @Transactional
     @Modifying
-    @Query("update Recepteur r SET r.solde = solde - :montant  WHERE r.id = :id")
+    @Query("update Recepteur r SET r.solde = r.solde - :montant  WHERE r.id = :id")
     void updateSoldeClientEncaissement(@Param("montant") double montant, @Param("id") Long id);
 
     @Query(value = "SELECT * from recepteur WHERE userid = :id ORDER BY id DESC LIMIT 1", nativeQuery = true)

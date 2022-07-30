@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -132,5 +133,17 @@ public class ProduitAerienService {
         for(ColisAerien ca:liste_aerien){
             produitAerienRepository.supprimerProduitCommande(ca.getId());
         }
+    }
+    public List<ProduitAerien> findProduitColisAerienDepot(String etat){
+        return produitAerienRepository.findProduitColisAerienDepot(etat);
+    }
+
+    public List<String> PoidsParCategorieAlimentaire(String statut){
+        List<String> listeDefault = new ArrayList<>();
+        listeDefault = produitAerienRepository.PoidsParCategorieAlimentaire(statut);
+        if(listeDefault.isEmpty()){
+            listeDefault.add("0");
+        }
+        return listeDefault;
     }
 }

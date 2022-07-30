@@ -52,7 +52,7 @@ public class InventaireController {
     //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/inventaires")
     public String afficherPaiement(Model model){
-        double prixTotal = inventaireService.sommeFactureNonEncaisse(Constante.INVENTAIRE_NON_ENCAISSE,
+        double prixTotal = inventaireService.sommeFactureNonEncaisseTogo(Constante.INVENTAIRE_NON_ENCAISSE,
                 Constante.LIEU_TOGO);
         model.addAttribute("inventaires", inventaireService.showInventaireSelonStatut(Constante.INVENTAIRE_NON_ENCAISSE,
                 Constante.LIEU_TOGO));
@@ -82,7 +82,7 @@ public class InventaireController {
     public String afficherFactureNonPayer(Model model){
         Double prixTotal = inventaireService.sommeFactureNonEncaisse(Constante.INVENTAIRE_NON_ENCAISSE,
                 Constante.LIEU_ALL);
-        model.addAttribute("inventaires", inventaireService.showInventaireSelonStatut(Constante.INVENTAIRE_NON_ENCAISSE,
+        model.addAttribute("inventaires", inventaireService.showInventaireSelonStatutAll(Constante.INVENTAIRE_NON_ENCAISSE,
                 Constante.LIEU_ALL));
         model.addAttribute("totalSomme",String.format("% ,.2f",prixTotal));
         return "sortie/paiementAllemagne";
@@ -116,6 +116,23 @@ public class InventaireController {
     public String updateEncaissementAttente(@PathVariable("id") Long id){
         inventaireService.updateStatutInventaire(Constante.INVENTAIRE_NON_ENCAISSE, id);
         return "redirect:/stat/inventaires/annulation";
+    }
+    @GetMapping("inventaireAerienLien/facture/{id}")
+    public String afficherDiverseFacture(@PathVariable("id") Long id){
+        if(inventaireService.showOneInventaire(id).getCommande().getLieuPaiement().equals("Togo")){
+            return "redirect:/stat/inventaireAerien/facture/"+id;
+        }else {
+            return "redirect:/stat/inventaireAerienNP/facture/"+id;
+        }
+    }
+
+    @GetMapping("inventaireMaritimeLien/facture/{id}")
+    public String afficherDiverseFactureM(@PathVariable("id") Long id){
+        if(inventaireService.showOneInventaire(id).getCommande().getLieuPaiement().equals("Togo")){
+            return "redirect:/stat/inventaireMaritime/facture/"+id;
+        }else {
+            return "redirect:/stat/inventaireMaritimeNP9+/facture/"+id;
+        }
     }
 
     //Fonction pour générer la facture maritime payé

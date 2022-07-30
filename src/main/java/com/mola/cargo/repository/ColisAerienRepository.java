@@ -46,6 +46,9 @@ public interface ColisAerienRepository extends JpaRepository<ColisAerien, Long> 
     @Query("select SUM(ca.prixColis) FROM ColisAerien ca where ca.commandeid = ?1")
     Double prixTotalColisAerien(Long id);
 
+    @Query("select SUM(ca.poids) FROM ColisAerien ca where ca.statut = ?1")
+    Double poidsTotalColisAerienDepot(String statut);
+
     @Query("select SUM(ca.transportAllemagne) FROM ColisAerien ca where ca.commandeid = ?1")
     Double prixTransportColisAerien(Long id);
 

@@ -10,7 +10,7 @@
     <div class="clearfix"></div>
     <div>
         <div style="margin:10px;" class="title_left">
-            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Liste de toutes les factures </small></h4>
+            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Liste des annulations d'encaissement de factures </small></h4>
         </div>
     </div>
     <!-- table -->
@@ -43,30 +43,18 @@
                                     <th>N° com</th>
                                     <th>Expéditeur</th>
                                     <th>Destinataire</th>
-                                    <th>Lieu paiement</th>
-                                    <th>Nb colis</th>
                                     <th>Montant facture</th>
-                                    <th>Client</th>
-                                    <th>Douane</th>
+                                    <th>Motif annulation</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="inventaire:${inventaires}">
-                                    <td th:text="${inventaire.id}"></td>
-                                    <td th:text="${inventaire.commande.pin}"></td>
-                                    <td th:text="${inventaire.commande.emetteur.nomPersonne}+' '+${inventaire.commande.emetteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.commande.recepteur.nomPersonne}+' '+${inventaire.commande.recepteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.commande.lieuPaiement}"></td>
-                                    <td th:text="${inventaire.nombreColis}"></td>
-                                    <td th:text="${inventaire.prixTotal}"></td>
-                                    <td th:switch="${inventaire.commande.typeEnvoi}">
-                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-info" th:href="@{/stat/inventaireMaritimeLien/facture/{id}(id=${inventaire.id})}"><i class="fa fa-download"></i></a>
-                                        <a th:case="*" class="btn btn-round btn-sm btn-info" th:href="@{/stat/inventaireAerienLien/facture/{id}(id=${inventaire.id})}"><i class="fa fa-download"></i></a>
-                                    </td>
-                                    <td th:switch="${inventaire.commande.typeEnvoi}">
-                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-success" th:href="@{/stat/douaneMaritime/facture/{id}(id=${inventaire.id})}"><i class="fa fa-print"></i></a>
-                                        <a th:case="*" class="btn btn-round btn-sm btn-success" th:href="@{/stat/douaneAerien/facture/{id}(id=${inventaire.id})}"><i class="fa fa-print"></i></a>
-                                    </td>
+                                <tr th:each="annulation:${lesAnnulations}">
+                                    <td th:text="${annulation.id}"></td>
+                                    <td th:text="${annulation.inventaire.commande.pin}"></td>
+                                    <td th:text="${annulation.inventaire.commande.emetteur.nomPersonne}+' '+${annulation.inventaire.commande.emetteur.prenomPersonne}"></td>
+                                    <td th:text="${annulation.inventaire.commande.recepteur.nomPersonne}+' '+${annulation.inventaire.commande.recepteur.prenomPersonne}"></td>
+                                    <td th:text="${annulation.inventaire.prixTotal}"></td>
+                                    <td th:text="${annulation.motif}"></td>
                                 </tr>
                                 </tbody>
                             </table>

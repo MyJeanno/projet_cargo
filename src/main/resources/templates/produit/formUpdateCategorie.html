@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h4><small>Mise à jour des réductions</small></h4>
+            <h4><small>Modifier une catégorie</small></h4>
         </div>
     </div>
     <div class="col-md-12 col-sm-12 ">
@@ -33,29 +33,22 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/reduction/update}" method="POST" th:object="${uneReduction}" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/param/update/categorie}" method="POST" th:object="${uneCategorie}" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 ">
                             <input type="hidden" th:field="*{id}" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Taux<span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Nom catégorie <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" th:field="*{taux}" required="required" class="form-control ">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Activer ?</label>
-                        <div class="col-md-6 col-sm-6">
-                            <input type="radio" name="activation" value="Oui" th:field="*{activation}" /> Oui :
-                            <input type="radio" name="activation" value="Non" th:field="*{activation}" /> Non
+                            <input type="text" th:field="*{nomCategorie}" required="required" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a th:href="@{/reduction/param}" class="btn btn-secondary" type="button">Retour</a>
+                            <a th:href="@{/param/produit/categories}" class="btn btn-secondary" type="button">Retour</a>
                             <button type="submit" class="btn btn-success">Modifier</button>
                         </div>
                     </div>

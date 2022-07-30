@@ -62,12 +62,13 @@
           <div class="menu_section">
             <h3>Live On</h3>
             <ul class="nav side-menu">
-              <li sec:authorize="hasAnyRole('ADMIN')"><a><i class="fa fa-bug"></i>Paramétrages<span class="fa fa-chevron-down"></span></a>
+              <li sec:authorize="hasAnyRole('ADMIN')"><a style="background-color:#b8860b;"><i class="fa fa-bug"></i>Paramétrages<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a th:href="@{/param/pieces}">Ajouter une pièce</a></li>
                   <li><a th:href="@{/param/paiements}">Ajouter un mode de paiement</a></li>
                   <li><a th:href="@{/param/cargoTypes}">Paramétrage carton maritime</a></li>
                   <li><a th:href="@{/param/emballages}">Paramétrage carton aérien</a></li>
+                  <li><a th:href="@{/param/produit/categories}">Paramétrage des catégories</a></li>
                   <li><a th:href="@{/param/tarifs}">Paramétrage des prix/kg</a></li>
                   <li><a th:href="@{/reduction/param}">Paramétrage des reductions</a></li>
                   <li><a th:href="@{/param/transports}">Paramétrage transport</a></li>
@@ -83,7 +84,7 @@
                   </li>
                 </ul>
               </li>
-              <li><a><i class="fa fa-male"></i>Gestion des clients <span class="fa fa-chevron-down"></span></a>
+              <li><a style="background-color:#b0e0e6;color:#000;"><i class="fa fa-male"></i>Gestion des clients <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a th:href="@{/personne/emetteurs}">Ajouter un expéditeur</a></li>
                   <li><a th:href="@{/personne/recepteurs}">Ajouter un destinataire</a></li>
@@ -98,14 +99,20 @@
                 </ul>
               </li>
 
-              <li><a><i class="fa fa-plane"></i>Gestion des envois <span class="fa fa-chevron-down"></span></a>
+              <li><a style="background-color:#d3d3d3;color:#000"><i class="fa fa-plane"></i>Gestion des envois <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a th:href="@{/personne/emetteur/envoi}">Enregistrer un envoi</a></li>
                   <li><a th:href="@{/enregistrements/inacheves}">Enregistrement inachevé</a></li>
+                  <li><a>Liste des colis en dépôt<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li class="sub_menu"><a th:href="@{/colisAerien/depot}">Aérien</a></li>
+                      <li><a th:href="@{/colisMaritime/depot}">Maritime</a></li>
+                    </ul>
+                  </li>
                 </ul>
               </li>
 
-              <li><a><i class="fa fa-share"></i> Gestion des sorties <span class="fa fa-chevron-down"></span></a>
+              <li><a style="background-color:#b8860b;"><i class="fa fa-share"></i> Gestion des sorties <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a>Créer un idenfiant<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -120,31 +127,35 @@
                 </ul>
               </li>
 
-              <li><a><i class="fa fa-envelope"></i>Vente de cartons <span class="fa fa-chevron-down"></span></a>
+              <li><a style="background-color:#b0e0e6;color:#000;"><i class="fa fa-envelope"></i>Vente de cartons <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                  <li><a th:href="@{/cartonAppros}">Appro des cartons</a></li>
-                  <li><a th:href="@{/cartonVentes}">Vente des cartons</a></li>
+                  <!--<li><a th:href="@{/cartonAppros}">Appro des cartons</a></li>-->
+                  <li><a href="#">Appro des cartons</a></li>
+                  <!--<li><a th:href="@{/cartonVentes}">Vente des cartons</a></li>-->
+                  <li><a href="#">Vente des cartons</a></li>
                 </ul>
               </li>
 
-              <li><a><i class="fa fa-info"></i> Inventaire <span class="fa fa-chevron-down"></span></a>
+              <li><a style="background-color:#d3d3d3;color:#000"><i class="fa fa-info"></i> Inventaire <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a th:href="@{/stat/inventaires}">Factures payés au Togo</a></li>
-                  <li><a th:href="@{/stat/inventaires/non_paye}">Factures à payer en Allemagne</a></li>
-                  <li><a th:href="@{/stat/inventaires/encaisser}">Annuler un encaissement</a></li>
-                  <li><a th:href="@{/stat/encaissement/liste}">Liste des encaissements</a></li>
+                  <li><a th:href="@{/stat/inventaires/encaisser}">Annuler un encaissement du Togo</a></li>
                   <li><a th:href="@{/stat/inventaires/annulation}">Valider une annulation</a></li>
+                  <li><a th:href="@{/stat/inventaire/annulation/liste}">Liste des annulations</a></li>
+                  <li><a th:href="@{/stat/inventaires/non_paye}">Factures à payer en Allemagne</a></li>
+                  <li><a th:href="@{/stat/encaissement/liste}">Liste des encaissements en Allemagne</a></li>
                   <!--<li><a th:href="@{/stat/annulation/liste}">Afficher les annulations</a></li>-->
                 </ul>
               </li>
 
-              <li sec:authorize="hasAnyRole('ADMIN')"><a><i class="fa fa-bar-chart"></i> Statistiques <span class="fa fa-chevron-down"></span></a>
+              <li sec:authorize="hasAnyRole('ADMIN')"><a style="background-color:#b8860b;"><i class="fa fa-bar-chart"></i> Statistiques <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a>Lots de colis envoyés<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li class="sub_menu"><a th:href="@{/convoiAeriensAdmin}">Par voie aérien</a></li>
                       <li><a th:href="@{/convoiMaritimesAdmin}">Par voie maritime</a></li>
                     </ul>
+                    <li><a th:href="@{/colis/poids}">Situation des colis en dépôt</a></li>
                   <li sec:authorize="hasAnyRole('SUPER')"><a th:href="@{/users}">Créer un utilisateur</a></li>
                   </li>
                 </ul>

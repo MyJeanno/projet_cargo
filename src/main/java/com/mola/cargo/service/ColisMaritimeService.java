@@ -130,6 +130,14 @@ public class ColisMaritimeService {
         }
     }
 
+    public Double poidsTotalMaritimeDepot(String statut){
+        if(colisMaritimeRepository.poidsTotalMaritimeDepot(statut) == null){
+            return 0.0;
+        }else {
+            return colisMaritimeRepository.poidsTotalMaritimeDepot(statut);
+        }
+    }
+
     public boolean appartenanceColisMaritime(List<ColisMaritime> liste, Long id){
         boolean app = false;
         for(ColisMaritime cm : liste){

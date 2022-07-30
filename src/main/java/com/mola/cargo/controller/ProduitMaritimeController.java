@@ -125,6 +125,7 @@ public class ProduitMaritimeController {
         model.addAttribute("prixColis", String.format("% ,.2f", colisMaritimeService.appliquerReduction(colisMaritimeService.montantTotalPrixCarton(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()),
                 commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getReduction())));
         model.addAttribute("prixTotal", String.format("% ,.2f", getTotalApayer()));
+        model.addAttribute("prixTotal2", getTotalApayer());
         return "commande/detailEnvoiMaritime";
     }
     @PostMapping("/envoiMaritime/fin")

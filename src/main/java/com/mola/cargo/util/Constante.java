@@ -34,6 +34,8 @@ public class Constante {
     public static final String CLIENT_BLOQUE = "BLOQUE";
     public static final String CLIENT_AUTORISE = "AUTORISE";
 
+    public static final int BORNE_INF_CLIENT = 1000;
+    public static final int BORNE_SUP_CLIENT = 9999;
 
     public static final int MOIS_JANVIER = 1;
     public static final int MOIS_FEVRIER = 2;

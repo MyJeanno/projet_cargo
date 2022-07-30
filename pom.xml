@@ -16,7 +16,7 @@
 	<description>Gestion logistique des cargos</description>
 	<properties>
 		<java.version>8</java.version>
-		<!--<start-class>com.mola.cargo.CargoApplication</start-class>-->
+		<start-class>com.mola.cargo.CargoApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>

@@ -45,6 +45,9 @@ public interface ColisMaritimeRepository extends JpaRepository<ColisMaritime, Lo
     @Query("select SUM(cm.transportAllemagne) FROM ColisMaritime cm where cm.commandeid = ?1")
     Double montantTotalTransport(Long id);
 
+    @Query("select SUM(cm.poids) FROM ColisMaritime cm where cm.statut = ?1")
+    Double poidsTotalMaritimeDepot(String etat);
+
     @Transactional
     @Modifying
     @Query("update ColisMaritime cm SET cm.statut = :statut WHERE cm.id = :id")

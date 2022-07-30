@@ -1,6 +1,8 @@
 package com.mola.cargo.controller;
 
+import com.mola.cargo.model.CategorieProduit;
 import com.mola.cargo.model.Tarif;
+import com.mola.cargo.service.CategorieProduitService;
 import com.mola.cargo.service.TarifService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +15,13 @@ public class TarifController {
 
     @Autowired
     private TarifService tarifService;
+    @Autowired
+    private CategorieProduitService categorieProduitService;
 
     @GetMapping("/tarifs")
     public String afficherTarif(Model model){
        model.addAttribute("tarifs", tarifService.showTarifs());
+        model.addAttribute("lesCategories", categorieProduitService.showAllCategorieProduit());
        return "tarif/tarif";
     }
 
@@ -24,13 +29,15 @@ public class TarifController {
     public String enregistrerTarif(@RequestParam String libelle,
                                    @RequestParam double prix,
                                    @RequestParam double taxeA,
-                                   @RequestParam double taxeM
+                                   @RequestParam double taxeM,
+                                   @RequestParam Long categorieId
                                    ){
         Tarif tarif = new Tarif();
         tarif.setLibelleTarif(libelle);
         tarif.setPrixKilo(prix);
         tarif.setTaxeAerien(taxeA);
         tarif.setTaxeMaritime(taxeM);
+        tarif.setCategorieId(categorieId);
         tarifService.saveTarif(tarif);
         return "redirect:/param/tarifs";
     }
@@ -38,6 +45,7 @@ public class TarifController {
     @GetMapping("tarif/formUpdate/{id}")
     public String afficherFormUpdate(@PathVariable("id") Long id, Model model){
         model.addAttribute("unTarif", tarifService.showOneTarif(id));
+        model.addAttribute("lesCategories", categorieProduitService.showAllCategorieProduit());
         return "tarif/formUpdateTarif";
     }
 

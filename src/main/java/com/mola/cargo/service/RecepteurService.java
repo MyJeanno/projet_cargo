@@ -58,4 +58,16 @@ public class RecepteurService {
     public void updateInfoRecepteur(String etat, Long id){
         recepteurRepository.updateInfoRecepteur(etat, id);
     }
+
+    public boolean testerAppartenance(List<Recepteur> liste, String pin){
+        boolean appartient = false;
+        for (Recepteur r:liste){
+            if (r.getNumeroPersonne().equals(pin)){
+                appartient = true;
+            }else{
+                appartient = false;
+            }
+        }
+        return appartient;
+    }
 }

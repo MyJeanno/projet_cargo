@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h4><small>Factures non payées au Togo</small></h4>
+            <h4><small>Factures à payer en Allemagne</small></h4>
         </div>
     </div>
 
@@ -47,7 +47,8 @@
                                     <th>Nb colis</th>
                                     <th>Montant facture</th>
                                     <th>Montant payé</th>
-                                    <th>Reste</th>
+                                    <th>Reste à payer</th>
+                                    <th>Solde client</th>
                                     <th>Statut</th>
                                     <th>Action</th>
                                 </tr>
@@ -62,6 +63,7 @@
                                     <td th:text="${inventaire.nombreColis}"></td>
                                     <td th:text="${inventaire.prixTotal}"></td>
                                     <td th:text="${inventaire.commande.montantPaye}"></td>
+                                    <td th:text="${inventaire.prixTotal}-${inventaire.commande.montantPaye}"></td>
                                     <td th:text="${inventaire.commande.recepteur.solde}"></td>
                                     <td th:text="${inventaire.status}"></td>
                                     <td>

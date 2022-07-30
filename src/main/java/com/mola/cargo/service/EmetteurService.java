@@ -1,5 +1,6 @@
 package com.mola.cargo.service;
 
+import com.mola.cargo.model.Commande;
 import com.mola.cargo.model.Emetteur;
 import com.mola.cargo.model.Personne;
 import com.mola.cargo.model.Piece;
@@ -18,6 +19,18 @@ public class EmetteurService {
 
     public String numeroClient(Emetteur emetteur, String chaine){
         return emetteur.getINITIAL_ENTREPRISE()+""+chaine.substring(0,3)+emetteurRepository.count();
+    }
+
+    public boolean testerAppartenance(List<Emetteur> liste, String pin){
+        boolean appartient = false;
+        for (Emetteur e:liste){
+            if (e.getNumeroPersonne().equals(pin)){
+                appartient = true;
+            }else{
+                appartient = false;
+            }
+        }
+        return appartient;
     }
 
     public void saveEmetteur(Emetteur emetteur){

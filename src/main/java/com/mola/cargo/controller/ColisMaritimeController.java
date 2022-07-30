@@ -48,6 +48,13 @@ public class ColisMaritimeController {
         return "colis/formColisMaritime";
     }
 
+    @GetMapping("/colisMaritime/depot")
+    public String afficherColisMaritimeDepot(Model model){
+        model.addAttribute("colisMaritimes", colisMaritimeService.showColisMaritimeDepot(Constante.INITIAL));
+        model.addAttribute("quantite", colisMaritimeService.showColisMaritimeDepot(Constante.INITIAL).size());
+        return "colis/listeColisMaritimeDepot";
+    }
+
     //Fonction pour enregistrer un colis maritime
     @PostMapping("/colisMaritime/nouveau")
     public String enregistrerColisMaritime(ColisMaritime colisMaritime){

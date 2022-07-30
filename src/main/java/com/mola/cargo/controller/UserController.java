@@ -78,7 +78,7 @@ public class UserController {
     public String updateUser(@ModelAttribute("user") User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         if(user.getRoles().isEmpty()){
-            user.setRoles("RECEPTIONNISTE");
+            user.setRoles(Constante.showUserConnecte().getRoles());
         }
         userService.saveUser(user);
         return "redirect:/users/mon_compte";

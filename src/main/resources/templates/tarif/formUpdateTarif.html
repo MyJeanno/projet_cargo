@@ -67,6 +67,18 @@
                             <input type="number" th:field="*{taxeMaritime}" required="required" class="form-control ">
                         </div>
                     </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Nom catégorie</label>
+                        <div class="col-md-6 col-sm-6">
+                            <select th:field="*{categorieId}" required class="form-control border-info">
+                                <option value="">--Choisir une catégorie--</option>
+                                <option th:each="categorie:${lesCategories}"
+                                        th:value="${categorie.id}"
+                                        th:utext="${categorie.nomCategorie}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                    <!-- <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Taxe ?</label>
                         <div class="col-md-6 col-sm-6">

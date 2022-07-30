@@ -18,6 +18,15 @@ public interface SortieAerienRepository extends JpaRepository<SortieAerien, Long
     @Query("select DISTINCT(sa) from SortieAerien sa where sa.convoiid = :id")
     List<SortieAerien> listeCommande(Long id);
 
+    @Query("select SUM(sa.colisAerien.poids) FROM SortieAerien sa where sa.convoiid = ?1")
+    Double poidsTotalColisAerienLot(Long id);
+
+    @Query("select pa.tarif.categorieProduit.nomCategorie, SUM(pa.poids) as poids " +
+            "from ProduitAerien pa " +
+            "where pa.colisAerienid in (select sa.colisAerienid from SortieAerien sa where sa.convoiid = ?1 )" +
+            "GROUP BY pa.tarif.categorieProduit.nomCategorie")
+    List<String> PoidsParCategorieAlimentaire(Long id);
+
 
 
 }

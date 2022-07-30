@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/personne")
 public class RecepteurController {
@@ -21,6 +24,8 @@ public class RecepteurController {
     private EtatService etatService;
     @Autowired
     private PaysService paysService;
+    @Autowired
+    private CommandeService commandeService;
 
     @GetMapping("/recepteurs")
     public String afficherRecepteur(Model model){
@@ -62,10 +67,24 @@ public class RecepteurController {
         return "personne/formAddRecepteur";
     }
 
+    @GetMapping("/recepteur/formRecepteur2/{p}")
+    public String showFormRecepteur2(@PathVariable("p") String p, Model model){
+        model.addAttribute("etats", etatService.showStates());
+        model.addAttribute("pays", paysService.showPays());
+        model.addAttribute("unEmetteur", emetteurService.showOneEmetteur(Long.parseLong(p)));
+        return "personne/formAddRecepteur2";
+    }
+
     //Enregistrement du recpteur
     @PostMapping("/recepteur/nouveau")
     public String enregistrerRecepteur(Recepteur recepteur){
-        recepteur.setNumeroPersonne(recepteurService.numeroClient(recepteur, recepteur.getNomPersonne()));
+        List<Recepteur> listeRecepteur = new ArrayList<>();
+        String numero = recepteur.getNomPersonne().substring(0,1)+""+recepteur.getPrenomPersonne().substring(0,1)+""+commandeService.genererNbre(Constante.BORNE_INF_CLIENT, Constante.BORNE_SUP_CLIENT);
+        listeRecepteur = recepteurService.showRecepteur();
+        while(recepteurService.testerAppartenance(listeRecepteur, numero)==true){
+            numero = recepteur.getNumeroPersonne().substring(0,1)+""+recepteur.getPrenomPersonne().substring(0,1)+""+commandeService.genererNbre(Constante.BORNE_INF_CLIENT, Constante.BORNE_SUP_CLIENT);
+        }
+        recepteur.setNumeroPersonne(numero);
         if(recepteur.getEtatid()==null){
             recepteur.setEtatid(17L);
         }
@@ -73,7 +92,29 @@ public class RecepteurController {
         recepteur.setUserid(Constante.showUserConnecte().getId());
         recepteur.setEtatPersonne(Constante.CLIENT_AUTORISE);
         recepteurService.saveRecepteur(recepteur);
-        return "redirect:/commande/formCommande";
+        //return "redirect:/commande/formCommande";
+        return "redirect:/personne/recepteurs";
+    }
+
+    @PostMapping("/recepteur/nouveau2")
+    public String enregistrerRecepteur2(Long p, Recepteur recepteur){
+        List<Recepteur> listeRecepteur = new ArrayList<>();
+        String numero = recepteur.getNomPersonne().substring(0,1)+""+recepteur.getPrenomPersonne().substring(0,1)+""+commandeService.genererNbre(Constante.BORNE_INF_CLIENT, Constante.BORNE_SUP_CLIENT);
+        listeRecepteur = recepteurService.showRecepteur();
+        while(recepteurService.testerAppartenance(listeRecepteur, numero)==true){
+            numero = recepteur.getNumeroPersonne().substring(0,1)+""+recepteur.getPrenomPersonne().substring(0,1)+""+commandeService.genererNbre(Constante.BORNE_INF_CLIENT, Constante.BORNE_SUP_CLIENT);
+        }
+        recepteur.setNumeroPersonne(numero);
+        if(recepteur.getEtatid()==null){
+            recepteur.setEtatid(17L);
+        }
+        recepteur.setSolde(0);
+        recepteur.setUserid(Constante.showUserConnecte().getId());
+        recepteur.setEtatPersonne(Constante.CLIENT_AUTORISE);
+        recepteurService.saveRecepteur(recepteur);
+
+        return "redirect:/commande/formCommande/?idE="+p+"&idR="+recepteurService.showMonDernierRecepteur(Constante.showUserConnecte().getId()).getId();
+        //return "redirect:/personne/recepteurs";
     }
 
     //renvoie le formulaire de mise à jour

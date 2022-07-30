@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="clearfix"></div>
+  <div>
+    <div style="margin:10px;" class="title_left">
+      <h4 style="background-color:Peru;color:white;padding:3px;"><small>Diverses statistiques sur les poids des colis en attente</small></h4>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="  table">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Nbre de kilo en dépôt : envoi aérien</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr style="font-size:16px;"  th:each="pc:${produitCategorie}">
+            <td th:text="${pc}+' '+kg"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="  table">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Nbre de kilo en dépôt : envoi maritime</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr style="font-size:16px;"  th:each="pc:${pmcategorie}">
+            <td th:text="${pc}+' '+kg"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="  table">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Dernier lot : envoi aérien</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr style="font-size:16px;"  th:each="pc:${paLotCat}">
+            <td th:text="${pc}+' '+kg"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="  table">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Dernier lot : envoi maritime</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr style="font-size:16px;"  th:each="pc:${pmLotCat}">
+            <td th:text="${pc}+' '+kg"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.row -->
+  <hr />
+  <div class="row">
+    <div class="col-md-12 col-sm-12  ">
+      <div class="x_panel" style="height:600px;">
+        <div class="x_title">
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Settings 1</a>
+                <a class="dropdown-item" href="#">Settings 2</a>
+              </div>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+          <div class="row">
+
+            <div class="col-md-12">
+
+              <!-- price element -->
+              <div class="col-md-3 col-sm-6  ">
+                <div class="pricing">
+                  <div class="title">
+                    <h2>Colis en dépôt</h2>
+                    <h1>pour envoi aérien</h1>
+                  </div>
+                  <div class="x_content">
+                    <div class="">
+                      <div>
+                        <ul class="list-unstyled text-left">
+                          <li><h2><i class="fa fa-check text-info"></i> Nbre total de colis : <strong th:text="${quantiteA}"></strong></h2> </li>
+                          <li><h2><i class="fa fa-check text-info"></i> Poids total brut : <strong th:text="${poidsAerien}+' '+kg"></strong></h2></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="pricing_footer">
+                      <a th:href="@{/colisAerien/depot}" class="btn btn-info btn-block" role="button">Consulter la liste</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- price element -->
+
+              <!-- price element -->
+              <div class="col-md-3 col-sm-6  ">
+                <div class="pricing ui-ribbon-container">
+                  <div class="ui-ribbon-wrapper">
+                  </div>
+                  <div class="title">
+                    <h2>Colis en dépôt</h2>
+                    <h1>Pour envoi maritime</h1>
+                  </div>
+                  <div class="x_content">
+                    <div class="">
+                      <div>
+                        <ul class="list-unstyled text-left">
+                          <li><h2><i class="fa fa-check text-info"></i> Nbre total de colis : <strong th:text="${quantiteM}"></strong></h2> </li>
+                          <li><h2><i class="fa fa-check text-info"></i> Poids total brut : <strong th:text="${poidsMaritime}+' '+kg"></strong></h2></li>
+                          </ul>
+                      </div>
+                    </div>
+                    <div class="pricing_footer">
+                      <a th:href="@{/colisMaritime/depot}" class="btn btn-info btn-block" role="button">Consulter la liste</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- price element -->
+
+              <!-- price element -->
+              <div class="col-md-3 col-sm-6  ">
+                <div class="pricing ui-ribbon-container">
+                  <div class="ui-ribbon-wrapper">
+                  </div>
+                  <div class="title">
+                    <h2>Dernier lot de colis envoyés</h2>
+                    <h1>Envoi aérien</h1>
+                  </div>
+                  <div class="x_content">
+                    <div class="">
+                      <div>
+                        <ul class="list-unstyled text-left">
+                          <li><h2><i class="fa fa-check text-info"></i> Nbre total de colis : <strong th:text="${qteLotA}"></strong></h2> </li>
+                          <li><h2><i class="fa fa-check text-info"></i> Poids total brut : <strong th:text="${poidsLotA}+' '+kg"></strong></h2></li>
+                         </ul>
+                      </div>
+                    </div>
+                    <div class="pricing_footer">
+                      <a href="javascript:void(0);" class="btn btn-info btn-block" role="button">Consulter la liste</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- price element -->
+
+              <!-- price element -->
+              <div class="col-md-3 col-sm-6  ">
+                <div class="pricing ui-ribbon-container">
+                  <div class="ui-ribbon-wrapper">
+                  </div>
+                  <div class="title">
+                    <h2>Dernier lot de colis envoyés</h2>
+                    <h1>Envoi maritime</h1>
+                  </div>
+                  <div class="x_content">
+                    <div class="">
+                      <div>
+                        <ul class="list-unstyled text-left">
+                          <li><h2><i class="fa fa-check text-info"></i> Nbre total de colis : <strong th:text="${qteLotM}"></strong></h2> </li>
+                          <li><h2><i class="fa fa-check text-info"></i> Poids total brut : <strong th:text="${poidsLotM}+' '+kg"></strong></h2></li>
+                         </ul>
+                      </div>
+                    </div>
+                    <div class="pricing_footer">
+                      <a href="javascript:void(0);" class="btn btn-info btn-block" role="button">Consulter la liste</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- price element -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

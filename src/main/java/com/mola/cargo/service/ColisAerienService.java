@@ -65,6 +65,14 @@ public class ColisAerienService {
         }
     }
 
+    public Double poidsTotalColisAerienDepot(String statut){
+        if(colisAerienRepository.poidsTotalColisAerienDepot(statut)==null){
+            return 0.0;
+        }else{
+            return colisAerienRepository.poidsTotalColisAerienDepot(statut);
+        }
+    }
+
     public Double prixTotalColisAerien(Long id){
         if(colisAerienRepository.prixTotalColisAerien(id)==null){
             return 0.0;

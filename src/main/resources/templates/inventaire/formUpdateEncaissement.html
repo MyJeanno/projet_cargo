@@ -39,7 +39,9 @@
                         <div class="col-md-6 col-sm-6 ">
                             <input type="hidden" th:field="*{id}" class="form-control ">
                             <input type="hidden" th:field="*{commande_id}" class="form-control ">
+                            <input type="hidden" th:field="*{commande}" class="form-control ">
                             <input type="hidden" th:field="*{dateEncaissement}" class="form-control ">
+                            <input type="hidden" name="mont" th:value="${unEncaissement.montant}" class="form-control ">
                             <input type="text" readonly th:value="${unEncaissement.commande.recepteur.nomPersonne} +' '+ ${unEncaissement.commande.recepteur.prenomPersonne}" class="form-control ">
                         </div>
                     </div>

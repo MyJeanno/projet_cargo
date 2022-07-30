@@ -20,8 +20,14 @@ public interface InventaireRepository extends JpaRepository<Inventaire, Long> {
     @Query("select i from Inventaire i where i.status =?1 and i.commande.lieuPaiement =?2")
     List<Inventaire> findByStatusAndByLieu(String s, String lieu);
 
-    @Query("select SUM(i.prixTotal) from Inventaire i where i.status = :s and i.commande.lieuPaiement = :lieu")
+    @Query("select i from Inventaire i where i.status =?1 and i.commande.lieuPaiement =?2 and i.commande.recepteur.solde!=0")
+    List<Inventaire> findByStatusAndByLieuAll(String s, String lieu);
+
+    @Query("select SUM(i.commande.recepteur.solde) from Inventaire i where i.status = :s and i.commande.lieuPaiement = :lieu")
     Double sommeFactureNonEncaisse(String s, String lieu);
+
+    @Query("select SUM(i.commande.montantPaye) from Inventaire i where i.status = :s and i.commande.lieuPaiement = :lieu")
+    Double sommeFactureNonEncaisseTogo(String s, String lieu);
 
     @Query("select i from Inventaire i where i.commande.lieuPaiement =?1")
     List<Inventaire> findByLieu(String lieu);

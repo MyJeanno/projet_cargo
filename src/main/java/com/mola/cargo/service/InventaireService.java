@@ -33,6 +33,10 @@ public class InventaireService {
         return inventaireRepository.findByStatusAndByLieu(s, lieu);
     }
 
+    public List<Inventaire> showInventaireSelonStatutAll(String s, String lieu){
+        return inventaireRepository.findByStatusAndByLieuAll(s, lieu);
+    }
+
     public List<Inventaire> showInventaireParStatut(String statut){
         return inventaireRepository.findByStatus(statut);
     }
@@ -46,6 +50,14 @@ public class InventaireService {
             return 0.0;
         }else {
             return inventaireRepository.sommeFactureNonEncaisse(s, lieu);
+        }
+    }
+
+    public Double sommeFactureNonEncaisseTogo(String s, String lieu){
+        if(inventaireRepository.sommeFactureNonEncaisseTogo(s, lieu) == null){
+            return 0.0;
+        }else {
+            return inventaireRepository.sommeFactureNonEncaisseTogo(s, lieu);
         }
     }
 

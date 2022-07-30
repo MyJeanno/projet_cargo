@@ -2,6 +2,7 @@ package com.mola.cargo.controller;
 
 import com.mola.cargo.model.Emetteur;
 import com.mola.cargo.model.InfoClient;
+import com.mola.cargo.service.CommandeService;
 import com.mola.cargo.service.EmetteurService;
 import com.mola.cargo.service.InfoClientService;
 import com.mola.cargo.service.PaysService;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/personne")
@@ -21,6 +25,8 @@ public class EmetteurController {
     private PaysService paysService;
     @Autowired
     private InfoClientService infoClientService;
+    @Autowired
+    private CommandeService commandeService;
 
     //Renvoie la liste des clients expéditeurs
     @GetMapping("/emetteurs")
@@ -61,6 +67,11 @@ public class EmetteurController {
         return "personne/formAddEmetteur";
     }
 
+    @GetMapping("/emetteur/formEmetteur2")
+    public String showFormEmetteur2(){
+        return "personne/formAddEmetteur2";
+    }
+
     //renvoie le formulaire de mise à jour
     @GetMapping("emetteur/formUpdate/{id}")
     public String showFormUpdateEmetteur(@PathVariable("id") Long id, Model model){
@@ -78,10 +89,33 @@ public class EmetteurController {
     //Enregistrer un expéditeur
     @PostMapping("/emetteur/nouveau")
     public String enregistrerEmetteur(Emetteur emetteur){
-        emetteur.setNumeroPersonne(emetteurService.numeroClient(emetteur, emetteur.getNomPersonne()));
+        List<Emetteur> listeEmetteur = new ArrayList<>();
+        String numero = emetteur.getNomPersonne().substring(0,1)+""+emetteur.getPrenomPersonne().substring(0,1)+""+commandeService.genererNbre(Constante.BORNE_INF_CLIENT, Constante.BORNE_SUP_CLIENT);
+        listeEmetteur = emetteurService.showEmetteur();
+        while(emetteurService.testerAppartenance(listeEmetteur, numero)==true){
+            numero = emetteur.getNumeroPersonne().substring(0,1)+""+emetteur.getPrenomPersonne().substring(0,1)+""+commandeService.genererNbre(Constante.BORNE_INF_CLIENT, Constante.BORNE_SUP_CLIENT);
+        }
+        emetteur.setNumeroPersonne(numero);
         emetteur.setUserid(Constante.showUserConnecte().getId());
         emetteur.setEtatPersonne(Constante.CLIENT_AUTORISE);
         emetteurService.saveEmetteur(emetteur);
-        return "redirect:/personne/recepteur/formRecepteur";
+        //return "redirect:/personne/recepteur/formRecepteur";
+        return "redirect:/personne/emetteurs";
+    }
+
+    @PostMapping("/emetteur/nouveau2")
+    public String enregistrerEmetteur2(Emetteur emetteur){
+        List<Emetteur> listeEmetteur = new ArrayList<>();
+        String numero = emetteur.getNomPersonne().substring(0,1)+""+emetteur.getPrenomPersonne().substring(0,1)+""+commandeService.genererNbre(Constante.BORNE_INF_CLIENT, Constante.BORNE_SUP_CLIENT);
+        listeEmetteur = emetteurService.showEmetteur();
+        while(emetteurService.testerAppartenance(listeEmetteur, numero)==true){
+            numero = emetteur.getNumeroPersonne().substring(0,1)+""+emetteur.getPrenomPersonne().substring(0,1)+""+commandeService.genererNbre(Constante.BORNE_INF_CLIENT, Constante.BORNE_SUP_CLIENT);
+        }
+        emetteur.setNumeroPersonne(numero);
+        emetteur.setUserid(Constante.showUserConnecte().getId());
+        emetteur.setEtatPersonne(Constante.CLIENT_AUTORISE);
+        emetteurService.saveEmetteur(emetteur);
+        //return "redirect:/personne/recepteur/formRecepteur";
+        return "redirect:/personne/emetteur/envoi";
     }
 }

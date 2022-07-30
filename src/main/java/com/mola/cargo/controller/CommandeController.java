@@ -55,7 +55,7 @@ public class CommandeController {
     }
 
     //Renvoie le formulaire de la nouvelle commande
-    @GetMapping("/commande/formCommande")
+   /* @GetMapping("/commande/formCommande")
     public String showNouvelleCommande(Long idE, Long idR, Model model){
         if(idE!=null && idR!=null){
             model.addAttribute("unEmetteur", emetteurService.showOneEmetteur(idE));
@@ -64,6 +64,18 @@ public class CommandeController {
             model.addAttribute("unEmetteur", emetteurService.showMonDernierEmetteur(Constante.showUserConnecte().getId()));
             model.addAttribute("unRecepteur", recepteurService.showMonDernierRecepteur(Constante.showUserConnecte().getId()));
         }
+
+        model.addAttribute("pieces", pieceService.showPiece());
+        model.addAttribute("modePaiments", paiementService.showPaiement());
+        model.addAttribute("uneReduction", reductionService.lareduction());
+        return "commande/formNewCommande";
+    }*/
+
+    @GetMapping("/commande/formCommande")
+    public String showNouvelleCommande(Long idE, Long idR, Model model){
+
+        model.addAttribute("unEmetteur", emetteurService.showOneEmetteur(idE));
+        model.addAttribute("unRecepteur", recepteurService.showOneRecepteur(idR));
 
         model.addAttribute("pieces", pieceService.showPiece());
         model.addAttribute("modePaiments", paiementService.showPaiement());

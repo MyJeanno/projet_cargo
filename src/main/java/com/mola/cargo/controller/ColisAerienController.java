@@ -17,6 +17,8 @@ public class ColisAerienController {
     @Autowired
     private ColisAerienService colisAerienService;
     @Autowired
+    private ColisMaritimeService colisMaritimeService;
+    @Autowired
     private CommandeService commandeService;
     @Autowired
     private TarifService tarifService;
@@ -27,7 +29,15 @@ public class ColisAerienController {
     @Autowired
     private ProduitAerienService produitAerienService;
     @Autowired
+    private ProduitMaritimeService produitMaritimeService;
+    @Autowired
     private TransportService transportService;
+    @Autowired
+    private SortieAerienService sortieAerienService;
+    @Autowired
+    private SortieMaritimeService sortieMaritimeService;
+    @Autowired
+    private ConvoiService convoiService;
 
     @GetMapping("/colisAerien/form")
     public String afficherFormColisAerien(Model model){
@@ -35,6 +45,35 @@ public class ColisAerienController {
         model.addAttribute("emballages", emballageService.showEmballages());
         commandeService.updateTypeCommande(Constante.ENVOI_AERIEN, commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
         return "colis/formColisAerien";
+    }
+
+    @GetMapping("/colis/poids")
+    public String afficherStatPoidsDepot(Model model){
+        model.addAttribute("poidsAerien", colisAerienService.poidsTotalColisAerienDepot(Constante.INITIAL));
+        model.addAttribute("poidsMaritime", colisMaritimeService.poidsTotalMaritimeDepot(Constante.INITIAL));
+        model.addAttribute("quantiteM", colisMaritimeService.showColisMaritimeDepot(Constante.INITIAL).size());
+        model.addAttribute("quantiteA", colisAerienService.showColisAerienDepot(Constante.INITIAL).size());
+        model.addAttribute("qteLotA", sortieAerienService.showSortieColisConvois(convoiService.showMaLastConvoiAerien().getId()).size());
+        model.addAttribute("qteLotM", sortieMaritimeService.showSortieColisMaritimeConvois(convoiService.showMaLastConvoiMaritime().getId()).size());
+        model.addAttribute("poidsLotA", sortieAerienService.poidsTotalColisAerienLot(convoiService.showMaLastConvoiAerien().getId()));
+        model.addAttribute("poidsLotM", sortieMaritimeService.poidsTotalColisMaritimeLot(convoiService.showMaLastConvoiMaritime().getId()));
+        model.addAttribute("produitCategorie", produitAerienService.PoidsParCategorieAlimentaire(Constante.INITIAL));
+        model.addAttribute("pmcategorie", produitMaritimeService.PoidsParCategorieAlimentaire(Constante.INITIAL));
+        model.addAttribute("paLotCat", sortieAerienService.PoidsParCategorieAlimentaire(convoiService.showMaLastConvoiAerien().getId()));
+        model.addAttribute("pmLotCat", sortieMaritimeService.PoidsParCategorieAlimentaire(convoiService.showMaLastConvoiMaritime().getId()));
+        //System.out.println("******************************** PRODUIT = "+sortieAerienService.PoidsParCategorieAlimentaire(convoiService.showMaLastConvoiAerien().getId()));
+        /*List<String> liste = produitAerienService.PoidsParCategorieAlimentaire(Constante.INITIAL);
+        for (String s : liste){
+            System.out.println("********************************PRODUIT = "+s);
+        }*/
+        return "colis/statistiquePoidsColis";
+    }
+
+    @GetMapping("/colisAerien/depot")
+    public String afficherColisAerienDepot(Model model){
+        model.addAttribute("colisAeriens", colisAerienService.showColisAerienDepot(Constante.INITIAL));
+        model.addAttribute("quantite", colisAerienService.showColisAerienDepot(Constante.INITIAL).size());
+        return "colis/listeColisAerienDepot";
     }
 
     @GetMapping("/colisAerien/listePoids")

@@ -43,9 +43,11 @@ public class EncaissementController {
         encaissement.setCommande_id(inventaireService.showOneInventaire(id).getCommande().getId());
         encaissement.setMontant(montant);
         encaissementService.saveEncaissement(encaissement);
-        inventaireService.updateStatutInventaire(Constante.INVENTAIRE_ENCAISSE, id);
+        if(montant==inventaireService.showOneInventaire(id).getCommande().getRecepteur().getSolde()){
+            inventaireService.updateStatutInventaire(Constante.INVENTAIRE_ENCAISSE, id);
+        }
         recepteurService.updateSoldeClientEncaissement(montant, inventaireService.showOneInventaire(id).getCommande().getRecepteur().getId());
-        return "redirect:/stat/encaissement/liste";
+        return "redirect:/stat/inventaires/non_paye";
     }
 
     @GetMapping("/encaissement/formUpdate/{id}")
@@ -55,14 +57,16 @@ public class EncaissementController {
     }
 
     @PostMapping("/encaissement/update")
-    public String updateEncaissement(@ModelAttribute("encaissement") Encaissement encaissement){
+    public String updateEncaissement(@ModelAttribute("encaissement") Encaissement encaissement, @RequestParam String mont){
+        double montantDiff = encaissement.getMontant()-Double.parseDouble(mont);
         encaissementService.saveEncaissement(encaissement);
+        recepteurService.updateSoldeClientEncaissement(montantDiff, encaissementService.showOneEncaissement(encaissement.getId()).getCommande().getRecepteur().getId());
         return "redirect:/stat/encaissement/liste";
     }
 
     @GetMapping("/encaissement/delete")
     public String supprimerEncaissement(Long id){
-        System.out.println("********************************"+encaissementService.showOneEncaissement(id).getMontant());
+        //System.out.println("********************************"+encaissementService.showOneEncaissement(id).getMontant());
         recepteurService.updateSoldeClient(encaissementService.showOneEncaissement(id).getMontant(),
                 encaissementService.showOneEncaissement(id).getCommande().getRecepteur().getId());
         encaissementService.deleteEncaissement(id);

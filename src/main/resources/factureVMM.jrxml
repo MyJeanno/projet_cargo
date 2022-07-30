@@ -189,7 +189,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Description of goods]]></text>
             </staticText>
@@ -205,7 +205,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Qty]]></text>
             </staticText>
@@ -221,7 +221,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Weight]]></text>
             </staticText>
@@ -237,7 +237,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Value]]></text>
             </staticText>
@@ -257,7 +257,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
             </textField>
@@ -272,7 +272,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{quantite}]]></textFieldExpression>
             </textField>
@@ -287,7 +287,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{poids}]]></textFieldExpression>
             </textField>
@@ -302,7 +302,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{valeurMarchande}]]></textFieldExpression>
             </textField>
@@ -334,7 +334,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10"/>
+                    <font size="12"/>
                 </textElement>
                 <text><![CDATA[Total pieces]]></text>
             </staticText>
@@ -349,7 +349,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10"/>
+                    <font size="12"/>
                 </textElement>
                 <text><![CDATA[Total invoice amount (XOF)]]></text>
             </staticText>
@@ -364,7 +364,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10"/>
+                    <font size="12"/>
                 </textElement>
                 <text><![CDATA[Total amount (Euro)]]></text>
             </staticText>
@@ -379,7 +379,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{nbre_colis}]]></textFieldExpression>
             </textField>
@@ -401,71 +401,77 @@
             <staticText>
                 <reportElement x="210" y="59" width="100" height="20" uuid="fc8adecc-4d33-44a0-9bc3-f1c0b445ccaf"/>
                 <textElement verticalAlignment="Middle">
-                    <font isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Currency code]]></text>
             </staticText>
             <staticText>
                 <reportElement x="210" y="79" width="100" height="20" uuid="03c57c7c-1d4b-45ad-88be-c097fd90442b"/>
                 <textElement verticalAlignment="Middle">
-                    <font isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Terms of trade]]></text>
             </staticText>
             <staticText>
                 <reportElement x="310" y="59" width="30" height="19" uuid="6c33400c-1df4-4370-8359-97be7eac6175"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[:]]></text>
             </staticText>
             <staticText>
                 <reportElement x="310" y="78" width="30" height="20" uuid="d7ced20c-09b6-41d0-a64f-0dc661076884"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[:]]></text>
             </staticText>
             <staticText>
                 <reportElement x="340" y="59" width="100" height="20" uuid="bec29408-7666-4197-a7cd-d61deb872354"/>
-                <textElement verticalAlignment="Middle"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="12"/>
+                </textElement>
                 <text><![CDATA[XOF]]></text>
             </staticText>
             <staticText>
                 <reportElement x="340" y="79" width="100" height="20" uuid="a6e57ab4-9fba-4bef-9566-62b3fab3e77f"/>
-                <textElement verticalAlignment="Middle"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="12"/>
+                </textElement>
                 <text><![CDATA[Deliver Duty Unpaid : ]]></text>
             </staticText>
             <textField>
                 <reportElement x="440" y="78" width="114" height="20" uuid="ab1c325a-4c41-488a-a40b-fa8789155a1a"/>
-                <textElement verticalAlignment="Middle"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="12"/>
+                </textElement>
                 <textFieldExpression><![CDATA[$F{colisMaritime.commande.recepteur.villePersonne}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="210" y="103" width="100" height="20" uuid="06512faf-8a81-49e2-87f8-ed7cab154f45"/>
                 <textElement verticalAlignment="Middle">
-                    <font isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Total invoice amount]]></text>
             </staticText>
             <staticText>
                 <reportElement x="310" y="102" width="30" height="20" uuid="3cfce032-537b-4219-b132-fdd2d649e9a0"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[:]]></text>
             </staticText>
             <textField>
                 <reportElement x="340" y="103" width="114" height="20" uuid="e3e2385b-75e4-4d25-a614-e2a251b800ac"/>
                 <textElement verticalAlignment="Middle">
-                    <font isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$V{total_vm}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="454" y="103" width="100" height="20" uuid="aeec52c9-e6ce-4d1e-af38-ae9ae3dd362a"/>
                 <textElement verticalAlignment="Middle">
-                    <font isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[XOF]]></text>
             </staticText>

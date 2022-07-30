@@ -59,12 +59,18 @@
                         <td> : </td>
                         <td><b th:text="${prixTotal}"></b></td>
                     </tr>
+                    <tr>
+                        <td>Lieu de paiement</td>
+                        <td> : </td>
+                        <td bgcolor="yellow"><b th:text="${lastCommande.lieuPaiement}"></b></td>
+                    </tr>
                 </table>
                 <form th:action="@{/envoiMaritime/fin}" method="post" class="form-horizontal form-label-left">
-                    <div class="item form-group">
+                    <div class="item form-group" th:switch = ${lastCommande.lieuPaiement}>
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Montant payé</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="paye" class="form-control ">
+                            <input th:case = "Togo" type="text" th:value="${prixTotal2}" readonly name="paye" class="form-control ">
+                            <input th:case="*" type="text" value="0" name="paye" required class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">

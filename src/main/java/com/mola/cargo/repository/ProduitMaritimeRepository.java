@@ -28,4 +28,10 @@ public interface ProduitMaritimeRepository extends JpaRepository<ProduitMaritime
     @Modifying
     @Query(value = "delete from produit_maritime where colis_maritimeid=:id", nativeQuery = true)
     void supprimerProduitCommande(@Param("id") Long id);
+
+    @Query("select pm.tarif.categorieProduit.nomCategorie, SUM(pm.poids) as poids " +
+            "from ProduitMaritime pm " +
+            "where pm.colisMaritime.statut = ?1 " +
+            "GROUP BY pm.tarif.categorieProduit.nomCategorie")
+    List<String> PoidsParCategorieAlimentaire(String statut);
 }

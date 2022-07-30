@@ -20,4 +20,9 @@ public class Tarif {
     private double prixKilo;
     private double taxeAerien;
     private double taxeMaritime;
+
+    @ManyToOne
+    @JoinColumn(name = "categorieId", insertable = false, updatable = false)
+    private CategorieProduit categorieProduit;
+    private Long categorieId;
 }

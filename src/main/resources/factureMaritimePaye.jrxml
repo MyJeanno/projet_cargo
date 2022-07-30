@@ -51,6 +51,7 @@
     <field name="colisMaritime.commande.reduction" class="java.lang.Double"/>
     <field name="colisMaritime.commande.emetteur.numeroPersonne" class="java.lang.String"/>
     <field name="colisMaritime.commande.recepteur.numeroPersonne" class="java.lang.String"/>
+    <field name="colisMaritime.commande.emetteur.contactPersonne" class="java.lang.String"/>
     <group name="Groupe selon les numeros de colis">
         <groupExpression><![CDATA[$F{colisMaritime.numeroColis}]]></groupExpression>
         <groupHeader>
@@ -66,7 +67,7 @@
                         <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     </box>
                     <textElement textAlignment="Center" verticalAlignment="Middle">
-                        <font isBold="true"/>
+                        <font size="12" isBold="true"/>
                     </textElement>
                     <textFieldExpression><![CDATA["Colis N° : "+$F{colisMaritime.numeroColis}]]></textFieldExpression>
                 </textField>
@@ -85,7 +86,7 @@
                         <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     </box>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font size="8" isBold="true"/>
+                        <font size="10" isBold="true"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{colisMaritime.transportAllemagne}]]></textFieldExpression>
                 </textField>
@@ -100,7 +101,7 @@
                         <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     </box>
                     <textElement verticalAlignment="Middle">
-                        <font size="8" isBold="true"/>
+                        <font size="10" isBold="true"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{colisMaritime.carton.libelleCarton}]]></textFieldExpression>
                 </textField>
@@ -115,7 +116,7 @@
                         <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     </box>
                     <textElement>
-                        <font isBold="true"/>
+                        <font size="12" isBold="true"/>
                     </textElement>
                     <text><![CDATA[Informations sur le colis]]></text>
                 </staticText>
@@ -171,21 +172,6 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <reportElement x="0" y="90" width="555" height="1" uuid="c761b3ae-60f6-4a40-8550-3b0d3e8177f5"/>
             </line>
             <staticText>
-                <reportElement mode="Opaque" x="0" y="100" width="555" height="18" backcolor="#F7EEED" uuid="1e041c86-5fa8-40a1-9915-daf091b2b48e">
-                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
-                </reportElement>
-                <box>
-                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="14" isBold="true"/>
-                </textElement>
-                <text><![CDATA[      Facture]]></text>
-            </staticText>
-            <staticText>
                 <reportElement x="290" y="118" width="265" height="110" uuid="404e41bd-d435-4fef-a903-35cb3ea4a93a"/>
                 <box>
                     <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -223,7 +209,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <font size="10" isUnderline="true"/>
                     <paragraph lineSpacing="Fixed" lineSpacingSize="0.0"/>
                 </textElement>
-                <text><![CDATA[Numéro de facture]]></text>
+                <text><![CDATA[Expéditeur]]></text>
             </staticText>
             <staticText>
                 <reportElement x="9" y="152" width="91" height="15" uuid="9c031451-d295-49bb-bb03-c777c3b07989">
@@ -243,7 +229,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <font size="10" isUnderline="true"/>
                     <paragraph lineSpacing="Fixed" lineSpacingSize="0.0"/>
                 </textElement>
-                <text><![CDATA[Expéditeur]]></text>
+                <text><![CDATA[Tél expéditeur]]></text>
             </staticText>
             <staticText>
                 <reportElement x="9" y="182" width="91" height="15" uuid="9048ffb2-6e9a-4a3e-aa01-f918830d15c1">
@@ -324,7 +310,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textElement>
                     <font size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.dateEnvoi}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.FULL, new Locale("fr","FR")).format($F{colisMaritime.commande.dateEnvoi})]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="120" y="137" width="164" height="15" uuid="57e4d57c-b7f3-412b-bdce-e1a7c77d7b29">
@@ -333,7 +319,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textElement>
                     <font size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.pin}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.emetteur.nomPersonne}+" "+$F{colisMaritime.commande.emetteur.prenomPersonne}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="120" y="152" width="178" height="15" uuid="337980f2-a652-4ce3-8956-a7d2031e7d64">
@@ -351,7 +337,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textElement>
                     <font size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{colisMaritime.commande.emetteur.nomPersonne}+" "+$F{colisMaritime.commande.emetteur.prenomPersonne}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{colisMaritime.commande.emetteur.contactPersonne}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="121" y="182" width="164" height="15" uuid="2da9a943-0e8f-4df7-95e4-dc2bf9a051d8">
@@ -596,12 +582,27 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Commerce général, Import & Export, cargo shipping (MOLA CARGO),]]></text>
             </staticText>
             <staticText>
-                <reportElement x="180" y="26" width="373" height="13" uuid="e6e83d38-0b28-4b99-aa2c-3cf781cdc6d7">
+                <reportElement x="80" y="26" width="473" height="13" uuid="e6e83d38-0b28-4b99-aa2c-3cf781cdc6d7">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Right"/>
                 <text><![CDATA[bureau de représentation commerciale et de conseils en matière de douane.]]></text>
             </staticText>
+            <textField>
+                <reportElement mode="Opaque" x="0" y="98" width="555" height="19" backcolor="#FFD1FF" uuid="3db6ea17-15c1-48c2-bf24-93b6cc34adea">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Facture N° : "+$F{colisMaritime.commande.pin}]]></textFieldExpression>
+            </textField>
         </band>
     </title>
     <columnHeader>
@@ -618,7 +619,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Désignation]]></text>
             </staticText>
@@ -632,7 +633,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Poids]]></text>
             </staticText>
@@ -646,7 +647,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Type carton]]></text>
             </staticText>
@@ -660,7 +661,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Qté]]></text>
             </staticText>
@@ -674,7 +675,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Transp.]]></text>
             </staticText>
@@ -693,7 +694,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
             </textField>
@@ -708,7 +709,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{poids}]]></textFieldExpression>
             </textField>
@@ -723,7 +724,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA[" - "]]></textFieldExpression>
             </textField>
@@ -738,7 +739,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{quantite}]]></textFieldExpression>
             </textField>
@@ -790,7 +791,7 @@ NIF: 1001778160]]></text>
                     <font size="8"/>
                 </textElement>
                 <text><![CDATA[info@molaetfils.com
-www.moletfils.com
+www.molaetfils.com
 Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text>
             </staticText>
         </band>
@@ -808,7 +809,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10"/>
+                    <font size="12"/>
                 </textElement>
                 <text><![CDATA[Total à payer en XOF]]></text>
             </staticText>
@@ -823,7 +824,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10"/>
+                    <font size="12"/>
                 </textElement>
                 <text><![CDATA[Total à payer en Euro]]></text>
             </staticText>
@@ -853,7 +854,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10"/>
+                    <font size="12"/>
                 </textElement>
                 <text><![CDATA[Taxe phytosanitaire]]></text>
             </staticText>
@@ -868,7 +869,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10"/>
+                    <font size="12"/>
                 </textElement>
                 <text><![CDATA[Nombre de petit carton]]></text>
             </staticText>
@@ -881,7 +882,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{montant_petit_carton}]]></textFieldExpression>
             </textField>
@@ -896,7 +897,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{taxe_maritime}]]></textFieldExpression>
             </textField>
@@ -911,7 +912,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10"/>
+                    <font size="12"/>
                 </textElement>
                 <text><![CDATA[Nombre de grand carton]]></text>
             </staticText>
@@ -938,7 +939,9 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="12"/>
+                </textElement>
                 <textFieldExpression><![CDATA[$P{nb_petit_carton}]]></textFieldExpression>
             </textField>
             <staticText>
@@ -949,7 +952,9 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement verticalAlignment="Middle"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="12"/>
+                </textElement>
                 <text><![CDATA[Montant]]></text>
             </staticText>
             <textField>
@@ -962,7 +967,9 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="12"/>
+                </textElement>
                 <textFieldExpression><![CDATA[$P{nb_grand_carton}]]></textFieldExpression>
             </textField>
             <staticText>
@@ -975,7 +982,9 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement verticalAlignment="Middle"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="12"/>
+                </textElement>
                 <text><![CDATA[Montant]]></text>
             </staticText>
             <image>
@@ -993,7 +1002,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement verticalAlignment="Middle">
-                    <font size="10"/>
+                    <font size="12"/>
                 </textElement>
                 <text><![CDATA[Total frais transport]]></text>
             </staticText>
@@ -1008,7 +1017,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="10" isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA["-"]]></textFieldExpression>
             </textField>
@@ -1023,7 +1032,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{total_transport}]]></textFieldExpression>
             </textField>
@@ -1032,7 +1041,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="10"/>
+                    <font size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{user}]]></textFieldExpression>
             </textField>
@@ -1045,7 +1054,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Center">
-                    <font isUnderline="true"/>
+                    <font size="12" isUnderline="true"/>
                 </textElement>
                 <text><![CDATA[Agent commercial]]></text>
             </staticText>
@@ -1070,7 +1079,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font isBold="true"/>
+                    <font size="12" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Facture à regler avant le départ du colis]]></text>
             </staticText>
@@ -1087,8 +1096,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font size="12" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[String.valueOf(String.format("% ,.2f", (($P{montant_petit_carton}+$P{montant_grand_carton}+$P{taxe_maritime}+$P{total_transport})/655.97)))+"€"
-]]></textFieldExpression>
+                <textFieldExpression><![CDATA[String.valueOf(String.format("% ,.2f", (($P{montant_petit_carton}+$P{montant_grand_carton}+$P{taxe_maritime}+$P{total_transport})/655.97)))+"€"]]></textFieldExpression>
             </textField>
         </band>
     </summary>

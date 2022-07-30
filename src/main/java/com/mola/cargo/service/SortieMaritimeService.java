@@ -79,4 +79,21 @@ public class SortieMaritimeService {
         }
         return liste;
     }
+
+    public Double poidsTotalColisMaritimeLot(Long id){
+        if(sortieMaritimeRepository.poidsTotalColisMaritimeLot(id)==null){
+            return 0.0;
+        }else{
+            return sortieMaritimeRepository.poidsTotalColisMaritimeLot(id);
+        }
+    }
+
+    public List<String> PoidsParCategorieAlimentaire(Long id){
+        List<String> listeDefault = new ArrayList<>();
+        listeDefault = sortieMaritimeRepository.PoidsParCategorieAlimentaire(id);
+        if(listeDefault.isEmpty()){
+            listeDefault.add("0");
+        }
+        return listeDefault;
+    }
 }

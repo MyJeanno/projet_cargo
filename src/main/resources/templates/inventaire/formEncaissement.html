@@ -50,7 +50,7 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Somme à payer</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="number" min="0" name="montant" class="form-control ">
+                            <input type="number" min="0" th:max="${unInventaire.commande.recepteur.solde}" name="montant" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
