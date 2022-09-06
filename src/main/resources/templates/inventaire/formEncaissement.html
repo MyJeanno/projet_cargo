@@ -37,20 +37,26 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Client</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="hidden" name="id" th:value="${unInventaire.id}" class="form-control ">
-                            <input type="text" readonly th:value="${unInventaire.commande.recepteur.nomPersonne} +' '+ ${unInventaire.commande.recepteur.prenomPersonne}" class="form-control ">
+                            <input type="hidden" name="id" th:value="${uneCommande.id}" class="form-control ">
+                            <input type="text" readonly th:value="${uneCommande.recepteur.nomPersonne} +' '+ ${uneCommande.recepteur.prenomPersonne}" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Montant restant</label>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Solde client</label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" readonly th:value="${reste}" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Montant facture</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" readonly th:value="${montant_facture}" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Somme à payer</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="number" min="0" th:max="${unInventaire.commande.recepteur.solde}" name="montant" class="form-control ">
+                            <input type="number" min="0" th:max="${uneCommande.recepteur.solde}" name="montant" class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">

@@ -52,13 +52,13 @@
                                 <tbody>
                                 <tr th:each="inventaire:${annulationAttente}">
                                     <td th:text="${inventaire.id}"></td>
-                                    <td th:text="${inventaire.commande.pin}"></td>
-                                    <td th:text="${inventaire.commande.emetteur.nomPersonne}+' '+${inventaire.commande.emetteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.commande.recepteur.nomPersonne}+' '+${inventaire.commande.recepteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.commande.lieuPaiement}"></td>
-                                    <td th:text="${inventaire.nombreColis}"></td>
-                                    <td th:text="${inventaire.prixTotal}"></td>
-                                    <td th:text="${inventaire.status}"></td>
+                                    <td th:text="${inventaire.pin}"></td>
+                                    <td th:text="${inventaire.emetteur.nomPersonne}+' '+${inventaire.emetteur.prenomPersonne}"></td>
+                                    <td th:text="${inventaire.recepteur.nomPersonne}+' '+${inventaire.recepteur.prenomPersonne}"></td>
+                                    <td th:text="${inventaire.lieuPaiement}"></td>
+                                    <td th:text="${inventaire.nbColis}"></td>
+                                    <td th:text="${inventaire.montantTotal}"></td>
+                                    <td th:text="${inventaire.statutCommande}"></td>
                                     <td sec:authorize="hasAnyRole('RECEPTIONNISTE')">
                                         <a class="btn btn-round btn-sm btn-warning" th:href="@{/stat/validation/annulation/{id}(id=${inventaire.id})}">Valider</a>
                                     </td>

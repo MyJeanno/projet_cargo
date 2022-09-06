@@ -47,25 +47,39 @@ public class ColisAerienController {
         return "colis/formColisAerien";
     }
 
+    @GetMapping("/colisAerien/formReprise/{pin}")
+    public String afficherFormColisAerienReprise(@PathVariable("pin") String pin, Model model){
+        Commande commande = commandeService.showCommandePin(pin);
+        model.addAttribute("lastCommande", commande);
+        model.addAttribute("emballages", emballageService.showEmballages());
+        commandeService.updateTypeCommande(Constante.ENVOI_AERIEN, commande.getId());
+        return "colis/formColisAerienReprise";
+    }
+
     @GetMapping("/colis/poids")
     public String afficherStatPoidsDepot(Model model){
+       //System.out.println("************************************ ID = "+convoiService.showMaLastConvoiAerien().getId());
         model.addAttribute("poidsAerien", colisAerienService.poidsTotalColisAerienDepot(Constante.INITIAL));
         model.addAttribute("poidsMaritime", colisMaritimeService.poidsTotalMaritimeDepot(Constante.INITIAL));
         model.addAttribute("quantiteM", colisMaritimeService.showColisMaritimeDepot(Constante.INITIAL).size());
         model.addAttribute("quantiteA", colisAerienService.showColisAerienDepot(Constante.INITIAL).size());
-        model.addAttribute("qteLotA", sortieAerienService.showSortieColisConvois(convoiService.showMaLastConvoiAerien().getId()).size());
-        model.addAttribute("qteLotM", sortieMaritimeService.showSortieColisMaritimeConvois(convoiService.showMaLastConvoiMaritime().getId()).size());
-        model.addAttribute("poidsLotA", sortieAerienService.poidsTotalColisAerienLot(convoiService.showMaLastConvoiAerien().getId()));
-        model.addAttribute("poidsLotM", sortieMaritimeService.poidsTotalColisMaritimeLot(convoiService.showMaLastConvoiMaritime().getId()));
-        model.addAttribute("produitCategorie", produitAerienService.PoidsParCategorieAlimentaire(Constante.INITIAL));
-        model.addAttribute("pmcategorie", produitMaritimeService.PoidsParCategorieAlimentaire(Constante.INITIAL));
-        model.addAttribute("paLotCat", sortieAerienService.PoidsParCategorieAlimentaire(convoiService.showMaLastConvoiAerien().getId()));
-        model.addAttribute("pmLotCat", sortieMaritimeService.PoidsParCategorieAlimentaire(convoiService.showMaLastConvoiMaritime().getId()));
-        //System.out.println("******************************** PRODUIT = "+sortieAerienService.PoidsParCategorieAlimentaire(convoiService.showMaLastConvoiAerien().getId()));
-        /*List<String> liste = produitAerienService.PoidsParCategorieAlimentaire(Constante.INITIAL);
-        for (String s : liste){
-            System.out.println("********************************PRODUIT = "+s);
-        }*/
+        /*if(convoiService.showMaLastConvoiAerien().getId()==null || convoiService.showMaLastConvoiMaritime().getId()==null){
+            model.addAttribute("qteLotA", 0);
+            model.addAttribute("qteLotM", 0);
+            model.addAttribute("poidsLotA", 0);
+            model.addAttribute("poidsLotM", 0);
+            model.addAttribute("paLotCat", 0);
+            model.addAttribute("pmLotCat", 0);
+        }else {*/
+            model.addAttribute("qteLotA", sortieAerienService.showSortieColisConvois(convoiService.showMaLastConvoiAerien().getId()).size());
+            model.addAttribute("qteLotM", sortieMaritimeService.showSortieColisMaritimeConvois(convoiService.showMaLastConvoiMaritime().getId()).size());
+            model.addAttribute("poidsLotA", sortieAerienService.poidsTotalColisAerienLot(convoiService.showMaLastConvoiAerien().getId()));
+            model.addAttribute("poidsLotM", sortieMaritimeService.poidsTotalColisMaritimeLot(convoiService.showMaLastConvoiMaritime().getId()));
+            model.addAttribute("produitCategorie", produitAerienService.PoidsParCategorieAlimentaire(Constante.INITIAL));
+            model.addAttribute("pmcategorie", produitMaritimeService.PoidsParCategorieAlimentaire(Constante.INITIAL));
+            model.addAttribute("paLotCat", sortieAerienService.PoidsParCategorieAlimentaire(convoiService.showMaLastConvoiAerien().getId()));
+            model.addAttribute("pmLotCat", sortieMaritimeService.PoidsParCategorieAlimentaire(convoiService.showMaLastConvoiMaritime().getId()));
+       // }
         return "colis/statistiquePoidsColis";
     }
 
@@ -85,9 +99,21 @@ public class ColisAerienController {
         return "colis/poidsColisAerien";
     }
 
+    @GetMapping("/colisAerien/listePoidsBis/{pin}")
+    public String afficherColisAerienReprise(@PathVariable("pin") String pin, Model model){
+        Commande commande = commandeService.showCommandePin(pin);
+        model.addAttribute("lesColis", colisAerienService.showColisAerienCommande(commande.getId()));
+        model.addAttribute("lastCommande", commande);
+        model.addAttribute("lastColisAerien", colisAerienService.showMaLastColisAerien(commande.getId()));
+        //model.addAttribute("prixTotal", String.format("% ,.2f", prixTotal));
+        return "colis/poidsColisAerienReprise";
+    }
+
     @PostMapping("/colisAerien/poids")
     public String ajouterPoids(@RequestParam List<Double> poids){
       List<ColisAerien> ListeColisAeriens = colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+      commandeService.updateNbColisCommande(ListeColisAeriens.size(), commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+      //commandeService.updateEtatCommande(Constante.STATUT_COMMANDE_ACHEVE, commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
       int i =0;
       for (ColisAerien ca:ListeColisAeriens){
           if(ca.getCommande().getTransport().equals("Oui")){
@@ -105,7 +131,47 @@ public class ColisAerienController {
           i++;
       }
      return "redirect:/envoi/detail";
+    }
 
+    @PostMapping("/colisAerien/poidsBis")
+    public String ajouterPoidsBis(@RequestParam List<Double> poids, @RequestParam List<Double> frais){
+        List<ColisAerien> ListeColisAeriens = colisAerienService.showColisAerienCommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+        commandeService.updateNbColisCommande(ListeColisAeriens.size(), commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+        //commandeService.updateEtatCommande(Constante.STATUT_COMMANDE_ACHEVE, commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+        int i =0;
+        for (ColisAerien ca:ListeColisAeriens){
+                colisAerienService.updateToutColisAerien(colisAerienService.arrondirPoids(poids.get(i)),
+                        produitAerienService.showMaxPrixProduit(ca.getId()),
+                        colisAerienService.arrondirPoids(poids.get(i))*produitAerienService.showMaxPrixProduit(ca.getId()),
+                        frais.get(i), ca.getId());
+            i++;
+        }
+        return "redirect:/envoi/detail";
+    }
+
+    @PostMapping("/colisAerien/poidsReprise")
+    public String ajouterPoidsReprise(@RequestParam List<Double> poids, @RequestParam("pin") String pin){
+        Commande commande = commandeService.showCommandePin(pin);
+        List<ColisAerien> ListeColisAeriens = colisAerienService.showColisAerienCommande(commande.getId());
+        commandeService.updateNbColisCommande(ListeColisAeriens.size(), commande.getId());
+        //commandeService.updateEtatCommande(Constante.STATUT_COMMANDE_ACHEVE, commande.getId());
+        int i =0;
+        for (ColisAerien ca:ListeColisAeriens){
+            if(ca.getCommande().getTransport().equals("Oui")){
+                colisAerienService.updateToutColisAerien(colisAerienService.arrondirPoids(poids.get(i)),
+                        produitAerienService.showMaxPrixProduit(ca.getId()),
+                        colisAerienService.arrondirPoids(poids.get(i))*produitAerienService.showMaxPrixProduit(ca.getId()),
+                        transportService.calculerPrixTransportAllemangne(colisAerienService.arrondirPoids(poids.get(i))),
+                        ca.getId());
+            }else {
+                colisAerienService.updatePoidsColisAerien(colisAerienService.arrondirPoids(poids.get(i)),
+                        produitAerienService.showMaxPrixProduit(ca.getId()),
+                        colisAerienService.arrondirPoids(poids.get(i))*produitAerienService.showMaxPrixProduit(ca.getId()),
+                        ca.getId());
+            }
+            i++;
+        }
+        return "redirect:/envoi/detailReprise/?pin="+pin;
     }
 
     @PostMapping("/colisAerien/nouveau")
@@ -126,6 +192,26 @@ public class ColisAerienController {
         }
         colisAerienService.saveColisAerien(colisAerien);
         return "redirect:/colisAerien/produits";
+    }
+
+    @PostMapping("/colisAerien/nouveauReprise")
+    public String creerColisReprise(@RequestParam("pin") String pin, ColisAerien colisAerien){
+        List<ColisAerien> listeAerienne = new ArrayList<>();
+        Commande commande = new Commande();
+        listeAerienne = colisAerienService.showColisAerien();
+        String numero = commande.getPREFIX_COLIS()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+        while(colisAerienService.testerAppartenance(listeAerienne, numero)){
+            numero = commande.getPREFIX_COLIS()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+        }
+        colisAerien.setNumeroColis(numero);
+        colisAerien.setStatut(Constante.INITIAL);
+        colisAerien.setCommandeid(commandeService.showCommandePin(pin).getId());
+        colisAerien.setPoids(0.0);
+        if(!commandeService.showOnecommande(commandeService.showCommandePin(pin).getId()).getEtatCommande().equals(Constante.STATUT_PRODUIT_CREE)){
+            commandeService.updateEtatCommande(Constante.STATUT_COLIS_CREE, commandeService.showCommandePin(pin).getId());
+        }
+        colisAerienService.saveColisAerien(colisAerien);
+        return "redirect:/commande/colisbis/?pin="+pin+"&num="+colisAerien.getId();
     }
 
     //Liste des colis par voie aérienne

@@ -452,9 +452,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textElement>
                     <font size="10"/>
                 </textElement>
-                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.FULL, new Locale("fr","FR")).format($F{colisAerien.commande.dateEnvoi})
-
-]]></textFieldExpression>
+                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.FULL, new Locale("fr","FR")).format($F{colisAerien.commande.dateEnvoi})]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement mode="Transparent" x="110" y="134" width="170" height="15" backcolor="#FFD1FF" uuid="b840af94-1f39-4809-89da-2ab2a029ecc8">
@@ -584,7 +582,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Right"/>
-                <text><![CDATA[Mola et Fils, M. Biao]]></text>
+                <text><![CDATA[Mola et Fils,]]></text>
             </staticText>
             <staticText>
                 <reportElement x="180" y="13" width="373" height="13" uuid="d96c83e4-f205-4f6b-844a-aed43abf5e3d">
@@ -613,7 +611,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textElement textAlignment="Center">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA["Facture N° : "+$F{colisAerien.commande.pin} ]]></textFieldExpression>
+                <textFieldExpression><![CDATA["Facture N° : "+$F{colisAerien.commande.pin}]]></textFieldExpression>
             </textField>
         </band>
     </title>
@@ -797,7 +795,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <textElement>
                     <font size="8"/>
                 </textElement>
-                <text><![CDATA[Mola et Fils, M. Biao
+                <text><![CDATA[Mola et Fils,
 Quartier Tokoin Wuiti, Av. Akei, Lomé Togo]]></text>
             </staticText>
             <line>
@@ -974,7 +972,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                 <text><![CDATA[Facture à regler avant le départ du colis]]></text>
             </staticText>
             <staticText>
-                <reportElement x="0" y="185" width="280" height="65" uuid="84718181-1154-4a49-b341-5ae6b1dce9dd">
+                <reportElement x="0" y="185" width="555" height="65" uuid="84718181-1154-4a49-b341-5ae6b1dce9dd">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box leftPadding="5">
@@ -983,7 +981,7 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement>
+                <textElement textAlignment="Center">
                     <font size="10"/>
                 </textElement>
                 <text><![CDATA[Nos coordonnées bancaires en Europe
@@ -991,16 +989,6 @@ IBAN : DE78 3701 0050 0995 3355 03
 BIC : PBNKDEFF
 Postbank
 Receveur : Menad BIAO]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="280" y="185" width="275" height="65" uuid="bcfa2925-1718-40d0-8fc1-2451001543b6"/>
-                <box>
-                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                </box>
-                <text><![CDATA[]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="0" y="250" width="555" height="18" backcolor="#FAD13E" uuid="8bacf5cb-eee0-4fef-a24f-0183387766c0">
@@ -1016,17 +1004,6 @@ Receveur : Menad BIAO]]></text>
                     <font size="12"/>
                 </textElement>
                 <text><![CDATA[Veuillez toujours donner votre numéro de facture comme référence de virement]]></text>
-            </staticText>
-            <image>
-                <reportElement x="330" y="190" width="162" height="37" uuid="35744e12-e802-4822-984e-9ab2117f2c02">
-                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
-                </reportElement>
-                <imageExpression><![CDATA[$P{logo_paypal}]]></imageExpression>
-            </image>
-            <staticText>
-                <reportElement x="330" y="227" width="162" height="18" uuid="083c8ca2-55b1-4edc-bd94-226179d1ea9a"/>
-                <textElement textAlignment="Left" verticalAlignment="Middle"/>
-                <text><![CDATA[m.biao@molaetfils.com]]></text>
             </staticText>
             <textField>
                 <reportElement x="94" y="127" width="100" height="18" uuid="774759e4-0e81-4838-8c85-a7d5472ed3ef">

@@ -50,15 +50,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="inventaire:${inventaires}">
+                                <tr th:each="inventaire:${commandes}">
                                     <td th:text="${inventaire.id}"></td>
-                                    <td th:text="${inventaire.commande.pin}"></td>
-                                    <td th:text="${inventaire.commande.emetteur.nomPersonne}+' '+${inventaire.commande.emetteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.commande.recepteur.nomPersonne}+' '+${inventaire.commande.recepteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.commande.lieuPaiement}"></td>
-                                    <td th:text="${inventaire.nombreColis}"></td>
-                                    <td th:text="${inventaire.prixTotal}"></td>
-                                    <td th:text="${inventaire.status}"></td>
+                                    <td th:text="${inventaire.pin}"></td>
+                                    <td th:text="${inventaire.emetteur.nomPersonne}+' '+${inventaire.emetteur.prenomPersonne}"></td>
+                                    <td th:text="${inventaire.recepteur.nomPersonne}+' '+${inventaire.recepteur.prenomPersonne}"></td>
+                                    <td th:text="${inventaire.lieuPaiement}"></td>
+                                    <td th:text="${inventaire.nbColis}"></td>
+                                    <td th:text="${inventaire.montantTotal}"></td>
+                                    <td th:text="${inventaire.statutCommande}"></td>
                                     <td>
                                         <a class="btn btn-round btn-sm btn-warning" th:href="@{/stat/annuler/encaissement/{id}(id=${inventaire.id})}">Annuler</a>
                                     </td>

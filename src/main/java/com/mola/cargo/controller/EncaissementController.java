@@ -1,6 +1,7 @@
 package com.mola.cargo.controller;
 
 import com.mola.cargo.model.Encaissement;
+import com.mola.cargo.service.CommandeService;
 import com.mola.cargo.service.EncaissementService;
 import com.mola.cargo.service.InventaireService;
 import com.mola.cargo.service.RecepteurService;
@@ -22,6 +23,8 @@ public class EncaissementController {
     private RecepteurService recepteurService;
     @Autowired
     private InventaireService inventaireService;
+    @Autowired
+    private CommandeService commandeService;
 
     @GetMapping("/encaissement/liste")
     public String afficherEncaissement(Model model){
@@ -31,8 +34,9 @@ public class EncaissementController {
 
     @GetMapping("/form/encaissement/{id}")
     public String afficherFormEncaissement(@PathVariable("id") Long id, Model model){
-        model.addAttribute("unInventaire", inventaireService.showOneInventaire(id));
-        model.addAttribute("reste", String.format("% ,.2f", inventaireService.showOneInventaire(id).getCommande().getRecepteur().getSolde()));
+        model.addAttribute("uneCommande", commandeService.showOnecommande(id));
+        model.addAttribute("reste", String.format("% ,.2f", commandeService.showOnecommande(id).getRecepteur().getSolde()));
+        model.addAttribute("montant_facture", String.format("% ,.2f", commandeService.showOnecommande(id).getMontantTotal()));
         return "inventaire/formEncaissement";
     }
 
@@ -40,13 +44,13 @@ public class EncaissementController {
     public String validerFactureNonPayer(@RequestParam double montant, @RequestParam Long id){
         Encaissement encaissement = new Encaissement();
         encaissement.setDateEncaissement(LocalDate.now());
-        encaissement.setCommande_id(inventaireService.showOneInventaire(id).getCommande().getId());
+        encaissement.setCommande_id(id);
         encaissement.setMontant(montant);
         encaissementService.saveEncaissement(encaissement);
-        if(montant==inventaireService.showOneInventaire(id).getCommande().getRecepteur().getSolde()){
-            inventaireService.updateStatutInventaire(Constante.INVENTAIRE_ENCAISSE, id);
+        if(montant==commandeService.showOnecommande(id).getRecepteur().getSolde()){
+            commandeService.updateStatutCommandeEncaisse(Constante.INVENTAIRE_ENCAISSE, id);
         }
-        recepteurService.updateSoldeClientEncaissement(montant, inventaireService.showOneInventaire(id).getCommande().getRecepteur().getId());
+        recepteurService.updateSoldeClientEncaissement(montant, commandeService.showOnecommande(id).getRecepteur().getId());
         return "redirect:/stat/inventaires/non_paye";
     }
 

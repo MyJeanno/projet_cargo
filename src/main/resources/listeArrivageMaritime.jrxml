@@ -97,7 +97,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Right"/>
-                <text><![CDATA[Mola et Fils, M. Biao]]></text>
+                <text><![CDATA[Mola et Fils,]]></text>
             </staticText>
             <staticText>
                 <reportElement x="180" y="13" width="373" height="13" uuid="b3ed8cde-da29-452c-9ec6-235491872b1a">
@@ -107,7 +107,7 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
                 <text><![CDATA[Commerce général, Import & Export, cargo shipping (MOLA CARGO),]]></text>
             </staticText>
             <staticText>
-                <reportElement x="180" y="26" width="373" height="13" uuid="d4f1d5cd-2f56-4152-8fad-35a5931ef741">
+                <reportElement x="80" y="26" width="473" height="13" uuid="d4f1d5cd-2f56-4152-8fad-35a5931ef741">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Right"/>

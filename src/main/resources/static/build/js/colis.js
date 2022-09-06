@@ -1,3 +1,4 @@
+/*
 function afficherAutre() {
 		  var le = document.getElementById("labelEtat");
 		  var e = document.getElementById("etat");
@@ -33,3 +34,4 @@ function afficherPrix(){
         document.getElementById(pcolis).style.display = none;
     }
 }
+*/

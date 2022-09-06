@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head></head>
+<body>
+
+<div layout:fragment="content">
+
+  <div class="page-title">
+    <div class="title_left">
+      <h4><small>Mise à jour d'un produit par envoi aérien</small></h4>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="col-md-12 col-sm-12 ">
+    <div class="x_panel">
+      <div class="x_title">
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a class="dropdown-item" href="#">Settings 1</a>
+              </li>
+              <li><a class="dropdown-item" href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <br />
+        <form th:action="@{/produitAerien/updateReprise}" method="POST" th:object="${unProduit}" data-parsley-validate class="form-horizontal form-label-left">
+          <div class="item form-group">
+            <div class="col-md-6 col-sm-6 ">
+              <input type="hidden" th:field="*{id}" required="required" class="form-control ">
+              <input type="hidden" th:field="*{colisAerienid}" required="required" class="form-control ">
+            </div>
+          </div>
+          <div class="item form-group">
+            <label class="ccol-form-label col-md-3 col-sm-3 label-align">Catégorie de produit</label>
+            <div class="col-md-6 col-sm-6">
+              <select th:field="*{tarifid}" required="required" class="form-control border-info">
+                <option value="">--Choisir une catégorie de produit--</option>
+                <option th:each="tarif:${tarifs}"
+                        th:value="${tarif.id}"
+                        th:utext="${tarif.libelleTarif}">
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="item form-group">
+            <label class="col-form-label col-md-3 col-sm-3 label-align">désignation</label>
+            <div class="col-md-6 col-sm-6 ">
+              <input type="text" th:field="*{designation}" class="form-control" required="required">
+            </div>
+          </div>
+          <div class="item form-group">
+            <label class="col-form-label col-md-3 col-sm-3 label-align">Quantité</label>
+            <div class="col-md-6 col-sm-6 ">
+              <input type="text" th:field="*{quantite}" class="form-control" required="required">
+            </div>
+          </div>
+          <div class="item form-group">
+            <label class="col-form-label col-md-3 col-sm-3 label-align">Poids en kg<span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 ">
+              <input type="number" th:field="*{poids}" required="required" class="form-control ">
+            </div>
+          </div>
+          <div class="item form-group">
+            <label class="col-form-label col-md-3 col-sm-3 label-align">Valeur marchande<span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 ">
+              <input type="number" th:field="*{valeurMarchande}" required="required" class="form-control ">
+            </div>
+          </div>
+          <div class="item form-group">
+            <div class="col-md-6 col-sm-6 offset-md-3">
+              <!--<a th:href="@{/colisAerien/produits}" class="btn btn-secondary">Retour</a>-->
+              <button type="submit" class="btn btn-success">Mettre à jour colis</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

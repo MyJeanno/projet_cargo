@@ -2,9 +2,12 @@ package com.mola.cargo.service;
 
 import com.mola.cargo.model.Convoi;
 import com.mola.cargo.repository.ConvoiRepository;
+import com.mola.cargo.util.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +34,16 @@ public class ConvoiService {
     }
 
     public Convoi showMaLastConvoiAerien(){
+        if(convoiRepository.showMaLastConvoi()==null){
+            return new Convoi(1L, Constante.PREFIX_AERIEN+"_"+ LocalDate.now(), LocalDateTime.now());
+        }
         return convoiRepository.showMaLastConvoi();
     }
 
     public Convoi showMaLastConvoiMaritime(){
+        if(convoiRepository.showMaLastConvoiMaritime()==null){
+            return new Convoi(1L, Constante.PREFIX_MARITIME+"_"+ LocalDate.now(), LocalDateTime.now());
+        }
         return convoiRepository.showMaLastConvoiMaritime();
     }
 

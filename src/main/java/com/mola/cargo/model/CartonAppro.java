@@ -25,4 +25,9 @@ public class CartonAppro {
     @JoinColumn(name = "cartonid", insertable = false, updatable = false)
     private Carton carton;
     private Long cartonid;
+
+    @ManyToOne
+    @JoinColumn(name = "commandeCartonid", insertable = false, updatable = false)
+    private CommandeCarton commandeCarton;
+    private Long commandeCartonid;
 }

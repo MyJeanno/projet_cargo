@@ -7,10 +7,7 @@ import groovy.transform.AutoClone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -43,6 +40,8 @@ public class CommandeController {
     private ProduitAerienService produitAerienService;
     @Autowired
     private ProduitMaritimeService produitMaritimeService;
+    @Autowired
+    private TarifService tarifService;
 
     @GetMapping("/mode/envoi")
     public String choisirModeEnvoi(){
@@ -52,6 +51,66 @@ public class CommandeController {
     @GetMapping("commande/new")
     public String afficherFormCommande(){
         return "commande/formCommande";
+    }
+
+    @GetMapping("/commande/formReprise")
+    public String formRepriseCommande(){
+        return "commande/FormRepriseCommande";
+    }
+
+    @PostMapping("/commande/reprise")
+    public String listeColisCommande(@RequestParam("pin") String pin, Model model){
+        model.addAttribute("numCom", pin);
+        if(commandeService.showCommandePin(pin).getTypeEnvoi().equals(Constante.ENVOI_AERIEN)){
+        model.addAttribute("colisCommande", colisAerienService.showColisAerienCommande(commandeService.showCommandePin(pin).getId()));
+        }else {
+            model.addAttribute("colisCommande", colisMaritimeService.showColisMaritimeCommande(commandeService.showCommandePin(pin).getId()));
+        }
+        return "commande/formColisCommande";
+    }
+
+    @GetMapping("/commande/colis")
+    public String ajouterProduitColis(@RequestParam("num") String num, @RequestParam("pin") String pin, Model model){
+        Commande commande = commandeService.showCommandePin(pin);
+        if(commande.getTypeEnvoi().equals(Constante.ENVOI_AERIEN)){
+            model.addAttribute("produitsAerien", produitAerienService.findProduitColisAerien(commande.getId()));
+            model.addAttribute("tarifs", tarifService.showTarifs());
+            model.addAttribute("lastColisAerien", colisAerienService.showOneColisAerien(Long.parseLong(num)));
+            model.addAttribute("reprise", "OUI");
+            model.addAttribute("pin", pin);
+            model.addAttribute("idColis", Long.parseLong(num));
+            return "produit/produitAerien";
+        }else {
+            model.addAttribute("produitsMaritime", produitMaritimeService.findProduitColisMaritime(commande.getId()));
+            model.addAttribute("tarifs", tarifService.showTarifs());
+            model.addAttribute("lastColisMaritime", colisMaritimeService.showOneColisMaritime(Long.parseLong(num)));
+            model.addAttribute("reprise", "OUI");
+            model.addAttribute("pin", pin);
+            model.addAttribute("idColis", Long.parseLong(num));
+            return "produit/produitMaritime";
+        }
+    }
+
+    @GetMapping("/commande/colisbis")
+    public String ajouterProduitColisBis(String pin, Long num, Model model){
+        Commande commande = commandeService.showCommandePin(pin);
+        if(commande.getTypeEnvoi().equals(Constante.ENVOI_AERIEN)){
+            model.addAttribute("produitsAerien", produitAerienService.findProduitColisAerien(commande.getId()));
+            model.addAttribute("tarifs", tarifService.showTarifs());
+            model.addAttribute("lastColisAerien", colisAerienService.showOneColisAerien(num));
+            model.addAttribute("reprise", "OUI");
+            model.addAttribute("pin", pin);
+            model.addAttribute("idColis", num);
+            return "produit/produitAerien";
+        }else {
+            model.addAttribute("produitsMaritime", produitMaritimeService.findProduitColisMaritime(commande.getId()));
+            model.addAttribute("tarifs", tarifService.showTarifs());
+            model.addAttribute("lastColisMaritime", colisMaritimeService.showOneColisMaritime(num));
+            model.addAttribute("reprise", "OUI");
+            model.addAttribute("pin", pin);
+            model.addAttribute("idColis", num);
+            return "produit/produitMaritime";
+        }
     }
 
     //Renvoie le formulaire de la nouvelle commande
@@ -76,7 +135,7 @@ public class CommandeController {
 
         model.addAttribute("unEmetteur", emetteurService.showOneEmetteur(idE));
         model.addAttribute("unRecepteur", recepteurService.showOneRecepteur(idR));
-
+        model.addAttribute("pays", paysService.showPays());
         model.addAttribute("pieces", pieceService.showPiece());
         model.addAttribute("modePaiments", paiementService.showPaiement());
         model.addAttribute("uneReduction", reductionService.lareduction());
@@ -95,6 +154,7 @@ public class CommandeController {
         commande.setDateEnvoi(new Date());
         commande.setEtatCommande(Constante.STATUT_COMMANDE_CREE);
         commande.setUserid(Constante.showUserConnecte().getId());
+        commande.setStatutCommande(Constante.INVENTAIRE_NON_ENCAISSE);
         if(commandeService.showCommandeInacheve(Constante.STATUT_COMMANDE_ACHEVE, Constante.showUserConnecte().getId()).size()==0){
             commandeService.saveCommande(commande);
             return "redirect:/mode/envoi";

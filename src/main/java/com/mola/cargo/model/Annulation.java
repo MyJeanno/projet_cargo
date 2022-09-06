@@ -18,7 +18,7 @@ public class Annulation {
     private String motif;
 
     @ManyToOne
-    @JoinColumn(name = "inventaire_id", insertable = false, updatable = false)
-    private Inventaire inventaire;
-    private Long inventaire_id;
+    @JoinColumn(name = "commande_id", insertable = false, updatable = false)
+    private Commande commande;
+    private Long commande_id;
 }

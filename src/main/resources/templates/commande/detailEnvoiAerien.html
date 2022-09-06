@@ -45,7 +45,17 @@
                             <td><b th:text="${prixColis}"></b></td>
                         </tr>
                         <tr>
-                            <td>Frais de livraison en Allemagne</td>
+                            <td>Transport Allemagne ?</td>
+                            <td> : </td>
+                            <td><b th:text="${lastCommande.transport}"></b></td>
+                        </tr>
+                        <tr>
+                            <td>Lieu de livraison</td>
+                            <td> : </td>
+                            <td bgcolor="pink"><b th:text="${lastCommande.lieuLivraison}"></b></td>
+                        </tr>
+                        <tr>
+                            <td>Frais de livraison</td>
                             <td> : </td>
                             <td><b th:text="${transport}"></b></td>
                         </tr>

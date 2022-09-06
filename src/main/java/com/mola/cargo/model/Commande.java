@@ -24,12 +24,15 @@ public class Commande {
     private Date dateEnvoi;
     @Column(name = "lieu_paiement")
     private String lieuPaiement;
+    private String lieuLivraison;
     private String typeEnvoi;
     private String transport;
     private double reduction;
     private double montantTotal;
     private double montantPaye;
     private String etatCommande;
+    private String statutCommande;
+    private int nbColis;
 
     @ManyToOne
     @JoinColumn(name = "pieceid", insertable = false, updatable = false)

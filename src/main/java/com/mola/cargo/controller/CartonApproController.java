@@ -4,6 +4,7 @@ import com.mola.cargo.model.Carton;
 import com.mola.cargo.model.CartonAppro;
 import com.mola.cargo.service.CartonApproService;
 import com.mola.cargo.service.CartonService;
+import com.mola.cargo.service.CommandeCartonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +21,14 @@ public class CartonApproController {
     private CartonApproService cartonApproService;
     @Autowired
     private CartonService cartonService;
+    @Autowired
+    private CommandeCartonService commandeCartonService;
 
     @GetMapping("/cartonAppros")
     public String afficherCartonAppro(Model model){
         model.addAttribute("cartonAppros", cartonApproService.showCartonAppro());
         model.addAttribute("cartons", cartonService.showCarton());
+        model.addAttribute("uneCommandeCarton", commandeCartonService.showLastCommandeCarton());
         return "carton/cartonAppro";
     }
 
@@ -38,8 +42,10 @@ public class CartonApproController {
         cartonAppro.setCartonid(cartonid);
         cartonAppro.setDateAppro(d);
         cartonAppro.setQteAppro(qte);
+        cartonAppro.setCommandeCartonid(commandeCartonService.showLastCommandeCarton().getId());
         cartonApproService.saveCartonAppro(cartonAppro);
         cartonService.updateAddStockCarton(cartonid, qte);
+        commandeCartonService.updateCommandeCartonAppro(commandeCartonService.showLastCommandeCarton().getId(), qte);
        return "redirect:/cartonAppros";
     }
 

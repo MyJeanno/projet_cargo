@@ -27,6 +27,9 @@ public interface ColisMaritimeRepository extends JpaRepository<ColisMaritime, Lo
     @Query(value = "select * from colis_maritime where commandeid=:id LIMIT 1", nativeQuery = true)
     ColisMaritime showMaColisMaritimeByCommandeId(@Param("id") Long id);
 
+    @Query("select cm from ColisMaritime cm WHERE cm.numeroColis = :num")
+    ColisMaritime showColisMaritimeCommande(@Param("num") String num);
+
     @Query("select COUNT(cm) FROM  ColisMaritime cm where cm.commandeid = ?1 and cm.id in (select p.colisMaritimeid from ProduitMaritime p)")
     int nbreColisMaritime(Long id);
 
@@ -45,7 +48,7 @@ public interface ColisMaritimeRepository extends JpaRepository<ColisMaritime, Lo
     @Query("select SUM(cm.transportAllemagne) FROM ColisMaritime cm where cm.commandeid = ?1")
     Double montantTotalTransport(Long id);
 
-    @Query("select SUM(cm.poids) FROM ColisMaritime cm where cm.statut = ?1")
+    @Query("select ROUND(SUM(cm.poids),2) FROM ColisMaritime cm where cm.statut = ?1")
     Double poidsTotalMaritimeDepot(String etat);
 
     @Transactional

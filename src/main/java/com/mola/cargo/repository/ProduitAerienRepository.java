@@ -21,7 +21,7 @@ public interface ProduitAerienRepository extends JpaRepository<ProduitAerien, Lo
     @Query("select pa from ProduitAerien pa where pa.colisAerien.statut = ?1")
     List<ProduitAerien> findProduitColisAerienDepot(String statut);
 
-    @Query("select pa.tarif.categorieProduit.nomCategorie, SUM(pa.poids) as poids " +
+    @Query("select pa.tarif.categorieProduit.nomCategorie,  ROUND(SUM(pa.poids),2) " +
             "from ProduitAerien pa " +
             "where pa.colisAerien.statut = ?1 " +
             "GROUP BY pa.tarif.categorieProduit.nomCategorie")

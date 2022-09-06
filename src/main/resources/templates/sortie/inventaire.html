@@ -10,7 +10,7 @@
     <div class="clearfix"></div>
     <div>
         <div style="margin:10px;" class="title_left">
-            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Encaissement des factures payés au Togo</small></h4>
+            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Encaissement des factures payées au Togo</small></h4>
         </div>
     </div>
     <!-- table -->
@@ -53,18 +53,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="inventaire:${inventaires}">
-                                    <td th:text="${inventaire.id}"></td>
-                                    <td th:text="${inventaire.commande.user.prenom}"></td>
-                                    <td th:text="${inventaire.commande.pin}"></td>
-                                    <td th:text="${inventaire.commande.emetteur.nomPersonne}+' '+${inventaire.commande.emetteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.commande.recepteur.nomPersonne}+' '+${inventaire.commande.recepteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.commande.lieuPaiement}"></td>
-                                    <td th:text="${inventaire.nombreColis}"></td>
-                                    <td th:text="${inventaire.prixTotal}"></td>
-                                    <td th:text="${inventaire.status}"></td>
-                                    <td sec:authorize="hasAnyRole('ADMIN')">
-                                        <a class="btn btn-round btn-sm btn-info dbtn" th:href="@{/stat/inventaire/valider/{id}(id=${inventaire.id})}">Encaisser</a>
+                                <tr th:each="com:${inventaires}">
+                                    <td th:text="${com.id}"></td>
+                                    <td th:text="${com.user.prenom}"></td>
+                                    <td th:text="${com.pin}"></td>
+                                    <td th:text="${com.emetteur.nomPersonne}+' '+${com.emetteur.prenomPersonne}"></td>
+                                    <td th:text="${com.recepteur.nomPersonne}+' '+${com.recepteur.prenomPersonne}"></td>
+                                    <td th:text="${com.lieuPaiement}"></td>
+                                    <td th:text="${com.nbColis}"></td>
+                                    <td th:text="${com.montantTotal}"></td>
+                                    <td th:text="${com.statutCommande}"></td>
+                                    <td sec:authorize="hasAnyRole('ADMIN')" th:switch="${com.typeEnvoi}">
+                                        <a class="btn btn-round btn-sm btn-info dbtn" title="Encaisser" th:href="@{/stat/inventaire/valider/{id}(id=${com.id})}"><i class="fa fa-money"></i></a>
+                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-success" th:href="@{/stat/inventaireMaritimeLien/facture/{id}(id=${com.id})}"><i class="fa fa-eye"></i></a>
+                                        <a th:case="*" class="btn btn-round btn-sm btn-success" title="Voir" th:href="@{/stat/inventaireAerienLien/facture/{id}(id=${com.id})}"><i class="fa fa-eye"></i></a>
+                                        <!--<a class="btn btn-round btn-sm btn-success showbtn" title="Voir" th:href="@{/envoi/detailReprise/(pin=${com.pin})}"><i class="fa fa-eye"></i></a>-->
                                     </td>
                                 </tr>
                                 </tbody>
@@ -98,6 +101,28 @@
         </div>
     </div>
     <!-- End Modal delete -->
+    <div class="modal fade" id="showform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel2">Plus d'informations sur la commande</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Liste des colis de la commande :</p>
+                    <p class="alert alert-info" >
+
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a href="" class="btn btn-success" id="showRef">Valider</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

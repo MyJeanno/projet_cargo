@@ -43,8 +43,8 @@
                     <div class="item form-group">
                         <label class="ccol-form-label col-md-3 col-sm-3 label-align">Taille du carton</label>
                         <div class="col-md-6 col-sm-6">
-                            <select name="emballageid" class="form-control border-info">
-                                <option>--Choisir une pièce--</option>
+                            <select name="emballageid" required class="form-control border-info">
+                                <option value="">--Choisir une pièce--</option>
                                 <option th:each="emballage:${emballages}"
                                         th:value="${emballage.id}"
                                         th:text="${emballage.taille}">

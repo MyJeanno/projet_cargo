@@ -24,6 +24,9 @@ public interface ColisAerienRepository extends JpaRepository<ColisAerien, Long> 
     @Query(value = "select * from colis_aerien WHERE commandeid = :id ORDER BY id DESC LIMIT 1", nativeQuery = true)
     ColisAerien showMaLastColisAerien(@Param("id") Long id);
 
+    @Query("select ca from ColisAerien ca WHERE ca.numeroColis = :num")
+    ColisAerien showColisAerienCommande(@Param("num") String num);
+
   /*  @Query("select ca from Colis_aerien ca where ca.commandeid = :id ORDER BY ca.id DESC LIMIT 1")
     ColisAerien showMaLastColisAerienCommande(@Param("id") Long id);*/
 
@@ -46,7 +49,7 @@ public interface ColisAerienRepository extends JpaRepository<ColisAerien, Long> 
     @Query("select SUM(ca.prixColis) FROM ColisAerien ca where ca.commandeid = ?1")
     Double prixTotalColisAerien(Long id);
 
-    @Query("select SUM(ca.poids) FROM ColisAerien ca where ca.statut = ?1")
+    @Query("select ROUND(SUM(ca.poids),2) FROM ColisAerien ca where ca.statut = ?1")
     Double poidsTotalColisAerienDepot(String statut);
 
     @Query("select SUM(ca.transportAllemagne) FROM ColisAerien ca where ca.commandeid = ?1")

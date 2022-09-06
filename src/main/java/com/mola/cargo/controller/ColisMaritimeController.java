@@ -48,6 +48,16 @@ public class ColisMaritimeController {
         return "colis/formColisMaritime";
     }
 
+    @GetMapping("/colisMaritime/formReprise/{pin}")
+    public String afficherFormColisMaritimeReprise(@PathVariable("pin") String pin, Model model){
+        Commande commande = commandeService.showCommandePin(pin);
+        model.addAttribute("lastCommande", commande);
+        model.addAttribute("cartons", cartonService.showCarton());
+        model.addAttribute("pays", paysService.findPaysTarif());
+        commandeService.updateTypeCommande(Constante.ENVOI_MARITIME, commande.getId());
+        return "colis/formColisMaritimeReprise";
+    }
+
     @GetMapping("/colisMaritime/depot")
     public String afficherColisMaritimeDepot(Model model){
         model.addAttribute("colisMaritimes", colisMaritimeService.showColisMaritimeDepot(Constante.INITIAL));
@@ -76,8 +86,38 @@ public class ColisMaritimeController {
                 colisMaritime.setPrixColis(c.getPrix());
             }
         }
+        if(!commandeService.showOnecommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()).getEtatCommande().equals(Constante.STATUT_PRODUIT_CREE)){
+            commandeService.updateEtatCommande(Constante.STATUT_COLIS_CREE, commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+        }
         colisMaritimeService.saveColisMaritime(colisMaritime);
         return "redirect:/colisMaritime/produits";
+    }
+
+    @PostMapping("/colisMaritime/nouveauReprise")
+    public String enregistrerColisMaritimeReprise(@RequestParam("pin") String pin, ColisMaritime colisMaritime){
+        List<ColisMaritime> listeMaritime = new ArrayList<>();
+        Commande commande = new Commande();
+        listeMaritime = colisMaritimeService.showColisMaritime();
+        String numero = commande.getPREFIX_COLIS_MARITIME()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+        while(colisMaritimeService.testerAppartenance(listeMaritime, numero)){
+            numero = commande.getPREFIX_COLIS_MARITIME()+""+commandeService.genererNbre(commande.getNBRE_INITIAL(), commande.getNBRE_FINAL());
+        }
+        colisMaritime.setNumeroColis(numero);
+        colisMaritime.setStatut(Constante.INITIAL);
+        colisMaritime.setCommandeid(commandeService.showCommandePin(pin).getId());
+
+        List<CargoType> listPrix = new ArrayList<>();
+        listPrix = cargoTypeService.showCargoType();
+        for (CargoType c : listPrix){
+            if(colisMaritime.getCartonid() == c.getCartonid() && colisMaritime.getPaysid() == c.getPaysid()){
+                colisMaritime.setPrixColis(c.getPrix());
+            }
+        }
+        if(!commandeService.showOnecommande(commandeService.showCommandePin(pin).getId()).getEtatCommande().equals(Constante.STATUT_PRODUIT_CREE)){
+            commandeService.updateEtatCommande(Constante.STATUT_COLIS_CREE, commandeService.showCommandePin(pin).getId());
+        }
+        colisMaritimeService.saveColisMaritime(colisMaritime);
+        return "redirect:/commande/colisbis/?pin="+pin+"&num="+colisMaritime.getId();
     }
 
     //Liste des colis par voie maritime
@@ -90,27 +130,57 @@ public class ColisMaritimeController {
 
     //Pour ajouter les poids des colis après pesé
     @GetMapping("/colisMaritime/ajouterPoids")
-    public String afficherColisAerien(Model model){
+    public String afficherColisMaritime(Model model){
         model.addAttribute("lesColis", colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
         model.addAttribute("lastCommande", commandeService.showMaLastCommande(Constante.showUserConnecte().getId()));
         model.addAttribute("lastColisAerien", colisMaritimeService.showMaLastColisMaritime(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId()));
         return "colis/poidsColisMaritime";
     }
 
+    @GetMapping("/colisMaritime/ajouterPoidsBis/{pin}")
+    public String afficherColisMaritimeBis(@PathVariable("pin") String pin, Model model){
+        Commande commande = commandeService.showCommandePin(pin);
+        model.addAttribute("lesColis", colisMaritimeService.showColisMaritimeCommande(commande.getId()));
+        model.addAttribute("lastCommande", commande);
+        model.addAttribute("lastColisAerien", colisMaritimeService.showMaLastColisMaritime(commande.getId()));
+        return "colis/poidsColisMaritimeReprise";
+    }
+
     @PostMapping("/colisMaritime/updatePoids")
     public String ajouterPoids(@RequestParam List<Double> poids){
         List<ColisMaritime> ListeColisMaritime = colisMaritimeService.showColisMaritimeCommande(commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+        commandeService.updateNbColisCommande(ListeColisMaritime.size(), commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
+        //commandeService.updateEtatCommande(Constante.STATUT_COMMANDE_ACHEVE, commandeService.showMaLastCommande(Constante.showUserConnecte().getId()).getId());
         int i =0;
         for (ColisMaritime cm:ListeColisMaritime){
-            if(cm.getCommande().getTransport().equals("Oui")){
+           /* if(cm.getCommande().getTransport().equals("Oui")){
                 colisMaritimeService.updatePoidsTransportColisMaritime(colisMaritimeService.arrondirPoids(poids.get(i)),
                         transportService.calculerPrixTransportAllemangne(colisMaritimeService.arrondirPoids(poids.get(i))),cm.getId());
-            }else{
-                colisMaritimeService.updatePoidsColisMaritime(colisMaritimeService.arrondirPoids(poids.get(i)), cm.getId());
-            }
+            }else{*/
+            colisMaritimeService.updatePoidsColisMaritime(colisMaritimeService.arrondirPoids(poids.get(i)), cm.getId());
+           // }
             i++;
         }
         return "redirect:/envoiMaritime/detail";
+    }
+
+    @PostMapping("/colisMaritime/updatePoidsReprise")
+    public String ajouterPoidsReprise(@RequestParam List<Double> poids, @RequestParam("pin") String pin){
+        Commande commande = commandeService.showCommandePin(pin);
+        List<ColisMaritime> ListeColisMaritime = colisMaritimeService.showColisMaritimeCommande(commande.getId());
+        commandeService.updateNbColisCommande(ListeColisMaritime.size(), commande.getId());
+        //commandeService.updateEtatCommande(Constante.STATUT_COMMANDE_ACHEVE, commande.getId());
+        int i =0;
+        for (ColisMaritime cm:ListeColisMaritime){
+            /*if(cm.getCommande().getTransport().equals("Oui")){
+                colisMaritimeService.updatePoidsTransportColisMaritime(colisMaritimeService.arrondirPoids(poids.get(i)),
+                        transportService.calculerPrixTransportAllemangne(colisMaritimeService.arrondirPoids(poids.get(i))),cm.getId());
+            }else{*/
+                colisMaritimeService.updatePoidsColisMaritime(colisMaritimeService.arrondirPoids(poids.get(i)), cm.getId());
+           // }
+            i++;
+        }
+        return "redirect:/envoiMaritime/detailReprise/?pin="+pin;
 
     }
 

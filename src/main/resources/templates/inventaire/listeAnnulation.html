@@ -50,10 +50,10 @@
                                 <tbody>
                                 <tr th:each="annulation:${lesAnnulations}">
                                     <td th:text="${annulation.id}"></td>
-                                    <td th:text="${annulation.inventaire.commande.pin}"></td>
-                                    <td th:text="${annulation.inventaire.commande.emetteur.nomPersonne}+' '+${annulation.inventaire.commande.emetteur.prenomPersonne}"></td>
-                                    <td th:text="${annulation.inventaire.commande.recepteur.nomPersonne}+' '+${annulation.inventaire.commande.recepteur.prenomPersonne}"></td>
-                                    <td th:text="${annulation.inventaire.prixTotal}"></td>
+                                    <td th:text="${annulation.commande.pin}"></td>
+                                    <td th:text="${annulation.commande.emetteur.nomPersonne}+' '+${annulation.commande.emetteur.prenomPersonne}"></td>
+                                    <td th:text="${annulation.commande.recepteur.nomPersonne}+' '+${annulation.commande.recepteur.prenomPersonne}"></td>
+                                    <td th:text="${annulation.commande.montantTotal}"></td>
                                     <td th:text="${annulation.motif}"></td>
                                 </tr>
                                 </tbody>

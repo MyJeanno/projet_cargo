@@ -33,7 +33,7 @@
             </div>
             <div class="x_content">
                 <br />
-                <form th:action="@{/commande/nouveau}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                <form th:action="@{/commande/nouveau}" name="form" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 ">
                             <input type="hidden" name="emetteurid" th:value="${unEmetteur.id}" required="required" class="form-control ">
@@ -79,10 +79,21 @@
                         </div>
                     </div>
                     <div class="item form-group">
+                        <label class="ccol-form-label col-md-3 col-sm-3 label-align">Pays de livraison</label>
+                        <div class="col-md-6 col-sm-6">
+                            <select name="lieuLivraison" required class="form-control border-info">
+                                <option value="">--Choisir le pays de livraison--</option>
+                                <option th:each="pays:${pays}"
+                                        th:text="${pays.libellePays}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Transport Allemagne ?</label>
                         <div class="col-md-6 col-sm-6">
-                            <input type="radio" name="transport" value="Oui" required /> Oui
-                            <input type="radio" name="transport" value="Non" required /> Non
+                            <input type="radio" id="choix1" name="transport" value="Oui" required /> Oui
+                            <input type="radio" id="choix2" name="transport" value="Non" required /> Non
                         </div>
                     </div>
                     <div th:switch="${uneReduction.activation}" th:case="Oui" class="item form-group">

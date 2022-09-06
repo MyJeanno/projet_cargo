@@ -8,7 +8,7 @@
 
     <div class="page-title">
         <div class="title_left">
-            <h4><small>Liste des cartons en vente</small></h4>
+            <h4><small>Liste des articles en vente</small></h4>
         </div>
         <div class="title_right">
             <div class="col-md-2 col-sm-2 pull-right">
@@ -89,7 +89,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{param/carton/nouveau}" method="post" class="forms-sample">
+                    <form th:action="@{/param/carton/nouveau}" method="post" class="forms-sample">
                         <div class="form-group row">
                             <label for="lib" class="col-sm-3 col-form-label">Type de carton</label>
                             <div class="col-sm-9">
@@ -99,25 +99,25 @@
                         <div class="form-group row">
                             <label for="co" class="col-sm-3 col-form-label">Identifiant du carton</label>
                             <div class="col-sm-9">
-                                <input type="text" name="code" required placeholder=" Saisir PC ou GC selon le type de carton" class="form-control border-info" id="co">
+                                <input type="text" name="code" value="P" placeholder=" Saisir PC ou GC selon le type de carton" class="form-control border-info" id="co">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="mes" class="col-sm-3 col-form-label">Mesure</label>
                             <div class="col-sm-9">
-                                <input type="text" name="mesure" class="form-control border-info" id="mes">
+                                <input type="text" name="mesure" value="NA" class="form-control border-info" id="mes">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="p" class="col-sm-3 col-form-label">Prix du carton</label>
                             <div class="col-sm-9">
-                                <input type="number" name="prix" min="1000" required class="form-control border-info" id="p">
+                                <input type="number" name="prix" min="0" required class="form-control border-info" id="p">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="poid" class="col-sm-3 col-form-label">Poids autorisé</label>
                             <div class="col-sm-9">
-                                <input type="number" name="poids" class="form-control border-info" id="poid">
+                                <input type="number" name="poids" value="0" class="form-control border-info" id="poid">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mr-2 pull-right">Enregistrer</button>

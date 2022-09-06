@@ -154,4 +154,8 @@ public class ColisAerienService {
     public void supprimerColisCommande(Long id){
         colisAerienRepository.supprimerColisCommande(id);
     }
+
+    public ColisAerien showColisAerienCommande(String num){
+        return colisAerienRepository.showColisAerienCommande(num);
+    }
 }

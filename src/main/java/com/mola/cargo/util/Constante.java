@@ -33,6 +33,7 @@ public class Constante {
 
     public static final String CLIENT_BLOQUE = "BLOQUE";
     public static final String CLIENT_AUTORISE = "AUTORISE";
+    public static final String MF_COMMANDE_CARTON = "MF_COMMANDE_CARTON";
 
     public static final int BORNE_INF_CLIENT = 1000;
     public static final int BORNE_SUP_CLIENT = 9999;

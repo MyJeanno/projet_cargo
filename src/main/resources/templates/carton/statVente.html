@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="clearfix"></div>
+    <div>
+        <div style="margin:10px;" class="title_left">
+            <h4 style="background-color:Peru;color:white;padding:3px;"><small>Etats des ventes des commandes de cartons et plastiques</small></h4>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 ">
+        <div class="card">
+            <div class="card-body">
+                <form th:action="@{/commande/form/periode}">
+                <table>
+                    <tr>
+                        <td style="color: black;">Date de début : </td>
+                        <td>
+                            <input type="date" name="d1">
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td style="color: black;">Date de fin :  </td>
+                        <td><input type="date" name="d2"> </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td><input type="submit" class="btn btn-primary btn-sm" value="valider"> </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td style="color:black;">Période : du <mark><b><em th:text="${date1}"></em></b></mark> au <mark><b><em th:text="${date2}"></em></b></mark> </td>
+                    </tr>
+                </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <br>
+    </div>
+
+    <!-- table -->
+    <div class="col-md-12 col-sm-12 ">
+        <div class="table-responsive">
+            <table class="table table-striped jambo_table bulk_action">
+                <thead>
+                <tr class="headings">
+                    <th class="column-title">Libellé commande </th>
+                    <th class="column-title">Qté com </th>
+                    <th class="column-title">Qté vendue </th>
+                    <th class="column-title">Qté restante </th>
+                    <th class="column-title">Montant com </th>
+                    <th class="column-title">Montant vente </th>
+                    <th class="column-title">Bénéfice</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="even pointer" th:each="com:${lesVentes}">
+                    <td class=" " th:text="${com.libelleCom}"></td>
+                    <td class=" " th:text="${com.qteCom}"></td>
+                    <td class=" " th:text="${com.qteVendue}"></td>
+                    <td class=" " th:text="${com.qteRestante}"></td>
+                    <td class=" " th:text="${com.montantCom}"></td>
+                    <td class=" " th:text="${com.totalVendu}"></td>
+                    <td class=" " th:text="${com.benefice}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- End table -->
+
+</div>
+</body>
+</html>

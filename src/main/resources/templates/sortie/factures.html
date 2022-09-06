@@ -51,21 +51,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="inventaire:${inventaires}">
-                                    <td th:text="${inventaire.id}"></td>
-                                    <td th:text="${inventaire.commande.pin}"></td>
-                                    <td th:text="${inventaire.commande.emetteur.nomPersonne}+' '+${inventaire.commande.emetteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.commande.recepteur.nomPersonne}+' '+${inventaire.commande.recepteur.prenomPersonne}"></td>
-                                    <td th:text="${inventaire.commande.lieuPaiement}"></td>
-                                    <td th:text="${inventaire.nombreColis}"></td>
-                                    <td th:text="${inventaire.prixTotal}"></td>
-                                    <td th:switch="${inventaire.commande.typeEnvoi}">
-                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-info" th:href="@{/stat/inventaireMaritimeLien/facture/{id}(id=${inventaire.id})}"><i class="fa fa-download"></i></a>
-                                        <a th:case="*" class="btn btn-round btn-sm btn-info" th:href="@{/stat/inventaireAerienLien/facture/{id}(id=${inventaire.id})}"><i class="fa fa-download"></i></a>
+                                <tr th:each="com:${inventaires}">
+                                    <td th:text="${com.id}"></td>
+                                    <td th:text="${com.pin}"></td>
+                                    <td th:text="${com.emetteur.nomPersonne}+' '+${com.emetteur.prenomPersonne}"></td>
+                                    <td th:text="${com.recepteur.nomPersonne}+' '+${com.recepteur.prenomPersonne}"></td>
+                                    <td th:text="${com.lieuPaiement}"></td>
+                                    <td th:text="${com.nbColis}"></td>
+                                    <td th:text="${com.montantTotal}"></td>
+                                    <td th:switch="${com.typeEnvoi}">
+                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-info" th:href="@{/stat/inventaireMaritimeLien/facture/{id}(id=${com.id})}"><i class="fa fa-download"></i></a>
+                                        <a th:case="*" class="btn btn-round btn-sm btn-info" th:href="@{/stat/inventaireAerienLien/facture/{id}(id=${com.id})}"><i class="fa fa-download"></i></a>
                                     </td>
-                                    <td th:switch="${inventaire.commande.typeEnvoi}">
-                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-success" th:href="@{/stat/douaneMaritime/facture/{id}(id=${inventaire.id})}"><i class="fa fa-print"></i></a>
-                                        <a th:case="*" class="btn btn-round btn-sm btn-success" th:href="@{/stat/douaneAerien/facture/{id}(id=${inventaire.id})}"><i class="fa fa-print"></i></a>
+                                    <td th:switch="${com.typeEnvoi}">
+                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-success" th:href="@{/stat/douaneMaritime/facture/{id}(id=${com.id})}"><i class="fa fa-print"></i></a>
+                                        <a th:case="*" class="btn btn-round btn-sm btn-success" th:href="@{/stat/douaneAerien/facture/{id}(id=${com.id})}"><i class="fa fa-print"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>

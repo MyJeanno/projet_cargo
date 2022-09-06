@@ -106,7 +106,7 @@
                         <div class="form-group row">
                             <label for="p" class="col-sm-3 col-form-label">Quantité</label>
                             <div class="col-sm-9">
-                                <input type="number" name="qte" min="1" required class="form-control border-info" id="p">
+                                <input type="number" name="qte" min="1" th:max="${uneCommandeCarton.qtera}" required class="form-control border-info" id="p">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mr-2 pull-right">Enregistrer</button>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+
+  <div class="page-title">
+    <div class="title_left">
+      <h4><small>Liste des commandes de cartons</small></h4>
+    </div>
+    <div class="title_right">
+      <div class="col-md-2 col-sm-2 pull-right">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#staticBackdrop">
+          <i class="fa fa-plus"></i> Ajout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- table -->
+  <div class="col-md-12 col-sm-12 ">
+    <div class="x_panel">
+      <div class="x_title">
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Settings 1</a>
+              <a class="dropdown-item" href="#">Settings 2</a>
+            </div>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card-box table-responsive">
+              <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Libellé commande</th>
+                  <th>Date commande</th>
+                  <th>Quantité</th>
+                  <th>Montant</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="carton:${lesCommandes}">
+                  <td th:text="${carton.id}"></td>
+                  <td th:text="${carton.libelleCommande}"></td>
+                  <td th:text="${carton.dateCommande}"></td>
+                  <td th:text="${carton.quantiteCommande}"></td>
+                  <td th:text="${carton.montantCommande}"></td>
+                  <td>
+                    <a class="btn btn-round btn-sm btn-info" th:href="@{/commande/carton/formUpdate/{id}(id=${carton.id})}"><i class="fa fa-edit"></i></a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <!-- End table -->
+
+  <!-- Modal add -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="staticBackdropLabel">Nouvelle commande</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form th:action="@{/commande/carton/nouveau}" method="post" class="forms-sample">
+            <div class="form-group row">
+              <label for="p" class="col-sm-3 col-form-label">Quantité</label>
+              <div class="col-sm-9">
+                <input type="number" name="quantiteCommande" min="0" required class="form-control border-info" id="p">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Montant de la commande</label>
+              <div class="col-sm-9">
+                <input type="number" name="montantCommande" min="1000" required class="form-control border-info">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success mr-2 pull-right">Enregistrer</button>
+            <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Fermer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal add-->
+
+  <!-- Modal delete -->
+  <div class="modal fade" id="deleteform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="alert alert-danger">Êtes-vous sûr de vouloir supprimer?</p>
+        </div>
+        <div class="modal-footer">
+          <a href="" class="btn btn-danger" id="delRef">Supprimer</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal delete -->
+</div>
+</body>
+</html>

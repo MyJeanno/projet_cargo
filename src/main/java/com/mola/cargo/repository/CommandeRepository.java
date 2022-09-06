@@ -1,6 +1,7 @@
 package com.mola.cargo.repository;
 
 import com.mola.cargo.model.Commande;
+import com.mola.cargo.model.Inventaire;
 import com.mola.cargo.model.ProduitAerien;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -29,6 +30,27 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Modifying
     @Query("update Commande c SET c.etatCommande = :etat WHERE c.id = :id")
     void updateEtatCommande(@Param("etat") String etat, @Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    @Query("update Commande c SET c.nbColis = :nb WHERE c.id = :id")
+    void updateNbColisCommande(@Param("nb") int nb, @Param("id") Long id);
+
+    @Query("select c from Commande c where c.statutCommande =?1 and c.lieuPaiement =?2")
+    List<Commande> commandeByStatusAndByLieu(String s, String lieu);
+
+    @Query("select SUM(c.montantPaye) from Commande c where c.statutCommande = :s and c.lieuPaiement = :lieu")
+    Double sommeFactureNonEncaisseTogo(String s, String lieu);
+
+    @Query("select SUM(c.recepteur.solde) from Commande c where c.statutCommande = :s and c.lieuPaiement = :lieu")
+    Double sommeFactureAllemagneNonEncaisse(String s, String lieu);
+
+    @Transactional
+    @Modifying
+    @Query("update Commande c set c.statutCommande = :s where c.id = :id")
+    void updateStatutCommandeEncaisse(String s, Long id);
+
+    List<Commande> findByStatutCommande(String status);
 
     @Transactional
     @Modifying

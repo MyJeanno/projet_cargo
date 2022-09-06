@@ -157,4 +157,8 @@ public class ColisMaritimeService {
         return colisMaritimeRepository.showMaColisMaritimeByCommandeId(id);
     }
 
+    public ColisMaritime showColisMaritimeCommande(String num){
+        return colisMaritimeRepository.showColisMaritimeCommande(num);
+    }
+
 }

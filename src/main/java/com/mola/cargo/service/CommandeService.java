@@ -41,6 +41,10 @@ public class CommandeService {
         commandeRepository.updateEtatCommande(etat, id);
     }
 
+    public void updateNbColisCommande(int nb, Long id){
+        commandeRepository.updateNbColisCommande(nb, id);
+    }
+
     public List<Commande> commandeSelonEtat(String etat){
         return commandeRepository.findByEtatCommande(etat);
     }
@@ -101,6 +105,34 @@ public class CommandeService {
 
     public List<Commande> showCommandeInacheve(String etat, Long id){
         return commandeRepository.showCommandeInacheve(etat, id);
+    }
+
+    public List<Commande> commandeByStatusAndByLieu(String statut, String lieu){
+        return commandeRepository.commandeByStatusAndByLieu(statut, lieu);
+    }
+
+    public Double sommeFactureNonEncaisseTogo(String s, String lieu){
+        if(commandeRepository.sommeFactureNonEncaisseTogo(s, lieu) == null){
+            return 0.0;
+        }else {
+            return commandeRepository.sommeFactureNonEncaisseTogo(s, lieu);
+        }
+    }
+
+    public Double sommeFactureAllemagneNonEncaisse(String s, String lieu){
+        if(commandeRepository.sommeFactureAllemagneNonEncaisse(s, lieu) == null){
+            return 0.0;
+        }else {
+            return commandeRepository.sommeFactureAllemagneNonEncaisse(s, lieu);
+        }
+    }
+
+    public void updateStatutCommandeEncaisse(String statut, Long id){
+        commandeRepository.updateStatutCommandeEncaisse(statut, id);
+    }
+
+    public List<Commande> commandeSelonStatut(String statut){
+        return commandeRepository.findByStatutCommande(statut);
     }
 
 }

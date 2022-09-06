@@ -10,12 +10,13 @@
             <h4><small>Liste des produits contenus dans le colis N° : <b th:text="${lastColisMaritime.numeroColis}"></b></small></h4>
         </div>
         <div class="title_right">
-            <div class="col-md-8 col-sm-8 pull-right" th:switch="${lastColisMaritime.commande.lieuPaiement}">
+            <div th:switch="${reprise}" class="col-md-8 col-sm-8 pull-right">
                 <button disabled class="btn btn-warning">Envoi maritime</button>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
                     <i class="fa fa-plus"></i> Ajouter un produit
                 </button>
-                <a th:href="@{/colisMaritime/ajouterPoids}" class="btn btn-success">Terminer</a>
+                <a th:case="OUI" th:href="@{/colisMaritime/ajouterPoidsBis/{pin}(pin=${pin})}" class="btn btn-success">Terminer</a>
+                <a th:case="NON" th:href="@{/colisMaritime/ajouterPoids}" class="btn btn-success">Terminer</a>
             </div>
         </div>
     </div>
@@ -64,8 +65,10 @@
                                     <td th:text="${produitMaritime.poids}"></td>
                                     <td th:text="${produitMaritime.valeurMarchande}"></td>
                                     <td>
-                                        <a class="btn btn-round btn-sm btn-info" th:href="@{/produitMaritime/formUpdate/{id}(id=${produitMaritime.id})}"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-round btn-sm btn-danger dbtn" th:href="@{/produitMaritime/delete/(id=${produitMaritime.id})}"><i class="fa fa-trash"></i></a>
+                                        <a th:if="${reprise} == 'OUI'" class="btn btn-round btn-sm btn-info" th:href="@{/produitMaritime/formUpdateReprise/{id}(id=${produitMaritime.id})}"><i class="fa fa-edit"></i></a>
+                                        <a th:if="${reprise} == 'OUI'" class="btn btn-round btn-sm btn-danger dbtn" th:href="@{/produitMaritime/deleteReprise/(id=${produitMaritime.id})}"><i class="fa fa-trash"></i></a>
+                                        <a th:if="${reprise} == 'NON'" class="btn btn-round btn-sm btn-info" th:href="@{/produitMaritime/formUpdate/{id}(id=${produitMaritime.id})}"><i class="fa fa-edit"></i></a>
+                                        <a th:if="${reprise} == 'NON'" class="btn btn-round btn-sm btn-danger dbtn" th:href="@{/produitMaritime/delete/(id=${produitMaritime.id})}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -78,9 +81,10 @@
     </div>
     <div class="clearfix"></div>
     <!-- End table -->
-    <div>
+    <div th:switch="${reprise}">
         <h5><small><i>Appuyer sur ce bouton si vous voulez ajouter un nouveau colis à cette commande </i></small></h5>
-        <a th:href="@{/colisMaritime/form}" class="btn btn-info"><i class="fa fa-plus"></i> Nouveau colis</a>
+        <a th:case="NON" th:href="@{/colisMaritime/form}" class="btn btn-info"><i class="fa fa-plus"></i> Nouveau colis</a>
+        <a th:case="*" th:href="@{/colisMaritime/formReprise/{pin}(pin=${pin})}" class="btn btn-info"><i class="fa fa-plus"></i> Nouveau colis</a>
     </div><br><br>
     <div class="clearfix"></div>
     <!-- Modal add -->
@@ -98,6 +102,9 @@
                         <div class="form-group row">
                             <div class="col-sm-9">
                                 <input type="hidden" name="colisMaritimeid" th:value="${lastColisMaritime.id}" required="true" class="form-control border-info">
+                                <input type="hidden" name="reprise" th:value="${reprise}" required="true" class="form-control border-info">
+                                <input type="hidden" name="pin" th:value="${pin}" required="true" class="form-control border-info">
+                                <input type="hidden" name="num" th:value="${idColis}" required="true" class="form-control border-info">
                             </div>
                         </div>
                         <div class="form-group row">

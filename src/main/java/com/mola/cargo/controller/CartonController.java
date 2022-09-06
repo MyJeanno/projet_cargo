@@ -21,7 +21,7 @@ public class CartonController {
         return "carton/carton";
     }
 
-    @PostMapping("carton/nouveau")
+    @PostMapping("/carton/nouveau")
     public String enregistrerCarton(@RequestParam String libelle,
                                     @RequestParam String code,
                                     @RequestParam String mesure,

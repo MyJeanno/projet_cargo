@@ -7,3 +7,12 @@ $('.table .dbtn').on('click',function(event){
     $('#deleteform').modal();
 });
 });
+
+$(document).ready(function(){
+$('.table .showbtn').on('click',function(event){
+    event.preventDefault();
+    var href = $(this).attr('href');
+    $('#showform #showRef').attr('href', href);
+    $('#showform').modal();
+});
+});
