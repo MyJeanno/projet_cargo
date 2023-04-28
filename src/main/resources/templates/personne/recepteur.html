@@ -48,12 +48,13 @@
                                         <th>Id</th>
                                         <th>Nom</th>
                                         <th>Prénoms</th>
-                                        <th>Rue</th>
                                         <th>Pays</th>
+                                        <th>Etat</th>
                                         <th>Ville</th>
                                         <th>Code postal</th>
+                                        <th>Rue</th>
                                         <th>Contact</th>
-                                        <th>Numéro client</th>
+                                        <th>Num Client</th>
                                         <th>Reste à payer</th>
                                         <th>Actions</th>
                                     </tr>
@@ -63,10 +64,11 @@
                                         <td th:text="${recepteur.id}"></td>
                                         <td th:text="${recepteur.nomPersonne}"></td>
                                         <td th:text="${recepteur.prenomPersonne}"></td>
-                                        <td th:text="${recepteur.rue}"></td>
                                         <td th:text="${recepteur.pays.libellePays}"></td>
+                                        <td th:text="${recepteur.etat.libelleEtat}"></td>
                                         <td th:text="${recepteur.villePersonne}"></td>
                                         <td th:text="${recepteur.codePostal}"></td>
+                                        <td th:text="${recepteur.rue}"></td>
                                         <td th:text="${recepteur.contactPersonne}"></td>
                                         <td th:text="${recepteur.numeroPersonne}"></td>
                                         <td th:text="${recepteur.solde}"></td>

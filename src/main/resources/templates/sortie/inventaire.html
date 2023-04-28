@@ -65,7 +65,7 @@
                                     <td th:text="${com.statutCommande}"></td>
                                     <td sec:authorize="hasAnyRole('ADMIN')" th:switch="${com.typeEnvoi}">
                                         <a class="btn btn-round btn-sm btn-info dbtn" title="Encaisser" th:href="@{/stat/inventaire/valider/{id}(id=${com.id})}"><i class="fa fa-money"></i></a>
-                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-success" th:href="@{/stat/inventaireMaritimeLien/facture/{id}(id=${com.id})}"><i class="fa fa-eye"></i></a>
+                                        <a th:case="MARITIME" class="btn btn-round btn-sm btn-success" title="Voir" th:href="@{/stat/inventaireMaritimeLien/facture/{id}(id=${com.id})}"><i class="fa fa-eye"></i></a>
                                         <a th:case="*" class="btn btn-round btn-sm btn-success" title="Voir" th:href="@{/stat/inventaireAerienLien/facture/{id}(id=${com.id})}"><i class="fa fa-eye"></i></a>
                                         <!--<a class="btn btn-round btn-sm btn-success showbtn" title="Voir" th:href="@{/envoi/detailReprise/(pin=${com.pin})}"><i class="fa fa-eye"></i></a>-->
                                     </td>

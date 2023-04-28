@@ -79,8 +79,8 @@
                     <div class="item form-group" th:switch = ${lastCommande.lieuPaiement}>
                         <label class="col-form-label col-md-3 col-sm-3 label-align">Montant à avancer</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input th:case = "Togo" type="text" th:value="${prixTotal2}" readonly name="paye" required class="form-control ">
-                            <input th:case="*" type="text" value="0" name="paye" required class="form-control ">
+                            <input th:case = "Togo" type="text" th:value="${prixTotal2}" step="0.01" readonly name="paye" required class="form-control ">
+                            <input th:case="*" type="text" value="0" name="paye" step="0.01" required class="form-control ">
                         </div>
                     </div>
                     <div class="item form-group">

@@ -177,14 +177,14 @@
                 <imageExpression><![CDATA[$P{chemin_logo}]]></imageExpression>
             </image>
             <staticText>
-                <reportElement x="0" y="40" width="290" height="50" uuid="dacad7cb-5f0f-4ff2-a504-ad9e3a777899"/>
+                <reportElement x="0" y="40" width="290" height="58" uuid="dacad7cb-5f0f-4ff2-a504-ad9e3a777899"/>
                 <textElement>
                     <font size="8"/>
                 </textElement>
-                <text><![CDATA[Adresse : Quartier Tokoin Wuiti, Av. Akei
-Lomé-Togo
+                <text><![CDATA[Adresse : Kolpingstrasse 86                                                                               47166 Duisburg
+Allemagne
 Email : info@molaetfils.com / www.molaetfils.com
-Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
+Tél : +49 1575 872 55 80 / +49 203 729 99 016]]></text>
             </staticText>
             <line>
                 <reportElement x="0" y="90" width="555" height="1" uuid="c761b3ae-60f6-4a40-8550-3b0d3e8177f5"/>
@@ -778,25 +778,33 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
         </band>
     </detail>
     <columnFooter>
-        <band height="31">
+        <band height="48">
             <staticText>
-                <reportElement x="288" y="5" width="267" height="23" uuid="ffc6a9a7-8cce-490f-84d5-a319f96f3ebc"/>
+                <reportElement x="288" y="23" width="267" height="23" uuid="ffc6a9a7-8cce-490f-84d5-a319f96f3ebc"/>
                 <textElement textAlignment="Right">
                     <font size="10" isBold="true" isItalic="true"/>
                 </textElement>
                 <text><![CDATA[Merci pour votre confiance !]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="0" width="553" height="23" uuid="46d7bc88-3e24-4a70-bd03-581684032d0e"/>
+                <textElement textAlignment="Right">
+                    <font size="10" isBold="true" isItalic="true"/>
+                </textElement>
+                <text><![CDATA[Services exonérés de TVA conformément à l'article 19 de la loi Allemande sur la TVA.]]></text>
             </staticText>
         </band>
     </columnFooter>
     <pageFooter>
         <band height="50" splitType="Stretch">
             <staticText>
-                <reportElement x="0" y="0" width="210" height="30" uuid="0eacb1b4-1d0a-4759-a2f3-39677b98e97b"/>
+                <reportElement x="0" y="0" width="210" height="50" uuid="0eacb1b4-1d0a-4759-a2f3-39677b98e97b"/>
                 <textElement>
                     <font size="8"/>
                 </textElement>
-                <text><![CDATA[Mola et Fils,
-Quartier Tokoin Wuiti, Av. Akei, Lomé Togo]]></text>
+                <text><![CDATA[Mola et Fils
+Kolpingstrasse 86                                                                               47166 Duisburg
+Allemagne]]></text>
             </staticText>
             <line>
                 <reportElement x="0" y="-2" width="555" height="1" uuid="49e368ac-e137-457e-a5bb-486d6712a366"/>
@@ -806,9 +814,8 @@ Quartier Tokoin Wuiti, Av. Akei, Lomé Togo]]></text>
                 <textElement>
                     <font size="8"/>
                 </textElement>
-                <text><![CDATA[RCCM: TG-LFW-01-2021-A10-06917
-CNSS: 148728
-NIF: 1001778160]]></text>
+                <text><![CDATA[Numéro d'identification fiscale
+VAT : DE348295811]]></text>
             </staticText>
             <staticText>
                 <reportElement x="385" y="0" width="170" height="50" uuid="171a2dd1-2198-4773-a18c-f2b8c08dd258"/>
@@ -817,12 +824,12 @@ NIF: 1001778160]]></text>
                 </textElement>
                 <text><![CDATA[info@molaetfils.com
 www.molaetfils.com
-Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text>
+Tel. : +49 1575 872 55 80 / +203 729 99 016]]></text>
             </staticText>
         </band>
     </pageFooter>
     <summary>
-        <band height="306" splitType="Stretch">
+        <band height="308" splitType="Stretch">
             <staticText>
                 <reportElement mode="Opaque" x="0" y="36" width="450" height="18" backcolor="#FAD13E" uuid="9ad86f08-785b-4b7c-a9e5-239112e276c3">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -985,10 +992,10 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                     <font size="10"/>
                 </textElement>
                 <text><![CDATA[Nos coordonnées bancaires en Europe
-IBAN : DE78 3701 0050 0995 3355 03
-BIC : PBNKDEFF
-Postbank
-Receveur : Menad BIAO]]></text>
+IBAN : DE94 1001 0123 0028 1483 49
+BIC : QNTODEB2XXX
+Qonto Bank
+Receveur : Mola et Fils]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="0" y="250" width="555" height="18" backcolor="#FAD13E" uuid="8bacf5cb-eee0-4fef-a24f-0183387766c0">

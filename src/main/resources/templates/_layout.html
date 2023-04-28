@@ -88,6 +88,8 @@
                                 <ul class="nav child_menu">
                                     <li><a th:href="@{/personne/emetteurs}">Ajouter un expéditeur</a></li>
                                     <li><a th:href="@{/personne/recepteurs}">Ajouter un destinataire</a></li>
+                                    <li sec:authorize="hasAnyRole('ADMIN')"><a th:href="@{/personne/choix/etat}">Liste des clients par Etat</a></li>
+                                    <li sec:authorize="hasAnyRole('ADMIN')"><a th:href="@{/personne/choix/pays}">Liste des clients par pays</a></li>
                                     <li><a> Clients bloqués<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li class="sub_menu"><a th:href="@{/emetteur/listeInfo}">Envoyeur</a></li>
@@ -103,6 +105,7 @@
                                     <li><a th:href="@{/personne/emetteur/envoi}">Enregistrer un envoi</a></li>
                                     <li><a th:href="@{/commande/formReprise}">Reprendre un envoi</a></li>
                                     <li><a th:href="@{/enregistrements/inacheves}">Enregistrement inachevé</a></li>
+                                    <li sec:authorize="hasAnyRole('ADMIN')"><a th:href="@{/commande/formSuppression}">Supprimer une facture</a></li>
                                     <li><a>Liste des colis en dépôt<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li class="sub_menu"><a th:href="@{/colisAerien/depot}">Aérien</a></li>
@@ -130,10 +133,10 @@
                             <li><a style="background-color:#b0e0e6;color:#000;"><i class="fa fa-envelope"></i>Vente de cartons <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a th:href="@{/commande/cartons}">Commandes de cartons</a></li>
-                                    <li><a th:href="@{/cartonAppros}">Approvisionner un carton</a></li>
+                                    <!--<li><a th:href="@{/cartonAppros}">Approvisionner un carton</a></li>
                                     <li><a th:href="@{/commande/cartons/encours}">Vendre un carton</a></li>
                                     <li><a th:href="@{/cartonVentes}">Liste des cartons vendus</a></li>
-                                    <li><a th:href="@{/carton/vente/stat}">Etat des ventes de carton</a></li>
+                                    <li><a th:href="@{/carton/vente/stat}">Etat des ventes de carton</a></li>-->
                                 </ul>
                             </li>
 

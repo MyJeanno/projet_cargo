@@ -7,6 +7,8 @@ import com.mola.cargo.service.*;
 import com.mola.cargo.util.Constante;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -19,12 +21,15 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Controller
 @RequestMapping("/stat")
@@ -48,6 +53,8 @@ public class InventaireController {
     private RecepteurService recepteurService;
     @Autowired
     private ResourceLoader resourceLoader;
+
+    Logger logger = LoggerFactory.getLogger(InventaireService.class);
 
     //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/inventaires")
@@ -84,9 +91,30 @@ public class InventaireController {
     public String afficherFactureNonPayer(Model model){
         Double prixTotal = commandeService.sommeFactureAllemagneNonEncaisse(Constante.INVENTAIRE_NON_ENCAISSE,
                 Constante.LIEU_ALL);
+        Double prixTotal2 = commandeService.sommeFactureAllemagneNonEncaisse(Constante.INVENTAIRE_NON_ENCAISSE,
+                Constante.LIEU_ALL, null, null);
         model.addAttribute("inventaires", commandeService.commandeByStatusAndByLieu(Constante.INVENTAIRE_NON_ENCAISSE,
-                Constante.LIEU_ALL));
+                Constante.LIEU_ALL, null, null));
         model.addAttribute("totalSomme",String.format("% ,.2f",prixTotal));
+        model.addAttribute("totalPeriode",String.format("% ,.2f",prixTotal2));
+        return "sortie/paiementAllemagne";
+    }
+
+    @GetMapping("/inventaires/non_paye/periode")
+    public String afficherFactureNonPayerPeriode(@RequestParam("d1") String d1, @RequestParam("d2") String d2, Model model) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        model.addAttribute("date1", DateFormat.getDateInstance(DateFormat.FULL, new Locale("fr","FR")).format(sdf.parse(LocalDate.parse(d1).toString())));
+        model.addAttribute("date2", DateFormat.getDateInstance(DateFormat.FULL, new Locale("fr","FR")).format(sdf.parse(LocalDate.parse(d2).toString())));
+
+        Double prixTotal = commandeService.sommeFactureAllemagneNonEncaisse(Constante.INVENTAIRE_NON_ENCAISSE,
+                Constante.LIEU_ALL);
+        Double prixTotal2 = commandeService.sommeFactureAllemagneNonEncaisse(Constante.INVENTAIRE_NON_ENCAISSE,
+                Constante.LIEU_ALL, sdf.parse(d1), sdf.parse(d2));
+        model.addAttribute("inventaires", commandeService.commandeByStatusAndByLieu(Constante.INVENTAIRE_NON_ENCAISSE,
+                Constante.LIEU_ALL, sdf.parse(d1), sdf.parse(d2)));
+        model.addAttribute("totalSomme",String.format("% ,.2f",prixTotal));
+        model.addAttribute("totalPeriode",String.format("% ,.2f",prixTotal2));
         return "sortie/paiementAllemagne";
     }
 
@@ -212,7 +240,7 @@ public class InventaireController {
 
     //Fonction pour générer la facture aerienne payée au Togo
     @GetMapping("/inventaireAerien/facture/{id}")
-    public ResponseEntity<byte[]> factureAerienne(@PathVariable("id") Long id) throws IOException, JRException {
+    public ResponseEntity<byte[]> factureAerienne(@PathVariable("id") Long id) throws JRException, IOException {
         List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(id);
         Resource resource = resourceLoader.getResource("classpath:factureAeriennePaye.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
@@ -225,12 +253,14 @@ public class InventaireController {
         parameter.put("nbre_colis", commandeService.showOnecommande(id).getNbColis());
         parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(id));
         parameter.put("poids", colisAerienService.poidsTotalColisAerien(id));
-        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(id), commandeService.showOnecommande(id).getReduction()));
+        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(id),
+                commandeService.showOnecommande(id).getReduction()));
         parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(id));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
         byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonnePaye(id)+"-"+LocalDate.now()+".pdf");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonnePaye(id)+"-"+
+                LocalDate.now()+".pdf");
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
     }
 
@@ -240,23 +270,36 @@ public class InventaireController {
         List<ProduitAerien> listeProdAerien = produitAerienService.findProduitColisAerien(id);
         Resource resource = resourceLoader.getResource("classpath:factureAerienneNonPaye.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdAerien);
-        Map<String, Object> parameter = new HashMap<>();
-        parameter.put("Données colis", "Première source");
-        parameter.put("chemin_logo", "head.png");
-        parameter.put("tampon_non_paye", "tamponAll.PNG");
-        parameter.put("logo_paypal", "paypal.png");
-        parameter.put("user", commandeService.showOnecommande(id).getUser().getPrenom());
-        parameter.put("nbre_colis", commandeService.showOnecommande(id).getNbColis());
-        parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(id));
-        parameter.put("poids", colisAerienService.poidsTotalColisAerien(id));
-        parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(id),commandeService.showOnecommande(id).getReduction()));
-        parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(id));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
-        byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename="+commandeService.getIdentitePersonneNonPaye(id)+"-"+LocalDate.now()+".pdf");
-        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
+
+        //File file = ResourceUtils.getFile("C:/mola_rapport/factureAerienneNonPaye.jrxml");
+        /*File file = ResourceUtils.getFile("/home/molaetfils/rapport/factureAerienneNonPaye.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());*/
+
+        //if (resource.isOpen()) {
+            //JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listeProdAerien);
+            Map<String, Object> parameter = new HashMap<>();
+            parameter.put("Données colis", "Première source");
+            parameter.put("chemin_logo", "head.png");
+            parameter.put("tampon_non_paye", "tamponAll.PNG");
+            parameter.put("logo_paypal", "paypal.png");
+            parameter.put("user", commandeService.showOnecommande(id).getUser().getPrenom());
+            parameter.put("nbre_colis", commandeService.showOnecommande(id).getNbColis());
+            parameter.put("taxe", produitAerienService.showMaxTaxeAerienne(id));
+            parameter.put("poids", colisAerienService.poidsTotalColisAerien(id));
+            parameter.put("montantTotal", colisAerienService.appliquerReduction(colisAerienService.prixTotalColisAerien(id), commandeService.showOnecommande(id).getReduction()));
+            parameter.put("transportTotal", colisAerienService.prixTransportColisAerien(id));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
+            byte[] donnees = JasperExportManager.exportReportToPdf(jasperPrint);
+            HttpHeaders headers = new HttpHeaders();
+            headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=" + commandeService.getIdentitePersonneNonPaye(id) + "-" + LocalDate.now() + ".pdf");
+            return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(donnees);
+        /*} else {
+            logger.error("Resource State: " + resource.isOpen());
+            logger.error("Resource file: " + resource.getFilename());
+        }*/
+
+       // return ResponseEntity.notFound().build();
     }
 
     //Facture douanière pour les valeurs marchandes des produits

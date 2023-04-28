@@ -42,6 +42,10 @@ public class CommandeController {
     private ProduitMaritimeService produitMaritimeService;
     @Autowired
     private TarifService tarifService;
+    @Autowired
+    private SortieAerienService sortieAerienService;
+    @Autowired
+    private SortieMaritimeService sortieMaritimeService;
 
     @GetMapping("/mode/envoi")
     public String choisirModeEnvoi(){
@@ -56,6 +60,32 @@ public class CommandeController {
     @GetMapping("/commande/formReprise")
     public String formRepriseCommande(){
         return "commande/FormRepriseCommande";
+    }
+
+    @GetMapping("/commande/formSuppression")
+    public String formSuppressionCommande(){
+        return "commande/formSuppressionCommande";
+    }
+    @PostMapping("/commande/facture")
+    public String showOneCommande(@RequestParam("pin") String pin, Model model){
+        model.addAttribute("uneCommande", commandeService.showCommandePin(pin));
+        return "commande/uneCommande";
+    }
+
+    @GetMapping("/commande/suppression/{id}")
+    public String supprimerCommande(@PathVariable("id") Long id) {
+        if(commandeService.showOnecommande(id).getTypeEnvoi().equals(Constante.ENVOI_AERIEN)){
+            sortieAerienService.supprimerColisSortieAerien(colisAerienService.showColisAerienCommande(id));
+            produitAerienService.supprimerProduitCommande(colisAerienService.showColisAerienCommande(id));
+            colisAerienService.supprimerColisCommande(id);
+            commandeService.supprimerCommande(id);
+        }else{
+            sortieMaritimeService.supprimerColisSortieMaritime(colisMaritimeService.showColisMaritimeCommande(id));
+            produitMaritimeService.supprimerProduitCommande(colisMaritimeService.showColisMaritimeCommande(id));
+            colisMaritimeService.supprimerColisCommande(id);
+            commandeService.supprimerCommande(id);
+        }
+        return "redirect:/commande/formSuppression";
     }
 
     @PostMapping("/commande/reprise")

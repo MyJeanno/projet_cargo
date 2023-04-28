@@ -10,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -39,11 +41,17 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select c from Commande c where c.statutCommande =?1 and c.lieuPaiement =?2")
     List<Commande> commandeByStatusAndByLieu(String s, String lieu);
 
+    @Query("select c from Commande c where c.statutCommande =?1 and c.lieuPaiement =?2 and DATE(c.dateEnvoi) BETWEEN ?3 AND ?4")
+    List<Commande> commandeByStatusAndByLieu(String s, String lieu, Date d1, Date d2);
+
     @Query("select SUM(c.montantPaye) from Commande c where c.statutCommande = :s and c.lieuPaiement = :lieu")
     Double sommeFactureNonEncaisseTogo(String s, String lieu);
 
-    @Query("select SUM(c.recepteur.solde) from Commande c where c.statutCommande = :s and c.lieuPaiement = :lieu")
+    @Query("select SUM(c.montantTotal) from Commande c where c.statutCommande = :s and c.lieuPaiement = :lieu")
     Double sommeFactureAllemagneNonEncaisse(String s, String lieu);
+
+    @Query("select SUM(c.montantTotal) from Commande c where c.statutCommande = :s and c.lieuPaiement = :lieu and DATE(c.dateEnvoi) BETWEEN :d1 AND :d2")
+    Double sommeFactureAllemagneNonEncaisse(String s, String lieu, Date d1, Date d2);
 
     @Transactional
     @Modifying

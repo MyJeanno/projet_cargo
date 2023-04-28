@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface RecepteurRepository extends JpaRepository<Recepteur, Long> {
 
@@ -24,6 +26,10 @@ public interface RecepteurRepository extends JpaRepository<Recepteur, Long> {
 
     @Query(value = "SELECT * from recepteur WHERE userid = :id ORDER BY id DESC LIMIT 1", nativeQuery = true)
     public Recepteur showMaLastRecepteur(@Param("id") Long id);
+
+    List<Recepteur> findByEtatid(Long id);
+
+    List<Recepteur> findByPaysid(Long id);
 
     @Transactional
     @Modifying

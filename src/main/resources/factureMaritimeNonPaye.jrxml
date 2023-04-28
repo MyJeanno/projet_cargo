@@ -165,14 +165,14 @@
                 <imageExpression><![CDATA[$P{chemin_logo}]]></imageExpression>
             </image>
             <staticText>
-                <reportElement x="0" y="40" width="290" height="50" uuid="dacad7cb-5f0f-4ff2-a504-ad9e3a777899"/>
+                <reportElement x="0" y="40" width="290" height="58" uuid="dacad7cb-5f0f-4ff2-a504-ad9e3a777899"/>
                 <textElement>
                     <font size="8"/>
                 </textElement>
-                <text><![CDATA[Adresse : Quartier Tokoin Wuiti, Av. Akei
-Lomé-Togo
+                <text><![CDATA[Adresse : Kolpingstrasse 86                                                                               47166 Duisburg
+Allemagne
 Email : info@molaetfils.com / www.molaetfils.com
-Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
+Tél : +49 1575 872 55 80 / +49 203 729 99 016]]></text>
             </staticText>
             <line>
                 <reportElement x="0" y="90" width="555" height="1" uuid="c761b3ae-60f6-4a40-8550-3b0d3e8177f5"/>
@@ -772,12 +772,13 @@ Tél : +228 70 11 1219 / +228 79 73 66 21 / +49 1575 872 55 80]]></text>
     <pageFooter>
         <band height="56" splitType="Stretch">
             <staticText>
-                <reportElement x="0" y="2" width="210" height="30" uuid="0eacb1b4-1d0a-4759-a2f3-39677b98e97b"/>
+                <reportElement x="0" y="2" width="210" height="50" uuid="0eacb1b4-1d0a-4759-a2f3-39677b98e97b"/>
                 <textElement>
                     <font size="8"/>
                 </textElement>
-                <text><![CDATA[Mola et Fils,
-Quartier Tokoin Wuiti, Av. Akei, Lomé Togo]]></text>
+                <text><![CDATA[Mola et Fils
+Kolpingstrasse 86                                                                               47166 Duisburg
+Allemagne]]></text>
             </staticText>
             <line>
                 <reportElement x="0" y="0" width="555" height="1" uuid="49e368ac-e137-457e-a5bb-486d6712a366"/>
@@ -787,9 +788,8 @@ Quartier Tokoin Wuiti, Av. Akei, Lomé Togo]]></text>
                 <textElement>
                     <font size="8"/>
                 </textElement>
-                <text><![CDATA[RCCM: TG-LFW-01-2021-A10-06917
-CNSS: 148728
-NIF: 1001778160]]></text>
+                <text><![CDATA[Numéro d'identification fiscale
+VAT : DE348295811]]></text>
             </staticText>
             <staticText>
                 <reportElement x="385" y="2" width="170" height="50" uuid="171a2dd1-2198-4773-a18c-f2b8c08dd258"/>
@@ -798,7 +798,7 @@ NIF: 1001778160]]></text>
                 </textElement>
                 <text><![CDATA[info@molaetfils.com
 www.molaetfils.com
-Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text>
+Tel. : +49 1575 872 55 80 / +203 729 99 016]]></text>
             </staticText>
         </band>
     </pageFooter>
@@ -1089,10 +1089,10 @@ Tel.: +228 70 11 12 19 / +228 79 73 66 21/           +49 1575 872 55 80]]></text
                 </box>
                 <textElement textAlignment="Center"/>
                 <text><![CDATA[Nos coordonnées bancaires en Europe
-IBAN : DE78 3701 0050 0995 3355 03
-BIC : PBNKDEFF
-Postbank
-Receveur : Menad BIAO]]></text>
+IBAN : DE94 1001 0123 0028 1483 49
+BIC : QNTODEB2XXX
+Qonto Bank
+Receveur : Mola et Fils]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="0" y="285" width="555" height="18" backcolor="#FAD13E" uuid="5734c8b5-49cc-4d3d-950b-f4c6121ed3d6">

@@ -10,7 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -107,6 +109,10 @@ public class CommandeService {
         return commandeRepository.showCommandeInacheve(etat, id);
     }
 
+    public List<Commande> commandeByStatusAndByLieu(String statut, String lieu, Date d1, Date d2){
+        return commandeRepository.commandeByStatusAndByLieu(statut, lieu, d1, d2);
+    }
+
     public List<Commande> commandeByStatusAndByLieu(String statut, String lieu){
         return commandeRepository.commandeByStatusAndByLieu(statut, lieu);
     }
@@ -124,6 +130,14 @@ public class CommandeService {
             return 0.0;
         }else {
             return commandeRepository.sommeFactureAllemagneNonEncaisse(s, lieu);
+        }
+    }
+
+    public Double sommeFactureAllemagneNonEncaisse(String s, String lieu, Date d1, Date d2){
+        if(commandeRepository.sommeFactureAllemagneNonEncaisse(s, lieu, d1, d2) == null){
+            return 0.0;
+        }else {
+            return commandeRepository.sommeFactureAllemagneNonEncaisse(s, lieu, d1, d2);
         }
     }
 

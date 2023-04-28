@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Ets MOLA & FILS | CargoPlus </title>
+
+  <!-- Bootstrap -->
+  <link href="/cargo/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="/cargo/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- NProgress -->
+  <link href="/cargo/vendors/nprogress/nprogress.css" rel="stylesheet">
+
+  <!-- Custom Theme Style -->
+  <link href="/cargo/build/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+  <div class="main_container">
+    <!-- page content -->
+    <div class="col-md-12">
+      <div class="col-middle">
+        <div class="text-center">
+          <h1 class="error-number">500</h1>
+          <h2>warning</h2>
+          <p>Le code postal que vous avez renseigné n'est relié à aucun Etat.<a th:href="@{/personne/recepteur/formRecepteur2/{idE}(idE=${unEmetteur.id})}">Veuillez reprendre</a>
+          </p>
+          <div class="mid_center">
+            <div class="separator">
+              <br />
+              <div>
+                <h2><i class="fa fa-paw"></i> Ets MOLA & FILS | CargoPlus </h2>
+                <p>&copy; Ora-Tech technology <a href="#">Copyright 2022. Tous droits réservés.</a></p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /page content -->
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="/cargo/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/cargo/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- FastClick -->
+<script src="/cargo/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/cargo/vendors/nprogress/nprogress.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="/cargo/build/js/custom.min.js"></script>
+</body>
+</html>

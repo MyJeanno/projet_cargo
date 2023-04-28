@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="clearfix"></div>
+  <div>
+    <div style="margin:10px;" class="title_left">
+      <h4 style="background-color:Peru;color:white;padding:3px;"><small>Liste des clients par pays</small></h4>
+    </div>
+  </div>
+  <div class="col-md-12 col-sm-12 ">
+    <div class="card shadow mb-4">
+      <div class="card-body">
+        <form th:action="@{/personne/client/pays}">
+          <table>
+            <tr>
+              <td style="color: black;">Sélectionner un pays : </td>
+              <td>
+                <div class="item form-group">
+                  <div class="col-md-12 col-sm-12">
+                    <select name="paysid" required class="form-control border-info">
+                      <option value="">--Choisir le pays d'un client--</option>
+                      <option th:each="pays:${lesPays}"
+                              th:value="${pays.id}"
+                              th:text="${pays.libellePays}">
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </td>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+              <td><input type="submit" class="btn btn-primary" value="valider"> </td>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+              <td style="color:black;">Pays : <mark><b><em th:if="${pays}!=null" th:text="${pays.libellePays}"></em></b></mark> | Nombre de clients : <mark><b><em th:if="${pays}!=null" th:text="${nbreClient}"></em></b></mark> </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <!-- table -->
+  <div class="col-md-12 col-sm-12 ">
+    <div class="x_panel">
+      <div class="x_title">
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Settings 1</a>
+              <a class="dropdown-item" href="#">Settings 2</a>
+            </div>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card-box table-responsive">
+              <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                <tr class="headings">
+                  <th class="column-title">ID</th>
+                  <th class="column-title">Nom</th>
+                  <th class="column-title">Prénoms </th>
+                  <th class="column-title">Rue</th>
+                  <th class="column-title">Code postal </th>
+                  <th class="column-title">Ville </th>
+                  <th class="column-title">Tél</th>
+                  <th class="column-title">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="even pointer" th:each="client:${recepteurs}">
+                  <td th:text="${client.id}"></td>
+                  <td th:text="${client.nomPersonne}"></td>
+                  <td th:text="${client.prenomPersonne}"></td>
+                  <td th:text="${client.rue}"></td>
+                  <td th:text="${client.codePostal}"></td>
+                  <td th:text="${client.villePersonne}"></td>
+                  <td th:text="${client.contactPersonne}"></td>
+                  <td>
+                    <a class="btn btn-round btn-sm btn-info" th:href="@{/personne/recepteur/formUpdateStatPays/{id}(id=${client.id})}"><i class="fa fa-edit"></i></a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <!-- End table -->
+
+</div>
+</body>
+</html>

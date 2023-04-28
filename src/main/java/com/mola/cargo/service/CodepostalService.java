@@ -21,4 +21,8 @@ public class CodepostalService {
         return codepostalRepository.findAll();
     }
 
+    public Codepostal findEtatCodePostal(int code){
+        return codepostalRepository.etatCodePostal(code);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.mola.cargo.service;
 
+import com.mola.cargo.model.ColisMaritime;
 import com.mola.cargo.model.SortieAerien;
 import com.mola.cargo.model.SortieMaritime;
 import com.mola.cargo.repository.SortieAerienRepository;
@@ -23,6 +24,12 @@ public class SortieMaritimeService {
 
     public List<SortieMaritime> showSortieMaritimes(){
         return sortieMaritimeRepository.findAll();
+    }
+
+    public void supprimerColisSortieMaritime(List<ColisMaritime> liste_sortie){
+        for(ColisMaritime cm:liste_sortie){
+            sortieMaritimeRepository.supprimerColisSortieMaritime(cm.getId());
+        }
     }
 
     public SortieMaritime showOneSortieMaritime(Long id){

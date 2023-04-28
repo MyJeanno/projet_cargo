@@ -51,6 +51,14 @@ public class RecepteurService {
         recepteurRepository.updateSoldeClientEncaissement(montant, id);
     }
 
+    public List<Recepteur> clientSelonEtat(Long id){
+        return recepteurRepository.findByEtatid(id);
+    }
+
+    public List<Recepteur> clientSelonPays(Long id){
+        return recepteurRepository.findByPaysid(id);
+    }
+
     public Recepteur showMonDernierRecepteur(Long id){
         return recepteurRepository.showMaLastRecepteur(id);
     }

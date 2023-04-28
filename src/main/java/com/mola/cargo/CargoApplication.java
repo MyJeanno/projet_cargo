@@ -11,7 +11,7 @@ public class CargoApplication {
 		SpringApplication.run(CargoApplication.class, args);
 	}
 /*
-	@Override
+    @Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(CargoApplication.class);
 	}*/

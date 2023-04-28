@@ -3,8 +3,11 @@ package com.mola.cargo.repository;
 import com.mola.cargo.model.SortieAerien;
 import com.mola.cargo.model.SortieMaritime;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,4 +26,10 @@ public interface SortieMaritimeRepository extends JpaRepository<SortieMaritime, 
             "where pm.colisMaritimeid in (select sm.colisMaritimeid from SortieMaritime sm where sm.convoiid = ?1 )" +
             "GROUP BY pm.tarif.categorieProduit.nomCategorie")
     List<String> PoidsParCategorieAlimentaire(Long id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from sortie_maritime where colis_maritimeid=:id", nativeQuery = true)
+    void supprimerColisSortieMaritime(@Param("id") Long id);
+
 }
